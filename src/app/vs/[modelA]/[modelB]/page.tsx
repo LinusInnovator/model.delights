@@ -18,10 +18,10 @@ export async function generateMetadata(props: { params: Promise<{ modelA: string
     const modelA = models.find((m) => m.id === idA);
     const modelB = models.find((m) => m.id === idB);
 
-    if (!modelA || !modelB) return { title: "Comparison Not Found - OpenRate Delights" };
+    if (!modelA || !modelB) return { title: "Comparison Not Found - model.delights" };
 
     return {
-        title: `${modelA.name} vs ${modelB.name} Pricing & Performance | OpenRate`,
+        title: `${modelA.name} vs ${modelB.name} Pricing & Performance | model.delights`,
         description: `Compare ${modelA.name} vs ${modelB.name}. Deep breakdown of API pricing, ELO scores, context windows, and use-cases to find the most cost-effective LLM.`,
     };
 }

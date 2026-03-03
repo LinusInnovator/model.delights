@@ -15,7 +15,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "OpenRate Delights | Value Frontier",
+  title: "model.delights | Value Frontier",
   description: "Dynamic AI pricing and performance engine for power users.",
 };
 
