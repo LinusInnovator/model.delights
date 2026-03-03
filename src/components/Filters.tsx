@@ -1,0 +1,112 @@
+"use client";
+
+import React from "react";
+
+export const USE_CASES = [
+    { id: 'all', label: 'All Models', icon: 'ph-infinity' },
+    { id: 'Top Tier', label: 'Top Tier', icon: 'ph-star' },
+    { id: 'Coding & Logic', label: 'Coding & Logic', icon: 'ph-code' },
+    { id: 'Fictional Writing', label: 'Fictional Writing', icon: 'ph-pen-nib' },
+    { id: 'Quick Drafting', label: 'Quick Drafting', icon: 'ph-lightning' },
+    { id: 'Roleplay', label: 'Roleplay', icon: 'ph-mask-happy' },
+    { id: 'Vision', label: 'Vision', icon: 'ph-eye' }
+];
+
+interface FiltersProps {
+    searchQuery: string;
+    setSearchQuery: (val: string) => void;
+    sortMode: string;
+    setSortMode: (val: string) => void;
+    activeUseCase: string;
+    setActiveUseCase: (val: string) => void;
+    totalModels: number;
+    lastUpdated: string;
+}
+
+export default function Filters({
+    searchQuery,
+    setSearchQuery,
+    sortMode,
+    setSortMode,
+    activeUseCase,
+    setActiveUseCase,
+    totalModels,
+    lastUpdated
+}: FiltersProps) {
+    return (
+        <>
+            <div className="controls">
+                <div className="search-wrap" style={{ position: 'relative', flex: '1', minWidth: '300px' }}>
+                    <i className="ph ph-magnifying-glass" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}></i>
+                    <input
+                        type="text"
+                        placeholder="Search models... (e.g., Llama, GPT-4, Coding)"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        style={{
+                            width: '100%',
+                            padding: '12px 16px 12px 42px',
+                            background: 'rgba(255, 255, 255, 0.03)',
+                            border: '1px solid rgba(255, 255, 255, 0.08)',
+                            borderRadius: '12px',
+                            color: '#fff',
+                            fontSize: '1rem',
+                            outline: 'none',
+                            transition: 'all 0.2s ease'
+                        }}
+                        onFocus={e => {
+                            e.currentTarget.style.borderColor = 'var(--accent)';
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 229, 255, 0.1)';
+                        }}
+                        onBlur={e => {
+                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
+                    />
+                </div>
+                <div className="sort-wrap">
+                    <label htmlFor="sortSelect" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                        Sort by:
+                    </label>
+                    <select
+                        id="sortSelect"
+                        value={sortMode}
+                        onChange={(e) => setSortMode(e.target.value)}
+                    >
+                        <option value="value-desc">Value Score (Highest)</option>
+                        <option value="price-asc">Price (Low to High)</option>
+                        <option value="price-desc">Price (High to Low)</option>
+                        <option value="context-desc">Context Length (High to Low)</option>
+                        <option value="age-desc">Age (Newer first)</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div className="controls-top-row">
+                <div className="use-case-matrix">
+                    {USE_CASES.map(uc => (
+                        <div
+                            key={uc.id}
+                            className={`use-case-puck ${activeUseCase === uc.id ? 'active' : ''}`}
+                            onClick={() => setActiveUseCase(uc.id)}
+                        >
+                            <i className={`ph ${uc.icon}`}></i> {uc.label}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="micro-stats">
+                    <div className="micro-stat">
+                        <i className="ph ph-database"></i> Database: <span>{totalModels} Models</span>
+                    </div>
+                    <div className="micro-stat">
+                        <i className="ph ph-clock-counter-clockwise"></i> Synced: <span id="lastUpdatedVal">{lastUpdated}</span>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
