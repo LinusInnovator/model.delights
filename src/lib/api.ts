@@ -114,7 +114,7 @@ export async function fetchModels(): Promise<FetchResult> {
             }
 
             // Image Gen
-            if (m_id.includes('dall-e') || m_id.includes('flux') || m_id.includes('stable-diffusion') || m_id.includes('ideogram') || m_id.includes('midjourney') || m_id.includes('recraft')) {
+            if (m_id.includes('-image') || m_id.includes('dall-e') || m_id.includes('flux') || m_id.includes('stable-diffusion') || modalities.includes('->image') || modalities.includes('-> text,image')) {
                 use_cases.push('Image Gen');
             }
 
