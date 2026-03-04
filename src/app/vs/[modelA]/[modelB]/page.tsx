@@ -1,7 +1,8 @@
-import { fetchModels, Model } from "@/lib/api";
+import { fetchModels } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import Script from "next/script";
 import ComparisonChart from "@/components/ComparisonChart";
 
 // ISR config: cache these pages for 5 mins
@@ -97,7 +98,11 @@ export default async function VsPage(props: { params: Promise<{ modelA: string; 
 
     return (
         <div className="container" style={{ animation: 'fadeIn 1s ease 0.3s backwards' }}>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+            <Script
+                id={`json-ld-vs-${modelA.id}-${modelB.id}`}
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <header style={{ marginBottom: '40px' }}>
                 <Link href="/" style={{ color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>

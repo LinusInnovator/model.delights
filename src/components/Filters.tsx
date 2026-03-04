@@ -6,10 +6,11 @@ export const USE_CASES = [
     { id: 'all', label: 'All Models', icon: 'ph-infinity' },
     { id: 'Top Tier', label: 'Top Tier', icon: 'ph-star' },
     { id: 'Coding & Logic', label: 'Coding & Logic', icon: 'ph-code' },
-    { id: 'Fictional Writing', label: 'Fictional Writing', icon: 'ph-pen-nib' },
-    { id: 'Quick Drafting', label: 'Quick Drafting', icon: 'ph-lightning' },
+    { id: 'Fictional', label: 'Fictional', icon: 'ph-pen-nib' },
+    { id: 'Drafting', label: 'Drafting', icon: 'ph-lightning' },
     { id: 'Roleplay', label: 'Roleplay', icon: 'ph-mask-happy' },
-    { id: 'Vision', label: 'Vision', icon: 'ph-eye' }
+    { id: 'Vision', label: 'Vision', icon: 'ph-eye' },
+    { id: 'Image Gen', label: 'Image Gen', icon: 'ph-image' }
 ];
 
 interface FiltersProps {

@@ -96,29 +96,26 @@ export async function fetchModels(): Promise<FetchResult> {
                 use_cases.push('Roleplay');
             }
 
-            // Fictional Writing (Complex/larger models)
-            if (m_id.includes('claude-3') || m_id.includes('gemini-1.5-pro') || m_id.includes('opus') || m_id.includes('gpt-4') || m_id.includes('wizardlm') || m_id.includes('llama-3.1-70b') || m_id.includes('llama-3.1-405b') || m_id.includes('llama-3-70b')) {
-                use_cases.push('Fictional Writing');
+            // Fictional (Complex/larger models)
+            if (m_id.includes('claude-3') || m_id.includes('claude-4') || m_id.includes('sonnet') || m_id.includes('gemini-1.5-pro') || m_id.includes('gemini-3') || m_id.includes('opus') || m_id.includes('gpt-4') || m_id.includes('gpt-5') || m_id.includes('wizardlm') || m_id.includes('llama-3.1-70b') || m_id.includes('llama-3.1-405b') || m_id.includes('llama-3-70b')) {
+                use_cases.push('Fictional');
             }
 
-            // Quick Drafting (Fast/cheap models)
+            // Drafting (Fast/cheap models)
             if (m_id.includes('flash') || m_id.includes('haiku') || m_id.includes('mini') || m_id.includes('8b') || m_id.includes('llama-3-8b')) {
-                use_cases.push('Quick Drafting');
+                use_cases.push('Drafting');
             }
 
             // Vision
             const arch = m.architecture || {};
             const modalities = arch.modality ? arch.modality.toLowerCase() : "";
-            if (desc.includes('vision') || m_id.includes('vision') || modalities.includes('image')) {
+            if (desc.includes('vision') || m_id.includes('vision') || modalities.includes('text,image->text')) {
                 use_cases.push('Vision');
             }
 
-            // Top Tier / Premium (Mathematical heuristic driven by Aider Coding ELO)
-            // A proxy ELO > 1350 roughly correlates to a >65% pass rate on the Polyglot benchmark.
-            // This organically identifies true frontier models (o1, claude-3.7-sonnet, deepseek-reasoner)
-            // without hardcoding their lineages or version numbers.
-            if (codingElo && codingElo > 1350) {
-                use_cases.push('Top Tier');
+            // Image Gen
+            if (m_id.includes('dall-e') || m_id.includes('flux') || m_id.includes('stable-diffusion') || m_id.includes('ideogram') || m_id.includes('midjourney') || m_id.includes('recraft')) {
+                use_cases.push('Image Gen');
             }
 
             // Calculate 1M pricing
@@ -157,6 +154,36 @@ export async function fetchModels(): Promise<FetchResult> {
                 elo,
                 value_score
             };
+        });
+
+        // Second pass: Dynamic 'Top Tier' detection without hardcoding versions
+        const TOP_PROVIDERS = ['openai', 'anthropic', 'google', 'deepseek', 'x-ai', 'mistral'];
+        const smallKeywords = ['mini', 'flash', 'haiku', 'lite', '8b'];
+
+        TOP_PROVIDERS.forEach(provider => {
+            const providerModels = models.filter(m => m.id.startsWith(provider + '/'));
+            const flagshipCandidates = providerModels.filter(m => !smallKeywords.some(kw => m.id.includes(kw)));
+
+            if (flagshipCandidates.length > 0) {
+                // Sort by created timestamp descending
+                flagshipCandidates.sort((a, b) => (b.created || 0) - (a.created || 0));
+
+                // Add Top Tier to the most recent 2 flagship models from this provider
+                for (let i = 0; i < Math.min(2, flagshipCandidates.length); i++) {
+                    if (!flagshipCandidates[i].use_cases.includes('Top Tier')) {
+                        flagshipCandidates[i].use_cases.push('Top Tier');
+                    }
+                    flagshipCandidates[i].elo = (flagshipCandidates[i].elo || 1200) + 150; // Boost ELO for latest flagships
+                }
+            }
+        });
+
+        // Add Top Tier for existing high codingElo models
+        models.forEach(m => {
+            const codingElo = codingEloMap[m.id];
+            if (codingElo && codingElo > 1350 && !m.use_cases.includes('Top Tier')) {
+                m.use_cases.push('Top Tier');
+            }
         });
 
         return {
