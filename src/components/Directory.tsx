@@ -239,7 +239,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                     onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
                                     onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                                 >
-                                    Set Budget
+                                    Set
                                 </button>
                             </div>
                         </div>
