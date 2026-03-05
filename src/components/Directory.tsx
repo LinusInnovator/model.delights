@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Model, FetchResult } from '@/lib/api';
 import Filters, { USE_CASES } from './Filters';
 import dynamic from 'next/dynamic';
@@ -24,6 +24,25 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     const [simReqs, setSimReqs] = useState(PRESETS['Start-up'].reqs);
 
     const [isChartExpanded, setIsChartExpanded] = useState(true);
+    const [showSurfaceUp, setShowSurfaceUp] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Show after scrolling past roughly the top sections + ~5 rows of cards
+            if (window.scrollY > 1200) {
+                setShowSurfaceUp(true);
+            } else {
+                setShowSurfaceUp(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const filteredModels = useMemo(() => {
         let result = initialData.models;
@@ -211,6 +230,14 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     ))}
                 </div>
             )}
+
+            <button
+                className={`surface-up-btn ${showSurfaceUp ? 'visible' : ''}`}
+                onClick={scrollToTop}
+                aria-label="Scroll to top"
+            >
+                <i className="ph ph-arrow-up"></i> Surface Up
+            </button>
         </div>
     );
 }
