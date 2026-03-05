@@ -6,7 +6,7 @@ import { Model } from '@/lib/api';
 
 interface ModelCardProps {
     model: Model;
-    alternatives: Model[];
+    alternativesArray: string[];
     simPromptMs: number;
     simOutputMs: number;
     simReqs: number;
@@ -14,7 +14,7 @@ interface ModelCardProps {
 
 export default function ModelCard({
     model,
-    alternatives,
+    alternativesArray,
     simPromptMs,
     simOutputMs,
     simReqs
@@ -53,16 +53,6 @@ export default function ModelCard({
         navigator.clipboard.writeText(model.id).then(() => {
             setCopiedId(true);
             setTimeout(() => setCopiedId(false), 2000);
-        });
-    };
-
-    const handleCopyFallback = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        const fallbackIds = alternatives.map(a => a.id);
-        const routingArray = [model.id, ...fallbackIds];
-        navigator.clipboard.writeText(JSON.stringify(routingArray)).then(() => {
-            setCopiedFallback(true);
-            setTimeout(() => setCopiedFallback(false), 2000);
         });
     };
 
@@ -118,51 +108,6 @@ export default function ModelCard({
                         <div className="sim-label">Est. Monthly Bill</div>
                         <div className="sim-val">{calcCost()}</div>
                     </div>
-
-                    <button
-                        className="btn-alternatives"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setShowAlts(!showAlts);
-                        }}
-                    >
-                        Find Cheaper Alternatives
-                    </button>
-
-                    {showAlts && (
-                        <div className="alternatives-container active">
-                            {alternatives.length === 0 ? (
-                                <div className="alt-item">
-                                    <span className="alt-name" style={{ color: 'var(--text-secondary)' }}>No direct cheaper alternatives found.</span>
-                                </div>
-                            ) : (
-                                alternatives.map(a => {
-                                    const currentCostM = model.pricing_per_1m.prompt + model.pricing_per_1m.completion;
-                                    const altCostM = a.pricing_per_1m.prompt + a.pricing_per_1m.completion;
-                                    const savedPct = Math.round((1 - (altCostM / currentCostM)) * 100);
-
-                                    const slugA = encodeURIComponent(model.id.replace(/\//g, "__"));
-                                    const slugB = encodeURIComponent(a.id.replace(/\//g, "__"));
-
-                                    return (
-                                        <div key={a.id} className="alt-item" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                <span className="alt-name" style={{ fontWeight: 600 }}>{a.name || a.id.split('/')[1]}</span>
-                                                <span className="alt-save">{savedPct}% Cheaper</span>
-                                            </div>
-                                            <Link
-                                                href={`/vs/${slugA}/${slugB}`}
-                                                className="btn-action secondary"
-                                                style={{ padding: '6px 12px', fontSize: '0.8rem', width: 'auto', marginBottom: 0 }}
-                                            >
-                                                <i className="ph ph-scales"></i> Compare
-                                            </Link>
-                                        </div>
-                                    );
-                                })
-                            )}
-                        </div>
-                    )}
                 </div>
 
                 <div className="card-back" onClick={(e) => e.stopPropagation()}>
@@ -187,10 +132,16 @@ export default function ModelCard({
 
                     <button
                         className="btn-fallback-code fallback-btn"
-                        onClick={handleCopyFallback}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            navigator.clipboard.writeText(JSON.stringify(alternativesArray)).then(() => {
+                                setCopiedFallback(true);
+                                setTimeout(() => setCopiedFallback(false), 2000);
+                            });
+                        }}
                         style={copiedFallback ? { background: 'rgba(76, 175, 80, 0.2)', borderColor: '#4CAF50' } : {}}
                     >
-                        {copiedFallback ? <><i className="ph ph-check"></i> Copied!</> : <><i className="ph ph-code"></i> Copy Smart Fallback</>}
+                        {copiedFallback ? <><i className="ph ph-check"></i> Copied!</> : <><i className="ph ph-code"></i> Copy Bulletproof Fallback Array</>}
                     </button>
                     <button
                         className="btn-flip-back"
