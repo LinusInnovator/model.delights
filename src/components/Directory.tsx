@@ -160,8 +160,15 @@ export default function Directory({ initialData }: { initialData: FetchResult })
         <div className="container" style={{ animation: 'fadeIn 1s ease 0.3s backwards' }}>
             <div className="top-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '40px', flexWrap: 'wrap' }}>
                 <header className="home-header">
-                    <h1 className="gradient-text">model.delights</h1>
-                    <p className="subtitle" style={{ marginBottom: '15px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <img
+                            src="/logo.png"
+                            alt="model.delights logo"
+                            style={{ width: '40px', height: '40px', borderRadius: '8px', boxShadow: '0 0 20px rgba(0, 229, 255, 0.2)' }}
+                        />
+                        <h1 className="gradient-text" style={{ margin: 0 }}>model.delights</h1>
+                    </div>
+                    <p className="subtitle" style={{ marginBottom: '15px', marginTop: '10px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
                         <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model's true reasoning capability. It is aggregated from large-scale, crowdsourced blind A/B tests (such as Chatbot Arena) alongside proprietary heuristics. A higher ELO means the model is empirically proven to provide smarter, more accurate, and better-structured responses to complex human prompts.
                     </p>
