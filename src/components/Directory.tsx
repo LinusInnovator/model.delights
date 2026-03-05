@@ -23,6 +23,9 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     const [simOutputMs, setSimOutputMs] = useState(PRESETS['Start-up'].output);
     const [simReqs, setSimReqs] = useState(PRESETS['Start-up'].reqs);
 
+    const [budgetInput, setBudgetInput] = useState('');
+    const [maxBudget, setMaxBudget] = useState<number | null>(null);
+
     const [isChartExpanded, setIsChartExpanded] = useState(true);
     const [showSurfaceUp, setShowSurfaceUp] = useState(false);
 
@@ -60,6 +63,18 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                 (m.name && m.name.toLowerCase().includes(q)) ||
                 (m.description && m.description.toLowerCase().includes(q))
             );
+        }
+
+        // Budget Filter
+        if (maxBudget !== null) {
+            result = result.filter(m => {
+                if (m.pricing_per_1m.prompt < 0 || m.pricing_per_1m.completion < 0) return false;
+                const pTokens = simPromptMs / 1000000;
+                const oTokens = simOutputMs / 1000000;
+                const pCost = pTokens * m.pricing_per_1m.prompt * simReqs;
+                const oCost = oTokens * m.pricing_per_1m.completion * simReqs;
+                return (pCost + oCost) <= maxBudget;
+            });
         }
 
         // Sort
@@ -190,6 +205,43 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 value={simReqs}
                                 onChange={e => setSimReqs(Number(e.target.value) || 0)}
                             />
+                        </div>
+                        <div className="input-group">
+                            <label>Max Budget ($)</label>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <input
+                                    type="number"
+                                    placeholder="e.g. 50"
+                                    value={budgetInput}
+                                    onChange={e => {
+                                        setBudgetInput(e.target.value);
+                                        if (e.target.value === '') setMaxBudget(null);
+                                    }}
+                                    onKeyDown={e => {
+                                        if (e.key === 'Enter') {
+                                            setMaxBudget(budgetInput ? Number(budgetInput) : null);
+                                        }
+                                    }}
+                                />
+                                <button
+                                    onClick={() => setMaxBudget(budgetInput ? Number(budgetInput) : null)}
+                                    style={{
+                                        padding: '0 15px',
+                                        borderRadius: '8px',
+                                        background: 'var(--accent)',
+                                        color: '#000',
+                                        border: 'none',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'opacity 0.2s',
+                                    }}
+                                    onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
+                                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                                >
+                                    Set Budget
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
