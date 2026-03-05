@@ -180,7 +180,7 @@ export default function ModelCard({
                         <a href={`https://openrouter.ai/models/${model.id}`} target="_blank" className="hub-link-btn" rel="noreferrer">
                             <i className="ph ph-book-open"></i> OpenRouter Specs
                         </a>
-                        <a href={`https://huggingface.co/models?search=${encodeURIComponent(model.id.split('/')[1] || '')}`} target="_blank" className="hub-link-btn" rel="noreferrer">
+                        <a href={`https://huggingface.co/search/full-text?q=${encodeURIComponent(nameDisplay)}&type=model`} target="_blank" className="hub-link-btn" rel="noreferrer">
                             <i className="ph ph-magnifying-glass"></i> HuggingFace Search
                         </a>
                     </div>
