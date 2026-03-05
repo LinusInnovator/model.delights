@@ -100,11 +100,11 @@ export default function Filters({
                 </div>
 
                 <div className="micro-stats">
-                    <div className="micro-stat">
-                        <i className="ph ph-database"></i> Database: <span>{totalModels} Models</span>
+                    <div className="micro-stat" title={`Database: ${totalModels} Models`}>
+                        <i className="ph ph-database"></i> <span>{totalModels} Models</span>
                     </div>
-                    <div className="micro-stat">
-                        <i className="ph ph-clock-counter-clockwise"></i> Synced: <span id="lastUpdatedVal">{lastUpdated}</span>
+                    <div className="micro-stat" title={`Synced: ${lastUpdated}`}>
+                        <i className="ph ph-clock-counter-clockwise"></i> <span id="lastUpdatedVal">{lastUpdated}</span>
                     </div>
                 </div>
             </div>
