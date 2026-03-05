@@ -74,6 +74,10 @@ export default function ParetoChart({ models, isExpanded, onToggleExpand }: Pare
                     enabled: true,
                     mode: 'xy',
                 },
+                limits: {
+                    x: { min: 'original', max: 'original' },
+                    y: { min: 'original', max: 'original' }
+                },
                 zoom: {
                     wheel: {
                         enabled: true,

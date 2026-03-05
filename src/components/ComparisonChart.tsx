@@ -102,6 +102,10 @@ export default function ComparisonChart({ modelA, modelB, allModels }: Compariso
                     enabled: true,
                     mode: 'xy',
                 },
+                limits: {
+                    x: { min: 'original', max: 'original' },
+                    y: { min: 'original', max: 'original' }
+                },
                 zoom: {
                     wheel: {
                         enabled: true,
