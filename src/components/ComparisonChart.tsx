@@ -1,4 +1,5 @@
 "use client";
+import 'hammerjs';
 
 import React, { useRef } from 'react';
 import {
@@ -101,6 +102,7 @@ export default function ComparisonChart({ modelA, modelB, allModels }: Compariso
                 pan: {
                     enabled: true,
                     mode: 'xy',
+                    modifierKey: undefined, // ensure no command/ctrl key is needed
                 },
                 limits: {
                     x: { min: 'original', max: 'original' },
