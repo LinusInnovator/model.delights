@@ -39,14 +39,14 @@ export interface FetchResult {
 
 export async function fetchModels(): Promise<FetchResult> {
     try {
-        let codingEloMap: Record<string, number> = {};
+        let lmsysEloMap: Record<string, number> = {};
         try {
-            const dataPath = path.join(process.cwd(), 'src/data/coding_elo.json');
+            const dataPath = path.join(process.cwd(), 'src/data/lmsys_elo.json');
             if (fs.existsSync(dataPath)) {
-                codingEloMap = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+                lmsysEloMap = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
             }
         } catch (e) {
-            console.error("Failed to load coding ELO data", e);
+            console.error("Failed to load LMSYS ELO data", e);
         }
 
         const res = await fetch("https://openrouter.ai/api/v1/models", {
@@ -60,25 +60,6 @@ export async function fetchModels(): Promise<FetchResult> {
         const json = await res.json();
         const rawModels: any[] = json.data || [];
 
-        // Calculate heuristic ELO map inline (port from fetch_elo.py)
-        const eloMap: Record<string, number> = {};
-        rawModels.forEach((m, index) => {
-            let proxy_elo = 1100;
-
-            if (index < 10) proxy_elo += 150;
-            else if (index < 30) proxy_elo += 80;
-            else if (index < 100) proxy_elo += 40;
-
-            const context = m.context_length || 8000;
-            if (context > 100000) proxy_elo += 50;
-            else if (context > 32000) proxy_elo += 20;
-
-            if (m.id.includes("gpt-4") || m.id.includes("claude-3") || m.id.includes("gemini-1.5")) {
-                proxy_elo += 30;
-            }
-            eloMap[m.id] = Math.round(proxy_elo);
-        });
-
         const models: Model[] = rawModels.map((m) => {
             const use_cases: string[] = [];
             const m_id = (m.id || "").toLowerCase();
@@ -86,8 +67,7 @@ export async function fetchModels(): Promise<FetchResult> {
             const name = (m.name || "").toLowerCase();
 
             // Coding & Logic
-            const codingElo = codingEloMap[m.id];
-            if (codingElo || m_id.includes('coder') || m_id.includes('math') || name.includes('coder') || name.includes('math')) {
+            if (m_id.includes('coder') || m_id.includes('math') || name.includes('coder') || name.includes('math')) {
                 use_cases.push('Coding & Logic');
             }
 
@@ -130,12 +110,15 @@ export async function fetchModels(): Promise<FetchResult> {
             }
 
             const total_price_1m = pricing_per_1m.prompt + pricing_per_1m.completion;
-            const originalElo = eloMap[m.id] || null;
-            let elo = originalElo;
-            if (codingElo && originalElo) {
-                elo = Math.max(codingElo, originalElo);
-            } else if (codingElo) {
-                elo = codingElo;
+
+            // Assign LMSYS score. If missing, assign a conservative baseline so it sorts below proven gems
+            let elo = lmsysEloMap[m.id];
+
+            if (!elo) {
+                // Heuristic baseline for obscure community models
+                if (total_price_1m === 0) elo = 1050; // Free models
+                else if (total_price_1m > 10) elo = 1100; // Expensive but unproven
+                else elo = 1000; // Standard unproven
             }
 
             let value_score = 0;
@@ -178,10 +161,10 @@ export async function fetchModels(): Promise<FetchResult> {
             }
         });
 
-        // Add Top Tier for existing high codingElo models
+        // Add Top Tier for existing high LMSYS ELO models
         models.forEach(m => {
-            const codingElo = codingEloMap[m.id];
-            if (codingElo && codingElo > 1350 && !m.use_cases.includes('Top Tier')) {
+            const elo = lmsysEloMap[m.id];
+            if (elo && elo > 1250 && !m.use_cases.includes('Top Tier')) {
                 m.use_cases.push('Top Tier');
             }
         });

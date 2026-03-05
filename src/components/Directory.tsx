@@ -110,7 +110,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
         ? new Date(initialData.last_updated * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
         : 'Never';
 
-    // Helper to find alternatives
+    // Helper to find alternatives (Smart Fallback API)
     const findAlternatives = (model: Model) => {
         if (!model.elo) return [];
 
@@ -118,6 +118,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             m.id !== model.id &&
             m.elo !== null &&
             m.elo >= (model.elo as number - 20) &&
+            m.context_length >= model.context_length && // Critical Context Safety boundary
             (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) < (model.pricing_per_1m.prompt + model.pricing_per_1m.completion)
         );
 
