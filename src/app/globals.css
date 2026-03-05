@@ -8,8 +8,8 @@
 }
 
 :root {
-  --background: #0d0f14;
-  --foreground: #f0f2f5;
+  --background: #000000;
+  --foreground: #ededed;
   --card-bg: rgba(255, 255, 255, 0.03);
   --card-border: rgba(255, 255, 255, 0.08);
   --accent: #00e5ff;
@@ -31,7 +31,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 50% 50%, rgba(26, 32, 53, 0.8) 0%, var(--background) 40%);
+  background: radial-gradient(circle at 50% 50%, rgba(26, 32, 53, 0.3) 0%, var(--background) 40%);
   z-index: -1;
   pointer-events: none;
 }

@@ -166,7 +166,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                             alt="model.delights logo"
                             style={{ width: '40px', height: '40px', borderRadius: '8px', boxShadow: '0 0 20px rgba(0, 229, 255, 0.2)' }}
                         />
-                        <h1 className="gradient-text" style={{ margin: 0 }}>model.delights</h1>
+                        <h1 style={{ margin: 0, color: '#FFFFFF', letterSpacing: '-0.04em', fontWeight: 600 }}>model.delights</h1>
                     </div>
                     <p className="subtitle" style={{ marginBottom: '15px', marginTop: '10px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
