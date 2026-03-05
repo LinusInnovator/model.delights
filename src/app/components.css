@@ -35,6 +35,16 @@ h1 {
     margin-bottom: 30px;
 }
 
+.home-header {
+    flex: 1 1 420px;
+    max-width: 550px;
+}
+
+.home-simulator {
+    flex: 1 1 480px;
+    margin: 0;
+}
+
 /* Controls */
 .controls {
     display: flex;
@@ -715,13 +725,16 @@ select option {
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: none;
 }
+
 /* ====== Responsive Phone-Delight Polish ====== */
 @media (max-width: 768px) {
+
     /* 1. Typography */
     h1 {
-        font-size: 2.3rem; /* Down from 3.5rem */
+        font-size: 2.3rem;
+        /* Down from 3.5rem */
     }
-    
+
     .subtitle {
         font-size: 1.05rem;
     }
@@ -739,7 +752,8 @@ select option {
     }
 
     .grid-container {
-        grid-template-columns: 1fr; /* Force single column */
+        grid-template-columns: 1fr;
+        /* Force single column */
         gap: 16px;
     }
 
@@ -748,7 +762,8 @@ select option {
         padding: 20px 16px;
     }
 
-    .simulator-panel, .home-simulator {
+    .simulator-panel,
+    .home-simulator {
         flex: 1 1 100%;
         padding: 20px 16px;
         margin: 0;
@@ -762,15 +777,17 @@ select option {
         align-items: stretch;
         gap: 12px;
     }
-    
+
     .micro-stats {
         justify-content: center;
         flex-wrap: wrap;
     }
 
     .use-case-matrix {
-        padding-bottom: 8px; /* Room for scrollbar/shadows */
-        margin-right: -16px; /* Let it bleed to the edge of the device */
+        padding-bottom: 8px;
+        /* Room for scrollbar/shadows */
+        margin-right: -16px;
+        /* Let it bleed to the edge of the device */
         padding-right: 16px;
     }
 
@@ -785,10 +802,12 @@ select option {
     }
 
     .vs-table {
-        min-width: 600px; /* Force it to stay wide so user can swipe to view columns */
+        min-width: 600px;
+        /* Force it to stay wide so user can swipe to view columns */
     }
-    
-    .card-front, .card-back {
+
+    .card-front,
+    .card-back {
         padding: 20px;
     }
 }
