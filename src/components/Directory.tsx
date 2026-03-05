@@ -5,6 +5,7 @@ import { Model, FetchResult } from '@/lib/api';
 import Filters, { USE_CASES } from './Filters';
 import dynamic from 'next/dynamic';
 import ModelCard from './ModelCard';
+import PromoCard from './PromoCard';
 
 const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
@@ -270,15 +271,24 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                 </div>
             ) : (
                 <div className="grid-container">
-                    {filteredModels.map(m => (
-                        <ModelCard
-                            key={m.id}
-                            model={m}
-                            alternatives={findAlternatives(m)}
-                            simPromptMs={simPromptMs}
-                            simOutputMs={simOutputMs}
-                            simReqs={simReqs}
-                        />
+                    {filteredModels.map((m, idx) => (
+                        <React.Fragment key={m.id}>
+                            {idx === 4 && (
+                                <PromoCard
+                                    title="brief.delights.pro"
+                                    description="The newsletter for innovators, leaders, and builders in tech. Stay ahead of the AI curve."
+                                    url="https://brief.delights.pro"
+                                    ctaText="Subscribe Free"
+                                />
+                            )}
+                            <ModelCard
+                                model={m}
+                                alternatives={findAlternatives(m)}
+                                simPromptMs={simPromptMs}
+                                simOutputMs={simOutputMs}
+                                simReqs={simReqs}
+                            />
+                        </React.Fragment>
                     ))}
                 </div>
             )}
