@@ -92,7 +92,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     return (
         <div className="container" style={{ animation: 'fadeIn 1s ease 0.3s backwards' }}>
             <div className="top-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '40px', flexWrap: 'wrap' }}>
-                <header style={{ flex: '1 1 420px', maxWidth: '550px' }}>
+                <header className="home-header">
                     <h1 className="gradient-text">model.delights</h1>
                     <p className="subtitle" style={{ marginBottom: '15px' }}>Real-time Performance vs. Price matrix for LLM APIs.</p>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
@@ -101,7 +101,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                 </header>
 
                 {/* Keeping Simulator for parity */}
-                <div className="simulator-panel" style={{ flex: '1 1 480px', margin: 0 }}>
+                <div className="simulator-panel home-simulator">
                     <div className="simulator-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
                             <h2>Cost Simulator</h2>

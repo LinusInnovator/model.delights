@@ -715,3 +715,80 @@ select option {
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: none;
 }
+/* ====== Responsive Phone-Delight Polish ====== */
+@media (max-width: 768px) {
+    /* 1. Typography */
+    h1 {
+        font-size: 2.3rem; /* Down from 3.5rem */
+    }
+    
+    .subtitle {
+        font-size: 1.05rem;
+    }
+
+    .home-header {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    /* 2. Layout & Grids */
+    .top-section {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr; /* Force single column */
+        gap: 16px;
+    }
+
+    /* 3. Panel Padding */
+    .container {
+        padding: 20px 16px;
+    }
+
+    .simulator-panel, .home-simulator {
+        flex: 1 1 100%;
+        padding: 20px 16px;
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 4. Filter Chips & Stats */
+    .controls-top-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .micro-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .use-case-matrix {
+        padding-bottom: 8px; /* Room for scrollbar/shadows */
+        margin-right: -16px; /* Let it bleed to the edge of the device */
+        padding-right: 16px;
+    }
+
+    /* 5. VS Comparison Table scroll wrapper */
+    .vs-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-right: -16px;
+        padding-right: 16px;
+        position: relative;
+    }
+
+    .vs-table {
+        min-width: 600px; /* Force it to stay wide so user can swipe to view columns */
+    }
+    
+    .card-front, .card-back {
+        padding: 20px;
+    }
+}
