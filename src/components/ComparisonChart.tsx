@@ -11,6 +11,7 @@ import {
     LogarithmicScale,
     ScatterController
 } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { Scatter } from 'react-chartjs-2';
 import { Model } from '@/lib/api';
 
@@ -21,7 +22,8 @@ ChartJS.register(
     LineElement,
     Tooltip,
     Legend,
-    ScatterController
+    ScatterController,
+    zoomPlugin
 );
 
 ChartJS.defaults.color = '#9ba1a6';
@@ -95,6 +97,21 @@ export default function ComparisonChart({ modelA, modelB, allModels }: Compariso
         maintainAspectRatio: false,
         plugins: {
             legend: { display: true, labels: { color: '#fff' } },
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: 'xy',
+                },
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'xy',
+                }
+            },
             tooltip: {
                 backgroundColor: 'rgba(13, 15, 20, 0.9)',
                 titleColor: '#00e5ff',
@@ -131,6 +148,31 @@ export default function ComparisonChart({ modelA, modelB, allModels }: Compariso
                     <i className="ph ph-chart-scatter" style={{ fontSize: '1.5rem', color: 'var(--accent)' }}></i>
                     <h2 style={{ margin: 0 }}>Market Placement</h2>
                 </div>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (chartRef.current) {
+                            chartRef.current.resetZoom();
+                        }
+                    }}
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        color: 'var(--foreground)',
+                        padding: '4px 12px',
+                        borderRadius: '12px',
+                        fontSize: '0.8rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.2sease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'}
+                >
+                    <i className="ph ph-arrows-out-simple"></i> Reset
+                </button>
             </div>
 
             <div style={{ width: '100%', height: '400px', position: 'relative', marginTop: '20px' }}>

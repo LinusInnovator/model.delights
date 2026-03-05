@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 import Script from "next/script";
-import ComparisonChart from "@/components/ComparisonChart";
+import ComparisonChart from "@/components/ComparisonChartWrapper";
 
 // ISR config: cache these pages for 5 mins
 export const revalidate = 300;

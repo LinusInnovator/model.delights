@@ -3,8 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import { Model, FetchResult } from '@/lib/api';
 import Filters, { USE_CASES } from './Filters';
-import ParetoChart from './ParetoChart';
+import dynamic from 'next/dynamic';
 import ModelCard from './ModelCard';
+
+const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
 export default function Directory({ initialData }: { initialData: FetchResult }) {
     const [searchQuery, setSearchQuery] = useState('');
