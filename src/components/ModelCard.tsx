@@ -6,7 +6,8 @@ import { Model } from '@/lib/api';
 
 interface ModelCardProps {
     model: Model;
-    alternativesArray: string[];
+    fallbackModels: Model[];
+    cheaperModels: Model[];
     simPromptMs: number;
     simOutputMs: number;
     simReqs: number;
@@ -14,7 +15,8 @@ interface ModelCardProps {
 
 export default function ModelCard({
     model,
-    alternativesArray,
+    fallbackModels,
+    cheaperModels,
     simPromptMs,
     simOutputMs,
     simReqs
@@ -108,6 +110,51 @@ export default function ModelCard({
                         <div className="sim-label">Est. Monthly Bill</div>
                         <div className="sim-val">{calcCost()}</div>
                     </div>
+
+                    <button
+                        className="btn-alternatives"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setShowAlts(!showAlts);
+                        }}
+                    >
+                        Find Cheaper Alternatives
+                    </button>
+
+                    {showAlts && (
+                        <div className="alternatives-container active">
+                            {cheaperModels.length === 0 ? (
+                                <div className="alt-item">
+                                    <span className="alt-name" style={{ color: 'var(--text-secondary)' }}>No direct cheaper alternatives found.</span>
+                                </div>
+                            ) : (
+                                cheaperModels.map(a => {
+                                    const currentCostM = model.pricing_per_1m.prompt + model.pricing_per_1m.completion;
+                                    const altCostM = a.pricing_per_1m.prompt + a.pricing_per_1m.completion;
+                                    const savedPct = Math.round((1 - (altCostM / currentCostM)) * 100);
+
+                                    const slugA = encodeURIComponent(model.id.replace(/\//g, "__"));
+                                    const slugB = encodeURIComponent(a.id.replace(/\//g, "__"));
+
+                                    return (
+                                        <div key={a.id} className="alt-item" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                                <span className="alt-name" style={{ fontWeight: 600 }}>{a.name || a.id.split('/')[1]}</span>
+                                                <span className="alt-save">{savedPct}% Cheaper</span>
+                                            </div>
+                                            <Link
+                                                href={`/vs/${slugA}/${slugB}`}
+                                                className="btn-action secondary"
+                                                style={{ padding: '6px 12px', fontSize: '0.8rem', width: 'auto', marginBottom: 0 }}
+                                            >
+                                                <i className="ph ph-scales"></i> Compare
+                                            </Link>
+                                        </div>
+                                    );
+                                })
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <div className="card-back" onClick={(e) => e.stopPropagation()}>
@@ -134,7 +181,8 @@ export default function ModelCard({
                         className="btn-fallback-code fallback-btn"
                         onClick={(e) => {
                             e.stopPropagation();
-                            navigator.clipboard.writeText(JSON.stringify(alternativesArray)).then(() => {
+                            const fallbackIds = fallbackModels.map(m => m.id);
+                            navigator.clipboard.writeText(JSON.stringify(fallbackIds)).then(() => {
                                 setCopiedFallback(true);
                                 setTimeout(() => setCopiedFallback(false), 2000);
                             });

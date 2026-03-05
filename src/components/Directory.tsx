@@ -110,27 +110,22 @@ export default function Directory({ initialData }: { initialData: FetchResult })
         ? new Date(initialData.last_updated * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
         : 'Never';
 
-    // Helper to find alternatives (Bulletproof Fallback API)
-    const findAlternativesArray = (model: Model) => {
-        if (!model.elo) return [model.id];
+    // Helper to find alternatives (Bulletproof Fallback & Cheaper Alts)
+    const getModelRelations = (model: Model) => {
+        if (!model.elo) return { fallbackModels: [model], cheaperModels: [] };
 
         const targetPrice = model.pricing_per_1m.prompt + model.pricing_per_1m.completion;
 
         // 1. Find Closest Peer (Uptime & Intelligence focus)
-        // Must have same/better context, ELO within +/- 30, and price can be up to 20% more expensive
         const closestPeers = initialData.models.filter(m =>
             m.id !== model.id &&
             m.elo !== null &&
             m.context_length >= model.context_length &&
             Math.abs(m.elo - (model.elo as number)) <= 30 &&
             (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) <= (targetPrice * 1.20)
-        ).sort((a, b) => {
-            // Sort by closest ELO difference to target
-            return Math.abs((a.elo as number) - (model.elo as number)) - Math.abs((b.elo as number) - (model.elo as number));
-        });
+        ).sort((a, b) => Math.abs((a.elo as number) - (model.elo as number)) - Math.abs((b.elo as number) - (model.elo as number)));
 
         // 2. Find Frugal Fallback (Cost focus)
-        // Must have same/better context, ELO within -30 points, and MUST be cheaper
         const frugalOptions = initialData.models.filter(m =>
             m.id !== model.id &&
             m.elo !== null &&
@@ -139,21 +134,23 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) < targetPrice
         ).sort((a, b) => b.value_score - a.value_score);
 
-        const buildArray: string[] = [model.id];
+        const buildArray: Model[] = [model];
 
-        // Ensure we don't accidentally push the exact same fallback model twice
         if (closestPeers.length > 0) {
-            buildArray.push(closestPeers[0].id);
+            buildArray.push(closestPeers[0]);
         }
 
         if (frugalOptions.length > 0) {
-            const bestFrugal = frugalOptions[0].id;
-            if (!buildArray.includes(bestFrugal)) {
+            const bestFrugal = frugalOptions[0];
+            if (!buildArray.find(m => m.id === bestFrugal.id)) {
                 buildArray.push(bestFrugal);
             }
         }
 
-        return buildArray;
+        // Top 2 cheaper models for the VS comparisons
+        const cheaperModels = frugalOptions.slice(0, 2);
+
+        return { fallbackModels: buildArray, cheaperModels };
     };
 
     return (
@@ -315,7 +312,8 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                             )}
                             <ModelCard
                                 model={m}
-                                alternativesArray={findAlternativesArray(m)}
+                                fallbackModels={getModelRelations(m).fallbackModels}
+                                cheaperModels={getModelRelations(m).cheaperModels}
                                 simPromptMs={simPromptMs}
                                 simOutputMs={simOutputMs}
                                 simReqs={simReqs}
