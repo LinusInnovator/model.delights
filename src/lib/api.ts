@@ -187,6 +187,14 @@ export async function fetchModels(): Promise<FetchResult> {
             }
         });
 
+        // Ensure all Top Tier generalist flagships are automatically qualified for complex cognitive tasks
+        models.forEach(m => {
+            if (m.use_cases.includes('Top Tier') || (m.elo && m.elo > 1250)) {
+                if (!m.use_cases.includes('Coding & Logic')) m.use_cases.push('Coding & Logic');
+                if (!m.use_cases.includes('Fictional')) m.use_cases.push('Fictional');
+            }
+        });
+
         return {
             models,
             last_updated: Math.floor(Date.now() / 1000)
