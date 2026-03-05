@@ -11,7 +11,7 @@ const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
 export default function Directory({ initialData }: { initialData: FetchResult }) {
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortMode, setSortMode] = useState('value-desc');
+    const [sortMode, setSortMode] = useState('elo-desc');
     const [activeUseCase, setActiveUseCase] = useState('all');
 
     const PRESETS = {
@@ -92,6 +92,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             const ageB = b.created || 0;
 
             switch (sortMode) {
+                case 'elo-desc': return (b.elo || 0) - (a.elo || 0);
                 case 'value-desc': return vB - vA;
                 case 'price-asc': return pA - pB;
                 case 'price-desc': return pB - pA;

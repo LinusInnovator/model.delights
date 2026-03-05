@@ -76,7 +76,8 @@ export default function Filters({
                         value={sortMode}
                         onChange={(e) => setSortMode(e.target.value)}
                     >
-                        <option value="value-desc">Value Score (Highest)</option>
+                        <option value="elo-desc">Pure ELO (Highest Intelligence)</option>
+                        <option value="value-desc">Value Score (Smartest for Cheapest)</option>
                         <option value="price-asc">Price (Low to High)</option>
                         <option value="price-desc">Price (High to Low)</option>
                         <option value="context-desc">Context Length (High to Low)</option>
