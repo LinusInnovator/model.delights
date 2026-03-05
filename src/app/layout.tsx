@@ -15,8 +15,19 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "model.delights | Value Frontier",
-  description: "Dynamic AI pricing and performance engine for power users.",
+  title: "model.delights | The AI Developer's Smart Routing Matrix",
+  description: "The ultimate real-time LLM directory for AI engineers, developers, and founders. Instantly compare OpenRouter API costs versus live Chatbot Arena ELO intelligence to find the absolute best model for your application.",
+  keywords: ["AI developers", "LLM pricing", "OpenRouter alternative", "AI engineer tools", "API routing", "prompt engineering", "LMSYS ELO", "cost optimization"],
+  openGraph: {
+    title: "model.delights | The AI Developer's Smart Routing Matrix",
+    description: "The real-time LLM directory for AI engineers. Instantly compare API costs versus live intelligence to find the perfect model.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "model.delights | The AI Developer's Smart Routing Matrix",
+    description: "Stop overpaying for AI APIs. Find the smartest, most cost-effective LLMs in seconds.",
+  }
 };
 
 export default function RootLayout({
