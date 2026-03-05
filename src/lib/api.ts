@@ -115,10 +115,28 @@ export async function fetchModels(): Promise<FetchResult> {
             let elo = lmsysEloMap[m.id];
 
             if (!elo) {
-                // Heuristic baseline for obscure community models
-                if (total_price_1m === 0) elo = 1050; // Free models
-                else if (total_price_1m > 10) elo = 1100; // Expensive but unproven
-                else elo = 1000; // Standard unproven
+                // Zero-Maintenance Dynamic ELO Engine
+                const nameAndId = `${m_id} ${name}`.toLowerCase();
+
+                // Phase 1: String Taxonomy Matcher (Flagship Keywords)
+                if (nameAndId.match(/opus|gpt-?5|gpt-?4|gemini-?3|gemini-?2|o1|o3|405b|72b/)) {
+                    elo = 1300; // Provisional Next-Gen/Flagship
+                } else if (nameAndId.match(/pro|sonnet|70b|command-r/)) {
+                    elo = 1200; // Provisional High-Tier
+                } else if (nameAndId.match(/flash|haiku|mini|8b|3b|1b|8x7b|lite/)) {
+                    elo = 1150; // Provisional Fast/Drafting
+                } else {
+                    // Phase 2: Free Market Pricing Curve (Price vs Intelligence Correlation)
+                    if (total_price_1m >= 15.0) {
+                        elo = 1320; // Extreme capability cost
+                    } else if (total_price_1m >= 5.0) {
+                        elo = 1220; // Mid-market capability
+                    } else if (total_price_1m >= 0.5) {
+                        elo = 1120; // Fast/Cheap computation
+                    } else {
+                        elo = 1050; // Free/Loss-leader baseline
+                    }
+                }
             }
 
             let value_score = 0;
