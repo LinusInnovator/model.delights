@@ -274,12 +274,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     {filteredModels.map((m, idx) => (
                         <React.Fragment key={m.id}>
                             {idx === 4 && (
-                                <PromoCard
-                                    title="brief.delights.pro"
-                                    description="The newsletter for innovators, leaders, and builders in tech. Stay ahead of the AI curve."
-                                    url="https://brief.delights.pro"
-                                    ctaText="Subscribe Free"
-                                />
+                                <PromoCard />
                             )}
                             <ModelCard
                                 model={m}

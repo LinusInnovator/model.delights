@@ -1,0 +1,40 @@
+import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+const DB_PATH = path.join(process.cwd(), 'promo_db.json');
+
+export async function POST(request: Request) {
+    try {
+        const body = await request.json();
+        const { promoId, eventType } = body;
+
+        if (!promoId || !eventType) {
+            return NextResponse.json({ error: 'Missing promoId or eventType' }, { status: 400 });
+        }
+
+        const validEvents = ['view', 'hover', 'click'];
+        if (!validEvents.includes(eventType)) {
+            return NextResponse.json({ error: 'Invalid eventType' }, { status: 400 });
+        }
+
+        const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
+        const db = JSON.parse(dbContent);
+
+        const newEvent = {
+            id: crypto.randomUUID(),
+            promoId,
+            eventType,
+            timestamp: new Date().toISOString()
+        };
+
+        db.events.push(newEvent);
+
+        fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf-8');
+
+        return NextResponse.json({ success: true, event: newEvent });
+    } catch (error) {
+        console.error('Error tracking promotion:', error);
+        return NextResponse.json({ error: 'Failed to track event' }, { status: 500 });
+    }
+}
