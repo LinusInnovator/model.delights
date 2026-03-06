@@ -6,6 +6,7 @@ import Filters, { USE_CASES } from './Filters';
 import dynamic from 'next/dynamic';
 import ModelCard from './ModelCard';
 import PromoCard from './PromoCard';
+import WildcardCard from './WildcardCard';
 
 const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
@@ -310,6 +311,9 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                         <React.Fragment key={m.id}>
                             {idx === 4 && (
                                 <PromoCard />
+                            )}
+                            {idx === 11 && (
+                                <WildcardCard />
                             )}
                             <ModelCard
                                 model={m}
