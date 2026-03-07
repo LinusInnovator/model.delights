@@ -1,0 +1,45 @@
+{
+    "blueprints": [
+        {
+            "id": "financial_rag_pipeline",
+            "name": "Financial RAG Pipeline",
+            "status": "active",
+            "description": "Enterprise-grade RAG stack optimizing for complex logical reasoning and cost-efficiency.",
+            "components": {
+                "reasoning_engine": {
+                    "description": "Must be incredibly smart to synthesize financial data without hallucinating.",
+                    "min_elo": 1250,
+                    "max_budget_per_1m": 5.00,
+                    "required_modalities_in": [
+                        "text"
+                    ]
+                },
+                "data_extractor": {
+                    "description": "Fast, cheap model to parse JSON and structure messy incoming data.",
+                    "min_elo": 1180,
+                    "max_budget_per_1m": 0.50,
+                    "required_modalities_in": [
+                        "text"
+                    ]
+                }
+            }
+        },
+        {
+            "id": "real_time_voice_therapist",
+            "name": "Real-Time Voice Therapist",
+            "status": "dormant",
+            "description": "A fully voiced, low-latency AI therapist requiring extreme intelligence and native audio input.",
+            "components": {
+                "core_engine": {
+                    "description": "Must have native audio-in routing and extreme intelligence.",
+                    "min_elo": 1300,
+                    "max_budget_per_1m": 2.00,
+                    "required_modalities_in": [
+                        "text",
+                        "audio"
+                    ]
+                }
+            }
+        }
+    ]
+}
