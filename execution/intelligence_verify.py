@@ -8,8 +8,9 @@ from datetime import datetime
 DB_PATH = os.path.join(os.path.dirname(__file__), 'intelligence.db')
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 
-# The "Judge" model used to evaluate other models
-JUDGE_MODEL = "anthropic/claude-3.7-sonnet"
+# The "Judge" models used to evaluate other models
+PRIMARY_JUDGE = "bytedance-seed/seed-2.0-mini"
+ESCALATION_JUDGE = "google/gemini-3.1-flash-lite-preview"
 
 # The Vibe Check Test Suite
 TEST_SUITE = {
@@ -102,8 +103,8 @@ def verify_pending_events():
             target_response = f"MOCK RESPONSE for {test_type} from {target_model_id}"
             test_results[test_type] = target_response
             
-        # 2. Ask the Judge to grade the responses
-        print(f"  -> Consulting Judge: {JUDGE_MODEL}...")
+        # 2. Ask the Primary Judge to grade the responses
+        print(f"  -> Consulting Primary Judge: {PRIMARY_JUDGE}...")
         
         judge_prompt = f"""
         You are an expert AI evaluator.
@@ -113,13 +114,24 @@ def verify_pending_events():
         {json.dumps(test_results, indent=2)}
         
         Grade this model's overall intelligence on a scale of 0-100.
-        Return ONLY a JSON object with two keys: "score" (integer) and "rationale" (1-sentence string).
+        If you feel these responses contain complex reasoning or coding structures that are beyond your capability to accurately grade, you MUST set "escalate": true.
+        Return ONLY a JSON object with three keys: "score" (integer), "rationale" (1-sentence string), and "escalate" (boolean).
         """
         
         # Mocking the judge response for local execution
-        # In production: raw_grade = run_llm_call(JUDGE_MODEL, judge_prompt)
-        mock_score = 85
-        mock_rationale = f"{target_model_id} demonstrates strong structural adherence but reasoning is average."
+        # In production: raw_grade_json = run_llm_call(PRIMARY_JUDGE, judge_prompt)
+        
+        # We will simulate that 1 out of every 3 models is "too complex" for the hyper-cheap model
+        mock_escalate = (hash(target_model_id) % 3 == 0)
+        
+        if mock_escalate:
+            print(f"  -> {PRIMARY_JUDGE} requested escalation. Consulting Escalation Judge: {ESCALATION_JUDGE}...")
+            # In production: raw_grade_json = run_llm_call(ESCALATION_JUDGE, judge_prompt)
+            mock_score = 92
+            mock_rationale = f"[Graded by {ESCALATION_JUDGE}] {target_model_id} passed complex reasoning checks that the primary judge could not verify."
+        else:
+            mock_score = 85
+            mock_rationale = f"[Graded by {PRIMARY_JUDGE}] {target_model_id} demonstrates strong structural adherence but reasoning is average."
         
         # 3. Save the verification job
         job_id = f"job_{str(uuid.uuid4())[:8]}"
