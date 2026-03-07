@@ -38,6 +38,8 @@ def init_db():
         pricing_prompt REAL,
         pricing_completion REAL,
         context_length INTEGER,
+        modalities_in TEXT,
+        modalities_out TEXT,
         status TEXT
     )
     ''')
@@ -146,6 +148,13 @@ def crawl_openrouter(conn):
                 
             curr_ctx = int(model.get('context_length', 0))
             
+            try:
+                arch = model.get('architecture', {})
+                curr_mod_in = ",".join(arch.get('input_modalities', [])) if arch else ""
+                curr_mod_out = ",".join(arch.get('output_modalities', [])) if arch else ""
+            except:
+                curr_mod_in, curr_mod_out = "", ""
+            
             # Check if this entity is known
             cursor.execute("SELECT entity_id FROM entity_aliases WHERE alias = ?", (ext_id,))
             alias_row = cursor.fetchone()
@@ -154,9 +163,9 @@ def crawl_openrouter(conn):
                 # 1. NEW MODEL DETECTED
                 entity_id = f"ent_{str(uuid.uuid4())[:8]}"
                 cursor.execute('''
-                INSERT INTO entities (entity_id, canonical_provider, canonical_model_family, canonical_model_variant, pricing_prompt, pricing_completion, context_length, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, 'active')
-                ''', (entity_id, provider, title, ext_id, curr_prompt, curr_comp, curr_ctx))
+                INSERT INTO entities (entity_id, canonical_provider, canonical_model_family, canonical_model_variant, pricing_prompt, pricing_completion, context_length, modalities_in, modalities_out, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active')
+                ''', (entity_id, provider, title, ext_id, curr_prompt, curr_comp, curr_ctx, curr_mod_in, curr_mod_out))
                 
                 cursor.execute('INSERT INTO entity_aliases (alias, entity_id) VALUES (?, ?)', (ext_id, entity_id))
                 
@@ -165,11 +174,11 @@ def crawl_openrouter(conn):
             else:
                 # 2. KNOWN MODEL -> Diff State
                 entity_id = alias_row[0]
-                cursor.execute("SELECT pricing_prompt, pricing_completion, context_length FROM entities WHERE entity_id = ?", (entity_id,))
+                cursor.execute("SELECT pricing_prompt, pricing_completion, context_length, modalities_in, modalities_out FROM entities WHERE entity_id = ?", (entity_id,))
                 entity_state = cursor.fetchone()
                 
                 if entity_state:
-                    db_prompt, db_comp, db_ctx = entity_state
+                    db_prompt, db_comp, db_ctx, db_mod_in, db_mod_out = entity_state
                     
                     price_changed = False
                     cap_changed = False
@@ -187,11 +196,16 @@ def crawl_openrouter(conn):
                         cap_changed = True
                         events_messages.append(f"Context Change: {db_ctx} -> {curr_ctx}")
                         
+                    # Diff Modalities (Vision/Audio unlock)
+                    if (curr_mod_in and db_mod_in != curr_mod_in) or (curr_mod_out and db_mod_out != curr_mod_out):
+                        cap_changed = True
+                        events_messages.append(f"Modality Unlock: In[{curr_mod_in}] Out[{curr_mod_out}]")
+                        
                     if price_changed or cap_changed:
                         # Update the DB
                         cursor.execute('''
-                        UPDATE entities SET pricing_prompt = ?, pricing_completion = ?, context_length = ? WHERE entity_id = ?
-                        ''', (curr_prompt, curr_comp, curr_ctx, entity_id))
+                        UPDATE entities SET pricing_prompt = ?, pricing_completion = ?, context_length = ?, modalities_in = ?, modalities_out = ? WHERE entity_id = ?
+                        ''', (curr_prompt, curr_comp, curr_ctx, curr_mod_in, curr_mod_out, entity_id))
                         
                         event_type = "pricing_changed" if price_changed else "capability_changed"
                         log_event(cursor, "openrouter_models_api", event_type, provider, ext_id, f"State Change on {title}: {' | '.join(events_messages)}", model, started_at)
