@@ -14,6 +14,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     const [searchQuery, setSearchQuery] = useState('');
     const [sortMode, setSortMode] = useState('elo-desc');
     const [activeUseCase, setActiveUseCase] = useState('all');
+    const [isEloExpanded, setIsEloExpanded] = useState(false);
 
     const PRESETS = {
         'Start-up': { prompt: 1000, output: 500, reqs: 50000 },
@@ -168,9 +169,28 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                         <h1 style={{ margin: 0, color: '#FFFFFF', letterSpacing: '-0.04em', fontWeight: 600 }}>model.delights</h1>
                     </div>
                     <p className="subtitle" style={{ marginBottom: '15px', marginTop: '10px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model's true reasoning capability. It is aggregated from large-scale, crowdsourced blind A/B tests (such as Chatbot Arena) alongside proprietary heuristics. A higher ELO means the model is empirically proven to provide smarter, more accurate, and better-structured responses to complex human prompts.
-                    </p>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
+                        <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model's true reasoning capability.
+                        {!isEloExpanded && (
+                            <span
+                                onClick={() => setIsEloExpanded(true)}
+                                style={{ color: 'var(--accent)', cursor: 'pointer', marginLeft: '8px', fontSize: '0.85rem' }}
+                            >
+                                [Read More]
+                            </span>
+                        )}
+                        {isEloExpanded && (
+                            <span style={{ display: 'inline' }}>
+                                It is aggregated from large-scale, crowdsourced blind A/B tests (such as Chatbot Arena) alongside proprietary heuristics. A higher ELO means the model is empirically proven to provide smarter, more accurate, and better-structured responses to complex human prompts.
+                                <span
+                                    onClick={() => setIsEloExpanded(false)}
+                                    style={{ color: 'var(--accent)', cursor: 'pointer', marginLeft: '8px', fontSize: '0.85rem', display: 'inline-block' }}
+                                >
+                                    [Hide]
+                                </span>
+                            </span>
+                        )}
+                    </div>
                 </header>
 
                 {/* Keeping Simulator for parity */}
