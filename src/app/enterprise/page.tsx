@@ -99,7 +99,21 @@ export default function EnterprisePage() {
                 </div>
 
                 {/* Feature Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 text-left">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-24 text-left">
+
+                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/[0.07] transition-colors relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full blur-3xl group-hover:bg-yellow-500/10 transition-colors"></div>
+                        <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-6 border border-yellow-500/30">
+                            <svg className="w-6 h-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-bold mb-3">Zero PII Architecture</h3>
+                        <p className="text-zinc-400 leading-relaxed relative z-10 text-sm">
+                            We act as the Control Plane, not the Data Plane. Your servers securely dial the LLMs directly using our cached logic. Your proprietary prompts and RAG data never touch our servers, requiring zero data privacy audits.
+                        </p>
+                    </div>
+
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/[0.07] transition-colors">
                         <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 border border-blue-500/30">
                             <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,7 +121,7 @@ export default function EnterprisePage() {
                             </svg>
                         </div>
                         <h3 className="text-xl font-bold mb-3">Zero-Latency Caching</h3>
-                        <p className="text-zinc-400 leading-relaxed">
+                        <p className="text-zinc-400 leading-relaxed text-sm">
                             We sync the mathematical intelligence graph directly into your servers memory. Routing calculations happen in 0.1ms locally without waiting on external HTTP requests.
                         </p>
                     </div>
@@ -119,8 +133,8 @@ export default function EnterprisePage() {
                             </svg>
                         </div>
                         <h3 className="text-xl font-bold mb-3">Array Fallback Execution</h3>
-                        <p className="text-zinc-400 leading-relaxed">
-                            Never crash in production. If the engine recommends an ultra-cheap model that hallucinates your schema, our SDK instantly and silently retries the next smartest model.
+                        <p className="text-zinc-400 leading-relaxed text-sm">
+                            Never crash in production. If the engine recommends an ultra-cheap model that hallucinates your schema, our SDK instantly retries the next smartest model.
                         </p>
                     </div>
 
@@ -131,7 +145,7 @@ export default function EnterprisePage() {
                             </svg>
                         </div>
                         <h3 className="text-xl font-bold mb-3">Graceful Persistence</h3>
-                        <p className="text-zinc-400 leading-relaxed">
+                        <p className="text-zinc-400 leading-relaxed text-sm">
                             Immune to network outages. If model.delights.pro ever goes down, your SDK seamlessly routes using the last known cache state or a provided static fallback.
                         </p>
                     </div>
