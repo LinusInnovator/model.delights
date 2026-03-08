@@ -9,7 +9,7 @@
                 "reasoning_engine": {
                     "description": "Must be incredibly smart to synthesize financial data without hallucinating.",
                     "min_elo": 1250,
-                    "max_budget_per_1m": 5.00,
+                    "max_budget_per_1m": 5.0,
                     "required_modalities_in": [
                         "text"
                     ]
@@ -17,27 +17,96 @@
                 "data_extractor": {
                     "description": "Fast, cheap model to parse JSON and structure messy incoming data.",
                     "min_elo": 1180,
-                    "max_budget_per_1m": 0.50,
+                    "max_budget_per_1m": 0.5,
                     "required_modalities_in": [
                         "text"
                     ]
+                }
+            },
+            "stack": {
+                "reasoning_engine": {
+                    "id": "google/gemini-3.1-pro-preview",
+                    "provider": "openrouter"
+                },
+                "data_extractor": {
+                    "id": "bytedance-seed/seed-2.0-mini",
+                    "provider": "openrouter"
+                }
+            },
+            "stack_openrouter_only": {
+                "reasoning_engine": {
+                    "id": "google/gemini-3.1-pro-preview",
+                    "provider": "openrouter"
+                },
+                "data_extractor": {
+                    "id": "bytedance-seed/seed-2.0-mini",
+                    "provider": "openrouter"
                 }
             }
         },
         {
             "id": "real_time_voice_therapist",
             "name": "Real-Time Voice Therapist",
-            "status": "dormant",
+            "status": "active",
             "description": "A fully voiced, low-latency AI therapist requiring extreme intelligence and native audio input.",
             "components": {
                 "core_engine": {
                     "description": "Must have native audio-in routing and extreme intelligence.",
                     "min_elo": 1300,
-                    "max_budget_per_1m": 2.00,
+                    "max_budget_per_1m": 2.0,
                     "required_modalities_in": [
                         "text",
                         "audio"
                     ]
+                }
+            },
+            "stack": {
+                "core_engine": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter"
+                }
+            },
+            "stack_openrouter_only": {
+                "core_engine": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter"
+                }
+            }
+        },
+        {
+            "id": "multimodal_ad_creator",
+            "name": "Autonomous TikTok Ad Creator",
+            "status": "active",
+            "description": "Cross-provider stack. Uses high-ELO logic for the script and an extreme quality image generator for the visual hooks.",
+            "components": {
+                "script_writer": {
+                    "description": "Smart enough to write viral hooks.",
+                    "min_elo": 1200,
+                    "max_budget_per_1m": 2.5,
+                    "required_modalities_in": [
+                        "text"
+                    ],
+                    "required_modalities_out": [
+                        "text"
+                    ]
+                },
+                "visual_generator": {
+                    "description": "Must output high quality images.",
+                    "min_elo": 0,
+                    "max_budget_per_1m": 0.0,
+                    "required_modalities_out": [
+                        "image"
+                    ]
+                }
+            },
+            "stack": {
+                "script_writer": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter"
+                },
+                "visual_generator": {
+                    "id": "fal-ai/nano-banana-2/edit",
+                    "provider": "fal"
                 }
             }
         }

@@ -25,6 +25,10 @@ export async function GET(request: Request) {
             });
         }
 
+        const keysParam = searchParams.get('keys');
+        const availableKeys = keysParam ? keysParam.toLowerCase().split(',') : ['openrouter', 'fal', 'aws', 'cartesia'];
+        const isOpenRouterOnly = availableKeys.length === 1 && availableKeys[0] === 'openrouter';
+
         const blueprint = data.intents[intent.toLowerCase()];
 
         if (!blueprint) {
@@ -34,10 +38,28 @@ export async function GET(request: Request) {
             }, { status: 404 });
         }
 
+        // Dynamic Provider Constraints Logging
+        console.log(`[Architect API] Requested ${intent} with keys: ${availableKeys.join(',')}`);
+
+        let targetStack = blueprint.stack;
+
+        if (isOpenRouterOnly) {
+            if (blueprint.stack_openrouter_only) {
+                targetStack = blueprint.stack_openrouter_only;
+            } else {
+                return NextResponse.json({
+                    error: `Constraint Failed. The blueprint '${blueprint.name}' requires modalities (like image or video generation) that are not fully available via OpenRouter alone.`,
+                    required_keys: ['openrouter', 'fal'],
+                    message: "Please add a FAL_KEY or equivalent to bypass this constraint."
+                }, { status: 400 });
+            }
+        }
+
         return NextResponse.json({
             intent: intent,
             name: blueprint.name,
-            stack: blueprint.stack,
+            constraint_mode: isOpenRouterOnly ? "openrouter_only" : "unrestrained",
+            stack: targetStack,
             estimated_cost_per_interaction: blueprint.estimated_cost_per_interaction,
             bleeding_edge_wildcard: blueprint.bleeding_edge_wildcard,
             last_updated: data.last_updated

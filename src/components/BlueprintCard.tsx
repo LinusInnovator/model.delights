@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { ClipboardCopy, KeyRound, CheckCircle2 } from 'lucide-react';
 
 interface ModelNode {
     provider: string;
@@ -22,6 +23,44 @@ interface BlueprintCardProps {
 
 export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps) {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [copiedContent, setCopiedContent] = useState<string | null>(null);
+
+    const getEnvKeyForProvider = (provider: string) => {
+        const p = provider.toLowerCase();
+        if (p.includes('openrouter')) return 'OPENROUTER_API_KEY';
+        if (p.includes('fal')) return 'FAL_KEY';
+        if (p.includes('cartesia')) return 'CARTESIA_API_KEY';
+        if (p.includes('elevenlabs')) return 'ELEVENLABS_API_KEY';
+        if (p.includes('aws') || p.includes('bedrock')) return 'AWS_ACCESS_KEY_ID';
+        return `${provider.toUpperCase()}_API_KEY`;
+    };
+
+    const getProviderColor = (provider: string) => {
+        const p = provider.toLowerCase();
+        if (p.includes('openrouter')) return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+        if (p.includes('fal')) return 'bg-orange-500/20 text-orange-300 border-orange-500/30';
+        if (p.includes('cartesia') || p.includes('eleven')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+        return 'bg-zinc-500/20 text-zinc-300 border-zinc-500/30';
+    };
+
+    const handleCopyEnv = (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        // Find all unique providers in the stack
+        const providers = new Set<string>();
+        Object.values(blueprint.stack).forEach(node => providers.add(node.provider));
+        if (blueprint.bleeding_edge_wildcard) {
+            providers.add(blueprint.bleeding_edge_wildcard.provider);
+        }
+
+        const envLines = Array.from(providers).map(p => `${getEnvKeyForProvider(p)}=your_key_here`);
+        const header = `# Model Delights Blueprint: ${blueprint.name}\n`;
+        const envContent = header + envLines.join('\n');
+
+        navigator.clipboard.writeText(envContent);
+        setCopiedContent('env');
+        setTimeout(() => setCopiedContent(null), 2000);
+    };
 
     return (
         <div
@@ -46,12 +85,16 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
 
                 <div className="flex-grow flex items-end pointer-events-none">
                     <div className="flex flex-wrap gap-2 mb-2">
-                        {Object.keys(blueprint.stack).map(nodeKey => (
-                            <span key={nodeKey} className="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded-sm text-zinc-300 pointer-events-auto">
-                                <span className="text-zinc-500 mr-2">{nodeKey}</span>
-                                {blueprint.stack[nodeKey].provider}
-                            </span>
-                        ))}
+                        {Object.keys(blueprint.stack).map(nodeKey => {
+                            const p = blueprint.stack[nodeKey].provider;
+                            return (
+                                <span key={nodeKey} className={`text-xs px-2 py-1 rounded-sm border pointer-events-auto flex items-center gap-1 ${getProviderColor(p)}`}>
+                                    <KeyRound size={10} className="opacity-50" />
+                                    <span className="opacity-60 mr-1">{nodeKey}</span>
+                                    {p}
+                                </span>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -61,12 +104,26 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                 <div className="p-4 sm:p-5 border-t border-white/5 bg-black/20 pointer-events-auto flex flex-col gap-4">
                     {/* Standard Stack */}
                     <div className="space-y-3">
-                        <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Optimized Stack</h4>
+                        <div className="flex justify-between items-center mb-1">
+                            <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Optimized Stack</h4>
+                            <button
+                                onClick={handleCopyEnv}
+                                className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white bg-white/5 hover:bg-white/10 px-2 py-1 rounded-sm transition-colors border border-white/5 font-mono"
+                            >
+                                {copiedContent === 'env' ? <CheckCircle2 size={12} className="text-green-400" /> : <ClipboardCopy size={12} />}
+                                {copiedContent === 'env' ? 'Copied .env' : 'Copy Required .env'}
+                            </button>
+                        </div>
                         {Object.entries(blueprint.stack).map(([nodeKey, node]) => (
                             <div key={nodeKey} className="bg-white/5 p-3 rounded-sm border border-white/5">
                                 <div className="flex justify-between items-start mb-1">
                                     <span className="text-xs font-mono text-zinc-400">{nodeKey}</span>
-                                    <span className="text-xs font-mono text-white/80">{node.id}</span>
+                                    <div className="flex flex-col items-end gap-1">
+                                        <span className="text-xs font-mono text-white/80">{node.id}</span>
+                                        <span className={`text-[10px] px-1.5 py-0.5 rounded-sm border font-mono ${getProviderColor(node.provider)}`}>
+                                            requires: {getEnvKeyForProvider(node.provider)}
+                                        </span>
+                                    </div>
                                 </div>
                                 <p className="text-xs text-zinc-400 mt-2">{node.rationale}</p>
                             </div>

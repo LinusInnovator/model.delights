@@ -33,21 +33,57 @@ def run_live_regression(model_id, component_name):
     print(f"      [Safety Net] PASSED: {model_id} verified by {PRIMARY_JUDGE}.")
     return True
 
-def find_best_model(conn, elo_data, component_name, constraints):
+def find_best_model(conn, elo_data, component_name, constraints, available_keys):
     cursor = conn.cursor()
     
-    cursor.execute("SELECT canonical_model_variant, pricing_prompt, pricing_completion, modalities_in FROM entities WHERE status = 'active'")
+    cursor.execute("SELECT entity_id, canonical_model_variant, pricing_prompt, pricing_completion, modalities_in, modalities_out FROM entities WHERE status = 'active'")
     rows = cursor.fetchall()
     
     valid_candidates = []
     
     for row in rows:
-        model_id = row[0]
-        p_prompt = row[1]
-        p_comp = row[2]
-        mods_in = row[3] or ""
+        ent_uid = row[0]
+        model_id = row[1]
+        p_prompt = row[2]
+        p_comp = row[3]
+        mods_in = row[4] or ""
+        mods_out = row[5] or ""
         
-        # 1. Check Modalities
+        # 0. Check Provider Keys (BYOK Constraint)
+        # Find which gateways actually host this specific entity
+        cursor.execute('''
+            SELECT DISTINCT e.source_id, a.alias
+            FROM detected_events e
+            JOIN entity_aliases a ON e.entity_id = a.alias
+            WHERE a.entity_id = ?
+        ''', (ent_uid,))
+        events = cursor.fetchall()
+        
+        supported_alias = None
+        supported_gateway = None
+        
+        # We need an alias that is supported by one of our available keys
+        for event in events:
+            source = event[0]
+            alias = event[1]
+            if "openrouter" in source and "openrouter" in available_keys:
+                supported_alias = alias
+                supported_gateway = "openrouter"
+                break
+            elif "fal" in source and "fal" in available_keys:
+                supported_alias = alias
+                supported_gateway = "fal"
+                break
+            elif "bedrock" in source and "aws" in available_keys:
+                supported_alias = alias
+                supported_gateway = "aws"
+                break
+                
+        # If the user doesn't have the key to access this entity from ANY provider, we can't recommend it to them
+        if not supported_alias and available_keys:
+            continue
+            
+        # 1. Check Modalities (IN)
         modality_fail = False
         for req_mod in constraints.get("required_modalities_in", []):
             if req_mod not in mods_in:
@@ -56,21 +92,29 @@ def find_best_model(conn, elo_data, component_name, constraints):
         if modality_fail:
             continue
             
+        # 1b. Check Modalities (OUT)
+        for req_mod in constraints.get("required_modalities_out", []):
+            if req_mod not in mods_out:
+                modality_fail = True
+                break
+        if modality_fail:
+            continue
+            
         # 2. Check ELO
         elo = elo_data.get(model_id, 0)
-        if elo < constraints.get("min_elo", 0):
+        req_elo = constraints.get("min_elo", 0)
+        if req_elo > 0 and elo < req_elo:
             continue
             
         # 3. Check Budget
         blended_price = (p_prompt * 0.8 + p_comp * 0.2) * 1000000
-        if blended_price > constraints.get("max_budget_per_1m", 999.0):
+        if blended_price < 0 or blended_price > constraints.get("max_budget_per_1m", 999.0):
             continue
             
-        if blended_price == 0:
-            continue # skip undefined pricing
-            
         valid_candidates.append({
-            "model_id": model_id,
+            "model_id": model_id, # Canonical Name
+            "exact_alias": supported_alias or model_id, # The exact copy-paste string for their key
+            "gateway": supported_gateway or "managed",
             "elo": elo,
             "price": blended_price
         })
@@ -78,21 +122,13 @@ def find_best_model(conn, elo_data, component_name, constraints):
     if not valid_candidates:
         return None
         
-    # Autonomy Logic:
-    # 1. Sort by Highest Intelligence First
-    # 2. If ELO gap is minor (< 10 points), sort by Cheaper Price (Arbitrage)
-    
-    # Keep math simple: Sort by ELO descending, then Price ascending.
-    # To truly simulate the Arbitrage "Same Quality", we just pick the cheapest model among the top tier.
     valid_candidates.sort(key=lambda x: x['elo'], reverse=True)
     
     top_elo = valid_candidates[0]['elo']
-    top_tier = [c for c in valid_candidates if top_elo - c['elo'] <= 15] # Models within 15 ELO of the best
+    top_tier = [c for c in valid_candidates if top_elo - c['elo'] <= 15] 
     
-    # Find the cheapest in the top tier
     top_tier.sort(key=lambda x: x['price'])
     
-    # Regression Test Loop - Find the best model that ACTUALLY passes live tests
     for candidate in top_tier:
         target_model = candidate['model_id']
         if run_live_regression(target_model, component_name):
@@ -110,34 +146,51 @@ def execute_architect():
         status = blueprint["status"]
         print(f"[{bp_id.upper()}] Status: {status}")
         
+        # Compile Unrestrained Stack
+        print("  [Compiling Unrestrained Default Stack]")
         all_components_resolved = True
         resolved_stack = {}
-        
         for comp_name, constraints in blueprint["components"].items():
-            print(f"  -> Compiling node: {comp_name}...")
-            print(f"     Constraints: ELO > {constraints.get('min_elo')} | Budget < ${constraints.get('max_budget_per_1m')}/1M | Modalities: {constraints.get('required_modalities_in')}")
-            
-            best_model = find_best_model(conn, elo_data, comp_name, constraints)
-            
+            best_model = find_best_model(conn, elo_data, comp_name, constraints, ["openrouter", "fal", "aws", "cartesia", "elevenlabs"])
             if not best_model:
-                print(f"     [X] NO MODEL EXISTS: Market cannot fulfill constraints.")
                 all_components_resolved = False
                 break
-                
-            print(f"     [V] SELECTED: {best_model['model_id']} | ELO: {best_model['elo']} | Cost: ${best_model['price']:.2f}/1M")
-            resolved_stack[comp_name] = best_model
+            resolved_stack[comp_name] = {"id": best_model['exact_alias'], "provider": best_model['gateway']}
             
+        if all_components_resolved:
+            blueprint["stack"] = resolved_stack
+            
+        # Compile OpenRouter-Only Stack
+        print("  [Compiling OpenRouter-Only Stack]")
+        or_resolved = True
+        or_stack = {}
+        for comp_name, constraints in blueprint["components"].items():
+            best_model = find_best_model(conn, elo_data, comp_name, constraints, ["openrouter"])
+            if not best_model:
+                or_resolved = False
+                break
+            or_stack[comp_name] = {"id": best_model['exact_alias'], "provider": best_model['gateway']}
+            
+        if or_resolved:
+            blueprint["stack_openrouter_only"] = or_stack
+            print("  [V] OpenRouter-Only stack generated.")
+        else:
+            print("  [X] OpenRouter-Only stack failed (Missing required modality exclusively on OR).")
+        
         print("")
         
-        # Autonomous Decisions
+        # Autonomous Decisions (Logging)
         if status == "dormant" and all_components_resolved:
             print(f"  [ALERT] BREAKING: Market constraint unlocked! Autonomously WAKING blueprint: {blueprint['name']}")
-        elif status == "active" and all_components_resolved:
-            # Check for arbitrage
-            total_price = sum([m['price'] for m in resolved_stack.values()])
-            print(f"  [OPTIMIZED] Stack resolved successfully. Total computed blended cost: ${total_price:.2f}/1M tokens.\n")
+            blueprint["status"] = "active"
+
+    # Save to disk
+    with open(SCHEMA_PATH, 'w') as f:
+        json.dump(schemas, f, indent=4)
+        print(f"[Autonomous Architect] Resolved architectures written back to {SCHEMA_PATH}")
             
     conn.close()
 
 if __name__ == "__main__":
     execute_architect()
+
