@@ -1,0 +1,48 @@
+name: Intelligence Engine Ingestion Matrix
+
+on:
+  schedule:
+    # Run every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    # Allow manual triggering for testing
+
+jobs:
+  run-ingestion-matrix:
+    runs-on: ubuntu-latest
+    
+    # Needs permissions to commit back to the repo
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run $0.00 Ingestion Scripts
+        run: |
+          # execution/ingest_all.py internally runs the P0/P1 scrapers sequentially
+          python execution/ingest_all.py
+        env:
+          # Include any necessary API keys (Anthropic, OpenRouter) stored as GitHub Secrets
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit Updated Intelligence DB
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if the SQLite database was modified by the scrapers
+          if git diff --quiet execution/intelligence.db; then
+            echo "No changes detected in intelligence.db. Exiting."
+          else
+            echo "Changes detected! Committing new Intelligence Graph state."
+            git add execution/intelligence.db
+            git commit -m "chore(engine): update intelligence.db from automated P0/P1 sweep"
+            git push
+          fi
