@@ -9,7 +9,10 @@ scripts = [
     "intelligence_ingest.py", # OpenRouter P0
     "fal_ingest.py",          # Fal.ai P0
     "anthropic_ingest.py",    # Anthropic Native P0
-    "hf_rss_ingest.py"        # arXiv P1 Emergence
+    "bedrock_ingest.py",      # AWS Bedrock P1
+    "hf_rss_ingest.py",       # arXiv P1 Emergence
+    "news_ingest.py",         # Google AI RSS P3
+    "canonical_merger.py"     # LLM Identity Brain
 ]
 
 def run_script(script_name):
