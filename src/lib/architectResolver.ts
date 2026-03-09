@@ -27,15 +27,22 @@ export function resolveCustomBlueprint(intentName: string, components: Record<st
     let totalCompletionCost = 0;
 
     for (const [compName, constraints] of Object.entries(components)) {
-        const bestModel = findBestModel(compName, constraints, allCloudKeys);
-        if (bestModel) {
+        const bestModels = findBestModels(compName, constraints, allCloudKeys);
+        if (bestModels && bestModels.length > 0) {
+            const primary = bestModels[0];
+            const fallbacks = bestModels.slice(1).map(m => ({
+                id: m.exact_alias,
+                provider: m.gateway
+            }));
+
             resolvedStack[compName] = {
-                id: bestModel.exact_alias,
-                provider: bestModel.gateway,
+                id: primary.exact_alias,
+                provider: primary.gateway,
+                fallbacks: fallbacks.length > 0 ? fallbacks : undefined,
                 rationale: constraints.description || ""
             };
-            totalPromptCost += bestModel.prompt_cost;
-            totalCompletionCost += bestModel.completion_cost;
+            totalPromptCost += primary.prompt_cost;
+            totalCompletionCost += primary.completion_cost;
         } else {
             throw new Error(`Failed to resolve component constraints for: ${compName}`);
         }
@@ -52,7 +59,7 @@ export function resolveCustomBlueprint(intentName: string, components: Record<st
     };
 }
 
-function findBestModel(componentName: string, constraints: any, availableKeys: string[]) {
+function findBestModels(componentName: string, constraints: any, availableKeys: string[]) {
     const validCandidates: any[] = [];
 
     for (const row of intelligenceDump.entities) {
@@ -139,13 +146,18 @@ function findBestModel(componentName: string, constraints: any, availableKeys: s
     // 1. Filter models strictly by budget constraint
     const withinBudget = validCandidates.filter(c => c.total_cost_metric <= maxBudget);
 
+    let finalList = [];
+
     if (withinBudget.length > 0) {
         // 2. If models fit the budget, sort them strictly by ELO descending (smartest first)
         withinBudget.sort((a, b) => b.elo - a.elo);
-        return withinBudget[0];
+        finalList = withinBudget;
+    } else {
+        // 3. Fallback: If NO models fit the budget, sort by absolute cheapest available
+        validCandidates.sort((a, b) => a.total_cost_metric - b.total_cost_metric);
+        finalList = validCandidates;
     }
 
-    // 3. Fallback: If NO models fit the budget, find the absolute cheapest model available
-    validCandidates.sort((a, b) => a.total_cost_metric - b.total_cost_metric);
-    return validCandidates[0];
+    // Return the top 3 (1 primary, up to 2 fallbacks)
+    return finalList.slice(0, 3);
 }
