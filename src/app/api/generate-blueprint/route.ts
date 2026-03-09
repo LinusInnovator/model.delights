@@ -90,6 +90,7 @@ export async function POST(req: NextRequest) {
                     
                     Deconstruct their idea into the absolute minimal set of functional AI components. Do not over-complicate.
                     Most startups only need 1 (a unified core_engine) or 2 components (a cheap router/extractor -> an expensive reasoning model).
+                    HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out' (e.g., 'image', 'audio', 'video').
                     Define strict mathematical constraints for each component (minimum ELO score, budget limits, modalities) that reflect the exact requirements.
                     For example, if they mention 'real-time voice', require 'audio' modality_in and a massive max_budget to allow for zero-latency models. If they mention 'categorizing billions of tweets', set a very high ELO requirement but a massive penalty for cost (max_budget_per_1m = 0.1).`,
             });
