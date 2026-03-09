@@ -134,14 +134,18 @@ function findBestModel(componentName: string, constraints: any, availableKeys: s
         return null;
     }
 
-    validCandidates.sort((a, b) => a.total_cost_metric - b.total_cost_metric);
     const maxBudget = constraints.max_budget_per_1m || 999999;
 
-    for (const candidate of validCandidates) {
-        if (candidate.total_cost_metric <= maxBudget) {
-            return candidate;
-        }
+    // 1. Filter models strictly by budget constraint
+    const withinBudget = validCandidates.filter(c => c.total_cost_metric <= maxBudget);
+
+    if (withinBudget.length > 0) {
+        // 2. If models fit the budget, sort them strictly by ELO descending (smartest first)
+        withinBudget.sort((a, b) => b.elo - a.elo);
+        return withinBudget[0];
     }
 
+    // 3. Fallback: If NO models fit the budget, find the absolute cheapest model available
+    validCandidates.sort((a, b) => a.total_cost_metric - b.total_cost_metric);
     return validCandidates[0];
 }

@@ -94,6 +94,7 @@ export async function POST(req: NextRequest) {
                     Most startups only need 1 (a unified core_engine) or 2 components (a cheap router/extractor -> an expensive reasoning model).
                     HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out' (e.g., 'image', 'audio', 'video').
                     Define strict mathematical constraints for each component (minimum ELO score, budget limits, modalities) that reflect the exact requirements.
+                    CRITICAL: If a component requires deep reasoning, complex analytics, or acts as the main "insight engine", you MUST set a high max_budget_per_1m (e.g., 15.0) and high min_elo (e.g., 1250+) to ensure it routes to a frontier model like Claude 3.5 or GPT-4o. Do not use cheap low-tier thresholds for critical intellectual nodes.
                     If the tier is MEGA, the architecture must represent a distributed enterprise system, citing specific required backend workers or pipelines in the descriptions.`,
             });
 
