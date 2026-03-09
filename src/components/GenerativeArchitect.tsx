@@ -13,6 +13,7 @@ export default function GenerativeArchitect() {
     const [loadingStep, setLoadingStep] = useState(0);
     const [isFinalizing, setIsFinalizing] = useState(false);
     const [result, setResult] = useState<any>(null);
+    const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -46,6 +47,7 @@ export default function GenerativeArchitect() {
         setIsGenerating(true);
         setError(null);
         setResult(null);
+        setTier(null);
         setLoadingStep(0);
         setIsFinalizing(false);
 
@@ -69,6 +71,7 @@ export default function GenerativeArchitect() {
             await new Promise(resolve => setTimeout(resolve, 1500));
 
             setResult(data.blueprint);
+            setTier(data.tier || "SIMPLE");
         } catch (err: any) {
             setError(err.message || "An unexpected error occurred.");
         } finally {
@@ -206,21 +209,48 @@ export default function GenerativeArchitect() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col items-center gap-4 bg-zinc-900/80 p-6 sm:p-8 rounded-2xl border border-cyan-500/20 w-full relative overflow-hidden mb-8 shadow-[0_0_30px_rgba(0,229,255,0.05)] text-center group transition-colors hover:bg-black/60">
-                                <Link href="/super-architect" className="absolute inset-0 z-20"></Link>
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[60px] z-0 pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
-                                <h3 className="text-xl font-bold relative z-10 leading-tight flex items-center gap-2 group-hover:-translate-y-1 transition-transform">
-                                    <Code className="text-cyan-400" weight="bold" /> Need the <span className="text-cyan-400">Golden Boilerplate</span> Codebase?
-                                </h3>
-                                <p className="text-zinc-400 text-sm max-w-md relative z-10 group-hover:-translate-y-1 transition-transform">
-                                    Don't want to wire the APIs manually? Get a fully-configured Next.js App Router Next.js codebase with this exact architecture pre-wired out of the box.
-                                </p>
-                                <div className="relative z-10 w-full flex justify-center mt-2 group-hover:scale-105 transition-transform duration-300">
-                                    <span className="text-cyan-400 font-bold uppercase tracking-widest text-xs flex items-center">
-                                        Open CTO Factory <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                                    </span>
+                            {tier === 'MEGA' ? (
+                                <div className="flex flex-col items-center gap-4 bg-gradient-to-br from-black to-zinc-900 p-8 sm:p-10 rounded-2xl border border-orange-500/30 w-full relative overflow-hidden mb-8 shadow-[0_0_40px_rgba(249,115,22,0.1)] text-center group transition-colors">
+                                    <div className="absolute top-0 right-0 w-40 h-40 bg-orange-500/10 rounded-full blur-[80px] z-0 pointer-events-none"></div>
+                                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest mb-2 shadow-[0_0_10px_rgba(249,115,22,0.2)]">
+                                        <span>Mega-Scale System Detected</span>
+                                    </div>
+                                    <h3 className="text-2xl font-bold relative z-10 leading-tight">
+                                        This Architecture Requires <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Custom Infra</span>.
+                                    </h3>
+                                    <p className="text-zinc-400 text-sm max-w-xl mx-auto relative z-10 leading-relaxed">
+                                        Your specifications outline an enterprise-scale distributed system. A standard Next.js monolithic boilerplate will severely bottleneck your workload.
+                                    </p>
+                                    <p className="text-zinc-300 text-sm max-w-xl mx-auto relative z-10 mb-2">
+                                        Let's discuss proper event-buses, vector scaling, and multi-tenant isolation.
+                                    </p>
+
+                                    <div className="relative z-10 w-full max-w-sm mt-4">
+                                        <button className="w-full bg-white hover:bg-zinc-200 text-black font-bold py-4 rounded-xl flex items-center justify-center transition-colors">
+                                            Book Fractional CTO Deep Dive ($499)
+                                        </button>
+                                        <span className="block text-center text-xs text-zinc-500 mt-3 font-mono">1 Hour Consultation • Capacity Strictly Limited</span>
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className="flex flex-col items-center gap-4 bg-zinc-900/80 p-6 sm:p-8 rounded-2xl border border-cyan-500/20 w-full relative overflow-hidden mb-8 shadow-[0_0_30px_rgba(0,229,255,0.05)] text-center group transition-colors hover:bg-black/60">
+                                    <Link href="/super-architect" className="absolute inset-0 z-20"></Link>
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[60px] z-0 pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
+                                    <h3 className="text-xl font-bold relative z-10 leading-tight flex items-center gap-2 group-hover:-translate-y-1 transition-transform">
+                                        <Code className="text-cyan-400" weight="bold" /> Need the <span className="text-cyan-400">Golden Boilerplate</span> Codebase?
+                                    </h3>
+                                    <p className="text-zinc-400 text-sm max-w-md relative z-10 group-hover:-translate-y-1 transition-transform">
+                                        {tier === 'MEDIUM'
+                                            ? "The Golden Boilerplate provides the entire API orchestration layer for this system. You will only need to wire your custom backend and UI components yourself."
+                                            : "Don't want to wire the APIs manually? Get a fully-configured Next.js App Router codebase with this exact architecture pre-wired out of the box."}
+                                    </p>
+                                    <div className="relative z-10 w-full flex justify-center mt-2 group-hover:scale-105 transition-transform duration-300">
+                                        <span className="text-cyan-400 font-bold uppercase tracking-widest text-xs flex items-center">
+                                            Open CTO Factory <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="flex flex-col items-center gap-4 bg-zinc-900/50 p-6 sm:p-8 rounded-2xl border border-white/10 w-full relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-[80px] z-0 pointer-events-none"></div>
