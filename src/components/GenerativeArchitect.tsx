@@ -205,10 +205,26 @@ export default function GenerativeArchitect() {
                                 </div>
                             </div>
 
+                            <div className="flex flex-col items-center gap-4 bg-zinc-900/80 p-6 sm:p-8 rounded-2xl border border-cyan-500/20 w-full relative overflow-hidden mb-8 shadow-[0_0_30px_rgba(0,229,255,0.05)]">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[60px] z-0 pointer-events-none"></div>
+                                <h3 className="text-xl font-bold relative z-10 leading-tight text-center">
+                                    Get the <span className="text-cyan-400">Golden Boilerplate</span> Codebase
+                                </h3>
+                                <p className="text-zinc-400 text-sm text-center max-w-md relative z-10">
+                                    Download a fully-configured Next.js App Router codebase with this exact architecture pre-wired. Includes the Vercel AI SDK paths, Next.js API routes, and Tailwind CSS configured right out of the box.
+                                </p>
+                                <div className="relative z-10 w-full flex justify-center gap-4 mt-2">
+                                    <DownloadBlueprintButton blueprint={result} />
+                                </div>
+                                <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-10">
+                                    One-time $49 Download
+                                </span>
+                            </div>
+
                             <div className="flex flex-col items-center gap-4 bg-zinc-900/50 p-6 sm:p-8 rounded-2xl border border-white/10 w-full relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-[80px] z-0 pointer-events-none"></div>
-                                <h3 className="text-xl font-bold relative z-10 z-[1] leading-tight text-center">
-                                    Instantly Deploy this <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Zero-Latency Architecture</span>
+                                <h3 className="text-xl font-bold relative z-10 leading-tight text-center">
+                                    Upgrade to <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Zero-Latency Global Routing</span>
                                 </h3>
                                 <p className="text-zinc-400 text-sm text-center max-w-md relative z-[1]">
                                     Stop duct-taping APIs together. Deploy the 0ms Intelligence Engine to automatically handle routing, fallbacks, and multi-provider billing for this exact stack.
@@ -217,12 +233,9 @@ export default function GenerativeArchitect() {
                                 <div className="relative z-[1] mt-2 mb-2 hover:scale-105 transition-transform duration-300">
                                     <CheckoutButton />
                                 </div>
-                                <div className="relative z-[1] mt-2 w-full flex justify-center">
-                                    <DownloadBlueprintButton blueprint={result} />
-                                </div>
 
                                 <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-[1] mt-4">
-                                    Custom Node.js Array Included
+                                    Requires Universal API Key
                                 </span>
                             </div>
                         </div>
