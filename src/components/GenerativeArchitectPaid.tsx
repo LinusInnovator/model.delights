@@ -5,6 +5,7 @@ import { Sparkles, Terminal, ArrowRight, CheckCircle2, Loader2, Circle } from "l
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
 import DownloadBlueprintButton from "./DownloadBlueprintButton";
+import TerminalSizzle from "./TerminalSizzle";
 
 export default function GenerativeArchitectPaid() {
     const [query, setQuery] = useState("");
@@ -15,28 +16,10 @@ export default function GenerativeArchitectPaid() {
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const loadingPhrases = [
-        "Deconstructing intent semantics...",
-        "Topological mapping of available compute...",
-        "Validating heuristic safety guardrails...",
-        "Initializing cross-regional ELO weighting...",
-        "Injecting dynamic price-arbitrage logic...",
-        "Constructing deterministic fallback mesh...",
-        "Securing zero-latency protocol channels...",
-        "Compiling final routing matrix..."
-    ];
-
     useEffect(() => {
         if (!isGenerating) {
             setLoadingStep(0);
-            return;
         }
-
-        const interval = setInterval(() => {
-            setLoadingStep((prev) => (prev < loadingPhrases.length - 1 ? prev + 1 : prev));
-        }, 700);
-
-        return () => clearInterval(interval);
     }, [isGenerating]);
 
     const handleGenerate = async () => {
@@ -58,8 +41,8 @@ export default function GenerativeArchitectPaid() {
                 return res.json();
             });
 
-            // Enforce a minimum animation duration of ~5.6 seconds (8 phrases * 700ms)
-            const minTimePromise = new Promise(resolve => setTimeout(resolve, loadingPhrases.length * 700));
+            // Enforce a minimum animation duration of ~6.5 seconds to match the terminal sizzle
+            const minTimePromise = new Promise(resolve => setTimeout(resolve, 6700));
 
             const [data] = await Promise.all([apiPromise, minTimePromise]);
 
@@ -153,18 +136,12 @@ export default function GenerativeArchitectPaid() {
                     {(isGenerating || isFinalizing) && (
                         <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500">
                             {isFinalizing ? (
-                                <div className="flex items-center gap-3 text-emerald-400 font-mono text-sm sm:text-base uppercase tracking-widest animate-pulse transition-all duration-500" style={{ animation: 'fadeIn 0.5s ease backwards' }}>
-                                    <CheckCircle2 size={24} className="drop-shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
-                                    <span className="font-bold">Architecture Lock-in Confirmed</span>
+                                <div className="flex flex-col items-center w-full">
+                                    <TerminalSizzle isComplete={true} />
                                 </div>
                             ) : (
-                                <div className="flex items-center gap-4 text-cyan-400 font-mono text-xs sm:text-sm uppercase tracking-widest w-full justify-center">
-                                    <Loader2 size={20} className="animate-spin text-cyan-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] min-w-[20px]" />
-                                    <div className="relative h-6 flex items-center w-full max-w-md">
-                                        <span key={loadingStep} className="absolute inset-x-0 text-center animate-fade-in-up drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] text-zinc-200">
-                                            {loadingPhrases[loadingStep]}
-                                        </span>
-                                    </div>
+                                <div className="flex flex-col items-center w-full">
+                                    <TerminalSizzle isComplete={false} />
                                 </div>
                             )}
                         </div>
