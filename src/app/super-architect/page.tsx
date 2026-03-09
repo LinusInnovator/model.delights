@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import GenerativeArchitectPaid from '@/components/GenerativeArchitectPaid';
-import { Sparkle, Terminal, Code, Lightning } from '@phosphor-icons/react';
+import { Sparkle, Terminal, Code, Lightning } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata: Metadata = {
     title: 'The Super-Architect Factory | model.delights.pro',

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { XCircle } from '@phosphor-icons/react';
+import { XCircle } from '@phosphor-icons/react/dist/ssr';
 
 export default function CancelPage() {
     return (
