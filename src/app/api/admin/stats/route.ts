@@ -10,8 +10,13 @@ export async function GET() {
             return NextResponse.json({ stats: [] });
         }
 
-        const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
-        const db = JSON.parse(dbContent);
+        let db = { promotions: [], events: [] };
+        try {
+            const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
+            db = JSON.parse(dbContent);
+        } catch (e) {
+            console.warn('[Admin API] Could not read promo_db.json. Proceeding with empty stats matrix.');
+        }
 
         const promos = db.promotions || [];
         const events = db.events || [];

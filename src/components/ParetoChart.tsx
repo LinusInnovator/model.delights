@@ -182,7 +182,7 @@ export default function ParetoChart({ models, isExpanded, onToggleExpand }: Pare
             </div>
 
             {isExpanded && (
-                <div style={{ width: '100%', height: '400px', position: 'relative' }}>
+                <div style={{ width: '100%', height: '480px', position: 'relative' }}>
                     <Scatter ref={chartRef} data={chartData} options={chartOptions} />
                 </div>
             )}

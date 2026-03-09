@@ -109,6 +109,59 @@
                     "provider": "fal"
                 }
             }
+        },
+        {
+            "id": "hollywood_pitch_engine",
+            "name": "Hollywood Pitch Engine",
+            "status": "active",
+            "description": "Studio-grade concept testing engine. Requires ultra-high intelligence for script synthesis and bleeding-edge cinematic video generation.",
+            "components": {
+                "script_ideation": {
+                    "description": "Synthesizes pitches and tests creative boundaries.",
+                    "min_elo": 1250,
+                    "max_budget_per_1m": 10.0,
+                    "required_modalities_in": [
+                        "text"
+                    ],
+                    "required_modalities_out": [
+                        "text"
+                    ]
+                },
+                "storyboard_concept_art": {
+                    "description": "Generates keyframes before animation.",
+                    "min_elo": 0,
+                    "max_budget_per_1m": 5.0,
+                    "required_modalities_out": [
+                        "image"
+                    ]
+                },
+                "cinematic_video_generation": {
+                    "description": "Translates keyframes into cohesive cinematic video. Needs high semantic understanding.",
+                    "min_elo": 0,
+                    "max_budget_per_1m": 15.0,
+                    "required_modalities_in": [
+                        "image",
+                        "text"
+                    ],
+                    "required_modalities_out": [
+                        "video"
+                    ]
+                }
+            },
+            "stack": {
+                "script_ideation": {
+                    "id": "google/gemini-3.1-pro-preview",
+                    "provider": "openrouter"
+                },
+                "storyboard_concept_art": {
+                    "id": "fal-ai/nano-banana-2/edit",
+                    "provider": "fal"
+                },
+                "cinematic_video_generation": {
+                    "id": "ep-20240521121541-seedance",
+                    "provider": "volcano"
+                }
+            }
         }
     ]
 }

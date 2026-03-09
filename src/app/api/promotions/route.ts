@@ -6,8 +6,14 @@ const DB_PATH = path.join(process.cwd(), 'promo_db.json');
 
 export async function GET() {
     try {
-        const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
-        const db = JSON.parse(dbContent);
+        let db = { promotions: [], events: [] as any[] };
+        try {
+            const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
+            db = JSON.parse(dbContent);
+        } catch (e) {
+            console.warn('[Promotions API] Read failure on promo_db.json. Rotation aborted.');
+            return NextResponse.json({ promo: null });
+        }
 
         const activePromos = db.promotions.filter((p: any) => p.status === 'active');
         if (activePromos.length === 0) {

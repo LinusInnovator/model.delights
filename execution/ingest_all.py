@@ -12,6 +12,8 @@ scripts = [
     "bedrock_ingest.py",      # AWS Bedrock P1
     "hf_rss_ingest.py",       # arXiv P1 Emergence
     "news_ingest.py",         # Google AI RSS P3
+    "volcano_ingest.py",      # Volcano API P0
+    "global_ecosystem_ingest.py", # Global Infrastructure Metarouter P0
     "canonical_merger.py"     # LLM Identity Brain
 ]
 

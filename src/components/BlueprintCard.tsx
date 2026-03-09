@@ -30,17 +30,37 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
         if (p.includes('openrouter')) return 'OPENROUTER_API_KEY';
         if (p.includes('fal')) return 'FAL_KEY';
         if (p.includes('cartesia')) return 'CARTESIA_API_KEY';
+        if (p.includes('volcano')) return 'VOLCANO_API_KEY';
         if (p.includes('elevenlabs')) return 'ELEVENLABS_API_KEY';
         if (p.includes('aws') || p.includes('bedrock')) return 'AWS_ACCESS_KEY_ID';
-        return `${provider.toUpperCase()}_API_KEY`;
+
+        // Handle fully dynamic providers discovered via the Metarouter
+        let cleanProvider = provider.toUpperCase().replace('_AI', '').replace('-', '_');
+        return `${cleanProvider}_API_KEY`;
     };
 
     const getProviderColor = (provider: string) => {
         const p = provider.toLowerCase();
         if (p.includes('openrouter')) return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
         if (p.includes('fal')) return 'bg-orange-500/20 text-orange-300 border-orange-500/30';
+        if (p.includes('volcano')) return 'bg-zinc-800 text-zinc-300 border-zinc-700/50';
         if (p.includes('cartesia') || p.includes('eleven')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
         return 'bg-zinc-500/20 text-zinc-300 border-zinc-500/30';
+    };
+
+    const formatProviderName = (provider: string) => {
+        const p = provider.toLowerCase();
+        if (p === 'aws' || p.includes('bedrock')) return 'AWS Bedrock';
+        if (p === 'openrouter') return 'OpenRouter';
+        if (p === 'elevenlabs') return 'ElevenLabs';
+        if (p === 'fal') return 'Fal.ai';
+        if (p === 'volcano') return 'Volcano Engine';
+
+        // Dynamically style generic names, e.g. "fireworks_ai" -> "Fireworks Ai", "together_ai" -> "Together Ai"
+        return p
+            .replace(/_/g, ' ')
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, c => c.toUpperCase());
     };
 
     const handleCopyEnv = (e: React.MouseEvent) => {
@@ -91,7 +111,7 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                                 <span key={nodeKey} className={`text-xs px-2 py-1 rounded-sm border pointer-events-auto flex items-center gap-1 ${getProviderColor(p)}`}>
                                     <KeyRound size={10} className="opacity-50" />
                                     <span className="opacity-60 mr-1">{nodeKey}</span>
-                                    {p}
+                                    {formatProviderName(p)}
                                 </span>
                             );
                         })}

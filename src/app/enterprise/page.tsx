@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import CheckoutButton from './CheckoutButton';
 
 export const metadata = {
     title: 'Enterprise AI Routing | model.delights.pro',
@@ -41,10 +42,8 @@ export default function EnterprisePage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-24">
-                    <button className="bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-zinc-200 transition-colors shadow-[0_0_40px_rgba(255,255,255,0.2)]">
-                        Start Routing for $99/mo
-                    </button>
-                    <a href="#integration" className="px-8 py-4 rounded-full font-bold text-lg border border-white/10 hover:bg-white/5 transition-colors">
+                    <CheckoutButton />
+                    <a href="#integration" className="px-8 py-4 rounded-full font-bold text-lg border border-white/10 hover:bg-white/5 transition-colors flex items-center justify-center">
                         Read the Docs
                     </a>
                 </div>

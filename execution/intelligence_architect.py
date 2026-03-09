@@ -52,9 +52,9 @@ def find_best_model(conn, elo_data, component_name, constraints, available_keys)
         # 0. Check Provider Keys (BYOK Constraint)
         # Find which gateways actually host this specific entity
         cursor.execute('''
-            SELECT DISTINCT e.source_id, a.alias
+            SELECT DISTINCT e.source_id, a.alias, e.provider
             FROM detected_events e
-            JOIN entity_aliases a ON e.entity_id = a.alias
+            JOIN entity_aliases a ON (e.entity_id = a.entity_id OR e.entity_id = a.alias)
             WHERE a.entity_id = ?
         ''', (ent_uid,))
         events = cursor.fetchall()
@@ -66,6 +66,7 @@ def find_best_model(conn, elo_data, component_name, constraints, available_keys)
         for event in events:
             source = event[0]
             alias = event[1]
+            provider = event[2]
             if "openrouter" in source and "openrouter" in available_keys:
                 supported_alias = alias
                 supported_gateway = "openrouter"
@@ -78,6 +79,14 @@ def find_best_model(conn, elo_data, component_name, constraints, available_keys)
                 supported_alias = alias
                 supported_gateway = "aws"
                 break
+            elif "volcano" in source and "volcano" in available_keys:
+                supported_alias = alias
+                supported_gateway = "volcano"
+                break
+            elif "litellm_global_map" in source and provider in available_keys:
+                supported_alias = alias
+                supported_gateway = provider
+                break
                 
         # If the user doesn't have the key to access this entity from ANY provider, we can't recommend it to them
         if not supported_alias and available_keys:
@@ -85,8 +94,11 @@ def find_best_model(conn, elo_data, component_name, constraints, available_keys)
             
         # 1. Check Modalities (IN)
         modality_fail = False
+        mods_in_str = mods_in or ""
+        mods_out_str = mods_out or ""
+        
         for req_mod in constraints.get("required_modalities_in", []):
-            if req_mod not in mods_in:
+            if req_mod not in mods_in_str:
                 modality_fail = True
                 break
         if modality_fail:
@@ -94,7 +106,7 @@ def find_best_model(conn, elo_data, component_name, constraints, available_keys)
             
         # 1b. Check Modalities (OUT)
         for req_mod in constraints.get("required_modalities_out", []):
-            if req_mod not in mods_out:
+            if req_mod not in mods_out_str:
                 modality_fail = True
                 break
         if modality_fail:
@@ -137,8 +149,15 @@ def find_best_model(conn, elo_data, component_name, constraints, available_keys)
     return None
 
 def execute_architect():
-    print("[Autonomous Architect] Booting Intelligence Engine...\n")
+    print("\n[Autonomous Architect] Booting Intelligence Engine...\n")
     conn = sqlite3.connect(DB_PATH)
+    
+    # Establish complete ecosystem keys array
+    cursor = conn.cursor()
+    cursor.execute("SELECT DISTINCT provider FROM detected_events WHERE source_id = 'litellm_global_map' AND provider IS NOT NULL")
+    global_providers = [row[0] for row in cursor.fetchall()]
+    all_cloud_keys = ["openrouter", "fal", "aws", "cartesia", "elevenlabs", "volcano"] + global_providers
+    
     elo_data, schemas = load_data()
     
     for blueprint in schemas.get("blueprints", []):
@@ -151,7 +170,7 @@ def execute_architect():
         all_components_resolved = True
         resolved_stack = {}
         for comp_name, constraints in blueprint["components"].items():
-            best_model = find_best_model(conn, elo_data, comp_name, constraints, ["openrouter", "fal", "aws", "cartesia", "elevenlabs"])
+            best_model = find_best_model(conn, elo_data, comp_name, constraints, all_cloud_keys)
             if not best_model:
                 all_components_resolved = False
                 break

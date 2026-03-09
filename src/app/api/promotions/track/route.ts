@@ -18,8 +18,13 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Invalid eventType' }, { status: 400 });
         }
 
-        const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
-        const db = JSON.parse(dbContent);
+        let db = { promotions: [], events: [] as any[] };
+        try {
+            const dbContent = fs.readFileSync(DB_PATH, 'utf-8');
+            db = JSON.parse(dbContent);
+        } catch (e) {
+            console.warn("[Promotions API] Could not read promo_db.json, using fallback.");
+        }
 
         const newEvent = {
             id: crypto.randomUUID(),
@@ -30,7 +35,11 @@ export async function POST(request: Request) {
 
         db.events.push(newEvent);
 
-        fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf-8');
+        try {
+            fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf-8');
+        } catch (e) {
+            console.warn("[Promotions API] Vercel read-only filesystem: Telemetry persistence skipped.");
+        }
 
         return NextResponse.json({ success: true, event: newEvent });
     } catch (error) {

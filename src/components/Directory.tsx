@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import ModelCard from './ModelCard';
 import PromoCard from './PromoCard';
 import WildcardCard from './WildcardCard';
+import GenerativeArchitect from './GenerativeArchitect';
 
 const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
@@ -302,6 +303,10 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div style={{ width: '100%', marginBottom: '40px' }}>
+                <GenerativeArchitect />
             </div>
 
             <Filters

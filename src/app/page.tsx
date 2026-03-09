@@ -8,7 +8,7 @@ export default async function Home() {
   const initialData = await fetchModels();
 
   return (
-    <main>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
       <Directory initialData={initialData} />
     </main>
   );

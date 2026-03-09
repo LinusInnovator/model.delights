@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Script from "next/script";
 import ComparisonChart from "@/components/ComparisonChartWrapper";
+import ArbitrageUpsell from "@/components/ArbitrageUpsell";
 
 // ISR config: cache these pages for 5 mins
 export const revalidate = 300;
@@ -131,6 +132,16 @@ export default async function VsPage(props: { params: Promise<{ modelA: string; 
                     For tasks involving complex logic, coding, or instruction-following, developers might prefer {smarterModel.name}{smarterModel.pricing_per_1m.prompt + smarterModel.pricing_per_1m.completion > 0 ? ", provided their budget allows for the API burn rate." : ", which is especially appealing given its zero-cost tier."}
                 </p>
             </div>
+
+            {/* The Dynamic Stripe Upsell Hook */}
+            {cheaperPercentage >= 10 ? (
+                <ArbitrageUpsell
+                    modelAName={cheaperModel.name}
+                    modelBName={expensiveModel.name}
+                    cheaperPercentage={cheaperPercentage}
+                    worseModelName={expensiveModel.name}
+                />
+            ) : null}
 
             {/* 2. Visual Scatter Plot specifically highlighting these two */}
             <ComparisonChart modelA={modelA} modelB={modelB} allModels={models} />
