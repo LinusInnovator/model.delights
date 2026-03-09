@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { DownloadCloud, Loader2 } from 'lucide-react';
+import { CloudArrowDown, Spinner } from '@phosphor-icons/react';
 
 interface DownloadBlueprintButtonProps {
     blueprint: any;
@@ -66,12 +66,12 @@ export default function DownloadBlueprintButton({ blueprint }: DownloadBlueprint
         >
             {isDownloading ? (
                 <>
-                    <Loader2 size={20} className="animate-spin text-black" />
+                    <Spinner size={20} className="animate-spin text-black" weight="bold" />
                     Packaging Codebase...
                 </>
             ) : (
                 <>
-                    <DownloadCloud size={20} />
+                    <CloudArrowDown size={20} weight="bold" />
                     Download $49 Architecture
                 </>
             )}

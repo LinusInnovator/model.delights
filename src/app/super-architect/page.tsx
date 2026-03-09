@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import GenerativeArchitectPaid from '@/components/GenerativeArchitectPaid';
-import { Sparkles, Terminal, Code2, Zap } from 'lucide-react';
+import { Sparkle, Terminal, Code, Lightning } from '@phosphor-icons/react';
 
 export const metadata: Metadata = {
     title: 'The Super-Architect Factory | model.delights.pro',
@@ -14,7 +14,7 @@ export default function SuperArchitectPage() {
             <main className="container mx-auto px-4 py-16 xl:py-24 max-w-7xl">
                 <div className="w-full flex flex-col items-center justify-center text-center mb-16 animate-fade-in-up">
                     <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold uppercase tracking-widest mb-8 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
-                        <Code2 size={16} />
+                        <Code size={16} />
                         <span>The CTO Factory</span>
                     </div>
 
@@ -27,17 +27,17 @@ export default function SuperArchitectPage() {
                         <strong className="text-white">Next.js 14 App Router</strong> codebase for you to download.
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl text-left md:items-stretch">
                         <div className="bg-zinc-900/50 border border-white/5 p-6 rounded-2xl flex flex-col gap-3">
                             <div className="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center mb-2">
-                                <Sparkles className="text-cyan-400" size={24} />
+                                <Sparkle className="text-cyan-400" size={24} />
                             </div>
                             <h3 className="font-bold text-lg text-white">Mathematically Perfect</h3>
                             <p className="text-zinc-400 text-sm">Bypasses expensive generalized models. Automatically routes isolated tasks to the highest ELO specialized models globally.</p>
                         </div>
                         <div className="bg-zinc-900/50 border border-white/5 p-6 rounded-2xl flex flex-col gap-3">
                             <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mb-2">
-                                <Zap className="text-purple-400" size={24} />
+                                <Lightning className="text-purple-400" size={24} />
                             </div>
                             <h3 className="font-bold text-lg text-white">Pre-Configured Setup</h3>
                             <p className="text-zinc-400 text-sm">Download a pristine Next.js repository with Tailwind CSS, Vercel AI SDK, and your custom routing constraints injected via AST.</p>

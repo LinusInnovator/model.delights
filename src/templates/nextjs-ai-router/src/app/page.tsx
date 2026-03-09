@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from 'ai/react';
-import { Send, Bot, User } from 'lucide-react';
+import { PaperPlaneRight, Robot, User } from '@phosphor-icons/react';
 import { FormEvent } from 'react';
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
                 <div className="flex-1 flex flex-col gap-6 overflow-y-auto">
                     {messages.length === 0 && (
                         <div className="flex flex-col items-center justify-center h-full text-zinc-500 mt-20">
-                            <Bot size={48} className="mb-4 opacity-20" />
+                            <Robot size={48} className="mb-4 opacity-20" />
                             <p>Start a conversation to test your generated routing pipeline.</p>
                         </div>
                     )}
@@ -39,12 +39,12 @@ export default function Home() {
                     {messages.map((m) => (
                         <div key={m.id} className={`flex gap-4 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                             <div className={`flex gap-4 max-w-[85%] sm:max-w-[75%] rounded-2xl p-5 shadow-sm ${m.role === 'user'
-                                    ? 'bg-zinc-800/80 text-zinc-100 rounded-tr-none'
-                                    : 'bg-cyan-950/30 border border-cyan-500/20 text-zinc-100 rounded-tl-none shadow-[0_0_15px_rgba(0,229,255,0.05)]'
+                                ? 'bg-zinc-800/80 text-zinc-100 rounded-tr-none'
+                                : 'bg-cyan-950/30 border border-cyan-500/20 text-zinc-100 rounded-tl-none shadow-[0_0_15px_rgba(0,229,255,0.05)]'
                                 }`}>
                                 {m.role === 'assistant' && (
                                     <div className="w-8 h-8 rounded-full bg-cyan-900/50 flex items-center justify-center flex-shrink-0 mt-1">
-                                        <Bot size={16} className="text-cyan-400" />
+                                        <Robot size={16} className="text-cyan-400" />
                                     </div>
                                 )}
                                 <div className="leading-relaxed whitespace-pre-wrap">{m.content}</div>
@@ -61,7 +61,7 @@ export default function Home() {
                         <div className="flex gap-4 justify-start">
                             <div className="flex gap-4 max-w-[85%] rounded-2xl p-5 bg-cyan-950/30 border border-cyan-500/20 rounded-tl-none items-center">
                                 <div className="w-8 h-8 rounded-full bg-cyan-900/50 flex items-center justify-center flex-shrink-0">
-                                    <Bot size={16} className="text-cyan-400" />
+                                    <Robot size={16} className="text-cyan-400" />
                                 </div>
                                 <div className="flex gap-2 items-center h-full pt-1">
                                     <div className="w-2 h-2 rounded-full bg-cyan-500/50 animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -91,7 +91,7 @@ export default function Home() {
                         disabled={isLoading || !input.trim()}
                         className="bg-cyan-500 hover:bg-cyan-400 text-zinc-950 h-[58px] px-6 rounded-2xl flex items-center justify-center font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(0,229,255,0.2)] hover:shadow-[0_0_30px_rgba(0,229,255,0.4)]"
                     >
-                        <Send size={20} className="mr-2" />
+                        <PaperPlaneRight size={20} className="mr-2" />
                         Send
                     </button>
                 </form>

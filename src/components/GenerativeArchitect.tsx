@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sparkles, Terminal, ArrowRight, CheckCircle2, Loader2, Circle, Code2 } from "lucide-react";
+import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, Code } from "@phosphor-icons/react";
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export default function GenerativeArchitect() {
                 >
                     <div className="flex items-center gap-4">
                         <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-400">
-                            <Sparkles size={20} className="animate-pulse" />
+                            <Sparkle size={20} className="animate-pulse" />
                             <div className="absolute inset-0 rounded-full bg-cyan-400/20 animate-ping opacity-50"></div>
                         </div>
                         <div className="text-left">
@@ -113,7 +113,7 @@ export default function GenerativeArchitect() {
                     </button>
 
                     <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6 pulse-border">
-                        <Sparkles size={14} />
+                        <Sparkle size={14} />
                         <span>The Generative Architect</span>
                     </div>
 
@@ -144,9 +144,9 @@ export default function GenerativeArchitect() {
                             className="absolute bottom-4 right-4 bg-cyan-600 hover:bg-cyan-500 text-white p-2 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
                         >
                             {isGenerating || isFinalizing ? (
-                                <Terminal size={20} className="animate-pulse" />
+                                <Terminal size={20} className="animate-pulse" weight="bold" />
                             ) : (
-                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" weight="bold" />
                             )}
                         </button>
                     </div>
@@ -155,12 +155,12 @@ export default function GenerativeArchitect() {
                         <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500">
                             {isFinalizing ? (
                                 <div className="flex items-center gap-3 text-emerald-400 font-mono text-sm sm:text-base uppercase tracking-widest animate-pulse transition-all duration-500" style={{ animation: 'fadeIn 0.5s ease backwards' }}>
-                                    <CheckCircle2 size={24} className="drop-shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
+                                    <CheckCircle size={24} className="drop-shadow-[0_0_12px_rgba(52,211,153,0.8)]" weight="fill" />
                                     <span className="font-bold">Architecture Lock-in Confirmed</span>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-4 text-cyan-400 font-mono text-xs sm:text-sm uppercase tracking-widest w-full justify-center">
-                                    <Loader2 size={20} className="animate-spin text-cyan-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] min-w-[20px]" />
+                                    <Spinner size={20} className="animate-spin text-cyan-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] min-w-[20px]" weight="bold" />
                                     <div className="relative h-6 flex items-center w-full max-w-md">
                                         <span key={loadingStep} className="absolute inset-x-0 text-center animate-fade-in-up drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] text-zinc-200">
                                             {loadingPhrases[loadingStep]}
@@ -193,7 +193,7 @@ export default function GenerativeArchitect() {
                             <div className="w-full mb-12 text-left bg-gradient-to-br from-zinc-900/80 to-black p-8 rounded-2xl border border-white/10 shadow-lg relative overflow-hidden">
                                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-[60px] pointer-events-none"></div>
                                 <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                                    <Sparkles size={20} className="text-cyan-400" />
+                                    <Sparkle size={20} className="text-cyan-400" />
                                     Architectural Breakdown
                                 </h4>
                                 <div className="space-y-4 text-zinc-300 text-sm leading-relaxed">
@@ -210,7 +210,7 @@ export default function GenerativeArchitect() {
                                 <Link href="/super-architect" className="absolute inset-0 z-20"></Link>
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[60px] z-0 pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
                                 <h3 className="text-xl font-bold relative z-10 leading-tight flex items-center gap-2 group-hover:-translate-y-1 transition-transform">
-                                    <Code2 className="text-cyan-400" /> Need the <span className="text-cyan-400">Golden Boilerplate</span> Codebase?
+                                    <Code className="text-cyan-400" weight="bold" /> Need the <span className="text-cyan-400">Golden Boilerplate</span> Codebase?
                                 </h3>
                                 <p className="text-zinc-400 text-sm max-w-md relative z-10 group-hover:-translate-y-1 transition-transform">
                                     Don't want to wire the APIs manually? Get a fully-configured Next.js App Router Next.js codebase with this exact architecture pre-wired out of the box.

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal } from 'lucide-react';
+import { Terminal } from '@phosphor-icons/react';
 
 interface TerminalSizzleProps {
     isComplete: boolean;
@@ -60,7 +60,7 @@ export default function TerminalSizzle({ isComplete }: TerminalSizzleProps) {
 
     // Blinking cursor effect
     useEffect(() => {
-        const interval = setInterval(() => setIsBlinking(b => !b), 500);
+        const interval = setInterval(() => setIsBlinking((b: boolean) => !b), 500);
         return () => clearInterval(interval);
     }, []);
 

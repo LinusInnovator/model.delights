@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ClipboardCopy, KeyRound, CheckCircle2 } from 'lucide-react';
+import { Copy, Key, CheckCircle } from '@phosphor-icons/react';
 
 interface ModelNode {
     provider: string;
@@ -109,7 +109,7 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                             const p = blueprint.stack[nodeKey].provider;
                             return (
                                 <span key={nodeKey} className={`text-xs px-2 py-1 rounded-sm border pointer-events-auto flex items-center gap-1 ${getProviderColor(p)}`}>
-                                    <KeyRound size={10} className="opacity-50" />
+                                    <Key size={10} className="opacity-50" />
                                     <span className="opacity-60 mr-1">{nodeKey}</span>
                                     {formatProviderName(p)}
                                 </span>
@@ -130,7 +130,7 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                                 onClick={handleCopyEnv}
                                 className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white bg-white/5 hover:bg-white/10 px-2 py-1 rounded-sm transition-colors border border-white/5 font-mono"
                             >
-                                {copiedContent === 'env' ? <CheckCircle2 size={12} className="text-green-400" /> : <ClipboardCopy size={12} />}
+                                {copiedContent === 'env' ? <CheckCircle size={12} className="text-green-400" /> : <Copy size={12} />}
                                 {copiedContent === 'env' ? 'Copied .env' : 'Copy Required .env'}
                             </button>
                         </div>
