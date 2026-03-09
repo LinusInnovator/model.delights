@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import GenerativeArchitectPaid from '@/components/GenerativeArchitectPaid';
+import LiveIntelligenceStats from '@/components/LiveIntelligenceStats';
 import { Sparkle, Terminal, Code, Lightning } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function SuperArchitectPage() {
                     </h1>
 
                     <p className="text-xl text-zinc-400 max-w-3xl leading-relaxed mb-12">
-                        Describe your product intent. Our Intelligence Engine will calculate the mathematically perfect routing architecture and instantly compile a{' '}
+                        Describe your product intent. Our Intelligence Engine <LiveIntelligenceStats /> will calculate the optimal architecture and instantly compile a{' '}
                         <strong className="text-white">Next.js 14 App Router</strong> codebase for you to download.
                     </p>
 
