@@ -3,6 +3,13 @@ import { generateObject } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 import { resolveCustomBlueprint } from "@/lib/architectResolver";
+import eloDataRaw from '@/data/lmsys_elo.json';
+
+const eloScores = Object.values(eloDataRaw as Record<string, number>).sort((a, b) => a - b);
+const medianElo = eloScores[Math.floor(eloScores.length / 2)];
+const top10PercentIndex = Math.floor(eloScores.length * 0.9);
+const frontierElo = eloScores[top10PercentIndex];
+const maxElo = eloScores[eloScores.length - 1];
 
 // Assuming OPENAI_API_KEY is available OR we are using OpenRouter
 // We will instantiate the provider dynamically based on available env keys
@@ -28,7 +35,7 @@ const blueprintSchema = z.object({
         z.object({
             name: z.string().describe("A snake_case, highly descriptive component name representing its role (e.g. 'rag_orchestrator', 'audio_transcriber')"),
             description: z.string().describe("A short explanation of what this operational node must accomplish and its edge cases."),
-            min_elo: z.number().describe("The minimum intelligence capability threshold required for this node (0-1350). Routine tasks=1100, Complex logic/Reasoning=1250+"),
+            min_elo: z.number().describe(`The minimum intelligence capability threshold required for this node (0-${maxElo}). Routine tasks=${medianElo}, Complex logic/Reasoning=${frontierElo}+`),
             max_budget_per_1m: z.number().describe("The maximum allowable cost per 1M tokens in US dollars. e.g. 0.5 for cheap, 5.0 for standard, 15.0 for bleeding edge."),
             required_modalities_in: z.array(z.enum(['text', 'audio', 'image', 'video'])).describe("Required input formats."),
             required_modalities_out: z.array(z.enum(['text', 'audio', 'image', 'video'])).describe("Required output formats. Leave empty if none.")
@@ -94,7 +101,7 @@ export async function POST(req: NextRequest) {
                     Most startups only need 1 (a unified core_engine) or 2 components (a cheap router/extractor -> an expensive reasoning model).
                     HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out' (e.g., 'image', 'audio', 'video').
                     Define strict mathematical constraints for each component (minimum ELO score, budget limits, modalities) that reflect the exact requirements.
-                    Be extremely dynamic with your budget allocation: allocate tiny budgets ($0.05) to simple extraction/formatting nodes, but dynamically allocate much higher budgets ($5.0+) and ELO requirements (1200+) to nodes that require deep reasoning or act as the 'insight engine'. Let the capability requirements match the exact complexity of the task.
+                    Be extremely dynamic with your budget allocation: allocate tiny budgets ($0.05) to simple extraction/formatting nodes, but dynamically allocate much higher budgets ($5.0+) and ELO requirements (${frontierElo}+) to nodes that require deep reasoning or act as the 'insight engine'. Let the capability requirements match the exact complexity of the task.
                     If the tier is MEGA, the architecture must represent a distributed enterprise system, citing specific required backend workers or pipelines in the descriptions.`,
             });
 
