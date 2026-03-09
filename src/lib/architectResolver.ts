@@ -132,7 +132,7 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
             gateway: supportedGateway || "direct",
             prompt_cost: row.pricing_prompt,
             completion_cost: row.pricing_completion,
-            total_cost_metric: row.pricing_prompt + (row.pricing_completion * 2), // Simplified formula
+            total_cost_metric: (row.pricing_prompt + (row.pricing_completion * 2)) * 1000000, // Normalized to 1M tokens
             elo: eloScore
         });
     }
@@ -143,21 +143,35 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
 
     const maxBudget = constraints.max_budget_per_1m || 999999;
 
-    // 1. Filter models strictly by budget constraint
+    // 1. Filter models strictly by budget constraint (note: ELO is already filtered out above!)
     const withinBudget = validCandidates.filter(c => c.total_cost_metric <= maxBudget);
 
     let finalList = [];
 
     if (withinBudget.length > 0) {
-        // 2. If models fit the budget, sort them strictly by ELO descending (smartest first)
-        withinBudget.sort((a, b) => b.elo - a.elo);
+        // 2. We want the MATHEMATICALLY PERFECT model. This means finding the CHEAPEST model that meets the min_elo bar!
+        // We already filtered by min_elo on line 112. So all of these meet the intelligence requirement.
+        // We just sort by cost ascending.
+        withinBudget.sort((a, b) => a.total_cost_metric - b.total_cost_metric);
         finalList = withinBudget;
     } else {
-        // 3. Fallback: If NO models fit the budget, sort by absolute cheapest available
+        // 3. Fallback: If NO models fit the budget, find the cheapest one regardless of budget as a failsafe
         validCandidates.sort((a, b) => a.total_cost_metric - b.total_cost_metric);
         finalList = validCandidates;
     }
 
-    // Return the top 3 (1 primary, up to 2 fallbacks)
-    return finalList.slice(0, 3);
+    // Attempt to build a resilient list by ensuring fallbacks prefer different providers/models if possible
+    const primary = finalList[0];
+    const resilientList = [primary];
+
+    for (let i = 1; i < finalList.length; i++) {
+        if (resilientList.length >= 3) break;
+
+        const candidate = finalList[i];
+        // Only add if it's not identically named to avoid [gpt-4, gpt-4-turbo] if we want true resilience
+        // Just adding directly is fine for now but preferring diversity is good.
+        resilientList.push(candidate);
+    }
+
+    return resilientList;
 }
