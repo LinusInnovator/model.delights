@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Sparkles, Terminal, ArrowRight, CheckCircle2, Loader2, Circle } from "lucide-react";
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
+import DownloadBlueprintButton from "./DownloadBlueprintButton";
 
 export default function GenerativeArchitect() {
     const [query, setQuery] = useState("");
@@ -200,8 +201,11 @@ export default function GenerativeArchitect() {
                                 <div className="relative z-[1] mt-2 mb-2 hover:scale-105 transition-transform duration-300">
                                     <CheckoutButton />
                                 </div>
+                                <div className="relative z-[1] mt-2 w-full flex justify-center">
+                                    <DownloadBlueprintButton blueprint={result} />
+                                </div>
 
-                                <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-[1]">
+                                <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-[1] mt-4">
                                     Custom Node.js Array Included
                                 </span>
                             </div>
