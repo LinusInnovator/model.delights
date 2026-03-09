@@ -126,7 +126,7 @@ export default function GenerativeArchitect() {
                         <textarea
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="e.g. 'I want to build a real-time voice AI therapist that handles phone calls and reasoning...'"
+                            placeholder="e.g. 'I want to build a B2B legal document analyzer that handles 100-page PDFs and cites specific contract clauses...'"
                             className="w-full bg-black/40 border border-white/10 rounded-xl p-4 sm:p-5 text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 resize-none min-h-[120px] shadow-inner transition-all duration-300"
                             disabled={isGenerating || isFinalizing}
                             onKeyDown={(e) => {

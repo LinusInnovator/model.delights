@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
             // Simulated Translation for Local Development
             console.log("[Generative Architect] No API Keys found. Using simulated constraint extraction for local demo.");
             const dummyBlueprint = {
-                name: query.length > 30 ? "Real-Time AI Therapist" : "Custom AI Infrastructure",
+                name: query.length > 30 ? "B2B Legal Document Analyzer" : "Custom AI Infrastructure",
                 estimated_cost_per_interaction: "~$0.02500",
                 stack: {
                     core_engine: {
