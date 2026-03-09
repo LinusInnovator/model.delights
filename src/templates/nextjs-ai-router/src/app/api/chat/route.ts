@@ -19,9 +19,10 @@ export async function POST(req: Request) {
     const { messages } = await req.json();
 
     const result = await streamText({
+        // @ts-expect-error - AI SDK v3 strict type mismatch between core and provider
         model: provider(ROUTING_CONFIG.coreEngine),
         messages,
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
 }
