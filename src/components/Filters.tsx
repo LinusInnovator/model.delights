@@ -104,8 +104,8 @@ export default function Filters({
                     <div className="micro-stat" title={`Database: ${totalModels} Models`}>
                         <i className="ph ph-database"></i> <span>{totalModels} Models</span>
                     </div>
-                    <div className="micro-stat" title={`Synced: ${lastUpdated}`}>
-                        <i className="ph ph-clock-counter-clockwise"></i> <span id="lastUpdatedVal">{lastUpdated}</span>
+                    <div className="micro-stat" title={`Synced: ${lastUpdated}`} suppressHydrationWarning>
+                        <i className="ph ph-clock-counter-clockwise"></i> <span id="lastUpdatedVal" suppressHydrationWarning>{lastUpdated}</span>
                     </div>
                 </div>
             </div>
