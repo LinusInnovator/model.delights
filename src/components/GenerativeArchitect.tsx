@@ -189,6 +189,22 @@ export default function GenerativeArchitect() {
                                 <BlueprintCard intent="custom_generated" blueprint={result} />
                             </div>
 
+                            <div className="w-full mb-12 text-left bg-gradient-to-br from-zinc-900/80 to-black p-8 rounded-2xl border border-white/10 shadow-lg relative overflow-hidden">
+                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-[60px] pointer-events-none"></div>
+                                <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                    <Sparkles size={20} className="text-cyan-400" />
+                                    Architectural Breakdown
+                                </h4>
+                                <div className="space-y-4 text-zinc-300 text-sm leading-relaxed">
+                                    <p>
+                                        Our Intelligence Engine has mathematically mapped your intent into a highly-optimized micro-service topology. By isolating the distinct components, this architecture prevents model bloat and explicitly bypasses expensive generalized models in favor of cheap, hyper-specialized extraction steps.
+                                    </p>
+                                    <p>
+                                        The <span className="font-mono text-cyan-400">Custom Blueprint</span> above provides the absolute minimal set of functional nodes required to build your system at scale, aligning each responsibility with the numerically highest <strong className="text-white">ELO</strong> models currently available across all global cloud providers.
+                                    </p>
+                                </div>
+                            </div>
+
                             <div className="flex flex-col items-center gap-4 bg-zinc-900/50 p-6 sm:p-8 rounded-2xl border border-white/10 w-full relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-[80px] z-0 pointer-events-none"></div>
                                 <h3 className="text-xl font-bold relative z-10 z-[1] leading-tight text-center">
