@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import Script from "next/script";
+import { ClerkProvider } from '@clerk/nextjs';
+import TopBarAuth from "../components/TopBarAuth";
 import "./globals.css";
 import "./components.css";
 
@@ -36,14 +38,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <Script src="https://unpkg.com/@phosphor-icons/web" strategy="beforeInteractive" />
-      </head>
-      <body className={`${inter.variable} ${outfit.variable} antialiased`}>
-        <div className="glass-bg"></div>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          <Script src="https://unpkg.com/@phosphor-icons/web" strategy="beforeInteractive" />
+        </head>
+        <body className={`${inter.variable} ${outfit.variable} antialiased`}>
+          <div className="glass-bg"></div>
+          <TopBarAuth />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ClipboardCopy, KeyRound, CheckCircle2 } from 'lucide-react';
+import { Copy, Key, CheckCircle } from '@phosphor-icons/react';
 
 interface ModelNode {
     provider: string;
     id: string;
     rationale?: string;
+    fallbacks?: { id: string; provider: string }[];
 }
 
 interface BlueprintData {
@@ -66,9 +67,14 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
     const handleCopyEnv = (e: React.MouseEvent) => {
         e.stopPropagation();
 
-        // Find all unique providers in the stack
+        // Find all unique providers in the stack including fallbacks
         const providers = new Set<string>();
-        Object.values(blueprint.stack).forEach(node => providers.add(node.provider));
+        Object.values(blueprint.stack).forEach(node => {
+            providers.add(node.provider);
+            if (node.fallbacks) {
+                node.fallbacks.forEach(f => providers.add(f.provider));
+            }
+        });
         if (blueprint.bleeding_edge_wildcard) {
             providers.add(blueprint.bleeding_edge_wildcard.provider);
         }
@@ -109,7 +115,7 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                             const p = blueprint.stack[nodeKey].provider;
                             return (
                                 <span key={nodeKey} className={`text-xs px-2 py-1 rounded-sm border pointer-events-auto flex items-center gap-1 ${getProviderColor(p)}`}>
-                                    <KeyRound size={10} className="opacity-50" />
+                                    <Key size={10} className="opacity-50" />
                                     <span className="opacity-60 mr-1">{nodeKey}</span>
                                     {formatProviderName(p)}
                                 </span>
@@ -130,7 +136,7 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                                 onClick={handleCopyEnv}
                                 className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white bg-white/5 hover:bg-white/10 px-2 py-1 rounded-sm transition-colors border border-white/5 font-mono"
                             >
-                                {copiedContent === 'env' ? <CheckCircle2 size={12} className="text-green-400" /> : <ClipboardCopy size={12} />}
+                                {copiedContent === 'env' ? <CheckCircle size={12} className="text-green-400" /> : <Copy size={12} />}
                                 {copiedContent === 'env' ? 'Copied .env' : 'Copy Required .env'}
                             </button>
                         </div>
@@ -139,13 +145,35 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
                                 <div className="flex justify-between items-start mb-1">
                                     <span className="text-xs font-mono text-zinc-400">{nodeKey}</span>
                                     <div className="flex flex-col items-end gap-1">
-                                        <span className="text-xs font-mono text-white/80">{node.id}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-[10px] text-zinc-500 uppercase tracking-widest">Primary</span>
+                                            <span className="text-xs font-mono text-white/80">{node.id}</span>
+                                        </div>
                                         <span className={`text-[10px] px-1.5 py-0.5 rounded-sm border font-mono ${getProviderColor(node.provider)}`}>
                                             requires: {getEnvKeyForProvider(node.provider)}
                                         </span>
                                     </div>
                                 </div>
-                                <p className="text-xs text-zinc-400 mt-2">{node.rationale}</p>
+                                <p className="text-xs text-zinc-400 mt-2 mb-3">{node.rationale}</p>
+
+                                {node.fallbacks && node.fallbacks.length > 0 && (
+                                    <div className="border-t border-white/5 pt-2 mt-2 flex flex-col gap-1.5">
+                                        {node.fallbacks.map((fb, idx) => (
+                                            <div key={idx} className="flex justify-between items-center bg-black/20 p-1.5 rounded-sm hover:bg-white/5 transition-colors">
+                                                <span className="text-[10px] text-zinc-500 uppercase tracking-widest flex items-center gap-1">
+                                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+                                                    Fallback {idx + 1}
+                                                </span>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs font-mono text-zinc-400">{fb.id}</span>
+                                                    <span className={`text-[8px] px-1 py-0.5 rounded-sm border font-mono ${getProviderColor(fb.provider)}`}>
+                                                        {getEnvKeyForProvider(fb.provider)}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>

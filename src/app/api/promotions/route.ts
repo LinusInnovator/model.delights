@@ -4,6 +4,8 @@ import path from 'path';
 
 const DB_PATH = path.join(process.cwd(), 'promo_db.json');
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         let db = { promotions: [], events: [] as any[] };

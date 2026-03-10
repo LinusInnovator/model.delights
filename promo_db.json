@@ -10,123 +10,32 @@
       "status": "active"
     },
     {
-      "id": "promo_pinecone_mock",
-      "title": "Pinecone Serverless",
-      "description": "You found the cheapest model, now store their memory. The fastest serverless vector database.",
-      "url": "https://pinecone.io",
-      "ctaText": "Start Building",
-      "badgeText": "Partner Gem",
+      "id": "promo_super_architect",
+      "title": "The CTO-Factory",
+      "description": "Stop writing boilerplate. Auto-generate mathematically optimized, zero latency AI app backends.",
+      "url": "/super-architect",
+      "ctaText": "Generate Stack",
+      "badgeText": "Internal Product",
+      "status": "active"
+    },
+    {
+      "id": "promo_validator",
+      "title": "The Triangulated Validator",
+      "description": "Before buying expensive LLM API tokens, Triangulate your startup idea against Red vs. Green VC teams.",
+      "url": "/validate",
+      "ctaText": "Validate Idea",
+      "badgeText": "Internal Product",
+      "status": "active"
+    },
+    {
+      "id": "promo_custom_outreach",
+      "title": "Need Mega-Scale Custom Infra?",
+      "description": "Our senior architects build distributed systems for the highest ELO AI models globally. Strict capacity limits.",
+      "url": "mailto:hello@model.delights.pro?subject=Enterprise%20System%20Architecture%20Inquiry&body=I%20am%20interested%20in%20commissioning%20a%20distributed%20AI%20system.%20Here%20is%20my%20use%20case:",
+      "ctaText": "Book Consultation",
+      "badgeText": "Custom Services",
       "status": "active"
     }
   ],
-  "events": [
-    {
-      "id": "1",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:00:00Z"
-    },
-    {
-      "id": "2",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:01:00Z"
-    },
-    {
-      "id": "3",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:02:00Z"
-    },
-    {
-      "id": "4",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:03:00Z"
-    },
-    {
-      "id": "5",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:04:00Z"
-    },
-    {
-      "id": "6",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "hover",
-      "timestamp": "2026-03-05T08:02:30Z"
-    },
-    {
-      "id": "7",
-      "promoId": "promo_pinecone_mock",
-      "eventType": "click",
-      "timestamp": "2026-03-05T08:04:30Z"
-    },
-    {
-      "id": "8",
-      "promoId": "promo_brief",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:05:00Z"
-    },
-    {
-      "id": "9",
-      "promoId": "promo_brief",
-      "eventType": "view",
-      "timestamp": "2026-03-05T08:06:00Z"
-    },
-    {
-      "id": "6d9ba900-c41a-4012-b828-6b3c2ff185c0",
-      "promoId": "promo_brief",
-      "eventType": "view",
-      "timestamp": "2026-03-08T13:12:31.570Z"
-    },
-    {
-      "id": "659c423b-a659-4c5e-8a5a-1903b47c6a08",
-      "promoId": "promo_brief",
-      "eventType": "view",
-      "timestamp": "2026-03-08T13:41:16.933Z"
-    },
-    {
-      "id": "5dd96dac-0cd9-44af-8688-4acdc82de94e",
-      "promoId": "promo_brief",
-      "eventType": "hover",
-      "timestamp": "2026-03-08T13:41:32.846Z"
-    },
-    {
-      "id": "39ce0008-0562-4ed4-a748-3bd7e81f1517",
-      "promoId": "promo_brief",
-      "eventType": "view",
-      "timestamp": "2026-03-09T09:52:04.874Z"
-    },
-    {
-      "id": "74b3977f-5b8b-4901-8fb2-f02c053c845e",
-      "promoId": "promo_brief",
-      "eventType": "hover",
-      "timestamp": "2026-03-09T09:52:04.881Z"
-    },
-    {
-      "id": "946721a6-9bbd-45d1-b8c5-82027a8fad22",
-      "promoId": "promo_brief",
-      "eventType": "view",
-      "timestamp": "2026-03-09T09:52:21.099Z"
-    },
-    {
-      "id": "dbba7c39-2223-4d28-af27-7a50dc28513f",
-      "promoId": "promo_brief",
-      "eventType": "hover",
-      "timestamp": "2026-03-09T09:52:53.290Z"
-    },
-    {
-      "id": "2ea67240-1154-4cb7-ac8f-909c536087cf",
-      "promoId": "promo_brief",
-      "eventType": "hover",
-      "timestamp": "2026-03-09T09:52:54.784Z"
-    },
-    {
-      "id": "225cde92-bd0d-469c-9884-be0fdd6f44b4",
-      "promoId": "promo_brief",
-      "eventType": "hover",
-      "timestamp": "2026-03-09T09:54:06.400Z"
-    }
-  ]
+  "events": []
 }

@@ -1,44 +1,31 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, Code } from "@phosphor-icons/react";
+import { useSearchParams } from "next/navigation";
+import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle } from "@phosphor-icons/react";
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
-import Link from "next/link";
 import DownloadBlueprintButton from "./DownloadBlueprintButton";
+import TerminalSizzle from "./TerminalSizzle";
 
-export default function GenerativeArchitect() {
-    const [query, setQuery] = useState("");
+export default function GenerativeArchitectPaid() {
+    const searchParams = useSearchParams();
+    const initialIdea = searchParams.get("idea") || "";
+    const pivot = searchParams.get("pivot") || "";
+
+    const [query, setQuery] = useState(initialIdea);
     const [isGenerating, setIsGenerating] = useState(false);
     const [loadingStep, setLoadingStep] = useState(0);
     const [isFinalizing, setIsFinalizing] = useState(false);
     const [result, setResult] = useState<any>(null);
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    const loadingPhrases = [
-        "Deconstructing intent semantics...",
-        "Topological mapping of available compute...",
-        "Validating heuristic safety guardrails...",
-        "Initializing cross-regional ELO weighting...",
-        "Injecting dynamic price-arbitrage logic...",
-        "Constructing deterministic fallback mesh...",
-        "Securing zero-latency protocol channels...",
-        "Compiling final routing matrix..."
-    ];
+    const [isExpanded, setIsExpanded] = useState(!!initialIdea);
 
     useEffect(() => {
         if (!isGenerating) {
             setLoadingStep(0);
-            return;
         }
-
-        const interval = setInterval(() => {
-            setLoadingStep((prev) => (prev < loadingPhrases.length - 1 ? prev + 1 : prev));
-        }, 700);
-
-        return () => clearInterval(interval);
     }, [isGenerating]);
 
     const handleGenerate = async () => {
@@ -52,17 +39,22 @@ export default function GenerativeArchitect() {
         setIsFinalizing(false);
 
         try {
+            // Inject the Triangulated Strategic Pivot invisibly if it exists in the URL
+            const finalQuery = pivot
+                ? `Executive Validation Command: The Senior Partner has dictated that this architecture MUST specifically prioritize: [${pivot}].\n\nCore Idea:\n${query}`
+                : query;
+
             const apiPromise = fetch("/api/generate-blueprint", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query })
+                body: JSON.stringify({ query: finalQuery })
             }).then(async (res) => {
                 if (!res.ok) throw new Error("Failed to generate architecture.");
                 return res.json();
             });
 
-            // Enforce a minimum animation duration of ~5.6 seconds (8 phrases * 700ms)
-            const minTimePromise = new Promise(resolve => setTimeout(resolve, loadingPhrases.length * 700));
+            // Enforce a minimum animation duration of ~6.5 seconds to match the terminal sizzle
+            const minTimePromise = new Promise(resolve => setTimeout(resolve, 6700));
 
             const [data] = await Promise.all([apiPromise, minTimePromise]);
 
@@ -96,7 +88,7 @@ export default function GenerativeArchitect() {
                             <div className="absolute inset-0 rounded-full bg-cyan-400/20 animate-ping opacity-50"></div>
                         </div>
                         <div className="text-left">
-                            <h3 className="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">The Generative Architect</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">The Super-Architect Factory</h3>
                             <p className="text-sm text-zinc-400">Describe your startup idea. Instantly generate your mathematical zero-latency routing API.</p>
                         </div>
                     </div>
@@ -117,7 +109,7 @@ export default function GenerativeArchitect() {
 
                     <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6 pulse-border">
                         <Sparkle size={14} />
-                        <span>The Generative Architect</span>
+                        <span>The Super-Architect Factory</span>
                     </div>
 
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight tracking-tight">
@@ -157,18 +149,12 @@ export default function GenerativeArchitect() {
                     {(isGenerating || isFinalizing) && (
                         <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500">
                             {isFinalizing ? (
-                                <div className="flex items-center gap-3 text-emerald-400 font-mono text-sm sm:text-base uppercase tracking-widest animate-pulse transition-all duration-500" style={{ animation: 'fadeIn 0.5s ease backwards' }}>
-                                    <CheckCircle size={24} className="drop-shadow-[0_0_12px_rgba(52,211,153,0.8)]" weight="fill" />
-                                    <span className="font-bold">Architecture Lock-in Confirmed</span>
+                                <div className="flex flex-col items-center w-full">
+                                    <TerminalSizzle isComplete={true} />
                                 </div>
                             ) : (
-                                <div className="flex items-center gap-4 text-cyan-400 font-mono text-xs sm:text-sm uppercase tracking-widest w-full justify-center">
-                                    <Spinner size={20} className="animate-spin text-cyan-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] min-w-[20px]" weight="bold" />
-                                    <div className="relative h-6 flex items-center w-full max-w-md">
-                                        <span key={loadingStep} className="absolute inset-x-0 text-center animate-fade-in-up drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] text-zinc-200">
-                                            {loadingPhrases[loadingStep]}
-                                        </span>
-                                    </div>
+                                <div className="flex flex-col items-center w-full">
+                                    <TerminalSizzle isComplete={false} />
                                 </div>
                             )}
                         </div>
@@ -210,7 +196,7 @@ export default function GenerativeArchitect() {
                             </div>
 
                             {tier === 'MEGA' ? (
-                                <div className="flex flex-col items-center gap-4 bg-gradient-to-br from-black to-zinc-900 p-8 sm:p-10 rounded-2xl border border-orange-500/30 w-full relative overflow-hidden mb-8 shadow-[0_0_40px_rgba(249,115,22,0.1)] text-center group transition-colors">
+                                <div className="flex flex-col items-center gap-4 bg-gradient-to-br from-black to-zinc-900 p-8 sm:p-10 rounded-2xl border border-orange-500/30 w-full relative overflow-hidden mb-8 shadow-[0_0_40px_rgba(249,115,22,0.1)] text-center">
                                     <div className="absolute top-0 right-0 w-40 h-40 bg-orange-500/10 rounded-full blur-[80px] z-0 pointer-events-none"></div>
                                     <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest mb-2 shadow-[0_0_10px_rgba(249,115,22,0.2)]">
                                         <span>Mega-Scale System Detected</span>
@@ -219,7 +205,7 @@ export default function GenerativeArchitect() {
                                         This Architecture Requires <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Custom Infra</span>.
                                     </h3>
                                     <p className="text-zinc-400 text-sm max-w-xl mx-auto relative z-10 leading-relaxed">
-                                        Your specifications outline an enterprise-scale distributed system. A standard Next.js monolithic boilerplate will severely bottleneck your workload.
+                                        Your specifications outline an enterprise-scale distributed system. A standard Next.js monolithic boilerplate will severely bottleneck your workload. Do not try to duct-tape this together.
                                     </p>
                                     <p className="text-zinc-300 text-sm max-w-xl mx-auto relative z-10 mb-2">
                                         Let's discuss proper event-buses, vector scaling, and multi-tenant isolation.
@@ -234,41 +220,24 @@ export default function GenerativeArchitect() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center gap-4 bg-zinc-900/80 p-6 sm:p-8 rounded-2xl border border-cyan-500/20 w-full relative overflow-hidden mb-8 shadow-[0_0_30px_rgba(0,229,255,0.05)] text-center group transition-colors hover:bg-black/60">
-                                    <Link href="/super-architect" className="absolute inset-0 z-20"></Link>
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[60px] z-0 pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
                                     <h3 className="text-xl font-bold relative z-10 leading-tight flex items-center gap-2 group-hover:-translate-y-1 transition-transform">
-                                        <Code className="text-cyan-400" weight="bold" /> Need the <span className="text-cyan-400">Golden Boilerplate</span> Codebase?
+                                        <Terminal className="text-cyan-400" weight="bold" /> Ready to Deploy this Architecture?
                                     </h3>
                                     <p className="text-zinc-400 text-sm max-w-md relative z-10 group-hover:-translate-y-1 transition-transform">
                                         {tier === 'MEDIUM'
                                             ? "The Golden Boilerplate provides the entire API orchestration layer for this system. You will only need to wire your custom backend and UI components yourself."
-                                            : "Don't want to wire the APIs manually? Get a fully-configured Next.js App Router codebase with this exact architecture pre-wired out of the box."}
+                                            : "Get a fully-configured Next.js App Router Next.js codebase with this exact architecture pre-wired out of the box."}
                                     </p>
+
                                     <div className="relative z-10 w-full flex justify-center mt-2 group-hover:scale-105 transition-transform duration-300">
-                                        <span className="text-cyan-400 font-bold uppercase tracking-widest text-xs flex items-center">
-                                            Open CTO Factory <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                                        </span>
+                                        <DownloadBlueprintButton blueprint={result} />
                                     </div>
+                                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-10">
+                                        One-time $49 Download
+                                    </span>
                                 </div>
                             )}
-
-                            <div className="flex flex-col items-center gap-4 bg-zinc-900/50 p-6 sm:p-8 rounded-2xl border border-white/10 w-full relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-[80px] z-0 pointer-events-none"></div>
-                                <h3 className="text-xl font-bold relative z-10 leading-tight text-center">
-                                    Upgrade to <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Zero-Latency Global Routing</span>
-                                </h3>
-                                <p className="text-zinc-400 text-sm text-center max-w-md relative z-[1]">
-                                    Stop duct-taping APIs together. Deploy the 0ms Intelligence Engine to automatically handle routing, fallbacks, and multi-provider billing for this exact stack.
-                                </p>
-
-                                <div className="relative z-[1] mt-2 mb-2 hover:scale-105 transition-transform duration-300">
-                                    <CheckoutButton />
-                                </div>
-
-                                <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-[1] mt-4">
-                                    Requires Universal API Key
-                                </span>
-                            </div>
                         </div>
                     )}
                 </div>

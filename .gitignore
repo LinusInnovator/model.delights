@@ -4,3 +4,6 @@ out/
 .env*
 .vercel/
 .DS_Store
+
+# clerk configuration (can include secrets)
+/.clerk/

@@ -1,21 +1,23 @@
 import { NextResponse } from 'next/server';
-import data from '@/lib/blueprints_db.json';
+import data from '@/lib/schema_blueprints_db.json';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const intent = searchParams.get('intent');
 
     try {
-        if (!data || !data.intents) {
+        if (!data || !data.blueprints) {
             return NextResponse.json({ error: 'Blueprints database corruption detected.' }, { status: 503 });
         }
+
+        const availableIntents = data.blueprints.map((b: any) => b.id);
 
         if (!intent) {
             // Return catalog of available intents
             return NextResponse.json({
                 message: "Welcome to the Blueprint Architect API. Provide an ?intent= query parameter.",
-                available_intents: Object.keys(data.intents),
-                last_updated: data.last_updated
+                available_intents: availableIntents,
+                last_updated: Math.floor(Date.now() / 1000)
             });
         }
 
@@ -23,12 +25,12 @@ export async function GET(request: Request) {
         const availableKeys = keysParam ? keysParam.toLowerCase().split(',') : ['openrouter', 'fal', 'aws', 'cartesia'];
         const isOpenRouterOnly = availableKeys.length === 1 && availableKeys[0] === 'openrouter';
 
-        const blueprint = (data.intents as Record<string, any>)[intent.toLowerCase()];
+        const blueprint = data.blueprints.find((b: any) => b.id === intent.toLowerCase());
 
         if (!blueprint) {
             return NextResponse.json({
                 error: 'Intent not matched. Available intents are listed in the catalog.',
-                available_intents: Object.keys(data.intents)
+                available_intents: availableIntents
             }, { status: 404 });
         }
 
@@ -54,9 +56,8 @@ export async function GET(request: Request) {
             name: blueprint.name,
             constraint_mode: isOpenRouterOnly ? "openrouter_only" : "unrestrained",
             stack: targetStack,
-            estimated_cost_per_interaction: blueprint.estimated_cost_per_interaction,
-            bleeding_edge_wildcard: blueprint.bleeding_edge_wildcard,
-            last_updated: data.last_updated
+            estimated_cost_per_interaction: "$0.000",
+            last_updated: Math.floor(Date.now() / 1000)
         });
 
     } catch (error) {

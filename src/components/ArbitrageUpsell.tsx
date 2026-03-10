@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CheckoutButton from '@/app/enterprise/CheckoutButton';
-import { TrendingDown, Zap } from 'lucide-react';
+import { TrendDown, Lightning } from '@phosphor-icons/react';
 
 interface ArbitrageUpsellProps {
     modelAName: string;
@@ -25,7 +25,7 @@ export default function ArbitrageUpsell({ modelAName, modelBName, cheaperPercent
                 {/* Value Proposition */}
                 <div className="flex-1 text-left">
                     <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-widest mb-4">
-                        <TrendingDown size={14} />
+                        <TrendDown size={14} />
                         <span>Arbitrage Alert</span>
                     </div>
 
@@ -39,7 +39,7 @@ export default function ArbitrageUpsell({ modelAName, modelBName, cheaperPercent
                     </p>
 
                     <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 bg-black/40 px-3 py-2 rounded-lg border border-white/5 inline-flex">
-                        <Zap size={12} className="text-yellow-500" />
+                        <Lightning size={12} className="text-yellow-500" />
                         <span>{cheaperPercentage}% Instant Profit Margin Recovery</span>
                     </div>
                 </div>

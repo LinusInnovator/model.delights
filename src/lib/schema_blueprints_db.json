@@ -9,7 +9,7 @@
                 "reasoning_engine": {
                     "description": "Must be incredibly smart to synthesize financial data without hallucinating.",
                     "min_elo": 1250,
-                    "max_budget_per_1m": 5.0,
+                    "max_budget_per_1m": 5,
                     "required_modalities_in": [
                         "text"
                     ]
@@ -53,7 +53,7 @@
                 "core_engine": {
                     "description": "Must have native audio-in routing and extreme intelligence.",
                     "min_elo": 1300,
-                    "max_budget_per_1m": 2.0,
+                    "max_budget_per_1m": 2,
                     "required_modalities_in": [
                         "text",
                         "audio"
@@ -93,7 +93,7 @@
                 "visual_generator": {
                     "description": "Must output high quality images.",
                     "min_elo": 0,
-                    "max_budget_per_1m": 0.0,
+                    "max_budget_per_1m": 0,
                     "required_modalities_out": [
                         "image"
                     ]
@@ -119,7 +119,7 @@
                 "script_ideation": {
                     "description": "Synthesizes pitches and tests creative boundaries.",
                     "min_elo": 1250,
-                    "max_budget_per_1m": 10.0,
+                    "max_budget_per_1m": 10,
                     "required_modalities_in": [
                         "text"
                     ],
@@ -130,7 +130,7 @@
                 "storyboard_concept_art": {
                     "description": "Generates keyframes before animation.",
                     "min_elo": 0,
-                    "max_budget_per_1m": 5.0,
+                    "max_budget_per_1m": 5,
                     "required_modalities_out": [
                         "image"
                     ]
@@ -138,7 +138,7 @@
                 "cinematic_video_generation": {
                     "description": "Translates keyframes into cohesive cinematic video. Needs high semantic understanding.",
                     "min_elo": 0,
-                    "max_budget_per_1m": 15.0,
+                    "max_budget_per_1m": 15,
                     "required_modalities_in": [
                         "image",
                         "text"
@@ -160,6 +160,84 @@
                 "cinematic_video_generation": {
                     "id": "ep-20240521121541-seedance",
                     "provider": "volcano"
+                }
+            }
+        },
+        {
+            "id": "seo_automation_pipeline",
+            "name": "SEO Automation Pipeline",
+            "status": "active",
+            "description": "An SEO automation pipeline",
+            "components": {
+                "seo_data_extractor": {
+                    "description": "This component gathers SEO-related data from various sources (search engines, competitors, etc.) and consolidates it for analysis, with edge cases including incomplete data or rate-limiting from APIs.",
+                    "domain": "drafting",
+                    "min_elo": 1260,
+                    "max_budget_per_1m": 0.05,
+                    "required_modalities_in": [
+                        "text"
+                    ],
+                    "required_modalities_out": []
+                },
+                "seo_insight_generator": {
+                    "description": "A sophisticated reasoning engine that analyzes extracted SEO data to generate actionable insights and recommendations, handling complex logic and reasoning challenges intrinsic to SEO strategies.",
+                    "domain": "reasoning",
+                    "min_elo": 1400,
+                    "max_budget_per_1m": 5,
+                    "required_modalities_in": [
+                        "text"
+                    ],
+                    "required_modalities_out": [
+                        "text"
+                    ]
+                }
+            },
+            "stack": {
+                "seo_data_extractor": {
+                    "id": "bytedance-seed/seed-2.0-mini",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "x-ai/grok-3-mini",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "google/gemini-3.1-flash-lite-preview",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "This component gathers SEO-related data from various sources (search engines, competitors, etc.) and consolidates it for analysis, with edge cases including incomplete data or rate-limiting from APIs.",
+                    "assigned_domain": "drafting"
+                },
+                "seo_insight_generator": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "rationale": "A sophisticated reasoning engine that analyzes extracted SEO data to generate actionable insights and recommendations, handling complex logic and reasoning challenges intrinsic to SEO strategies.",
+                    "assigned_domain": "reasoning"
+                }
+            },
+            "stack_openrouter_only": {
+                "seo_data_extractor": {
+                    "id": "bytedance-seed/seed-2.0-mini",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "x-ai/grok-3-mini",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "google/gemini-3.1-flash-lite-preview",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "This component gathers SEO-related data from various sources (search engines, competitors, etc.) and consolidates it for analysis, with edge cases including incomplete data or rate-limiting from APIs.",
+                    "assigned_domain": "drafting"
+                },
+                "seo_insight_generator": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "rationale": "A sophisticated reasoning engine that analyzes extracted SEO data to generate actionable insights and recommendations, handling complex logic and reasoning challenges intrinsic to SEO strategies.",
+                    "assigned_domain": "reasoning"
                 }
             }
         }
