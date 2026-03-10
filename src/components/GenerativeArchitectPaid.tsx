@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle } from "@phosphor-icons/react";
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
@@ -8,14 +9,18 @@ import DownloadBlueprintButton from "./DownloadBlueprintButton";
 import TerminalSizzle from "./TerminalSizzle";
 
 export default function GenerativeArchitectPaid() {
-    const [query, setQuery] = useState("");
+    const searchParams = useSearchParams();
+    const initialIdea = searchParams.get("idea") || "";
+    const pivot = searchParams.get("pivot") || "";
+
+    const [query, setQuery] = useState(initialIdea);
     const [isGenerating, setIsGenerating] = useState(false);
     const [loadingStep, setLoadingStep] = useState(0);
     const [isFinalizing, setIsFinalizing] = useState(false);
     const [result, setResult] = useState<any>(null);
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(!!initialIdea);
 
     useEffect(() => {
         if (!isGenerating) {
@@ -34,10 +39,15 @@ export default function GenerativeArchitectPaid() {
         setIsFinalizing(false);
 
         try {
+            // Inject the Triangulated Strategic Pivot invisibly if it exists in the URL
+            const finalQuery = pivot
+                ? `Executive Validation Command: The Senior Partner has dictated that this architecture MUST specifically prioritize: [${pivot}].\n\nCore Idea:\n${query}`
+                : query;
+
             const apiPromise = fetch("/api/generate-blueprint", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query })
+                body: JSON.stringify({ query: finalQuery })
             }).then(async (res) => {
                 if (!res.ok) throw new Error("Failed to generate architecture.");
                 return res.json();

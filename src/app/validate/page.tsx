@@ -264,7 +264,7 @@ export default function ValidatePage() {
                                         You've triangulated the risk and the upside. Now you need serious infrastructure to deliver. Auto-generate your stack with zero middleware.
                                     </p>
                                     <a
-                                        href="/"
+                                        href={`/super-architect?idea=${encodeURIComponent(idea)}&pivot=${encodeURIComponent(data?.insightSummary?.strategic_pivot?.action || '')}`}
                                         className="inline-flex items-center gap-3 bg-white text-black font-bold text-lg px-8 py-4 rounded-xl hover:bg-zinc-200 transition-colors relative z-10"
                                     >
                                         Auto-Generate Backend Architecture
@@ -468,6 +468,6 @@ export default function ValidatePage() {
                 )}
             </AnimatePresence>
 
-        </div>
+        </div >
     );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import GenerativeArchitectPaid from '@/components/GenerativeArchitectPaid';
 import LiveIntelligenceStats from '@/components/LiveIntelligenceStats';
@@ -54,7 +54,9 @@ export default function SuperArchitectPage() {
                 </div>
 
                 <div className="w-full max-w-5xl mx-auto relative z-10">
-                    <GenerativeArchitectPaid />
+                    <Suspense fallback={<div className="text-zinc-500 text-center animate-pulse py-12">Booting Intelligence Engine...</div>}>
+                        <GenerativeArchitectPaid />
+                    </Suspense>
                 </div>
             </main>
         </div>
