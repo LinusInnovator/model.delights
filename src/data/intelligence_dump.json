@@ -17250,6 +17250,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_1ff4137f",
+      "model_id": "fal-ai/gemini-25-flash-image/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/gemini-25-flash-image/edit",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
