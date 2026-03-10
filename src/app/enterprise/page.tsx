@@ -1,13 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 import CheckoutButton from './CheckoutButton';
+import { auth } from '@clerk/nextjs/server';
 
 export const metadata = {
     title: 'Enterprise AI Routing | model.delights.pro',
     description: 'The Autonomous 99.998% Uptime Intelligence Engine for B2B Agents.',
 };
 
-export default function EnterprisePage() {
+export default async function EnterprisePage() {
+    const { sessionClaims } = await auth();
+    const metadata = sessionClaims?.metadata as any;
+    const isPro = metadata?.tier === 'PRO' || metadata?.has_ltd === true;
+
     return (
         <div className="min-h-screen bg-black text-white selection:bg-blue-500/30 font-sans flex flex-col items-center">
 
@@ -42,7 +47,13 @@ export default function EnterprisePage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-24">
-                    <CheckoutButton />
+                    {isPro ? (
+                        <a href="#" className="px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all flex items-center justify-center">
+                            Access Enterprise Dashboard &rarr;
+                        </a>
+                    ) : (
+                        <CheckoutButton />
+                    )}
                     <a href="#integration" className="px-8 py-4 rounded-full font-bold text-lg border border-white/10 hover:bg-white/5 transition-colors flex items-center justify-center">
                         Read the Docs
                     </a>

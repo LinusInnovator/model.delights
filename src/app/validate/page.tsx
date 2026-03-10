@@ -1,0 +1,473 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Skull,
+    Sparkle,
+    WarningCircle,
+    LinkBreak,
+    Flask,
+    ArrowRight,
+    ChartLineUp,
+    Money,
+    Gear,
+    RocketLaunch,
+    Lightbulb,
+    CaretCircleDoubleRight,
+    Target
+} from "@phosphor-icons/react";
+
+type Assumption = {
+    category: "Desirability" | "Viability" | "Feasibility";
+    assumption: string;
+    impact: number;
+    evidence: number;
+    leverage_score: number;
+    rationale: string;
+};
+
+type ValidationData = {
+    pattern_match: { historical_pattern: string; rationale: string };
+    critical_assumptions: Assumption[];
+    logic_chain: string[];
+    experiment_sequence: {
+        assumption_tested: string;
+        experiment_type: string;
+        setup: string;
+        metric: string;
+        validation_threshold: string;
+    }[];
+};
+
+type TriangulationData = {
+    autopsyData: ValidationData;
+    catalystData: ValidationData;
+    insightSummary: {
+        core_tension: string;
+        the_verdict: string;
+        strategic_pivot: {
+            action: string;
+            rationale: string;
+        }
+    };
+};
+
+const LOADING_SIZZLE = [
+    "Spinning up Red Team Analyst (Autopsy)...",
+    "Spinning up Green Team Analyst (Catalyst)...",
+    "Pressure-testing desirability, viability, feasibility...",
+    "Extracting exponential upside matrices...",
+    "Correlating historical successes and catastrophic failures...",
+    "Drafting Executive Synthesized Insight..."
+];
+
+export default function ValidatePage() {
+    const [mode, setMode] = useState<"insight" | "autopsy" | "catalyst">("insight");
+    const [idea, setIdea] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [loadingStage, setLoadingStage] = useState(0);
+    const [data, setData] = useState<TriangulationData | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleValidate = async () => {
+        if (!idea.trim()) return;
+        setIsLoading(true);
+        setError(null);
+        setData(null);
+        setMode("insight"); // Reset to default synthesis view when executing
+
+        const interval = setInterval(() => {
+            setLoadingStage((prev) => (prev + 1) % LOADING_SIZZLE.length);
+        }, 2000);
+
+        try {
+            const res = await fetch("/api/validate-triangulation", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idea }),
+            });
+
+            if (!res.ok) throw new Error("Triangulation orchestrator failed.");
+            const result = await res.json();
+            setData(result);
+        } catch (err) {
+            setError("The Triangulation Engine encountered a critical exception. Please try again.");
+        } finally {
+            clearInterval(interval);
+            setIsLoading(false);
+        }
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0 }
+    };
+
+    // Helper to get active raw dataset
+    const activeData = mode === "autopsy" ? data?.autopsyData : data?.catalystData;
+
+    return (
+        <div className={`min-h-screen text-zinc-300 font-sans transition-colors duration-500 pb-32 ${mode === 'autopsy' ? 'bg-[#0a0000] selection:bg-red-900' :
+            mode === 'catalyst' ? 'bg-[#000a05] selection:bg-emerald-900' :
+                'bg-black selection:bg-purple-900'
+            } selection:text-white`}>
+            <div className="max-w-4xl mx-auto px-6 py-20">
+
+                {/* Hero Top */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-col items-center text-center mb-16"
+                >
+                    <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400">
+                        <Target weight="fill" className="text-purple-500" />
+                        TRIANGULATED VENTURE ENGINE v2.0
+                    </div>
+
+                    <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-4 lowercase">
+                        Tell us your idea. <br />
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-emerald-400 to-red-500">
+                            We'll show you the truth.
+                        </span>
+                    </h1>
+                    <p className="text-zinc-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Execute a parallel strategy session. The Red Team will map how it dies. The Green Team will map how it scales. The Insight Engine synthesizes the ultimate path forward.
+                    </p>
+                </motion.div>
+
+                {/* Input Area */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="mb-16 relative"
+                >
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 rounded-2xl blur opacity-20"></div>
+                    <div className="relative bg-zinc-950 p-2 rounded-2xl border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-2">
+                        <textarea
+                            value={idea}
+                            onChange={(e) => setIdea(e.target.value)}
+                            placeholder="e.g., A marketplace connecting freelance AI engineers with local dental clinics..."
+                            className="flex-1 bg-transparent text-white p-4 h-32 md:h-16 resize-none focus:outline-none placeholder-zinc-600 text-lg leading-snug"
+                        />
+                        <button
+                            onClick={handleValidate}
+                            disabled={isLoading || !idea.trim()}
+                            className="bg-white text-black px-8 py-4 rounded-xl font-bold tracking-tight hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                            {isLoading ? (
+                                <Sparkle weight="fill" className="animate-spin" />
+                            ) : (
+                                "Initiate Triangulation"
+                            )}
+                        </button>
+                    </div>
+                </motion.div>
+
+                {/* Loading State */}
+                <AnimatePresence mode="wait">
+                    {isLoading && (
+                        <motion.div
+                            key="loading"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="py-12 border border-zinc-800 rounded-2xl bg-zinc-900 inner-shadow-lg flex flex-col items-center justify-center text-center px-4"
+                        >
+                            <div className="w-10 h-10 mb-6 border-4 border-zinc-800 border-t-purple-500 rounded-full animate-spin"></div>
+                            <h3 className="text-white font-mono text-lg mb-2">ENGAGING MULTI-AGENT ORCHESTRATOR</h3>
+                            <p className="text-zinc-500 font-mono text-sm animate-pulse">
+                                &gt; {LOADING_SIZZLE[loadingStage]}
+                            </p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {error && (
+                    <div className="p-4 border border-red-900 bg-red-950/20 text-red-400 rounded-lg text-center mb-8 font-mono">
+                        {error}
+                    </div>
+                )}
+
+                {/* The Renders */}
+                <AnimatePresence mode="wait">
+                    {!isLoading && data && mode === "insight" && (
+                        <motion.div
+                            key="insight"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="show"
+                            exit={{ opacity: 0, y: -10 }}
+                            className="space-y-12 max-w-3xl mx-auto"
+                        >
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                {/* Verdict Card */}
+                                <div className="p-8 md:p-10 rounded-3xl bg-zinc-900 border border-purple-900/40 relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-8 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                                        <Lightbulb weight="fill" className="text-purple-500 text-9xl" />
+                                    </div>
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-inner">
+                                                <Lightbulb weight="fill" className="text-white text-2xl" />
+                                            </div>
+                                            <h2 className="text-2xl font-black text-white uppercase tracking-tight">Executive Verdict</h2>
+                                        </div>
+                                        <p className="text-xl md:text-2xl text-zinc-200 font-medium leading-relaxed">
+                                            "{data.insightSummary.the_verdict}"
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    {/* Core Tension */}
+                                    <div className="p-8 rounded-3xl bg-zinc-950/50 border border-zinc-800 flex flex-col">
+                                        <div className="flex items-center gap-2 mb-4 text-zinc-400">
+                                            <WarningCircle weight="fill" className="text-orange-500" />
+                                            <h3 className="uppercase font-bold tracking-wider text-sm">The Core Tension</h3>
+                                        </div>
+                                        <p className="text-lg text-zinc-300 leading-relaxed flex-1">
+                                            {data.insightSummary.core_tension}
+                                        </p>
+                                    </div>
+
+                                    {/* Strategic Pivot */}
+                                    <div className="p-8 rounded-3xl bg-zinc-950/50 border border-zinc-800 flex flex-col">
+                                        <div className="flex items-center gap-2 mb-4 text-zinc-400">
+                                            <Target weight="fill" className="text-indigo-400" />
+                                            <h3 className="uppercase font-bold tracking-wider text-sm">Strategic Pivot</h3>
+                                        </div>
+                                        <div className="bg-indigo-950/20 border border-indigo-900/30 rounded-xl p-4 mb-4">
+                                            <p className="font-bold text-indigo-300">{data.insightSummary.strategic_pivot.action}</p>
+                                        </div>
+                                        <p className="text-zinc-400 leading-relaxed text-sm flex-1">
+                                            <strong className="text-zinc-300">Why: </strong>
+                                            {data.insightSummary.strategic_pivot.rationale}
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Insight Upsell */}
+                            <motion.div variants={itemVariants} className="mt-20 pt-12 border-t border-zinc-800 pb-12">
+                                <div className="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-2xl relative overflow-hidden">
+                                    <h2 className="text-3xl font-black text-white mb-4 relative z-10">Convinced to build it?</h2>
+                                    <p className="text-zinc-400 text-lg mb-8 relative z-10 max-w-xl mx-auto">
+                                        You've triangulated the risk and the upside. Now you need serious infrastructure to deliver. Auto-generate your stack with zero middleware.
+                                    </p>
+                                    <a
+                                        href="/"
+                                        className="inline-flex items-center gap-3 bg-white text-black font-bold text-lg px-8 py-4 rounded-xl hover:bg-zinc-200 transition-colors relative z-10"
+                                    >
+                                        Auto-Generate Backend Architecture
+                                        <ArrowRight weight="bold" />
+                                    </a>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+
+                    {!isLoading && data && activeData && mode !== "insight" && (
+                        <motion.div
+                            key="rawdata"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="show"
+                            exit={{ opacity: 0, y: -10 }}
+                            className="space-y-12"
+                        >
+                            {/* Pattern Match Insight */}
+                            <motion.div variants={itemVariants} className={`p-6 md:p-8 rounded-2xl border ${mode === 'autopsy' ? 'bg-red-950/20 border-red-900/50' : 'bg-emerald-950/20 border-emerald-900/50'}`}>
+                                <div className="flex items-start gap-4">
+                                    <div className={`p-3 rounded-xl ${mode === 'autopsy' ? 'bg-red-900/30' : 'bg-emerald-900/30'}`}>
+                                        {mode === 'autopsy' ? (
+                                            <WarningCircle size={32} weight="fill" className="text-red-500" />
+                                        ) : (
+                                            <RocketLaunch size={32} weight="fill" className="text-emerald-400" />
+                                        )}
+                                    </div>
+                                    <div>
+                                        <h2 className="text-white font-bold text-xl mb-1">
+                                            {mode === 'autopsy' ? 'Critical Pattern Match:' : 'Exponential Pattern Match:'} {activeData.pattern_match.historical_pattern}
+                                        </h2>
+                                        <p className={`leading-relaxed text-lg ${mode === 'autopsy' ? 'text-red-200/80' : 'text-emerald-200/80'}`}>
+                                            {activeData.pattern_match.rationale}
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* DVF Risks/Levers */}
+                            <motion.div variants={itemVariants}>
+                                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                    {mode === 'autopsy' ? 'Top 5 Kill-Switch Assumptions' : 'Top 5 Exponential Growth Levers'}
+                                </h3>
+                                <div className="grid grid-cols-1 gap-4">
+                                    {activeData.critical_assumptions.map((assump, idx) => (
+                                        <div key={idx} className="bg-zinc-900/80 border border-zinc-800 rounded-xl p-6 relative overflow-hidden group hover:border-zinc-600 transition-colors">
+                                            <div className={`absolute top-0 left-0 w-1 h-full ${assump.category === 'Desirability' ? 'bg-blue-500' :
+                                                assump.category === 'Viability' ? 'bg-green-500' : 'bg-orange-500'
+                                                }`} />
+
+                                            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 pl-2">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                        <span className={`text-xs font-bold uppercase tracking-widest ${assump.category === 'Desirability' ? 'text-blue-400' :
+                                                            assump.category === 'Viability' ? 'text-green-400' : 'text-orange-400'
+                                                            }`}>
+                                                            {assump.category === 'Desirability' && <ChartLineUp className="inline mr-1" />}
+                                                            {assump.category === 'Viability' && <Money className="inline mr-1" />}
+                                                            {assump.category === 'Feasibility' && <Gear className="inline mr-1" />}
+                                                            {assump.category}
+                                                        </span>
+                                                    </div>
+                                                    <h4 className="text-white font-medium text-lg mb-2">"{assump.assumption}"</h4>
+                                                    <div className="text-zinc-400 text-sm leading-relaxed mb-4">{assump.rationale}</div>
+                                                    <div className="flex items-center gap-6">
+                                                        <div>
+                                                            <div className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Impact</div>
+                                                            <div className="text-white font-bold">{assump.impact}/5</div>
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Evidence</div>
+                                                            <div className="text-white font-bold">{assump.evidence}/5</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex gap-4 md:flex-col shrink-0 mt-4 md:mt-0">
+                                                    <div className={`text-center rounded-lg p-3 border w-32 ${mode === 'autopsy' ? 'bg-red-950/20 border-red-900/30' : 'bg-emerald-950/20 border-emerald-900/30'}`}>
+                                                        <div className="text-xs text-zinc-500 mb-1 uppercase tracking-wider">
+                                                            {mode === 'autopsy' ? 'Risk Score' : 'Leverage Score'}
+                                                        </div>
+                                                        <div className={`text-2xl font-black ${mode === 'autopsy' ? 'text-red-400' : 'text-emerald-400'}`}>
+                                                            {assump.leverage_score}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Core Chain */}
+                            <motion.div variants={itemVariants} className="bg-zinc-900/50 rounded-2xl p-6 md:p-8 border border-zinc-800">
+                                <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
+                                    <LinkBreak weight="fill" className="text-zinc-500" />
+                                    {mode === 'autopsy' ? 'Failure Domino Chain' : 'Blueprint to Scale'}
+                                </h3>
+                                <div className="space-y-4 relative before:absolute before:inset-0 before:ml-4 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-zinc-800 before:to-transparent">
+                                    {activeData.logic_chain.map((step, idx) => (
+                                        <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                            <div className="flex items-center justify-center w-8 h-8 rounded-full border border-zinc-700 bg-zinc-900 text-zinc-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                                                <span className="text-xs font-mono">{idx + 1}</span>
+                                            </div>
+                                            <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-4 rounded-xl border ${mode === 'autopsy' ? 'bg-red-950/10 border-red-900/30' : 'bg-emerald-950/10 border-emerald-900/30'}`}>
+                                                <div className="text-zinc-300 text-sm md:text-base leading-snug">{step}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Experiment Roadmap */}
+                            <motion.div variants={itemVariants}>
+                                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                    <Flask weight="fill" className={mode === 'autopsy' ? "text-indigo-400" : "text-emerald-400"} />
+                                    {mode === 'autopsy' ? 'Test Sequence & Kill Criteria' : 'Test Sequence & Validation Milestones'}
+                                </h3>
+                                <div className="space-y-4">
+                                    {activeData.experiment_sequence.map((exp, idx) => (
+                                        <div key={idx} className="bg-zinc-900/80 border border-zinc-800 rounded-xl overflow-hidden p-6 md:p-8">
+                                            <div className="flex flex-col md:flex-row gap-8">
+                                                <div className="flex-1">
+                                                    <div className="uppercase tracking-widest text-xs font-bold text-indigo-400 mb-2">
+                                                        Test {idx + 1}: {exp.experiment_type}
+                                                    </div>
+                                                    <h4 className="text-xl font-bold text-white mb-4">Testing: "{exp.assumption_tested}"</h4>
+                                                    <div className="bg-zinc-950/50 rounded p-4 border border-zinc-800 mb-4">
+                                                        <span className="text-zinc-500 text-sm block mb-1">Setup Protocol</span>
+                                                        <span className="text-zinc-300">{exp.setup}</span>
+                                                    </div>
+                                                    <div className="bg-zinc-950/50 rounded p-4 border border-zinc-800 mb-4">
+                                                        <span className="text-zinc-500 text-sm block mb-1">Metric</span>
+                                                        <span className="text-zinc-300">{exp.metric}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="shrink-0 md:w-1/3">
+                                                    <div className={`border rounded-xl p-5 h-full flex flex-col justify-center ${mode === 'autopsy' ? 'bg-red-950/20 border-red-900/50' : 'bg-emerald-950/20 border-emerald-900/50'}`}>
+                                                        <div className={`flex items-center gap-2 font-bold uppercase tracking-wider text-sm mb-2 ${mode === 'autopsy' ? 'text-red-500' : 'text-emerald-400'}`}>
+                                                            {mode === 'autopsy' ? (
+                                                                <><Skull weight="fill" /> Kill Criteria</>
+                                                            ) : (
+                                                                <><Sparkle weight="fill" /> Validation Target</>
+                                                            )}
+                                                        </div>
+                                                        <p className={mode === 'autopsy' ? "text-red-200" : "text-emerald-200"}>{exp.validation_threshold}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+            </div>
+
+            {/* Floating Dock */}
+            <AnimatePresence>
+                {!isLoading && data && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 50, scale: 0.9 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300, delay: 0.5 }}
+                        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex"
+                    >
+                        <div className="bg-black/80 backdrop-blur-xl border border-zinc-800 shadow-2xl shadow-black/50 p-1.5 rounded-full flex items-center w-max min-w-[320px]">
+                            <button
+                                onClick={() => setMode("autopsy")}
+                                className={`flex-1 flex justify-center items-center gap-2 py-3 px-6 rounded-full text-sm font-bold transition-all ${mode === 'autopsy' ? 'bg-red-950 text-red-400 border border-red-900/50' : 'text-zinc-500 hover:text-white'
+                                    }`}
+                            >
+                                <WarningCircle weight={mode === 'autopsy' ? "fill" : "regular"} size={18} />
+                                <span className="hidden sm:inline">Autopsy</span>
+                            </button>
+
+                            <button
+                                onClick={() => setMode("insight")}
+                                className={`flex-1 flex justify-center items-center gap-2 py-3 px-6 rounded-full text-sm font-bold transition-all ${mode === 'insight' ? 'bg-purple-900/30 text-purple-400 border border-purple-500/30' : 'text-zinc-500 hover:text-white'
+                                    }`}
+                            >
+                                <Lightbulb weight={mode === 'insight' ? "fill" : "regular"} size={18} />
+                                Insight
+                            </button>
+
+                            <button
+                                onClick={() => setMode("catalyst")}
+                                className={`flex-1 flex justify-center items-center gap-2 py-3 px-6 rounded-full text-sm font-bold transition-all ${mode === 'catalyst' ? 'bg-emerald-950/50 text-emerald-400 border border-emerald-900/50' : 'text-zinc-500 hover:text-white'
+                                    }`}
+                            >
+                                <RocketLaunch weight={mode === 'catalyst' ? "fill" : "regular"} size={18} />
+                                <span className="hidden sm:inline">Catalyst</span>
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+        </div>
+    );
+}

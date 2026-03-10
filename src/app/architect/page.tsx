@@ -3,8 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import BlueprintCard from '@/components/BlueprintCard';
+import { useUser } from '@clerk/nextjs';
 
 export default function ArchitectPage() {
+    const { user, isLoaded } = useUser();
+    const isPro = user?.publicMetadata?.tier === 'PRO' || user?.publicMetadata?.has_ltd === true;
+
     const [blueprints, setBlueprints] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -53,6 +57,11 @@ export default function ArchitectPage() {
                 <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
                     <strong className="text-white font-medium">The Discovery Engine Blueprint.</strong> These are fully optimized, multi-modal application stacks across OpenRouter, Fal, Replicate, and others. We supply the intelligence map so you can run the leanest architecture possible without middleware lock-in.
                 </p>
+                {isLoaded && isPro && (
+                    <div className="mt-4 inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wider">
+                        ★ Enterprise Architect Access
+                    </div>
+                )}
             </div>
 
             <div className="flex-grow z-10 relative">

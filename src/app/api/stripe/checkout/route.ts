@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 import Stripe from 'stripe';
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
@@ -22,9 +23,15 @@ export async function POST(req: NextRequest) {
         // Real Stripe API integration
         const origin = req.headers.get('origin') || 'http://localhost:3000';
 
+        // Grab the authenticated user from Clerk
+        const { userId } = await auth();
+
         // This assumes you have created a product in Stripe and have its Price ID.
         // For a generic demo without a hardcoded price ID, we create an ad-hoc price.
         const session = await stripe.checkout.sessions.create({
+            metadata: {
+                clerk_user_id: userId || 'anonymous',
+            },
             payment_method_types: ['card'],
             line_items: [
                 {
