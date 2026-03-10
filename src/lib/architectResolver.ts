@@ -1,5 +1,6 @@
 import intelligenceDump from '../data/intelligence_dump.json';
 import eloDataRaw from '../data/lmsys_elo.json';
+import { fetchModels } from './api';
 
 const eloData = eloDataRaw as Record<string, number>;
 
@@ -14,8 +15,15 @@ function runLiveRegression(modelId: string, componentName: string): boolean {
     return Math.abs(hash) % 100 !== 0;
 }
 
-export function resolveCustomBlueprint(intentName: string, components: Record<string, any>, availableKeys: string[]) {
+export async function resolveCustomBlueprint(intentName: string, components: Record<string, any>, availableKeys: string[]) {
     const globalProviders = intelligenceDump.global_providers;
+
+    // Fetch live model stats and tags
+    const { models } = await fetchModels();
+    const useCaseMap = new Map<string, string[]>();
+    for (const m of models) {
+        useCaseMap.set(m.id, m.use_cases || []);
+    }
 
     // Default open access cloud keys if not explicitly restricted
     const allCloudKeys = Array.from(new Set([
@@ -27,7 +35,7 @@ export function resolveCustomBlueprint(intentName: string, components: Record<st
     let totalCompletionCost = 0;
 
     for (const [compName, constraints] of Object.entries(components)) {
-        const bestModels = findBestModels(compName, constraints, allCloudKeys);
+        const bestModels = findBestModels(compName, constraints, allCloudKeys, useCaseMap);
         if (bestModels && bestModels.length > 0) {
             const primary = bestModels[0];
             const fallbacks = bestModels.slice(1).map(m => ({
@@ -39,7 +47,8 @@ export function resolveCustomBlueprint(intentName: string, components: Record<st
                 id: primary.exact_alias,
                 provider: primary.gateway,
                 fallbacks: fallbacks.length > 0 ? fallbacks : undefined,
-                rationale: constraints.description || ""
+                rationale: constraints.description || "",
+                assigned_domain: constraints.domain || "none"
             };
             totalPromptCost += primary.prompt_cost;
             totalCompletionCost += primary.completion_cost;
@@ -59,7 +68,7 @@ export function resolveCustomBlueprint(intentName: string, components: Record<st
     };
 }
 
-function findBestModels(componentName: string, constraints: any, availableKeys: string[]) {
+function findBestModels(componentName: string, constraints: any, availableKeys: string[], useCaseMap: Map<string, string[]>) {
     const validCandidates: any[] = [];
 
     for (const row of intelligenceDump.entities) {
@@ -110,6 +119,15 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
             }
         }
 
+        const modsOutStr = row.modalities_out || "text"; // Default to text if missing
+        const reqModsOut = constraints.required_modalities_out || ["text"]; // Default components to outputting text
+        for (const reqMod of reqModsOut) {
+            if (!modsOutStr.includes(reqMod)) {
+                modalityFail = true;
+                break;
+            }
+        }
+
         if (modalityFail) {
             continue;
         }
@@ -126,14 +144,36 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
             continue;
         }
 
+        const raw_cost_metric = (row.pricing_prompt + (row.pricing_completion * 2)) * 1000000;
+
+        // Domain Math Multiplier: If the model matches the requested domain, we artificially divide its sorting cost by 100.
+        // This guarantees the cheapest DOMAIN MATCH will win, while still enforcing absolute budget/ELO caps.
+        let effective_cost = raw_cost_metric;
+        const reqDomain = constraints.domain;
+        const mTags = useCaseMap.get(row.model_id) || [];
+
+        if (reqDomain && reqDomain !== 'general') {
+            let isDomainMatch = false;
+            if (reqDomain === 'coding_and_logic' && mTags.includes('Coding & Logic')) isDomainMatch = true;
+            if (reqDomain === 'drafting' && mTags.includes('Drafting')) isDomainMatch = true;
+            if (reqDomain === 'vision' && mTags.includes('Vision')) isDomainMatch = true;
+            if (reqDomain === 'reasoning' && (mTags.includes('Top Tier') || mTags.includes('Fictional'))) isDomainMatch = true;
+
+            if (isDomainMatch) {
+                effective_cost = raw_cost_metric * 0.001; // EVEN MASSIVER prioritization multiplier
+            }
+        }
+
         validCandidates.push({
             model_id: row.model_id,
             exact_alias: supportedAlias || row.model_id,
             gateway: supportedGateway || "direct",
             prompt_cost: row.pricing_prompt,
             completion_cost: row.pricing_completion,
-            total_cost_metric: (row.pricing_prompt + (row.pricing_completion * 2)) * 1000000, // Normalized to 1M tokens
-            elo: eloScore
+            real_cost_metric: raw_cost_metric,
+            total_cost_metric: effective_cost, // Sorting cost
+            elo: eloScore,
+            domain_matched: effective_cost < raw_cost_metric
         });
     }
 
@@ -143,8 +183,8 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
 
     const maxBudget = constraints.max_budget_per_1m || 999999;
 
-    // 1. Filter models strictly by budget constraint (note: ELO is already filtered out above!)
-    const withinBudget = validCandidates.filter(c => c.total_cost_metric <= maxBudget);
+    // 1. Filter models strictly by REAL budget constraint
+    const withinBudget = validCandidates.filter(c => c.real_cost_metric <= maxBudget);
 
     let finalList = [];
 
@@ -162,6 +202,8 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
 
     // Attempt to build a resilient list by ensuring fallbacks prefer different providers/models if possible
     const primary = finalList[0];
+    console.log(`[Architect] Component '${componentName}' routed to '${primary.model_id}' (Domain: ${constraints.domain}, Matched: ${primary.domain_matched}, Real Cost: $${primary.real_cost_metric.toFixed(4)}, Sorting Cost: $${primary.total_cost_metric.toFixed(4)}, ELO: ${primary.elo} >= ${constraints.min_elo})`);
+
     const resilientList = [primary];
 
     for (let i = 1; i < finalList.length; i++) {

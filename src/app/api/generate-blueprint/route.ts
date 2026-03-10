@@ -35,6 +35,7 @@ const blueprintSchema = z.object({
         z.object({
             name: z.string().describe("A snake_case, highly descriptive component name representing its role (e.g. 'rag_orchestrator', 'audio_transcriber')"),
             description: z.string().describe("A short explanation of what this operational node must accomplish and its edge cases."),
+            domain: z.enum(['coding_and_logic', 'drafting', 'reasoning', 'vision', 'general']).describe("The cognitive domain required. 'coding_and_logic': code/math/data logic. 'drafting': fast extraction/routine routing. 'reasoning': complex C-suite synthesis/general intelligence. 'vision': image parsing. 'general': agnostic."),
             min_elo: z.number().describe(`The minimum intelligence capability threshold required for this node (0-${maxElo}). Routine tasks=${medianElo}, Complex logic/Reasoning=${frontierElo}+`),
             max_budget_per_1m: z.number().describe("The maximum allowable cost per 1M tokens in US dollars. e.g. 0.5 for cheap, 5.0 for standard, 15.0 for bleeding edge."),
             required_modalities_in: z.array(z.enum(['text', 'audio', 'image', 'video'])).describe("Required input formats."),
@@ -100,8 +101,8 @@ export async function POST(req: NextRequest) {
                     Then, deconstruct their idea into the absolute minimal set of functional AI components. Do not over-complicate.
                     Most startups only need 1 (a unified core_engine) or 2 components (a cheap router/extractor -> an expensive reasoning model).
                     HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out' (e.g., 'image', 'audio', 'video').
-                    Define strict mathematical constraints for each component (minimum ELO score, budget limits, modalities) that reflect the exact requirements.
-                    Be extremely dynamic with your budget allocation: allocate tiny budgets ($0.05) to simple extraction/formatting nodes, but dynamically allocate much higher budgets ($5.0+) and ELO requirements (${frontierElo}+) to nodes that require deep reasoning or act as the 'insight engine'. Let the capability requirements match the exact complexity of the task.
+                    Define strict mathematical constraints for each component (domain, minimum ELO score, budget limits, modalities) that reflect the exact requirements.
+                    Be extremely dynamic: allocate tiny budgets ($0.05) and assign the 'drafting' domain to simple extraction nodes, but allocate massive budgets ($5.0+) and massive ELO requirements (${frontierElo}+) and assign the 'reasoning' domain to the core insight engines or 'coding_and_logic' for programming agents. Let the constraints perfectly map the cognitive profile of the task.
                     If the tier is MEGA, the architecture must represent a distributed enterprise system, citing specific required backend workers or pipelines in the descriptions.`,
             });
 
@@ -118,7 +119,7 @@ export async function POST(req: NextRequest) {
             if (process.env.OPENAI_API_KEY) availableKeys.push("openai");
             // Expand with more if mapped natively in .env
 
-            const blueprint = resolveCustomBlueprint(object.name, componentsDict, availableKeys);
+            const blueprint = await resolveCustomBlueprint(object.name, componentsDict, availableKeys);
 
             // 3. Presentation Layer: Return the mathematically pure response + tier
             return NextResponse.json({ blueprint, tier: object.tier });
