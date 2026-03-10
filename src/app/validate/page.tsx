@@ -55,6 +55,7 @@ type TriangulationData = {
             action: string;
             rationale: string;
         };
+        base_opportunity_score: number;
         ai_unit_economics_autopsy?: {
             gross_margin_health: "CRITICAL" | "STABLE" | "EXPONENTIAL";
             financial_verdict: string;
@@ -77,6 +78,8 @@ export default function ValidatePage() {
     const [users, setUsers] = useState<number>(1000);
     const [price, setPrice] = useState<number>(20);
     const [inference, setInference] = useState<number>(500);
+    const [riskMitigation, setRiskMitigation] = useState<number>(50);
+    const [growthExecution, setGrowthExecution] = useState<number>(50);
     const [isLoading, setIsLoading] = useState(false);
     const [loadingStage, setLoadingStage] = useState(0);
     const [data, setData] = useState<TriangulationData | null>(null);
@@ -88,6 +91,8 @@ export default function ValidatePage() {
         setError(null);
         setData(null);
         setMode("insight"); // Reset to default synthesis view when executing
+        setRiskMitigation(50); // Reset confidence sliders
+        setGrowthExecution(50);
 
         const interval = setInterval(() => {
             setLoadingStage((prev) => (prev + 1) % LOADING_SIZZLE.length);
@@ -306,6 +311,56 @@ export default function ValidatePage() {
                                             <p className="text-zinc-300 leading-relaxed text-lg pb-2">
                                                 {data.insightSummary.ai_unit_economics_autopsy.financial_verdict}
                                             </p>
+                                        </div>
+                                    )}
+
+                                    {/* Execution Confidence Engine */}
+                                    {data.insightSummary.base_opportunity_score && (
+                                        <div className="p-8 md:p-10 rounded-3xl bg-zinc-950 border border-zinc-800 flex flex-col md:col-span-2 relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 p-8 opacity-5">
+                                                <Target weight="fill" className="text-white text-9xl" />
+                                            </div>
+                                            
+                                            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
+                                                <div className="flex-1 w-full space-y-8">
+                                                    <div>
+                                                        <h3 className="text-xl font-bold text-white mb-2">Execution Confidence</h3>
+                                                        <p className="text-zinc-400 text-sm leading-relaxed mb-6">Dial in your ability to execute against the AI's findings. The structural base score assumes average execution capability (50%).</p>
+                                                    </div>
+
+                                                    <div className="space-y-6">
+                                                        <div className="space-y-3">
+                                                            <div className="flex justify-between items-center text-sm font-bold">
+                                                                <span className="text-red-400 uppercase tracking-widest text-xs flex items-center gap-2"><Skull weight="fill" /> Mitigate Kill Criteria</span>
+                                                                <span className="text-white">{riskMitigation}%</span>
+                                                            </div>
+                                                            <input type="range" min="0" max="100" value={riskMitigation} onChange={(e) => setRiskMitigation(Number(e.target.value))} className="w-full accent-red-500 bg-zinc-900 rounded-full h-2 appearance-none cursor-pointer" />
+                                                        </div>
+
+                                                        <div className="space-y-3">
+                                                            <div className="flex justify-between items-center text-sm font-bold">
+                                                                <span className="text-emerald-400 uppercase tracking-widest text-xs flex items-center gap-2"><RocketLaunch weight="fill" /> Execute Scaling Blueprint</span>
+                                                                <span className="text-white">{growthExecution}%</span>
+                                                            </div>
+                                                            <input type="range" min="0" max="100" value={growthExecution} onChange={(e) => setGrowthExecution(Number(e.target.value))} className="w-full accent-emerald-500 bg-zinc-900 rounded-full h-2 appearance-none cursor-pointer" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="shrink-0 w-full md:w-48 flex flex-col items-center justify-center pt-8 md:pt-0 md:pl-8 md:border-l border-zinc-800 border-t md:border-t-0">
+                                                    <div className="text-zinc-500 text-xs font-bold tracking-widest uppercase mb-4 text-center">Worth a Shot?</div>
+                                                    <div className="relative flex items-center justify-center">
+                                                        <div className={`text-6xl md:text-7xl font-black tracking-tighter ${
+                                                            Math.min(100, Math.round(data.insightSummary.base_opportunity_score * (((riskMitigation + growthExecution) / 2) / 50))) >= 80 ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]' :
+                                                            Math.min(100, Math.round(data.insightSummary.base_opportunity_score * (((riskMitigation + growthExecution) / 2) / 50))) >= 50 ? 'text-yellow-400' :
+                                                            'text-red-500'
+                                                        }`}>
+                                                            {Math.min(100, Math.round(data.insightSummary.base_opportunity_score * (((riskMitigation + growthExecution) / 2) / 50)))}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-zinc-500 text-xs font-mono mt-4 text-center">Base Score: {data.insightSummary.base_opportunity_score}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     )}
 
