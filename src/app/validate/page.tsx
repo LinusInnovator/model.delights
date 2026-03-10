@@ -135,7 +135,7 @@ export default function ValidatePage() {
 
                     <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-4 lowercase">
                         Tell us your idea. <br />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-emerald-400 to-red-500">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-indigo-500 to-emerald-400">
                             We'll show you the truth.
                         </span>
                     </h1>
