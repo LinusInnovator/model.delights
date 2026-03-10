@@ -28,7 +28,12 @@ const VentureValidationSchema = z.object({
         setup: z.string().describe("A concise 1-sentence instruction on how to run this test/validation."),
         metric: z.string().describe("What exactly are you measuring?"),
         validation_threshold: z.string().describe("The specific metric threshold that proves or disproves the assumption (e.g., 'If fewer than 10% of users...').")
-    })).min(1).max(3).describe("The first 1-3 sequentially logical experiments to run to de-risk or validate the core assumptions.")
+    })).min(1).max(3).describe("The first 1-3 sequentially logical experiments to run to de-risk or validate the core assumptions."),
+    kill_criteria_protocol: z.object({
+        deadliest_assumption: z.string().describe("The single most fatal failure point based on the Red Team's analysis (or the biggest growth blocker for Green Team)."),
+        validation_protocol: z.string().describe("A hard, 48-hour testing sequence (e.g., 'Secure 5 LOIs')."),
+        actionable_template: z.string().describe("An exact cold-email, text message, or landing page copy template the founder can copy-paste tonight to test the assumption.")
+    }).describe("An uncompromising execution protocol the founder must run within 48 hours.")
 });
 
 const InsightSchema = z.object({
@@ -37,6 +42,10 @@ const InsightSchema = z.object({
     strategic_pivot: z.object({
         action: z.string().describe("The single most critical action the founder must take immediately to unlock the upside while avoiding the trap."),
         rationale: z.string().describe("Why this specific action is the linchpin.")
+    }),
+    ai_unit_economics_autopsy: z.object({
+        gross_margin_health: z.enum(["CRITICAL", "STABLE", "EXPONENTIAL"]).describe("Health of the API margins."),
+        financial_verdict: z.string().describe("A stark 1-2 sentence reality check on their pricing strategy based on raw token burn.")
     })
 });
 
@@ -44,7 +53,8 @@ export const maxDuration = 45;
 
 export async function POST(req: NextRequest) {
     try {
-        const { idea } = await req.json();
+        const payload = await req.json();
+        const { idea, users = 1000, price = 20, inference = 500 } = payload;
 
         if (!idea) {
             return new NextResponse("Missing idea payload.", { status: 400 });
@@ -58,6 +68,7 @@ Core Principles:
 - Feasibility = operational, technical, or organizational delivery.
 - Your tone is calm, coaching-oriented, and executive-level. No motivational hype. No exclamation points.
 - You must ruthlessly extract the riskiest assumptions—the ones that act as kill-switches for the business. Fill the "logic_chain" with how the business collapses, and "validation_threshold" with kill criteria.
+- Produce the kill_criteria_protocol as the definitive 48-hour testing action plan. Write actual email/page copy for the actionable_template.
 - Output pure, objective, deterministic JSON based on the provided schema.
 - IMPORTANT: Even if the user's idea is extremely short, vague, or just a single test word, YOU MUST NOT APOLOGIZE OR ASK FOR MORE INFO. You must invent plausible worst-case assumptions based on whatever tiny fragment of information is provided. YOU MUST OUTPUT VALID JSON.`;
 
@@ -69,6 +80,7 @@ Core Principles:
 - Feasibility = compounding technical/operational moats.
 - Your tone is highly optimistic, visionary, and executive-level. No toxic positivity, but deeply encouraging about the upside.
 - You must extract the most critical "Success Assumptions"—the fundamental beliefs that, if true, mean this business will scale exponentially and thrive.
+- Produce the kill_criteria_protocol, but reframe it as a 'Growth Validation Protocol' to test their biggest scaling lever within 48 hours.
 - Output pure, objective, deterministic JSON based on the provided schema. Note: Use "logic_chain" to define the blueprint to scale, and "validation_threshold" to define upside capture metrics.
 - IMPORTANT: Even if the user's idea is extremely short or vague, YOU MUST NOT APOLOGIZE OR ASK FOR MORE INFO. You must invent plausible best-case growth levers based on whatever tiny fragment of information is provided. YOU MUST OUTPUT VALID JSON.`;
 
@@ -105,9 +117,10 @@ Core Principles:
 
 Your job is to read their structured findings and deliver the final Executive Insight Report in pure JSON.
 - Synthesize the tension: What is the core underlying bet this founder is actually making? Where do the Red Team and Green Team intersect?
+- Calculate a brutally honest 'ai_unit_economics_autopsy'. Read the founder's financial parameters (Users, Price, AI Requests per user). Assume an average AI cost of $5.00 per 1M tokens, and assume each AI request consumes about 2000 tokens ($0.01 cost). Multiply (Users * AI Requests * 0.01) to find their Monthly API burn. Compare that monthly burn to their Monthly Revenue (Users * Price). Do their gross margins survive, or do they bankrupt themselves? 
 - Your tone should be decisive, objective, and highly authoritative. No fluff.`;
 
-        const synthesisUserPrompt = `The startup idea: "${idea}"\n\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
+        const synthesisUserPrompt = `The startup idea: "${idea}"\n\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
 
         const synthesisResult = await generateObject({
             model: openrouter('openai/gpt-4o-mini'),

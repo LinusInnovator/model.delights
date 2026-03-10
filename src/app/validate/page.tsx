@@ -38,6 +38,11 @@ type ValidationData = {
         metric: string;
         validation_threshold: string;
     }[];
+    kill_criteria_protocol?: {
+        deadliest_assumption: string;
+        validation_protocol: string;
+        actionable_template: string;
+    };
 };
 
 type TriangulationData = {
@@ -49,7 +54,11 @@ type TriangulationData = {
         strategic_pivot: {
             action: string;
             rationale: string;
-        }
+        };
+        ai_unit_economics_autopsy?: {
+            gross_margin_health: "CRITICAL" | "STABLE" | "EXPONENTIAL";
+            financial_verdict: string;
+        };
     };
 };
 
@@ -65,6 +74,9 @@ const LOADING_SIZZLE = [
 export default function ValidatePage() {
     const [mode, setMode] = useState<"insight" | "autopsy" | "catalyst">("insight");
     const [idea, setIdea] = useState("");
+    const [users, setUsers] = useState<number>(1000);
+    const [price, setPrice] = useState<number>(20);
+    const [inference, setInference] = useState<number>(500);
     const [isLoading, setIsLoading] = useState(false);
     const [loadingStage, setLoadingStage] = useState(0);
     const [data, setData] = useState<TriangulationData | null>(null);
@@ -85,7 +97,7 @@ export default function ValidatePage() {
             const res = await fetch("/api/validate-triangulation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ idea }),
+                body: JSON.stringify({ idea, users, price, inference }),
             });
 
             if (!res.ok) throw new Error("Triangulation orchestrator failed.");
@@ -150,8 +162,33 @@ export default function ValidatePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="mb-16 relative"
                 >
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 rounded-2xl blur opacity-20"></div>
-                    <div className="relative bg-zinc-950 p-2 rounded-2xl border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-2">
+                    {/* The 24-Month Unit Economics Sliders */}
+                    <div className="flex flex-col md:flex-row gap-4 mb-4 text-sm font-mono text-zinc-400">
+                        <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
+                            <label className="flex justify-between items-center z-10 relative">
+                                <span className="uppercase text-xs tracking-widest text-zinc-500 font-bold">Est. Monthly Users</span>
+                                <span className="text-white font-bold">{users.toLocaleString()}</span>
+                            </label>
+                            <input type="range" min="10" max="100000" step="10" value={users} onChange={e => setUsers(Number(e.target.value))} className="w-full accent-zinc-300 relative z-10" />
+                        </div>
+                        <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
+                            <label className="flex justify-between items-center z-10 relative">
+                                <span className="uppercase text-xs tracking-widest text-emerald-700 font-bold">Monthly Price ($)</span>
+                                <span className="text-emerald-400 font-bold">${price}</span>
+                            </label>
+                            <input type="range" min="0" max="500" step="1" value={price} onChange={e => setPrice(Number(e.target.value))} className="w-full accent-emerald-500 relative z-10" />
+                        </div>
+                        <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
+                            <label className="flex justify-between items-center z-10 relative">
+                                <span className="uppercase text-xs tracking-widest text-red-700 font-bold">AI Req / User / Mo</span>
+                                <span className="text-red-400 font-bold">{inference.toLocaleString()} reqs</span>
+                            </label>
+                            <input type="range" min="10" max="10000" step="10" value={inference} onChange={e => setInference(Number(e.target.value))} className="w-full accent-red-500 relative z-10" />
+                        </div>
+                    </div>
+
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-indigo-600 to-emerald-600 rounded-2xl blur opacity-20 mt-[120px] md:mt-[80px]"></div>
+                    <div className="relative bg-zinc-950 p-2 rounded-2xl border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-2 mt-4">
                         <textarea
                             value={idea}
                             onChange={(e) => setIdea(e.target.value)}
@@ -253,6 +290,25 @@ export default function ValidatePage() {
                                             {data.insightSummary.strategic_pivot.rationale}
                                         </p>
                                     </div>
+                                    
+                                    {/* AI Unit Economics Simulator Verdict */}
+                                    {data.insightSummary.ai_unit_economics_autopsy && (
+                                        <div className="p-8 rounded-3xl bg-zinc-950/50 border border-zinc-800 flex flex-col md:col-span-2">
+                                            <div className="flex items-center gap-2 mb-4 text-zinc-400">
+                                                <Money weight="fill" className={data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'CRITICAL' ? 'text-red-500' : data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'EXPONENTIAL' ? 'text-emerald-400' : 'text-yellow-500'} />
+                                                <h3 className="uppercase font-bold tracking-wider text-sm flex items-center gap-2">
+                                                    AI Unit Economics Autopsy
+                                                </h3>
+                                            </div>
+                                            <div className={`border rounded-xl p-4 mb-4 font-mono font-bold tracking-widest text-sm inline-block self-start ${data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'CRITICAL' ? 'bg-red-950/20 border-red-900/40 text-red-500' : data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'EXPONENTIAL' ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-500' : 'bg-yellow-950/20 border-yellow-900/40 text-yellow-500'}`}>
+                                                VERDICT: {data.insightSummary.ai_unit_economics_autopsy.gross_margin_health}
+                                            </div>
+                                            <p className="text-zinc-300 leading-relaxed text-lg pb-2">
+                                                {data.insightSummary.ai_unit_economics_autopsy.financial_verdict}
+                                            </p>
+                                        </div>
+                                    )}
+
                                 </div>
                             </motion.div>
 
@@ -459,6 +515,43 @@ export default function ValidatePage() {
                                     ))}
                                 </div>
                             </motion.div>
+
+                            {/* Kill Protocol Injection */}
+                            {activeData.kill_criteria_protocol && (
+                                <motion.div variants={itemVariants} className={`p-8 rounded-3xl border ${mode === 'autopsy' ? 'bg-red-950/20 border-red-900/50 shadow-[0_0_30px_rgba(255,0,0,0.1)]' : 'bg-emerald-950/20 border-emerald-900/50 shadow-[0_0_30px_rgba(16,185,129,0.1)]'}`}>
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className={`p-3 rounded-xl ${mode === 'autopsy' ? 'bg-red-900/30' : 'bg-emerald-900/30'}`}>
+                                            {mode === 'autopsy' ? <Skull weight="fill" className="text-red-500 text-2xl" /> : <RocketLaunch weight="fill" className="text-emerald-400 text-2xl" />}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white uppercase tracking-wider">
+                                            {mode === 'autopsy' ? 'Strict 48-Hour Kill Protocol' : 'Strict 48-Hour Scaling Protocol'}
+                                        </h3>
+                                    </div>
+                                    
+                                    <div className="space-y-6">
+                                        <div>
+                                            <div className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Deadliest Assumption</div>
+                                            <p className={`text-lg font-medium ${mode === 'autopsy' ? 'text-red-200' : 'text-emerald-200'}`}>"{activeData.kill_criteria_protocol.deadliest_assumption}"</p>
+                                        </div>
+                                        
+                                        <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800">
+                                            <div className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Execution Protocol</div>
+                                            <p className="text-zinc-300 leading-relaxed text-lg">{activeData.kill_criteria_protocol.validation_protocol}</p>
+                                        </div>
+
+                                        <div>
+                                            <div className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Actionable Template (Copy/Paste Tonight)</div>
+                                            <div className="relative group">
+                                                <div className="absolute inset-0 bg-zinc-900 rounded-xl"></div>
+                                                <pre className="relative p-6 font-mono text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed border border-zinc-800 rounded-xl overflow-x-auto">
+                                                    {activeData.kill_criteria_protocol.actionable_template}
+                                                </pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+
                         </motion.div>
                     )}
                 </AnimatePresence>
