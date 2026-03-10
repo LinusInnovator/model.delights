@@ -17265,6 +17265,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d9a65f51-884a-4656-b204-60afc8b67304",
+      "model_id": "Scout Signal: Gemini in Google Sheets just achieved state-of-the-art performance.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/products/workspace/gemini-google-sheets-state-of-the-art/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
