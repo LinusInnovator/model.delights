@@ -2,6 +2,7 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { generateObject, generateText } from 'ai';
 import { z } from 'zod';
 import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
 
 const openrouter = createOpenAI({
     baseURL: 'https://openrouter.ai/api/v1',
@@ -161,6 +162,25 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
         });
 
         const insightSummary = synthesisResult.object;
+
+        // --- SILENT TELEMETRY LOGGING (Phase 31 Data Lake) ---
+        // Fire-and-forget insertion of the raw validation payload.
+        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            supabase.from('triangulator_audits').insert([
+              {
+                idea: idea,
+                venture_type: ventureType,
+                incumbent_target: incumbentTarget,
+                base_opportunity_score: insightSummary.base_opportunity_score,
+                red_team_fatal_flaw: autopsyData.critical_assumptions[0]?.assumption || "N/A",
+                green_team_wedge: catalystData.critical_assumptions[0]?.assumption || "N/A",
+                raw_insight_json: insightSummary,
+                created_at: new Date().toISOString()
+              }
+            ]).then(({ error }) => {
+                if (error) console.error("Triangulation Telemetry failure (ignored):", error);
+            });
+        }
 
         return NextResponse.json({
             autopsyData,
