@@ -40,13 +40,23 @@ export default function Footer() {
                     <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Core Tools</h4>
                     <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {coreTools.map((tool) => (
-                            <Link 
-                                key={tool.path} 
-                                href={tool.path}
-                                className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors"
-                            >
-                                {tool.name}
-                            </Link>
+                            tool.path === '/admin' ? (
+                                <a
+                                    key={tool.path}
+                                    href={tool.path}
+                                    className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors"
+                                >
+                                    {tool.name}
+                                </a>
+                            ) : (
+                                <Link 
+                                    key={tool.path} 
+                                    href={tool.path}
+                                    className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors"
+                                >
+                                    {tool.name}
+                                </Link>
+                            )
                         ))}
                     </div>
                 </div>

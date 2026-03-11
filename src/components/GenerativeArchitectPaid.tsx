@@ -245,7 +245,7 @@ export default function GenerativeArchitectPaid() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="p-6 md:p-8 text-left prose prose-invert prose-p:text-zinc-300 prose-headings:text-white prose-a:text-cyan-400 max-w-none max-h-[500px] overflow-y-auto custom-scrollbar">
+                                <div className="p-6 md:p-8 text-left prose prose-invert prose-p:text-zinc-300 prose-headings:text-white prose-a:text-cyan-400 prose-p:mb-6 prose-li:mb-2 prose-ul:mb-6 leading-relaxed max-w-none max-h-[500px] overflow-y-auto custom-scrollbar">
                                     {prdText ? (
                                         <ReactMarkdown>{prdText}</ReactMarkdown>
                                     ) : (

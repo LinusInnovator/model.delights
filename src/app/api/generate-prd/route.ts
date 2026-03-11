@@ -104,7 +104,8 @@ FORMATTING RULES:
 - You MUST use beautiful, properly spaced Markdown.
 - Use heavily bolded (**Text**) inline headers for individual technical components.
 - Use explicit bullet points (- ) rather than long paragraphs for nested details.
-- AVOID GIANT WALLS OF UNBROKEN TEXT. You MUST use hard line breaks (\\n\\n) between sections and headers to create negative space.
+- AVOID GIANT WALLS OF UNBROKEN TEXT. You MUST use hard double-line breaks (\\n\\n) between EVERY SINGLE paragraph, list item, section, and header. Create massive vertical negative space for readability.
+- Never use a single newline (\\n). Always double it.
 - Make it visual, rhythmic, and scan-able for an executive engineer.
 
 DO NOT include timelines, sprint planning, or agile management fluff. It must read like an uncompromising, exhaustive engineering briefing. DO NOT arbitrarily limit your length. Write as much detail as necessary to construct a massive, multi-page Silicon Valley Series-B technical specification.`,
