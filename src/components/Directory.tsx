@@ -107,7 +107,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
         });
 
         return result;
-    }, [initialData.models, searchQuery, sortMode, activeUseCase]);
+    }, [initialData.models, searchQuery, sortMode, activeUseCase, maxBudget, simPromptMs, simOutputMs, simReqs]);
 
     // Format last updated
     const lastUpdatedStr = initialData.last_updated
