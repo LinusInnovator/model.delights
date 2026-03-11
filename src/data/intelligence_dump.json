@@ -19005,6 +19005,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_97b0fd53",
+      "model_id": "fal-ai/veo3.1/fast",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/veo3.1/fast",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
