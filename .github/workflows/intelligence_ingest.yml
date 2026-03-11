@@ -30,6 +30,8 @@ jobs:
           python execution/ingest_all.py
           # Export to JSON for Vercel Serverless environment
           python execution/export_db_to_json.py
+          # Update the local agent context with the new live ELO stats
+          python execution/feed_the_agent.py
         env:
           # Include any necessary API keys (Anthropic, OpenRouter) stored as GitHub Secrets
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -39,12 +41,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check if the SQLite database or JSON dump was modified by the scrapers
-          if git diff --quiet execution/intelligence.db src/data/intelligence_dump.json; then
+          # Check if the SQLite database, JSON dump, or Agent Context was modified
+          if git diff --quiet execution/intelligence.db src/data/intelligence_dump.json .agent/instructions.md; then
             echo "No changes detected in intelligence data. Exiting."
           else
             echo "Changes detected! Committing new Intelligence Graph state."
-            git add execution/intelligence.db src/data/intelligence_dump.json
-            git commit -m "chore(engine): update intelligence.db and JSON core from automated P0/P1 sweep"
+            git add execution/intelligence.db src/data/intelligence_dump.json .agent/instructions.md
+            git commit -m "chore(engine): update intelligence.db, JSON core, and local Agent Context from P1 sweep"
             git push
           fi
