@@ -30,6 +30,7 @@ export default function GenerativeArchitectPaid() {
 
     const { completion: prdText, complete: generatePrd, isLoading: isStreamingPrd } = useCompletion({
         api: '/api/generate-prd',
+        streamProtocol: 'text',
         onFinish: () => {
             setAppState('prd_review');
         },
