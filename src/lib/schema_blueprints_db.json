@@ -240,6 +240,296 @@
                     "assigned_domain": "reasoning"
                 }
             }
+        },
+        {
+            "id": "voicetotexttoimageplatform",
+            "name": "VoiceToTextToImagePlatform",
+            "status": "active",
+            "description": "a voice to text to image platform for early sketching",
+            "components": {
+                "voice_input_processor": {
+                    "description": "A component that captures and processes voice input to translate spoken words into text. This node must handle various accents and noise levels efficiently.",
+                    "domain": "drafting",
+                    "min_elo": 1260,
+                    "max_budget_per_1m": 0.05,
+                    "required_modalities_in": [
+                        "audio"
+                    ],
+                    "required_modalities_out": [
+                        "text"
+                    ]
+                },
+                "text_to_image_generator": {
+                    "description": "This service converts the transcribed text into a rough initial sketch or image representation. It should utilize advanced image generation models to deliver visual content based on textual descriptions.",
+                    "domain": "reasoning",
+                    "min_elo": 1400,
+                    "max_budget_per_1m": 5,
+                    "required_modalities_in": [
+                        "text"
+                    ],
+                    "required_modalities_out": [
+                        "image"
+                    ]
+                },
+                "image_refinement_service": {
+                    "description": "An optional service to enhance the initial images generated, adding details and improving resolution. It also ensures that the images meet specific artistic guidelines.",
+                    "domain": "reasoning",
+                    "min_elo": 1400,
+                    "max_budget_per_1m": 5,
+                    "required_modalities_in": [
+                        "image"
+                    ],
+                    "required_modalities_out": [
+                        "image"
+                    ]
+                },
+                "user_interaction_interface": {
+                    "description": "Handles user input and feedback, capturing user interactions and preferences, and serving as the user front-end for the application.",
+                    "domain": "drafting",
+                    "min_elo": 1260,
+                    "max_budget_per_1m": 0.5,
+                    "required_modalities_in": [
+                        "text"
+                    ],
+                    "required_modalities_out": [
+                        "text"
+                    ]
+                },
+                "session_management_service": {
+                    "description": "This component manages user sessions, ensuring all user data and interactions are tracked and maintained throughout the application lifecycle.",
+                    "domain": "drafting",
+                    "min_elo": 1260,
+                    "max_budget_per_1m": 0.5,
+                    "required_modalities_in": [],
+                    "required_modalities_out": []
+                },
+                "reporting_and_analysis_engine": {
+                    "description": "Gathers data on user interactions and application performance for analytics and potential improvements. Uses this data to inform future updates and enhance user experience.",
+                    "domain": "reasoning",
+                    "min_elo": 1400,
+                    "max_budget_per_1m": 5,
+                    "required_modalities_in": [],
+                    "required_modalities_out": [
+                        "text"
+                    ]
+                },
+                "orchestration_layer": {
+                    "description": "Centralizes communication and coordination between all components, managing requests and data flow between each service within the architecture.",
+                    "domain": "general",
+                    "min_elo": 1400,
+                    "max_budget_per_1m": 1,
+                    "required_modalities_in": [],
+                    "required_modalities_out": []
+                },
+                "database_service": {
+                    "description": "Handles storage of images, transcription data, and user interactions. Ensures data integrity and retrieval efficiency for fast access.",
+                    "domain": "coding_and_logic",
+                    "min_elo": 1260,
+                    "max_budget_per_1m": 0.1,
+                    "required_modalities_in": [],
+                    "required_modalities_out": []
+                }
+            },
+            "stack": {
+                "voice_input_processor": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "google/gemini-2.5-flash",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "google/gemini-2.5-pro",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "A component that captures and processes voice input to translate spoken words into text. This node must handle various accents and noise levels efficiently.",
+                    "assigned_domain": "drafting"
+                },
+                "text_to_image_generator": {
+                    "id": "openrouter/auto",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "fal-ai/nano-banana-2/edit",
+                            "provider": "fal"
+                        },
+                        {
+                            "id": "fal-ai/nano-banana-pro/edit",
+                            "provider": "fal"
+                        }
+                    ],
+                    "rationale": "This service converts the transcribed text into a rough initial sketch or image representation. It should utilize advanced image generation models to deliver visual content based on textual descriptions.",
+                    "assigned_domain": "reasoning"
+                },
+                "image_refinement_service": {
+                    "id": "openrouter/auto",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "fal-ai/nano-banana-2/edit",
+                            "provider": "fal"
+                        },
+                        {
+                            "id": "fal-ai/nano-banana-pro/edit",
+                            "provider": "fal"
+                        }
+                    ],
+                    "rationale": "An optional service to enhance the initial images generated, adding details and improving resolution. It also ensures that the images meet specific artistic guidelines.",
+                    "assigned_domain": "reasoning"
+                },
+                "user_interaction_interface": {
+                    "id": "meta-llama/llama-3.2-11b-vision-instruct",
+                    "provider": "openrouter",
+                    "rationale": "Handles user input and feedback, capturing user interactions and preferences, and serving as the user front-end for the application.",
+                    "assigned_domain": "drafting"
+                },
+                "session_management_service": {
+                    "id": "meta-llama/llama-3.2-11b-vision-instruct",
+                    "provider": "openrouter",
+                    "rationale": "This component manages user sessions, ensuring all user data and interactions are tracked and maintained throughout the application lifecycle.",
+                    "assigned_domain": "drafting"
+                },
+                "reporting_and_analysis_engine": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "rationale": "Gathers data on user interactions and application performance for analytics and potential improvements. Uses this data to inform future updates and enhance user experience.",
+                    "assigned_domain": "reasoning"
+                },
+                "orchestration_layer": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "openai/gpt-5.1-chat",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "google/gemini-3.1-pro-preview",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "Centralizes communication and coordination between all components, managing requests and data flow between each service within the architecture.",
+                    "assigned_domain": "general"
+                },
+                "database_service": {
+                    "id": "bytedance-seed/seed-2.0-mini",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "x-ai/grok-3-mini",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "qwen/qwen3-coder-next",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "Handles storage of images, transcription data, and user interactions. Ensures data integrity and retrieval efficiency for fast access.",
+                    "assigned_domain": "coding_and_logic"
+                }
+            },
+            "stack_openrouter_only": {
+                "voice_input_processor": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "google/gemini-2.5-flash",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "google/gemini-2.5-pro",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "A component that captures and processes voice input to translate spoken words into text. This node must handle various accents and noise levels efficiently.",
+                    "assigned_domain": "drafting"
+                },
+                "text_to_image_generator": {
+                    "id": "openrouter/auto",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "fal-ai/nano-banana-2/edit",
+                            "provider": "fal"
+                        },
+                        {
+                            "id": "fal-ai/nano-banana-pro/edit",
+                            "provider": "fal"
+                        }
+                    ],
+                    "rationale": "This service converts the transcribed text into a rough initial sketch or image representation. It should utilize advanced image generation models to deliver visual content based on textual descriptions.",
+                    "assigned_domain": "reasoning"
+                },
+                "image_refinement_service": {
+                    "id": "openrouter/auto",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "fal-ai/nano-banana-2/edit",
+                            "provider": "fal"
+                        },
+                        {
+                            "id": "fal-ai/nano-banana-pro/edit",
+                            "provider": "fal"
+                        }
+                    ],
+                    "rationale": "An optional service to enhance the initial images generated, adding details and improving resolution. It also ensures that the images meet specific artistic guidelines.",
+                    "assigned_domain": "reasoning"
+                },
+                "user_interaction_interface": {
+                    "id": "meta-llama/llama-3.2-11b-vision-instruct",
+                    "provider": "openrouter",
+                    "rationale": "Handles user input and feedback, capturing user interactions and preferences, and serving as the user front-end for the application.",
+                    "assigned_domain": "drafting"
+                },
+                "session_management_service": {
+                    "id": "meta-llama/llama-3.2-11b-vision-instruct",
+                    "provider": "openrouter",
+                    "rationale": "This component manages user sessions, ensuring all user data and interactions are tracked and maintained throughout the application lifecycle.",
+                    "assigned_domain": "drafting"
+                },
+                "reporting_and_analysis_engine": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "rationale": "Gathers data on user interactions and application performance for analytics and potential improvements. Uses this data to inform future updates and enhance user experience.",
+                    "assigned_domain": "reasoning"
+                },
+                "orchestration_layer": {
+                    "id": "google/gemini-3.1-flash-lite-preview",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "openai/gpt-5.1-chat",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "google/gemini-3.1-pro-preview",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "Centralizes communication and coordination between all components, managing requests and data flow between each service within the architecture.",
+                    "assigned_domain": "general"
+                },
+                "database_service": {
+                    "id": "bytedance-seed/seed-2.0-mini",
+                    "provider": "openrouter",
+                    "fallbacks": [
+                        {
+                            "id": "x-ai/grok-3-mini",
+                            "provider": "openrouter"
+                        },
+                        {
+                            "id": "qwen/qwen3-coder-next",
+                            "provider": "openrouter"
+                        }
+                    ],
+                    "rationale": "Handles storage of images, transcription data, and user interactions. Ensures data integrity and retrieval efficiency for fast access.",
+                    "assigned_domain": "coding_and_logic"
+                }
+            }
         }
     ]
 }

@@ -120,8 +120,16 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
         }
 
         const modsOutStr = row.modalities_out || "text"; // Default to text if missing
-        const reqModsOut = constraints.required_modalities_out || ["text"]; // Default components to outputting text
+        let reqModsOut = constraints.required_modalities_out || [];
+        if (!Array.isArray(reqModsOut)) reqModsOut = [reqModsOut]; // Normalize to array
+        
+        // If the LLM didn't specify an output modality, default to requiring 'text'
+        if (reqModsOut.length === 0) {
+            reqModsOut = ["text"];
+        }
+
         for (const reqMod of reqModsOut) {
+            // We require the model's reported output modalities to include what the node demands
             if (!modsOutStr.includes(reqMod)) {
                 modalityFail = true;
                 break;
@@ -129,13 +137,26 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
         }
 
         if (modalityFail) {
+            if (componentName.includes('image') || componentName.includes('video')) {
+                console.log(`[Reject] ${row.model_id} failed modality. Has IN: ${modsInStr}, OUT: ${modsOutStr}. Needs OUT:`, reqModsOut);
+            }
             continue;
         }
 
         // ELO Check
+        // Non-text models (Image, Video, Audio) do not have LMSYS ELO scores in our DB, so they will read as 0.
+        // We must bypass ELO constraints for non-text generative nodes.
+        let skipEloCheck = false;
+        if (reqModsOut.some((m: string) => m === 'image' || m === 'video' || m === 'audio')) {
+            skipEloCheck = true;
+        }
+
         const eloScore = eloData[row.model_id] || 0;
         const minElo = (constraints.min_elo || 0) * 0.95;
-        if (eloScore < minElo) {
+        if (!skipEloCheck && eloScore < minElo) {
+             if (componentName.includes('image') || componentName.includes('video')) {
+                 console.log(`[Reject] ${row.model_id} failed ELO. Has: ${eloScore}, Needs: ${minElo}`);
+             }
             continue;
         }
 
@@ -144,7 +165,9 @@ function findBestModels(componentName: string, constraints: any, availableKeys: 
             continue;
         }
 
-        const raw_cost_metric = (row.pricing_prompt + (row.pricing_completion * 2)) * 1000000;
+        // Some dynamic routing endpoints (like openrouter/auto) report negative integer pricing offsets in their metrics.
+        // We clamp to 0 to prevent these from dominating the sorting algorithm with negative millions.
+        const raw_cost_metric = Math.max(0, (row.pricing_prompt + (row.pricing_completion * 2)) * 1000000);
 
         // Domain Math Multiplier: If the model matches the requested domain, we artificially divide its sorting cost by 100.
         // This guarantees the cheapest DOMAIN MATCH will win, while still enforcing absolute budget/ELO caps.
