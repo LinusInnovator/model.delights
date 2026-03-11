@@ -78,8 +78,8 @@ export async function POST(req: NextRequest) {
         }
 
         // Anti-DDoS & Prompt Injection Mitigation
-        // Limit the user's intent to 1000 characters to prevent context-window stuffing
-        query = query.trim().substring(0, 1000);
+        // Limit the user's intent to 20,000 characters to support full Enterprise PRDs but prevent massive context-window stuffing
+        query = query.trim().substring(0, 20000);
 
         let jsonConstraints = "";
 
