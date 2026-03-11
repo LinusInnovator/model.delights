@@ -79,6 +79,8 @@ export default function ValidatePage() {
     const [price, setPrice] = useState<number>(20);
     const [inference, setInference] = useState<number>(500);
     const [showEconomics, setShowEconomics] = useState<boolean>(false);
+    const [ventureType, setVentureType] = useState<"zero_to_one" | "challenger">("zero_to_one");
+    const [incumbentTarget, setIncumbentTarget] = useState("");
     const [riskMitigation, setRiskMitigation] = useState<number>(50);
     const [growthExecution, setGrowthExecution] = useState<number>(50);
     const [isLoading, setIsLoading] = useState(false);
@@ -103,7 +105,7 @@ export default function ValidatePage() {
             const res = await fetch("/api/validate-triangulation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ idea, users, price, inference, includeEconomics: showEconomics }),
+                body: JSON.stringify({ idea, users, price, inference, includeEconomics: showEconomics, ventureType, incumbentTarget }),
             });
 
             if (!res.ok) throw new Error("Triangulation orchestrator failed.");
@@ -168,11 +170,53 @@ export default function ValidatePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="mb-16 relative"
                 >
+                    {/* The Engine Fork Toggle */}
+                    <div className="flex flex-col items-center mb-8">
+                        <div className="bg-zinc-950/80 p-1.5 rounded-full border border-zinc-800/80 shadow-2xl flex items-center gap-1 relative z-20 w-full max-w-sm">
+                            <button
+                                onClick={() => setVentureType("zero_to_one")}
+                                className={`relative flex-1 py-2.5 px-4 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${ventureType === "zero_to_one" ? "text-white" : "text-zinc-600 hover:text-zinc-400"}`}
+                            >
+                                {ventureType === "zero_to_one" && (
+                                    <motion.div layoutId="venture-pill" className="absolute inset-0 bg-zinc-800 rounded-full" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+                                )}
+                                <span className="relative z-10">New Category</span>
+                            </button>
+                            <button
+                                onClick={() => setVentureType("challenger")}
+                                className={`relative flex-1 py-2.5 px-4 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${ventureType === "challenger" ? "text-white" : "text-zinc-600 hover:text-zinc-400"}`}
+                            >
+                                {ventureType === "challenger" && (
+                                    <motion.div layoutId="venture-pill" className="absolute inset-0 bg-red-900/50 border border-red-800/50 rounded-full" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+                                )}
+                                <span className="relative z-10">Attack Winner</span>
+                            </button>
+                        </div>
+                        <AnimatePresence>
+                            {ventureType === "challenger" && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10, height: 0 }}
+                                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                                    exit={{ opacity: 0, y: -10, height: 0 }}
+                                    className="w-full max-w-sm mt-3 overflow-hidden"
+                                >
+                                    <input 
+                                        type="text"
+                                        placeholder="Who are you attacking? (e.g. Notion)"
+                                        value={incumbentTarget}
+                                        onChange={e => setIncumbentTarget(e.target.value)}
+                                        className="w-full bg-red-950/30 border border-red-900/50 rounded-lg px-4 py-3 text-sm text-red-100 placeholder-red-900/50 focus:outline-none focus:border-red-500/50 transition-colors"
+                                    />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+
                     {/* The 24-Month Unit Economics Sliders Toggle */}
                     <div className="flex justify-end mb-2">
                         <button
                             onClick={() => setShowEconomics(!showEconomics)}
-                            className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 text-xs font-bold uppercase tracking-widest transition-colors"
+                            className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 text-xs font-bold uppercase tracking-widest transition-colors z-20 relative"
                         >
                             <Gear weight="fill" className={showEconomics ? "text-purple-500" : ""} />
                             Configure Unit Economics
