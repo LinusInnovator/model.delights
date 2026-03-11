@@ -78,6 +78,7 @@ export default function ValidatePage() {
     const [users, setUsers] = useState<number>(1000);
     const [price, setPrice] = useState<number>(20);
     const [inference, setInference] = useState<number>(500);
+    const [showEconomics, setShowEconomics] = useState<boolean>(false);
     const [riskMitigation, setRiskMitigation] = useState<number>(50);
     const [growthExecution, setGrowthExecution] = useState<number>(50);
     const [isLoading, setIsLoading] = useState(false);
@@ -167,50 +168,74 @@ export default function ValidatePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="mb-16 relative"
                 >
-                    {/* The 24-Month Unit Economics Sliders */}
-                    <div className="flex flex-col md:flex-row gap-4 mb-4 text-sm font-mono text-zinc-400">
-                        <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
-                            <label className="flex justify-between items-center z-10 relative">
-                                <span className="uppercase text-xs tracking-widest text-zinc-500 font-bold">Est. Monthly Users</span>
-                                <span className="text-white font-bold">{users.toLocaleString()}</span>
-                            </label>
-                            <input type="range" min="10" max="100000" step="10" value={users} onChange={e => setUsers(Number(e.target.value))} className="w-full accent-zinc-300 relative z-10" />
-                        </div>
-                        <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
-                            <label className="flex justify-between items-center z-10 relative">
-                                <span className="uppercase text-xs tracking-widest text-emerald-700 font-bold">Monthly Price ($)</span>
-                                <span className="text-emerald-400 font-bold">${price}</span>
-                            </label>
-                            <input type="range" min="0" max="500" step="1" value={price} onChange={e => setPrice(Number(e.target.value))} className="w-full accent-emerald-500 relative z-10" />
-                        </div>
-                        <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
-                            <label className="flex justify-between items-center z-10 relative">
-                                <span className="uppercase text-xs tracking-widest text-red-700 font-bold">AI Req / User / Mo</span>
-                                <span className="text-red-400 font-bold">{inference.toLocaleString()} reqs</span>
-                            </label>
-                            <input type="range" min="10" max="10000" step="10" value={inference} onChange={e => setInference(Number(e.target.value))} className="w-full accent-red-500 relative z-10" />
-                        </div>
+                    {/* The 24-Month Unit Economics Sliders Toggle */}
+                    <div className="flex justify-end mb-2">
+                        <button
+                            onClick={() => setShowEconomics(!showEconomics)}
+                            className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 text-xs font-bold uppercase tracking-widest transition-colors"
+                        >
+                            <Gear weight="fill" className={showEconomics ? "text-purple-500" : ""} />
+                            Configure Unit Economics
+                        </button>
                     </div>
 
-                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-indigo-600 to-emerald-600 rounded-2xl blur opacity-20 mt-[120px] md:mt-[80px]"></div>
-                    <div className="relative bg-zinc-950 p-2 rounded-2xl border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-2 mt-4">
-                        <textarea
-                            value={idea}
-                            onChange={(e) => setIdea(e.target.value)}
-                            placeholder="e.g., A marketplace connecting freelance AI engineers with local dental clinics..."
-                            className="flex-1 bg-transparent text-white p-4 h-32 md:h-16 resize-none focus:outline-none placeholder-zinc-600 text-lg leading-snug"
-                        />
-                        <button
-                            onClick={handleValidate}
-                            disabled={isLoading || !idea.trim()}
-                            className="bg-white text-black px-8 py-4 rounded-xl font-bold tracking-tight hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                        >
-                            {isLoading ? (
-                                <Sparkle weight="fill" className="animate-spin" />
-                            ) : (
-                                "Initiate Triangulation"
-                            )}
-                        </button>
+                    <AnimatePresence>
+                        {showEconomics && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="overflow-hidden"
+                            >
+                                <div className="flex flex-col md:flex-row gap-4 mb-4 text-sm font-mono text-zinc-400">
+                                    <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
+                                        <label className="flex justify-between items-center z-10 relative">
+                                            <span className="uppercase text-xs tracking-widest text-zinc-500 font-bold">Est. Monthly Users</span>
+                                            <span className="text-white font-bold">{users.toLocaleString()}</span>
+                                        </label>
+                                        <input type="range" min="10" max="100000" step="10" value={users} onChange={e => setUsers(Number(e.target.value))} className="w-full accent-zinc-300 relative z-10" />
+                                    </div>
+                                    <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
+                                        <label className="flex justify-between items-center z-10 relative">
+                                            <span className="uppercase text-xs tracking-widest text-emerald-700 font-bold">Monthly Price ($)</span>
+                                            <span className="text-emerald-400 font-bold">${price}</span>
+                                        </label>
+                                        <input type="range" min="0" max="500" step="1" value={price} onChange={e => setPrice(Number(e.target.value))} className="w-full accent-emerald-500 relative z-10" />
+                                    </div>
+                                    <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex flex-col justify-center gap-2 relative group overflow-hidden">
+                                        <label className="flex justify-between items-center z-10 relative">
+                                            <span className="uppercase text-xs tracking-widest text-red-700 font-bold">AI Req / User / Mo</span>
+                                            <span className="text-red-400 font-bold">{inference.toLocaleString()} reqs</span>
+                                        </label>
+                                        <input type="range" min="10" max="10000" step="10" value={inference} onChange={e => setInference(Number(e.target.value))} className="w-full accent-red-500 relative z-10" />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Search Input Box */}
+                    <div className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-indigo-600 to-emerald-600 rounded-2xl blur opacity-20 transition-all duration-500"></div>
+                        <div className="relative bg-zinc-950 p-2 rounded-2xl border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-2">
+                            <textarea
+                                value={idea}
+                                onChange={(e) => setIdea(e.target.value)}
+                                placeholder="e.g., A marketplace connecting freelance AI engineers with local dental clinics..."
+                                className="flex-1 bg-transparent text-white p-4 h-32 md:h-16 resize-none focus:outline-none placeholder-zinc-600 text-lg leading-snug"
+                            />
+                            <button
+                                onClick={handleValidate}
+                                disabled={isLoading || !idea.trim()}
+                                className="bg-white text-black px-8 py-4 rounded-xl font-bold tracking-tight hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            >
+                                {isLoading ? (
+                                    <Sparkle weight="fill" className="animate-spin" />
+                                ) : (
+                                    "Initiate Triangulation"
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </motion.div>
 
