@@ -47,7 +47,7 @@ const InsightSchema = z.object({
     ai_unit_economics_autopsy: z.object({
         gross_margin_health: z.enum(["CRITICAL", "STABLE", "EXPONENTIAL"]).describe("Health of the API margins."),
         financial_verdict: z.string().describe("A stark 1-2 sentence reality check on their pricing strategy based on raw token burn.")
-    })
+    }).optional()
 });
 
 export const maxDuration = 45;
@@ -55,7 +55,7 @@ export const maxDuration = 45;
 export async function POST(req: NextRequest) {
     try {
         const payload = await req.json();
-        const { idea, users = 1000, price = 20, inference = 500 } = payload;
+        const { idea, users = 1000, price = 20, inference = 500, includeEconomics = false } = payload;
 
         if (!idea) {
             return new NextResponse("Missing idea payload.", { status: 400 });
@@ -118,11 +118,11 @@ Core Principles:
 
 Your job is to read their structured findings and deliver the final Executive Insight Report in pure JSON.
 - Synthesize the tension: What is the core underlying bet this founder is actually making? Where do the Red Team and Green Team intersect?
-- Calculate a brutally honest 'ai_unit_economics_autopsy'. Read the founder's financial parameters (Users, Price, AI Requests per user). Assume an average AI cost of $5.00 per 1M tokens, and assume each AI request consumes about 2000 tokens ($0.01 cost). Multiply (Users * AI Requests * 0.01) to find their Monthly API burn. Compare that monthly burn to their Monthly Revenue (Users * Price). Do their gross margins survive, or do they bankrupt themselves? 
+${includeEconomics ? `- Calculate a brutally honest 'ai_unit_economics_autopsy'. Read the founder's financial parameters (Users, Price, AI Requests per user). Assume an average AI cost of $5.00 per 1M tokens, and assume each AI request consumes about 2000 tokens ($0.01 cost). Multiply (Users * AI Requests * 0.01) to find their Monthly API burn. Compare that monthly burn to their Monthly Revenue (Users * Price). Do their gross margins survive, or do they bankrupt themselves?` : ''}
 - Assign a 'base_opportunity_score' from 1-100. This is your objective assessment of the idea's structural potential, *assuming* the founder has average execution capabilities.
 - Your tone should be decisive, objective, and highly authoritative. No fluff.`;
 
-        const synthesisUserPrompt = `The startup idea: "${idea}"\n\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
+        const synthesisUserPrompt = `The startup idea: "${idea}"\n${includeEconomics ? `\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n` : ''}\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
 
         const synthesisResult = await generateObject({
             model: openrouter('openai/gpt-4o-mini'),

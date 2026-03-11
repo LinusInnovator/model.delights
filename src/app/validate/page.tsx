@@ -103,7 +103,7 @@ export default function ValidatePage() {
             const res = await fetch("/api/validate-triangulation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ idea, users, price, inference }),
+                body: JSON.stringify({ idea, users, price, inference, includeEconomics: showEconomics }),
             });
 
             if (!res.ok) throw new Error("Triangulation orchestrator failed.");
