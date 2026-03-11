@@ -50,8 +50,8 @@ export default function LiveIntelligenceStats() {
     }, [statIndex]);
 
     return (
-        <span className="inline-flex items-center text-cyan-400 font-mono text-sm px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 shadow-[0_0_12px_rgba(0,229,255,0.1)] mx-1 align-baseline relative top-[-2px] tracking-tight">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse mr-2 shadow-[0_0_5px_rgba(0,229,255,0.8)]"></span>
+        <span className="inline-flex items-center text-cyan-400 font-mono text-sm px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 shadow-[0_0_12px_rgba(0,229,255,0.1)] mx-1 relative top-[-2px] tracking-tight w-[285px] justify-start overflow-hidden whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse mr-2 shadow-[0_0_5px_rgba(0,229,255,0.8)] shrink-0"></span>
             [{displayText}]
         </span>
     );
