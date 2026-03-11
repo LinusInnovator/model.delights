@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { streamText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
+import prdFramework from "@/lib/prd_framework_db.json";
 
 // Maximum duration for the Vercel Edge Function
 export const maxDuration = 45;
@@ -38,15 +39,22 @@ export async function POST(req: NextRequest) {
             system: `You are an elite, technical AI Product Manager. 
 Your job is to translate a founder's raw startup idea into a mercilessly precise, human-readable Product Requirements Document (PRD).
 
-DO NOT include timelines, sprint planning, or agile management fluff—this is for an autonomous AI infrastructure factory, not human engineers.
+CRITICAL DIRECTIVE: You MUST strictly use the "Delights.pro 3-Tier Psychological Framework" to structure the AI feature rollout. 
 
-Focus strictly on:
-1. Core User Journey
-2. Strict Technical Constraints (Latency, Throughput, Modalities)
-3. The precise AI capabilities needed (Extraction, Reasoning, Image Gen, etc.)
-4. The exact data passing between the distinct systems.
+Here is the exact framework to follow and the technical AI components associated with each tier:
+${JSON.stringify(prdFramework.tiers, null, 2)}
 
-Format this as a clean, highly technical markdown document using proper headings, lists, and bold text. It must read like an uncompromising engineering briefing. Keep it punchy and dense. Maximum 400 words.`,
+Analyze the founder's idea and extract the specific AI features required for their product, categorizing them EXACTLY into these three headings:
+1. Basics (Effortless Hygiene / Must-Haves)
+2. Performance (Satisfiers / Linear Scalers)
+3. Excitement (Delighters / The Magic)
+
+Format this as a clean, highly technical markdown document. 
+Start with a strict "Core User Journey" paragraph. 
+Then define the "Strict Technical Constraints (Latency, Modalities)".
+Then write the 3-tier feature breakdown. 
+
+DO NOT include timelines, sprint planning, or agile management fluff. It must read like an uncompromising engineering briefing. Keep it punchy and dense. Maximum 500 words.`,
             prompt: `Translate this startup idea into a strict technical PRD:\n\n<intent>\n${sanitizedQuery}\n</intent>`,
         });
 

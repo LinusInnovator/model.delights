@@ -1,0 +1,42 @@
+{
+  "framework": "The Delights.pro 3-Tier Psychological Ecosystem",
+  "vision": "Moving software from isolated utility to emotionally resonant experiences by strategically fulfilling Needs, Satisfiers, and Delighters.",
+  "tiers": {
+    "basics": {
+      "name": "Basics (Must-Haves)",
+      "definition": "The Foundation of Trust. These are table-stakes expectations. If they are broken, the user feels active betrayal and churns immediately. If they are perfect, the user feels nothing (neutral). Complete focus here is on effortlessness and security.",
+      "ai_components": [
+        "Deterministic JSON Parsing (Zod) preventing app crashes",
+        "Edge-deployed low-latency architecture",
+        "Secure RBAC Authentication (Clerk/Supabase)",
+        "DDoS Prevention & Rate Limiting",
+        "Basic Data Privacy / Ephemeral Context",
+        "Standard RAG chunking for context retrieval"
+      ]
+    },
+    "performance": {
+      "name": "Performance (Satisfiers)",
+      "definition": "The Battlefield of Competition. Here, more is explicitly better. Metrics here scale linearly with customer satisfaction and ROI. This creates demonstrable competitive advantage.",
+      "ai_components": [
+        "Sub-500ms Time-To-First-Token (TTFT) for streaming",
+        "Hyper-specialized ELO Routing (Domain Matched Models)",
+        "Vector Search with Semantic Reranking for high-accuracy",
+        "Cost-margin Arbitrage (Routing to cheaper equivalent models)",
+        "High-throughput concurrent connections",
+        "Automated fallback routing during API outages"
+      ]
+    },
+    "excitement": {
+      "name": "Excitement (Delighters)",
+      "definition": "The Architects of Loyalty. These are features the user didn't know they wanted, creating 'WOW' moments of emotional resonance. This generates disproportionate ROI and peer recommendation.",
+      "ai_components": [
+        "Real-time Generative Voice/Audio Feedback (Cartesia/11Labs)",
+        "Proactive Agentic Reasoning (Background Workers that think ahead)",
+        "Predictive UI Generation (Streaming Interfaces that build themselves)",
+        "Multimodal Synthesis (Understanding images/video instantly)",
+        "Hyper-personalized memory context bridging sessions",
+        "Zero-click automagic workflows"
+      ]
+    }
+  }
+}
