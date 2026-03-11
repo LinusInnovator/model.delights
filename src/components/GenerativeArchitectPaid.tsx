@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
 import DownloadBlueprintButton from "./DownloadBlueprintButton";
+import DownloadAgentButton from "./DownloadAgentButton";
 import TerminalSizzle from "./TerminalSizzle";
 
 export default function GenerativeArchitectPaid() {
@@ -378,10 +379,14 @@ export default function GenerativeArchitectPaid() {
                                             : "Get a fully-configured Next.js App Router Next.js codebase with this exact architecture pre-wired out of the box."}
                                     </p>
 
-                                    <div className="relative z-10 w-full flex justify-center mt-2 group-hover:scale-105 transition-transform duration-300">
+                                    <div className="relative z-10 w-full flex flex-col items-center mt-2 group-hover:scale-105 transition-transform duration-300">
                                         <DownloadBlueprintButton blueprint={result} />
+                                        <span className="text-zinc-500 font-bold block pt-4 pb-1 text-[10px] italic tracking-widest uppercase opacity-70">
+                                            — OR —
+                                        </span>
+                                        <DownloadAgentButton blueprint={result} prdText={prdText} />
                                     </div>
-                                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-10">
+                                    <span className="mt-4 text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-10">
                                         One-time $49 Download
                                     </span>
                                 </div>
