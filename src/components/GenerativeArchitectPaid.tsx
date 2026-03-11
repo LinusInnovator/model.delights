@@ -367,7 +367,7 @@ export default function GenerativeArchitectPaid() {
                                         <DownloadAgentButton blueprint={result} prdText={prdText} />
                                     </div>
                                     <span className="mt-4 text-[10px] text-zinc-500 uppercase tracking-widest font-mono relative z-10">
-                                        One-time $49 Download
+                                        Test Mode: Free Bypass Active
                                     </span>
                                 </div>
                             )}

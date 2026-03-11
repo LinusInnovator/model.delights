@@ -72,7 +72,7 @@ export default function DownloadBlueprintButton({ blueprint }: DownloadBlueprint
             ) : (
                 <>
                     <CloudArrowDown size={20} weight="bold" />
-                    Download $49 Architecture
+                    Download Architecture (Test Bypass)
                 </>
             )}
         </button>
