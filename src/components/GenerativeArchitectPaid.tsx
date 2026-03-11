@@ -18,11 +18,17 @@ export default function GenerativeArchitectPaid() {
     const [query, setQuery] = useState(initialIdea);
     
     // UI Flow State
-    const [appState, setAppState] = useState<'input' | 'streaming_prd' | 'prd_review' | 'generating_arch' | 'finished'>('input');
+    const [appState, setAppState] = useState<'input' | 'streaming_prd' | 'prd_review' | 'generating_arch' | 'email_capture' | 'finished'>('input');
     const [result, setResult] = useState<any>(null);
+    const [blueprintPayload, setBlueprintPayload] = useState<any>(null);
+    const [hasUnlocked, setHasUnlocked] = useState(false);
+    
+    // Autoclip Lead Capture State
+    const [email, setEmail] = useState('');
+    const [isSubmittingEmail, setIsSubmittingEmail] = useState(false);
     
     // Legacy generation state for sizzle component compatibility
-    const isGenerating = appState === 'generating_arch' || appState === 'streaming_prd';
+    const isGenerating = appState === 'generating_arch' || appState === 'streaming_prd' || appState === 'email_capture';
     const isFinalizing = appState === 'finished' && !result; // transition state
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -42,8 +48,12 @@ export default function GenerativeArchitectPaid() {
     });
 
     useEffect(() => {
-        // Keeping useEffect for structural consistency if needed later
-    }, [isGenerating]);
+        if (hasUnlocked && blueprintPayload && appState === 'generating_arch') {
+            setResult(blueprintPayload.blueprint);
+            setTier(blueprintPayload.tier || "SIMPLE");
+            setAppState('finished');
+        }
+    }, [hasUnlocked, blueprintPayload, appState]);
 
     const handleCopyPRD = async () => {
         if (!prdText) return;
@@ -74,33 +84,59 @@ export default function GenerativeArchitectPaid() {
         setAppState('generating_arch');
         setError(null);
 
+        // Background Fetch
         try {
-            // Inject the Triangulated Strategic Pivot invisibly if it exists in the URL
             const finalQuery = pivot
                 ? `Executive Validation Command: The Senior Partner has dictated that this architecture MUST specifically prioritize: [${pivot}].\n\n=== PRODUCT REQUIREMENTS DOCUMENT ===\n${prdText}`
                 : `=== PRODUCT REQUIREMENTS DOCUMENT ===\n${prdText}`;
 
-            const apiPromise = fetch("/api/generate-blueprint", {
+            fetch("/api/generate-blueprint", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ query: finalQuery })
             }).then(async (res) => {
                 if (!res.ok) throw new Error("Failed to generate architecture.");
-                return res.json();
+                const data = await res.json();
+                setBlueprintPayload(data);
+            }).catch(err => {
+                console.error("Blueprint synthesis error:", err);
+                setError(err.message || "An unexpected error occurred.");
+                setAppState('prd_review'); // Fall back to allow retry
             });
 
-            // Enforce a minimum animation duration of ~6.5 seconds to match the terminal sizzle
-            const minTimePromise = new Promise(resolve => setTimeout(resolve, 6700));
+            // The Autoclip intercept
+            setTimeout(() => {
+                setAppState('email_capture');
+            }, 3000);
 
-            const [data] = await Promise.all([apiPromise, minTimePromise]);
-
-            setResult(data.blueprint);
-            setTier(data.tier || "SIMPLE");
-            setAppState('finished');
         } catch (err: any) {
             setError(err.message || "An unexpected error occurred.");
-            setAppState('prd_review'); // Fall back to allow retry
+            setAppState('prd_review');
         }
+    };
+
+    const handleUnlockBlueprint = async (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        
+        if (!email.trim() || !email.includes('@')) {
+             setError("Please enter a valid email to unlock the blueprint.");
+             setTimeout(() => setError(null), 3000);
+             return;
+        }
+
+        setIsSubmittingEmail(true);
+        try {
+            await fetch('/api/capture-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, query: initialIdea || query })
+            });
+        } catch (err) {
+            console.error("Lead capture error", err);
+        }
+        setIsSubmittingEmail(false);
+        setHasUnlocked(true);
+        setAppState('generating_arch');
     };
 
     return (
@@ -233,16 +269,47 @@ export default function GenerativeArchitectPaid() {
                         </div>
                     )}
 
-                    {appState === 'generating_arch' && (
-                        <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500">
-                            <div className="flex flex-col items-center w-full">
+                    {(appState === 'generating_arch' || appState === 'email_capture') && (
+                        <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500 relative">
+                            <div className={`flex flex-col items-center w-full transition-all duration-700 ${appState === 'email_capture' ? 'blur-md opacity-40 select-none scale-95' : ''}`}>
                                 <TerminalSizzle isComplete={false} />
                             </div>
+
+                            {appState === 'email_capture' && (
+                                <div className="absolute inset-0 z-10 flex items-center justify-center animate-fade-in-up">
+                                    <div className="bg-zinc-950/90 backdrop-blur-xl border border-zinc-800 p-8 rounded-2xl w-[90%] sm:w-[500px] shadow-2xl flex flex-col items-center text-center">
+                                        <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-4 border border-cyan-500/50 shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+                                            <Sparkle size={24} className="text-cyan-400" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white mb-2">Your Architecture is Ready.</h3>
+                                        <p className="text-sm text-zinc-400 mb-6">
+                                            Enter your email to unlock the final JSON blueprint, access the full technical diagram, and receive our weekly CTO teardowns.
+                                        </p>
+                                        <form onSubmit={handleUnlockBlueprint} className="w-full flex flex-col gap-3">
+                                            <input 
+                                                type="email" 
+                                                placeholder="founder@unicorn.com" 
+                                                className="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                                                value={email}
+                                                onChange={e => setEmail(e.target.value)}
+                                                required
+                                            />
+                                            <button 
+                                                type="submit" 
+                                                disabled={isSubmittingEmail || !email.trim()}
+                                                className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
+                                            >
+                                                {isSubmittingEmail ? <Spinner size={20} className="animate-spin" /> : 'Unlock Blueprint'}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
 
                     {error && (
-                        <div className="mt-4 text-red-400 text-sm font-mono bg-red-900/20 px-4 py-2 rounded-lg border border-red-500/30">
+                        <div className="mt-4 text-red-400 text-sm font-mono bg-red-900/20 px-4 py-2 rounded-lg border border-red-500/30 relative z-20">
                             Error: {error}
                         </div>
                     )}
