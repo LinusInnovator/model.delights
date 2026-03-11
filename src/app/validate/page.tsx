@@ -265,7 +265,7 @@ export default function ValidatePage() {
                             <textarea
                                 value={idea}
                                 onChange={(e) => setIdea(e.target.value)}
-                                placeholder="e.g., A marketplace connecting freelance AI engineers with local dental clinics..."
+                                placeholder={ventureType === 'challenger' ? "e.g., A faster, AI-native version of Jira built specifically for marketing agencies..." : "e.g., A marketplace connecting freelance AI engineers with local dental clinics..."}
                                 className="flex-1 bg-transparent text-white p-4 h-32 md:h-16 resize-none focus:outline-none placeholder-zinc-600 text-lg leading-snug"
                             />
                             <button
