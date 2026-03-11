@@ -36,18 +36,21 @@ const VentureValidationSchema = z.object({
     }).describe("An uncompromising execution protocol the founder must run within 48 hours.")
 });
 
-const InsightSchema = z.object({
+const BaseInsightSchema = z.object({
     core_tension: z.string().describe("A punchy 1-2 sentence summary of the fundamental conflict: How the Red Team thinks it dies vs. How the Green Team thinks it scales."),
     the_verdict: z.string().describe("The Senior Partner's uncompromising, executive verdict on the idea. Is it a trap, or a moonshot?"),
     strategic_pivot: z.object({
         action: z.string().describe("The single most critical action the founder must take immediately to unlock the upside while avoiding the trap."),
         rationale: z.string().describe("Why this specific action is the linchpin.")
     }),
-    base_opportunity_score: z.number().min(1).max(100).describe("Objective structural score from 1-100 measuring the raw potential of the idea before execution."),
+    base_opportunity_score: z.number().min(1).max(100).describe("Objective structural score from 1-100 measuring the raw potential of the idea before execution.")
+});
+
+const EconomicsSchemaExtension = z.object({
     ai_unit_economics_autopsy: z.object({
         gross_margin_health: z.enum(["CRITICAL", "STABLE", "EXPONENTIAL"]).describe("Health of the API margins."),
         financial_verdict: z.string().describe("A stark 1-2 sentence reality check on their pricing strategy based on raw token burn.")
-    }).optional()
+    })
 });
 
 export const maxDuration = 45;
@@ -146,9 +149,13 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
 
         const synthesisUserPrompt = `The startup idea: "${idea}"\n${includeEconomics ? `\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n` : ''}\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
 
+        const DynamicInsightSchema = includeEconomics 
+            ? BaseInsightSchema.merge(EconomicsSchemaExtension)
+            : BaseInsightSchema;
+
         const synthesisResult = await generateObject({
             model: openrouter('openai/gpt-4o-mini'),
-            schema: InsightSchema,
+            schema: DynamicInsightSchema,
             system: synthesisSystemPrompt,
             prompt: synthesisUserPrompt,
         });
@@ -162,7 +169,10 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
         });
 
     } catch (error: any) {
-        console.error("Triangulation Engine error:", error);
+        console.error("====== DEADLY TRIANGULATION EXCEPTION ======");
+        console.error(error);
+        if (error.cause) console.error("CAUSE:", error.cause);
+        console.error("===========================================");
         return new NextResponse(JSON.stringify({
             error: "Failed to process triangulation.",
             details: error.message || error.toString(),
