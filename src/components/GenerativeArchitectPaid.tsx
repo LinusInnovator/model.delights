@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, FileText } from "@phosphor-icons/react";
+import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, FileText, Copy } from "@phosphor-icons/react";
 import { useCompletion } from '@ai-sdk/react';
 import ReactMarkdown from 'react-markdown';
 import BlueprintCard from "./BlueprintCard";
@@ -27,6 +27,7 @@ export default function GenerativeArchitectPaid() {
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(!!initialIdea);
+    const [hasCopied, setHasCopied] = useState(false);
 
     const { completion: prdText, complete: generatePrd, isLoading: isStreamingPrd } = useCompletion({
         api: '/api/generate-prd',
@@ -43,6 +44,17 @@ export default function GenerativeArchitectPaid() {
     useEffect(() => {
         // Keeping useEffect for structural consistency if needed later
     }, [isGenerating]);
+
+    const handleCopyPRD = async () => {
+        if (!prdText) return;
+        try {
+            await navigator.clipboard.writeText(prdText);
+            setHasCopied(true);
+            setTimeout(() => setHasCopied(false), 2000);
+        } catch (err) {
+            console.error("Failed to copy PRD to clipboard:", err);
+        }
+    };
 
     const handleGeneratePRD = async () => {
         if (!query.trim()) return;
@@ -173,8 +185,26 @@ export default function GenerativeArchitectPaid() {
                                         <FileText size={16} className="text-cyan-500" />
                                         <span>Product Requirements Document</span>
                                     </div>
-                                    {appState === 'streaming_prd' && <Spinner size={16} className="text-cyan-500 animate-spin" />}
-                                    {appState === 'prd_review' && <CheckCircle size={16} className="text-emerald-500" weight="fill" />}
+                                    <div className="flex items-center gap-3">
+                                        {appState === 'streaming_prd' && <Spinner size={16} className="text-cyan-500 animate-spin" />}
+                                        {appState === 'prd_review' && (
+                                            <>
+                                                <button
+                                                    onClick={handleCopyPRD}
+                                                    className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white bg-black/40 hover:bg-zinc-800 px-2.5 py-1.5 rounded-md border border-zinc-700/50 transition-all duration-200"
+                                                    title="Copy PRD"
+                                                >
+                                                    {hasCopied ? (
+                                                        <CheckCircle size={14} className="text-emerald-500" weight="bold" />
+                                                    ) : (
+                                                        <Copy size={14} />
+                                                    )}
+                                                    <span className={hasCopied ? "text-emerald-500" : ""}>{hasCopied ? 'Copied' : 'Copy'}</span>
+                                                </button>
+                                                <CheckCircle size={16} className="text-emerald-500 hidden sm:block" weight="fill" />
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="p-6 md:p-8 text-left prose prose-invert prose-p:text-zinc-300 prose-headings:text-white prose-a:text-cyan-400 max-w-none max-h-[500px] overflow-y-auto custom-scrollbar">
                                     {prdText ? (
