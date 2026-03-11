@@ -24,13 +24,16 @@ const createModel = () => {
 
 export async function POST(req: NextRequest) {
     try {
-        const { query } = await req.json();
+        // useCompletion hook sends data as { prompt: string } by default
+        const { prompt, query } = await req.json();
+        
+        const userIntent = prompt || query;
 
-        if (!query || typeof query !== "string") {
+        if (!userIntent || typeof userIntent !== "string") {
             return NextResponse.json({ error: "Missing query parameter" }, { status: 400 });
         }
 
-        const sanitizedQuery = query.trim().substring(0, 1000);
+        const sanitizedQuery = userIntent.trim().substring(0, 1000);
 
         const model = createModel();
 
