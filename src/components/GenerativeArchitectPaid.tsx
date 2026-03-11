@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle } from "@phosphor-icons/react";
+import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, FileText } from "@phosphor-icons/react";
+import { useCompletion } from '@ai-sdk/react';
+import ReactMarkdown from 'react-markdown';
 import BlueprintCard from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
 import DownloadBlueprintButton from "./DownloadBlueprintButton";
@@ -14,35 +16,56 @@ export default function GenerativeArchitectPaid() {
     const pivot = searchParams.get("pivot") || "";
 
     const [query, setQuery] = useState(initialIdea);
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [loadingStep, setLoadingStep] = useState(0);
-    const [isFinalizing, setIsFinalizing] = useState(false);
+    
+    // UI Flow State
+    const [appState, setAppState] = useState<'input' | 'streaming_prd' | 'prd_review' | 'generating_arch' | 'finished'>('input');
     const [result, setResult] = useState<any>(null);
+    
+    // Legacy generation state for sizzle component compatibility
+    const isGenerating = appState === 'generating_arch' || appState === 'streaming_prd';
+    const isFinalizing = appState === 'finished' && !result; // transition state
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(!!initialIdea);
 
-    useEffect(() => {
-        if (!isGenerating) {
-            setLoadingStep(0);
+    const { completion: prdText, complete: generatePrd, isLoading: isStreamingPrd } = useCompletion({
+        api: '/api/generate-prd',
+        onFinish: () => {
+            setAppState('prd_review');
+        },
+        onError: (e: any) => {
+            setError(e.message || "Failed to generate PRD");
+            setAppState('input');
         }
+    });
+
+    useEffect(() => {
+        // Keeping useEffect for structural consistency if needed later
     }, [isGenerating]);
 
-    const handleGenerate = async () => {
+    const handleGeneratePRD = async () => {
         if (!query.trim()) return;
 
-        setIsGenerating(true);
+        setAppState('streaming_prd');
         setError(null);
         setResult(null);
         setTier(null);
-        setLoadingStep(0);
-        setIsFinalizing(false);
+        
+        // Pass the query to the PRD generator
+        generatePrd(query);
+    };
+
+    const handleSynthesizeArchitecture = async () => {
+        if (!prdText) return;
+
+        setAppState('generating_arch');
+        setError(null);
 
         try {
             // Inject the Triangulated Strategic Pivot invisibly if it exists in the URL
             const finalQuery = pivot
-                ? `Executive Validation Command: The Senior Partner has dictated that this architecture MUST specifically prioritize: [${pivot}].\n\nCore Idea:\n${query}`
-                : query;
+                ? `Executive Validation Command: The Senior Partner has dictated that this architecture MUST specifically prioritize: [${pivot}].\n\n=== PRODUCT REQUIREMENTS DOCUMENT ===\n${prdText}`
+                : `=== PRODUCT REQUIREMENTS DOCUMENT ===\n${prdText}`;
 
             const apiPromise = fetch("/api/generate-blueprint", {
                 method: "POST",
@@ -58,17 +81,12 @@ export default function GenerativeArchitectPaid() {
 
             const [data] = await Promise.all([apiPromise, minTimePromise]);
 
-            // Enter gratifying lock-in state
-            setIsFinalizing(true);
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
             setResult(data.blueprint);
             setTier(data.tier || "SIMPLE");
+            setAppState('finished');
         } catch (err: any) {
             setError(err.message || "An unexpected error occurred.");
-        } finally {
-            setIsGenerating(false);
-            setIsFinalizing(false);
+            setAppState('prd_review'); // Fall back to allow retry
         }
     };
 
@@ -125,38 +143,70 @@ export default function GenerativeArchitectPaid() {
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="e.g. 'I want to build a B2B legal document analyzer that handles 100-page PDFs and cites specific contract clauses...'"
                             className="w-full bg-black/40 border border-white/10 rounded-xl p-4 sm:p-5 text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 resize-none min-h-[120px] shadow-inner transition-all duration-300"
-                            disabled={isGenerating || isFinalizing}
+                            disabled={appState !== 'input'}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' && !e.shiftKey) {
                                     e.preventDefault();
-                                    handleGenerate();
+                                    handleGeneratePRD();
                                 }
                             }}
                         />
+                        {appState === 'input' && (
                         <button
-                            onClick={handleGenerate}
-                            disabled={isGenerating || isFinalizing || !query.trim()}
-                            className="absolute bottom-4 right-4 bg-cyan-600 hover:bg-cyan-500 text-white p-2 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            onClick={handleGeneratePRD}
+                            disabled={!query.trim()}
+                            className="absolute bottom-4 right-4 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed group flex items-center font-bold text-sm tracking-wide"
                         >
-                            {isGenerating || isFinalizing ? (
-                                <Terminal size={20} className="animate-pulse" weight="bold" />
-                            ) : (
-                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" weight="bold" />
-                            )}
+                            <span>Draft PRD</span>
+                            <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" weight="bold" />
                         </button>
+                        )}
                     </div>
 
-                    {(isGenerating || isFinalizing) && (
-                        <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500">
-                            {isFinalizing ? (
-                                <div className="flex flex-col items-center w-full">
-                                    <TerminalSizzle isComplete={true} />
+                    {/* PRD Streaming & Review Window */}
+                    {(appState === 'streaming_prd' || appState === 'prd_review' || (appState === 'finished' && prdText)) && (
+                        <div className="w-full max-w-3xl mt-2 mb-8 flex flex-col items-center animate-fade-in-up">
+                            <div className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl relative">
+                                <div className="bg-zinc-900 border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
+                                    <div className="flex items-center gap-2 text-zinc-400 text-xs font-mono tracking-widest uppercase">
+                                        <FileText size={16} className="text-cyan-500" />
+                                        <span>Product Requirements Document</span>
+                                    </div>
+                                    {appState === 'streaming_prd' && <Spinner size={16} className="text-cyan-500 animate-spin" />}
+                                    {appState === 'prd_review' && <CheckCircle size={16} className="text-emerald-500" weight="fill" />}
                                 </div>
-                            ) : (
-                                <div className="flex flex-col items-center w-full">
-                                    <TerminalSizzle isComplete={false} />
+                                <div className="p-6 md:p-8 text-left prose prose-invert prose-p:text-zinc-300 prose-headings:text-white prose-a:text-cyan-400 max-w-none max-h-[500px] overflow-y-auto custom-scrollbar">
+                                    {prdText ? (
+                                        <ReactMarkdown>{prdText}</ReactMarkdown>
+                                    ) : (
+                                        <div className="flex items-center gap-3 text-zinc-500 italic">
+                                            <span className="animate-pulse">Analyzing founder intent and drafting technical constraints...</span>
+                                        </div>
+                                    )}
                                 </div>
+                                
+                                {/* Gradient Fade out for long text */}
+                                <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none"></div>
+                            </div>
+
+                            {appState === 'prd_review' && (
+                                <button
+                                    onClick={handleSynthesizeArchitecture}
+                                    className="mt-6 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded-xl transition-transform duration-300 hover:scale-[1.02] flex items-center font-bold text-base shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] group"
+                                >
+                                    <Sparkle size={20} className="mr-3 text-cyan-200 animate-pulse" />
+                                    <span>Approve PRD & Synthesize Architecture</span>
+                                    <ArrowRight size={20} className="ml-3 group-hover:translate-x-1 transition-transform" weight="bold" />
+                                </button>
                             )}
+                        </div>
+                    )}
+
+                    {appState === 'generating_arch' && (
+                        <div className="w-full max-w-3xl mt-4 p-6 bg-black/60 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-4 shadow-inner min-h-[100px] overflow-hidden transition-all duration-500">
+                            <div className="flex flex-col items-center w-full">
+                                <TerminalSizzle isComplete={false} />
+                            </div>
                         </div>
                     )}
 
