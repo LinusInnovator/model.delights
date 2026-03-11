@@ -165,7 +165,7 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
 
         // --- SILENT TELEMETRY LOGGING (Phase 31 Data Lake) ---
         // Fire-and-forget insertion of the raw validation payload.
-        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
             supabase.from('triangulator_audits').insert([
               {
                 idea: idea,

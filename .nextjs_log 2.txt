@@ -1,3 +1,8 @@
+
+> openrate-nextjs@0.1.0 dev
+> next dev
+
+⚠ Port 3000 is in use by process 72211, using available port 3001 instead.
 ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
  We detected multiple lockfiles and selected the directory of /Users/linus/package-lock.json as the root directory.
  To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
@@ -6,13 +11,9 @@
    * /Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/package-lock.json
 
 ▲ Next.js 16.1.6 (Turbopack)
-- Local:         http://localhost:3000
-- Network:       http://192.168.1.236:3000
+- Local:         http://localhost:3001
+- Network:       http://192.168.1.236:3001
 - Environments: .env.local
 
 ✓ Starting...
-⚠ Turbopack's filesystem cache has been deleted because we previously detected an internal error in Turbopack. Builds or page loads may be slower as a result.
-✓ Ready in 770ms
- GET / 404 in 35ms (compile: -15396µs, proxy.ts: 30ms, render: 20ms)
-  Reload env: .env.local
- GET / 404 in 393ms (compile: -18144µs, proxy.ts: 383ms, render: 28ms)
+✓ Ready in 896ms
