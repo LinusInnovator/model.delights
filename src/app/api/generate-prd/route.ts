@@ -96,6 +96,13 @@ Start with a strict "Core User Journey" paragraph.
 Then define the "Strict Technical Constraints (Latency, Modalities)".
 Then write the 3-tier feature breakdown. 
 
+FORMATTING RULES:
+- You MUST use beautiful, properly spaced Markdown.
+- Use heavily bolded (**Text**) inline headers for individual technical components.
+- Use explicit bullet points (- ) rather than long paragraphs for nested details.
+- AVOID GIANT WALLS OF UNBROKEN TEXT. You MUST use hard line breaks (\\n\\n) between sections and headers to create negative space.
+- Make it visual, rhythmic, and scan-able for an executive engineer.
+
 DO NOT include timelines, sprint planning, or agile management fluff. It must read like an uncompromising engineering briefing. Keep it punchy and dense. Maximum 500 words.`,
             prompt: `Translate this startup idea into a strict technical PRD:\n\n<intent>\n${sanitizedQuery}\n</intent>`,
         });
