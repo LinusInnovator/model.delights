@@ -107,7 +107,7 @@ FORMATTING RULES:
 - AVOID GIANT WALLS OF UNBROKEN TEXT. You MUST use hard line breaks (\\n\\n) between sections and headers to create negative space.
 - Make it visual, rhythmic, and scan-able for an executive engineer.
 
-DO NOT include timelines, sprint planning, or agile management fluff. It must read like an uncompromising engineering briefing. Keep it punchy and dense. Maximum 500 words.`,
+DO NOT include timelines, sprint planning, or agile management fluff. It must read like an uncompromising, exhaustive engineering briefing. DO NOT arbitrarily limit your length. Write as much detail as necessary to construct a massive, multi-page Silicon Valley Series-B technical specification.`,
             prompt: `Translate this startup idea into a strict technical PRD:\n\n<intent>\n${sanitizedQuery}\n</intent>`,
         });
 
