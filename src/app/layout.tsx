@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import Script from "next/script";
 import { ClerkProvider } from '@clerk/nextjs';
 import TopBarAuth from "../components/TopBarAuth";
+import Footer from "../components/Footer";
 import "./globals.css";
 import "./components.css";
 
@@ -43,10 +44,13 @@ export default function RootLayout({
         <head>
           <Script src="https://unpkg.com/@phosphor-icons/web" strategy="beforeInteractive" />
         </head>
-        <body className={`${inter.variable} ${outfit.variable} antialiased`}>
+        <body className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col`}>
           <div className="glass-bg"></div>
           <TopBarAuth />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>
