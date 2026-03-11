@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { streamText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
-import prdFramework from "@/lib/prd_framework_db.json";
+import { supabase } from "@/lib/supabase";
 
 // Maximum duration for the Vercel Edge Function
 export const maxDuration = 45;
@@ -34,20 +34,59 @@ export async function POST(req: NextRequest) {
 
         const model = createModel();
 
+        // Dynamically fetch the Kano components from the Supabase Data Lake
+        let frameworkContext = "";
+        try {
+            if (supabase) {
+                const { data: components, error } = await supabase
+                    .from('kano_components')
+                    .select('component_name, tier, description, tags');
+
+                if (error) throw error;
+
+                if (components && components.length > 0) {
+                    // Group the components by tier for the LLM context window
+                    const grouped = components.reduce((acc: any, curr: any) => {
+                        if (!acc[curr.tier]) acc[curr.tier] = [];
+                        acc[curr.tier].push(`${curr.component_name}: ${curr.description}`);
+                        return acc;
+                    }, {});
+
+                    frameworkContext = `
+Here is the exact framework to follow and the technical AI components associated with each tier:
+1. BASICS (Must-Haves):
+${grouped['basics']?.join('\n') || 'Standard auth and edge deployment'}
+
+2. PERFORMANCE (Satisfiers):
+${grouped['performance']?.join('\n') || 'Low latency streaming and specialized routing'}
+
+3. EXCITEMENT (Delighters):
+${grouped['excitement']?.join('\n') || 'Proactive agents and predictive UI'}
+`;
+                }
+            }
+        } catch (dbError) {
+            console.warn("Could not fetch Kano components from Supabase, falling back to generic framework.", dbError);
+        }
+
+        // If DB fetch fails or is empty, provide a strong generic fallback to prevent bad generation
+        if (!frameworkContext) {
+            frameworkContext = `
+Categorize the technical AI features required for their product EXACTLY into these three headings based on the Delights.pro 3-Tier Psychological Framework:
+1. Basics (Effortless Hygiene / Must-Haves - e.g. Auth, deterministic parsing)
+2. Performance (Satisfiers / Linear Scalers - e.g. Sub-500ms latency, RAG)
+3. Excitement (Delighters / The Magic - e.g. Generative Voice, Proactive Agents)
+`;
+        }
+
         const result = await streamText({
             model: model,
             system: `You are an elite, technical AI Product Manager. 
 Your job is to translate a founder's raw startup idea into a mercilessly precise, human-readable Product Requirements Document (PRD).
 
-CRITICAL DIRECTIVE: You MUST strictly use the "Delights.pro 3-Tier Psychological Framework" to structure the AI feature rollout. 
+CRITICAL DIRECTIVE: You MUST strictly use the "Delights.pro 3-Tier Psychological Framework" to structure the AI feature rollout. You may ONLY construct your infrastructure recommendations using the Exact Components provided in the context list below. Do not invent or hallucinate technical components outside of this list unless absolutely necessary.
 
-Here is the exact framework to follow and the technical AI components associated with each tier:
-${JSON.stringify(prdFramework.tiers, null, 2)}
-
-Analyze the founder's idea and extract the specific AI features required for their product, categorizing them EXACTLY into these three headings:
-1. Basics (Effortless Hygiene / Must-Haves)
-2. Performance (Satisfiers / Linear Scalers)
-3. Excitement (Delighters / The Magic)
+${frameworkContext}
 
 Format this as a clean, highly technical markdown document. 
 Start with a strict "Core User Journey" paragraph. 
