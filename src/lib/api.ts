@@ -50,7 +50,7 @@ export async function fetchModels(): Promise<FetchResult> {
         }
 
         const res = await fetch("https://openrouter.ai/api/v1/models", {
-            next: { revalidate: 300 } // Force ISR caching for 5 minutes
+            cache: 'no-store'
         });
 
         if (!res.ok) {
@@ -67,7 +67,7 @@ export async function fetchModels(): Promise<FetchResult> {
             const name = (m.name || "").toLowerCase();
 
             // Coding & Logic
-            if (m_id.includes('coder') || m_id.includes('math') || name.includes('coder') || name.includes('math')) {
+            if (m_id.includes('coder') || m_id.includes('math') || name.includes('coder') || name.includes('math') || m_id.includes('gpt-4') || m_id.includes('gpt-5') || m_id.includes('o1') || m_id.includes('o3') || m_id.includes('claude-3') || m_id.includes('llama-3.1-70b') || m_id.includes('llama-3.1-405b')) {
                 use_cases.push('Coding & Logic');
             }
 

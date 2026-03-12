@@ -10,6 +10,10 @@ const isArchitectRoute = createRouteMatcher([
     '/architect(.*)'
 ]);
 
+const isPublicV1Route = createRouteMatcher([
+    '/api/v1(.*)'
+]);
+
 export default clerkMiddleware(async (auth, request) => {
     // 1. Existing Basic Auth for Admin Dashboard
     if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin')) {
@@ -46,6 +50,35 @@ export default clerkMiddleware(async (auth, request) => {
     // 2. Clerk Auth for B2B/Enterprise routes
     if (isProtectedRoute(request)) {
         await auth.protect();
+    }
+
+    // 3. API Key Gateway for B2B API Routes
+    if (isPublicV1Route(request)) {
+        const authHeader = request.headers.get('authorization');
+        
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return new NextResponse(JSON.stringify({ error: 'Missing or invalid Authorization header. Expected Bearer token.' }), {
+                status: 401,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+        const token = authHeader.split(' ')[1];
+        
+        // Check for Internal God Key Bypass
+        if (process.env.INTERNAL_GOD_KEY && token === process.env.INTERNAL_GOD_KEY) {
+            // Authorized via internal bypass
+            return NextResponse.next();
+        }
+
+        // // TODO: Implement DB check for paid Enterprise keys
+        // const isValidPaidKey = await checkKeyInDatabase(token);
+        // if (isValidPaidKey) return NextResponse.next();
+
+        return new NextResponse(JSON.stringify({ error: 'Invalid API Key' }), {
+            status: 403,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 
     return NextResponse.next();

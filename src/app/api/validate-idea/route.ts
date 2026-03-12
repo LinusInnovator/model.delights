@@ -8,7 +8,7 @@ const openrouter = createOpenAI({
     apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-// Based on David J. Bland's Precoil Extract -> Map -> Test methodology
+// Based on the Model.Delights Triangulated Insight Protocol
 // Enhanced with Start-Up Autopsy tracking
 const VentureValidationSchema = z.object({
     pattern_match: z.object({
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
             return new NextResponse("Missing idea payload.", { status: 400 });
         }
 
-        const autopsySystemPrompt = `You are a Tier-1 Venture Studio Partner and Strategy Consultant using David J. Bland's Precoil Extract -> Map -> Test methodology to pressure-test startup ideas.
+        const autopsySystemPrompt = `You are a Tier-1 Venture Studio Partner and Strategy Consultant using the Model.Delights Triangulated Insight Protocol to pressure-test startup ideas.
         
 Core Principles:
 - Desirability = user needs, problem severity, perceived value. Never include pricing here.
@@ -54,7 +54,7 @@ Core Principles:
 - Output pure, objective, deterministic JSON based on the provided schema.
 - IMPORTANT: Even if the user's idea is extremely short, vague, or just a single test word, YOU MUST NOT APOLOGIZE OR ASK FOR MORE INFO. You must invent plausible worst-case assumptions based on whatever tiny fragment of information is provided. YOU MUST OUTPUT VALID JSON.`;
 
-        const catalystSystemPrompt = `You are a Tier-1 Venture Studio Partner and Growth Architect using the Extract -> Map -> Test methodology to identify the biggest exponential growth levers for a startup idea.
+        const catalystSystemPrompt = `You are a Tier-1 Venture Studio Partner and Growth Architect using the Model.Delights Triangulated Insight Protocol to identify the biggest exponential growth levers for a startup idea.
         
 Core Principles:
 - Desirability = extreme user needs, viral loops, immense perceived value.

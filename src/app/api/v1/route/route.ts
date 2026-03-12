@@ -11,8 +11,13 @@ export async function GET(request: Request) {
 
         // Filter by Use Case / Intent
         if (intent.toLowerCase() !== 'all') {
-            const mappedIntent = mapIntent(intent);
-            models = models.filter(m => m.use_cases.includes(mappedIntent));
+            const mappedIntent = mapIntent(intent).toLowerCase();
+            console.log("[DEBUG API] Client requested:", intent, "Mapped to:", mappedIntent);
+            models = models.filter(m => {
+                const hasIntent = m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
+                if (m.id.includes('claude-3-5-sonnet')) console.log(`[DEBUG API] Checking Claude Sonnet Use Cases:`, m.use_cases, "Has Intent?", hasIntent);
+                return hasIntent;
+            });
         }
 
         if (models.length === 0) {
@@ -55,7 +60,7 @@ export async function GET(request: Request) {
 
 function mapIntent(intent: string): string {
     const i = intent.toLowerCase();
-    if (i.includes('code') || i.includes('logic') || i.includes('math')) return 'Coding & Logic';
+    if (i.includes('cod') || i.includes('logic') || i.includes('math')) return 'Coding & Logic';
     if (i.includes('fiction') || i.includes('story') || i.includes('complex')) return 'Fictional';
     if (i.includes('draft') || i.includes('fast') || i.includes('cheap')) return 'Drafting';
     if (i.includes('roleplay') || i.includes('uncensor')) return 'Roleplay';
