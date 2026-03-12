@@ -34,37 +34,40 @@ export async function GET(request: Request) {
         const flagshipCost1M = flagship.pricing_per_1m.prompt + flagship.pricing_per_1m.completion;
 
         // --- Calculate Smart Value ---
-        // 1. Find all models within 100 ELO points of the Flagship
-        const highCapabilitySubset = models.filter(m =>
+        // 1. Calculate Dynamic Elastic Band (eloRadius)
+        // If Flagship is Extreme Enterprise (>= $10 per 1M combo), stretch the net to hunt deeper (250 ELO points / ~15% drop).
+        // Otherwise, keep a tight 100-point safety net.
+        const isExtremeEnterprise = flagshipCost1M >= 10.0;
+        const eloRadius = isExtremeEnterprise ? 250 : 100;
+
+        // 2. Scan the market for high capability budget alternatives
+        let highCapabilitySubset = models.filter(m =>
             m.id !== flagship.id &&
             m.elo !== null &&
             flagship.elo !== null &&
-            ((flagship.elo as number) - (m.elo as number)) <= 100
+            ((flagship.elo as number) - (m.elo as number)) <= eloRadius
         );
 
-        // 2. Sort that subset by absolute lowest price
-        highCapabilitySubset.sort((a, b) => {
-            const costA = a.pricing_per_1m.prompt + a.pricing_per_1m.completion;
-            const costB = b.pricing_per_1m.prompt + b.pricing_per_1m.completion;
-            return costA - costB;
+        // 3. Mathematical strictness: It MUST save the developer at least 60% of the cost.
+        highCapabilitySubset = highCapabilitySubset.filter(m => {
+            const cost = m.pricing_per_1m.prompt + m.pricing_per_1m.completion;
+            return cost <= (flagshipCost1M * 0.40); // Max 40% of the flagship's price
         });
 
+        // 4. Sort the surviving budget models by absolute Highest Intelligence (ELO) instead of absolute price.
+        highCapabilitySubset.sort((a, b) => (b.elo as number) - (a.elo as number));
+
         let smartValue = null;
-        let financialTradeoff = "No cheaper alternatives found within 100 ELO points.";
+        let financialTradeoff = `No smart alternatives found within a -${eloRadius} point intelligence drop that saved >60% cost.`;
 
         if (highCapabilitySubset.length > 0) {
-            const potentialValue = highCapabilitySubset[0];
-            const valueCost1M = potentialValue.pricing_per_1m.prompt + potentialValue.pricing_per_1m.completion;
+            smartValue = highCapabilitySubset[0];
+            const valueCost1M = smartValue.pricing_per_1m.prompt + smartValue.pricing_per_1m.completion;
 
-            // Only assign as "Smart Value" if it is actually cheaper than the flagship
-            if (valueCost1M < flagshipCost1M) {
-                smartValue = potentialValue;
-                
-                // Calculate tradeoff metrics for the payload
-                const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
-                const eloDrop = (((flagship.elo as number) - (smartValue.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
-                financialTradeoff = `${costMultiplier}x cheaper for -${eloDrop}% intelligence drop`;
-            }
+            // Calculate tradeoff metrics for the payload
+            const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
+            const eloDropPercent = (((flagship.elo as number) - (smartValue.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
+            financialTradeoff = `${costMultiplier}x cheaper for -${eloDropPercent}% intelligence drop`;
         }
 
         // --- Calculate Safety Fallback Array (Widen to 100 points) ---
