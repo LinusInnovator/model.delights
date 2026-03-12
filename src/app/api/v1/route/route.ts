@@ -30,30 +30,79 @@ export async function GET(request: Request) {
         // Always sort by pure intelligence (Pure ELO) descending
         models.sort((a, b) => (b.elo || 0) - (a.elo || 0));
 
-        const topModel = models[0];
+        const flagship = models[0];
+        const flagshipCost1M = flagship.pricing_per_1m.prompt + flagship.pricing_per_1m.completion;
 
-        // Find safe fallback array (closest peers)
-        const targetPrice = topModel.pricing_per_1m.prompt + topModel.pricing_per_1m.completion;
-        const closestPeers = data.models.filter(m =>
-            m.id !== topModel.id &&
+        // --- Calculate Smart Value ---
+        // 1. Find all models within 100 ELO points of the Flagship
+        const highCapabilitySubset = models.filter(m =>
+            m.id !== flagship.id &&
             m.elo !== null &&
-            m.context_length >= topModel.context_length &&
-            Math.abs(m.elo - (topModel.elo as number)) <= 30 &&
-            (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) <= (targetPrice * 1.50)
-        ).sort((a, b) => Math.abs((a.elo as number) - (topModel.elo as number)) - Math.abs((b.elo as number) - (topModel.elo as number)));
+            flagship.elo !== null &&
+            ((flagship.elo as number) - (m.elo as number)) <= 100
+        );
 
-        const fallback_array = [topModel.id];
-        if (closestPeers.length > 0) fallback_array.push(closestPeers[0].id);
+        // 2. Sort that subset by absolute lowest price
+        highCapabilitySubset.sort((a, b) => {
+            const costA = a.pricing_per_1m.prompt + a.pricing_per_1m.completion;
+            const costB = b.pricing_per_1m.prompt + b.pricing_per_1m.completion;
+            return costA - costB;
+        });
 
+        let smartValue = null;
+        let financialTradeoff = "No cheaper alternatives found within 100 ELO points.";
+
+        if (highCapabilitySubset.length > 0) {
+            const potentialValue = highCapabilitySubset[0];
+            const valueCost1M = potentialValue.pricing_per_1m.prompt + potentialValue.pricing_per_1m.completion;
+
+            // Only assign as "Smart Value" if it is actually cheaper than the flagship
+            if (valueCost1M < flagshipCost1M) {
+                smartValue = potentialValue;
+                
+                // Calculate tradeoff metrics for the payload
+                const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
+                const eloDrop = (((flagship.elo as number) - (smartValue.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
+                financialTradeoff = `${costMultiplier}x cheaper for -${eloDrop}% intelligence drop`;
+            }
+        }
+
+        // --- Calculate Safety Fallback Array (Widen to 100 points) ---
+        const closestPeers = data.models.filter(m =>
+            m.id !== flagship.id &&
+            m.elo !== null &&
+            flagship.elo !== null &&
+            m.context_length >= flagship.context_length &&
+            Math.abs(m.elo - (flagship.elo as number)) <= 100 // Widened from 30 to 100 to support anomalies like Opus 4.6
+        ).sort((a, b) => Math.abs((a.elo as number) - (flagship.elo as number)) - Math.abs((b.elo as number) - (flagship.elo as number)));
+
+        const fallback_array = [flagship.id];
+        if (smartValue) fallback_array.push(smartValue.id); // The smart value is always a fantastic fallback
+        if (closestPeers.length > 0 && !fallback_array.includes(closestPeers[0].id)) {
+            fallback_array.push(closestPeers[0].id);
+        }
+
+        // --- Construct Bifurcated Payload ---
         return NextResponse.json({
             intent: intent,
-            recommended_model: topModel.id,
-            fallback_array: fallback_array,
-            metadata: {
-                name: topModel.name,
-                elo: topModel.elo,
-                context_length: topModel.context_length
-            }
+            flagship: {
+                model: flagship.id,
+                elo: flagship.elo,
+                cost_per_1m: flagshipCost1M,
+                name: flagship.name,
+                context_length: flagship.context_length
+            },
+            ...(smartValue && {
+                smart_value: {
+                    model: smartValue.id,
+                    elo: smartValue.elo,
+                    cost_per_1m: (smartValue.pricing_per_1m.prompt + smartValue.pricing_per_1m.completion),
+                    name: smartValue.name,
+                    financial_tradeoff: financialTradeoff,
+                    context_length: smartValue.context_length
+                }
+            }),
+            fallback_array: fallback_array
         });
 
     } catch (error) {

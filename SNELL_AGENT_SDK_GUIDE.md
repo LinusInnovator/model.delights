@@ -43,14 +43,21 @@ const router = new IntelligenceRouter({
 
 export async function executeSnellTask() {
   try {
-    // 2. Query the engine for the best "coding" model
-    // Valid intents include: 'coding', 'fictional', 'drafting', 'roleplay', 'vision', 'image gen'
-    const routingData = await router.getTopModel('coding');
+    // 2. Query the engine for the best "reasoning" model
+    // Valid intents include: 'reasoning', 'agentic', 'classification', 'conversational', 'coding', etc.
+    const routingData = await router.getOptimalRouting('reasoning');
     
-    console.log("Optimal Model Automatically Selected:", routingData.recommended_model);
-    console.log("Safe Fallback Array if Down:", routingData.fallback_array);
+    console.log("Maximum Intelligence Flagship:", routingData.flagship.model);
     
-    // 3. (Snell Execution) Feed `routingData.recommended_model` directly to your actual LLM execution provider (e.g. OpenRouter/Vercel AI SDK)
+    // 3. Evaluate the Tradeoff dynamically
+    if (routingData.smart_value) {
+      console.log("Budget Alternative:", routingData.smart_value.model);
+      console.log("Tradeoff Math:", routingData.smart_value.financial_tradeoff); // e.g. "5.0x cheaper for -4.0% intelligence drop"
+    }
+    
+    console.log("Wide Safety Fallback Array if Down:", routingData.fallback_array);
+    
+    // 4. (Snell Execution) Feed `routingData.smart_value.model` naturally to your OpenRouter SDK if budget-conscious
     
   } catch (error) {
     console.error("SDK Routing Failed:", error);
