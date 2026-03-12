@@ -3,6 +3,7 @@ import { generateObject, generateText } from 'ai';
 import { z } from 'zod';
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { waitUntil } from "@vercel/functions";
 
 const openrouter = createOpenAI({
     baseURL: 'https://openrouter.ai/api/v1',
@@ -113,8 +114,8 @@ Core Principles for a NEW CATEGORY:
         const autopsyUserPrompt = `Test my idea and extract the riskiest assumptions using your autopsy engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Treat this as an attacker trying to steal market share.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}`;
         const catalystUserPrompt = `Evaluate my idea and extract the core exponential growth levers using your catalyst growth engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Find the asymmetric wedge to attack the incumbent.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}`;
 
-        // Run both models in parallel
-        const [autopsyResult, catalystResult] = await Promise.all([
+        // Run both models in parallel safely
+        const results = await Promise.allSettled([
             generateObject({
                 model: openrouter('openai/gpt-4o-mini'),
                 schema: VentureValidationSchema,
@@ -129,12 +130,26 @@ Core Principles for a NEW CATEGORY:
             })
         ]);
 
-        const autopsyData = autopsyResult.object;
-        const catalystData = catalystResult.object;
+        const autopsyResult = results[0].status === 'fulfilled' ? results[0].value.object : {
+            pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out. They were likely too focused on the failure vectors to respond." },
+            critical_assumptions: [],
+            logic_chain: ["Red Team analysis unavailable."],
+            experiment_sequence: []
+        };
+        
+        const catalystResult = results[1].status === 'fulfilled' ? results[1].value.object : {
+             pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out. Growth vectors could not be mapped." },
+             critical_assumptions: [],
+             logic_chain: ["Green Team analysis unavailable."],
+             experiment_sequence: []
+        };
 
-        // Perform safe calculations for leverage score
-        autopsyData.critical_assumptions = autopsyData.critical_assumptions.map(a => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a, b) => b.leverage_score - a.leverage_score);
-        catalystData.critical_assumptions = catalystData.critical_assumptions.map(a => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a, b) => b.leverage_score - a.leverage_score);
+        const autopsyData = autopsyResult as any;
+        const catalystData = catalystResult as any;
+
+        // Perform safe calculations for leverage score only if arrays exist
+        autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+        catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
 
         // Phase 2: Synthesis
         const synthesisSystemPrompt = `You are the Managing Partner of an elite venture studio. Two of your top analysts have just evaluated the same startup idea:
@@ -164,22 +179,24 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
         const insightSummary = synthesisResult.object;
 
         // --- SILENT TELEMETRY LOGGING (Phase 31 Data Lake) ---
-        // Fire-and-forget insertion of the raw validation payload.
+        // Fire-and-forget insertion of the raw validation payload using waitUntil so it doesn't block the response.
         if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            supabase.from('triangulator_audits').insert([
-              {
-                idea: idea,
-                venture_type: ventureType,
-                incumbent_target: incumbentTarget,
-                base_opportunity_score: insightSummary.base_opportunity_score,
-                red_team_fatal_flaw: autopsyData.critical_assumptions[0]?.assumption || "N/A",
-                green_team_wedge: catalystData.critical_assumptions[0]?.assumption || "N/A",
-                raw_insight_json: insightSummary,
-                created_at: new Date().toISOString()
-              }
-            ]).then(({ error }) => {
-                if (error) console.error("Triangulation Telemetry failure (ignored):", error);
-            });
+            waitUntil(
+                (supabase.from('triangulator_audits').insert([
+                  {
+                    idea: idea,
+                    venture_type: ventureType,
+                    incumbent_target: incumbentTarget,
+                    base_opportunity_score: insightSummary.base_opportunity_score,
+                    red_team_fatal_flaw: autopsyData.critical_assumptions?.[0]?.assumption || "N/A",
+                    green_team_wedge: catalystData.critical_assumptions?.[0]?.assumption || "N/A",
+                    raw_insight_json: insightSummary,
+                    created_at: new Date().toISOString()
+                  }
+                ]).then(({ error }) => {
+                    if (error) console.error("Triangulation Telemetry failure (ignored):", error);
+                }) as Promise<any>)
+            );
         }
 
         return NextResponse.json({

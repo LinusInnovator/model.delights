@@ -108,11 +108,14 @@ export default function ValidatePage() {
                 body: JSON.stringify({ idea, users, price, inference, includeEconomics: showEconomics, ventureType, incumbentTarget }),
             });
 
-            if (!res.ok) throw new Error("Triangulation orchestrator failed.");
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.error || "Triangulation orchestrator failed.");
+            }
             const result = await res.json();
             setData(result);
-        } catch (err) {
-            setError("The Triangulation Engine encountered a critical exception. Please try again.");
+        } catch (err: any) {
+            setError(err.message || "The Triangulation Engine encountered a critical exception. Please try again.");
         } finally {
             clearInterval(interval);
             setIsLoading(false);

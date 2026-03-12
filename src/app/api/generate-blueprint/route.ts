@@ -10,6 +10,7 @@ import eloDataRaw from '@/data/lmsys_elo.json';
 import fs from 'fs';
 import path from 'path';
 import schemaDb from '@/lib/schema_blueprints_db.json';
+import { Redis } from '@upstash/redis';
 
 const eloScores = Object.values(eloDataRaw as Record<string, number>).sort((a, b) => a - b);
 const medianElo = eloScores[Math.floor(eloScores.length / 2)];
@@ -52,27 +53,60 @@ const blueprintSchema = z.object({
     ).describe("If action is 'create_new', a list of 1 to 7 functional components that make up the complete distributed architecture graph. Do not limit yourself to 1 or 2 components if the PRD implies Enterprise Scale. Break it down into discrete microservices. If action is 'use_existing', provide an empty array [].")
 });
 
-// In-memory rate limiting map for basic DDoS/Spam protection per Vercel edge instance
+// Fallback to in-memory locally if Redis env vars are missing
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
 
 export async function POST(req: NextRequest) {
     try {
         const ip = req.headers.get("x-forwarded-for") ?? "unknown";
-        const now = Date.now();
-        const rateData = rateLimitMap.get(ip) || { count: 0, timestamp: now };
+        
+        let shouldRateLimit = false;
 
-        // Reset every 60 seconds
-        if (now - rateData.timestamp > 60000) {
-            rateData.count = 0;
-            rateData.timestamp = now;
+        // Try Redis first for multi-region edge deployment
+        if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+            try {
+                const redis = new Redis({
+                    url: process.env.UPSTASH_REDIS_REST_URL,
+                    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+                });
+                
+                // Pipeline for atomicity: increment the key, and set an expiry of 60 seconds if it's new
+                const pipeline = redis.pipeline();
+                pipeline.incr(`rate_limit_architect_${ip}`);
+                pipeline.expire(`rate_limit_architect_${ip}`, 60, "NX");
+                
+                const results = await pipeline.exec();
+                const requestsInLastMinute = results[0] as number;
+                
+                if (requestsInLastMinute > 5) {
+                    shouldRateLimit = true;
+                }
+            } catch (redisError) {
+                console.warn("Redis rate limiting failed, falling back to local memory map.", redisError);
+            }
+        } 
+        
+        // If Redis failed or isn't configured, fallback to Map (useful for local dev)
+        if (!shouldRateLimit && (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN)) {
+            const now = Date.now();
+            const rateData = rateLimitMap.get(ip) || { count: 0, timestamp: now };
+
+            if (now - rateData.timestamp > 60000) {
+                rateData.count = 0;
+                rateData.timestamp = now;
+            }
+
+            if (rateData.count >= 5) {
+                shouldRateLimit = true;
+            } else {
+                rateData.count++;
+                rateLimitMap.set(ip, rateData);
+            }
         }
 
-        if (rateData.count >= 5) {
-            return NextResponse.json({ error: "Too many architectural requests. Please try again in a minute." }, { status: 429 });
+        if (shouldRateLimit) {
+             return NextResponse.json({ error: "Too many architectural requests. Please try again in a minute." }, { status: 429 });
         }
-
-        rateData.count++;
-        rateLimitMap.set(ip, rateData);
 
         let { query } = await req.json();
 
