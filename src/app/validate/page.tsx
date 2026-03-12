@@ -15,8 +15,10 @@ import {
     RocketLaunch,
     Lightbulb,
     CaretCircleDoubleRight,
-    Target
+    Target,
+    Printer
 } from "@phosphor-icons/react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 type Assumption = {
     category: "Desirability" | "Viability" | "Feasibility";
@@ -138,12 +140,34 @@ export default function ValidatePage() {
     // Helper to get active raw dataset
     const activeData = mode === "autopsy" ? data?.autopsyData : data?.catalystData;
 
+    // Napkin Math Generator
+    const generateNapkinMath = () => {
+        if (!showEconomics) return [];
+        let chartData = [];
+        let currentUsers = users;
+        for (let i = 1; i <= 36; i++) {
+            const revenue = currentUsers * price;
+            const aiCost = (currentUsers * inference / 1000000) * 5; // Assumed $5/1M Tokens blended
+            const mrr = revenue - aiCost;
+            const valuation = mrr > 0 ? (mrr * 12 * 10) : 0; // 10x ARR multiple
+            chartData.push({
+                name: `M${i}`,
+                Revenue: Math.round(revenue),
+                AICost: Math.round(aiCost),
+                Valuation: Math.round(valuation)
+            });
+            currentUsers = Math.round(currentUsers * 1.15); // Aggressive 15% MoM
+        }
+        return chartData;
+    };
+    const napkinData = showEconomics ? generateNapkinMath() : [];
+
     return (
         <div className={`min-h-screen text-zinc-300 font-sans transition-colors duration-500 pb-32 ${mode === 'autopsy' ? 'bg-[#0a0000] selection:bg-red-900' :
             mode === 'catalyst' ? 'bg-[#000a05] selection:bg-emerald-900' :
                 'bg-black selection:bg-purple-900'
-            } selection:text-white`}>
-            <div className="max-w-4xl mx-auto px-6 py-20">
+            } selection:text-white print:bg-white print:text-black print:overflow-visible`}>
+            <div className="max-w-4xl mx-auto px-6 py-20 print:p-0">
 
                 {/* Hero Top */}
                 <motion.div
@@ -370,19 +394,49 @@ export default function ValidatePage() {
                                     
                                     {/* AI Unit Economics Simulator Verdict */}
                                     {data.insightSummary.ai_unit_economics_autopsy && (
-                                        <div className="p-8 rounded-3xl bg-zinc-950/50 border border-zinc-800 flex flex-col md:col-span-2">
-                                            <div className="flex items-center gap-2 mb-4 text-zinc-400">
-                                                <Money weight="fill" className={data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'CRITICAL' ? 'text-red-500' : data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'EXPONENTIAL' ? 'text-emerald-400' : 'text-yellow-500'} />
-                                                <h3 className="uppercase font-bold tracking-wider text-sm flex items-center gap-2">
-                                                    AI Unit Economics Autopsy
-                                                </h3>
+                                        <div className="p-8 rounded-3xl bg-zinc-950/50 border border-zinc-800 flex flex-col md:col-span-2 print:border-black print:bg-white print:text-black">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <div className="flex items-center gap-2 text-zinc-400 print:text-black">
+                                                    <Money weight="fill" className={data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'CRITICAL' ? 'text-red-500 print:text-black' : data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'EXPONENTIAL' ? 'text-emerald-400 print:text-black' : 'text-yellow-500 print:text-black'} />
+                                                    <h3 className="uppercase font-bold tracking-wider text-sm flex items-center gap-2">
+                                                        AI Unit Economics Autopsy
+                                                    </h3>
+                                                </div>
                                             </div>
-                                            <div className={`border rounded-xl p-4 mb-4 font-mono font-bold tracking-widest text-sm inline-block self-start ${data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'CRITICAL' ? 'bg-red-950/20 border-red-900/40 text-red-500' : data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'EXPONENTIAL' ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-500' : 'bg-yellow-950/20 border-yellow-900/40 text-yellow-500'}`}>
+                                            <div className={`border rounded-xl p-4 mb-4 font-mono font-bold tracking-widest text-sm inline-block self-start print:bg-white print:border-black print:text-black ${data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'CRITICAL' ? 'bg-red-950/20 border-red-900/40 text-red-500' : data.insightSummary.ai_unit_economics_autopsy.gross_margin_health === 'EXPONENTIAL' ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-500' : 'bg-yellow-950/20 border-yellow-900/40 text-yellow-500'}`}>
                                                 VERDICT: {data.insightSummary.ai_unit_economics_autopsy.gross_margin_health}
                                             </div>
-                                            <p className="text-zinc-300 leading-relaxed text-lg pb-2">
+                                            <p className="text-zinc-300 print:text-black leading-relaxed text-lg pb-6">
                                                 {data.insightSummary.ai_unit_economics_autopsy.financial_verdict}
                                             </p>
+
+                                            {/* Napkin Math Recharts */}
+                                            {napkinData.length > 0 && (
+                                                <div className="border border-zinc-800/50 bg-black/30 rounded-2xl p-6 print:border-black print:bg-white">
+                                                    <h4 className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-6 print:text-black">36-Month Valuation Projection (15% MoM Default)</h4>
+                                                    <div className="h-64 w-full">
+                                                        <ResponsiveContainer width="100%" height="100%">
+                                                            <AreaChart data={napkinData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                                                <defs>
+                                                                    <linearGradient id="colorValuation" x1="0" y1="0" x2="0" y2="1">
+                                                                        <stop offset="5%" stopColor="#a855f7" stopOpacity={0.3} />
+                                                                        <stop offset="95%" stopColor="#a855f7" stopOpacity={0} />
+                                                                    </linearGradient>
+                                                                </defs>
+                                                                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                                                                <XAxis dataKey="name" stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} />
+                                                                <YAxis stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value: any) => `$${value >= 1000000 ? (value / 1000000).toFixed(1) + 'M' : value >= 1000 ? (value / 1000).toFixed(1) + 'k' : value}`} />
+                                                                <Tooltip
+                                                                    contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '12px', color: '#fff' }}
+                                                                    itemStyle={{ color: '#e4e4e7' }}
+                                                                    formatter={(value: any) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)}
+                                                                />
+                                                                <Area type="monotone" dataKey="Valuation" stroke="#a855f7" strokeWidth={2} fillOpacity={1} fill="url(#colorValuation)" />
+                                                            </AreaChart>
+                                                        </ResponsiveContainer>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
 

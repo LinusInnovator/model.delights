@@ -111,8 +111,35 @@ Core Principles for a NEW CATEGORY:
 - Output pure, objective, deterministic JSON based on the provided schema. Note: Use "logic_chain" to define the blueprint to scale.
 - IMPORTANT: Invent plausible best-case growth levers based on whatever fragment of information is provided.`;
 
-        const autopsyUserPrompt = `Test my idea and extract the riskiest assumptions using your autopsy engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Treat this as an attacker trying to steal market share.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}`;
-        const catalystUserPrompt = `Evaluate my idea and extract the core exponential growth levers using your catalyst growth engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Find the asymmetric wedge to attack the incumbent.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}`;
+        let liveMarketContext = '';
+        if (process.env.SERPER_API_KEY) {
+            try {
+                const serperRes = await fetch('https://google.serper.dev/search', {
+                    method: 'POST',
+                    headers: {
+                        'X-API-KEY': process.env.SERPER_API_KEY,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        q: `competitors and market size for ${idea}`,
+                        num: 3
+                    })
+                });
+                if (serperRes.ok) {
+                    const data = await serperRes.json();
+                    if (data.organic && data.organic.length > 0) {
+                        liveMarketContext = data.organic.map((res: any) => res.snippet).join(' ');
+                    }
+                }
+            } catch (e) {
+                console.error("Serper API failed to fetch live context:", e);
+            }
+        }
+        
+        const marketInjection = liveMarketContext ? `\n\n<live_market_context>\n${liveMarketContext}\n</live_market_context>\nAnalyze the idea strictly against this real-world market context.` : '';
+
+        const autopsyUserPrompt = `Test my idea and extract the riskiest assumptions using your autopsy engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Treat this as an attacker trying to steal market share.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}${marketInjection}`;
+        const catalystUserPrompt = `Evaluate my idea and extract the core exponential growth levers using your catalyst growth engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Find the asymmetric wedge to attack the incumbent.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}${marketInjection}`;
 
         // Run both models in parallel safely
         const results = await Promise.allSettled([
