@@ -52,8 +52,11 @@ export default function RootLayout({
           </main>
           <Footer />
           <Script
-            src="https://spell.delights.pro/widget.js"
-            data-genie-id="15037964-879e-408c-9154-fa13810a1862"
+            src="https://spell.delights.pro/widget.js?v=1.1"
+            data-site-id="5a046704-9c2e-4bb9-8b13-f3354e09ec35"
+            data-color="indigo"
+            data-position="right"
+            data-mode="conversational"
             strategy="lazyOnload"
           />
         </body>
