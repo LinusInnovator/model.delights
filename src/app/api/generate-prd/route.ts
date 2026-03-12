@@ -25,7 +25,7 @@ const createModel = (modelId: string) => {
 export async function POST(req: NextRequest) {
     try {
         // useCompletion hook sends data as { prompt: string } by default
-        const { prompt, query } = await req.json();
+        const { prompt, query, tier = 'standard' } = await req.json();
         
         const userIntent = prompt || query;
 
@@ -36,14 +36,18 @@ export async function POST(req: NextRequest) {
         const sanitizedQuery = userIntent.trim().substring(0, 1000);
 
         // --- INTERNAL DOGFOODING ---
-        // Dynamically ask our B2B Value Router for the smartest reasoning model we can afford right now.
-        const route = await getOptimalRoute('reasoning');
         let optimalModelId = "openai/gpt-4o-mini"; // safety net
         
-        if (route) {
-            // Because this is an internal backend generator, we inherently favor the Smart Value (-60% cost)
-            optimalModelId = route.smart_value?.model || route.flagship.model;
-            console.log(`[Dogfood] PRD Route: ${optimalModelId}`);
+        if (tier === 'premium') {
+            // Dynamically ask our B2B Value Router for the smartest reasoning model we can afford right now.
+            const route = await getOptimalRoute('reasoning');
+            if (route) {
+                // Because this is an internal backend generator, we inherently favor the Smart Value (-60% cost)
+                optimalModelId = route.smart_value?.model || route.flagship.model;
+                console.log(`[Dogfood Premium] PRD Route: ${optimalModelId}`);
+            }
+        } else {
+            console.log(`[Dogfood Standard] PRD Route: ${optimalModelId}`);
         }
 
         const model = createModel(optimalModelId);

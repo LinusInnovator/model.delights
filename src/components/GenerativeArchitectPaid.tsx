@@ -10,6 +10,7 @@ import CheckoutButton from "../app/enterprise/CheckoutButton";
 import DownloadBlueprintButton from "./DownloadBlueprintButton";
 import DownloadAgentButton from "./DownloadAgentButton";
 import TerminalSizzle from "./TerminalSizzle";
+import ArbitragePremiumCTA from "./ArbitragePremiumCTA";
 
 export default function GenerativeArchitectPaid() {
     const searchParams = useSearchParams();
@@ -35,6 +36,10 @@ export default function GenerativeArchitectPaid() {
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(!!initialIdea);
     const [hasCopied, setHasCopied] = useState(false);
+    
+    // Upsell state logic
+    const [currentTier, setCurrentTier] = useState<'standard' | 'premium'>('standard');
+    const [autoSynthesize, setAutoSynthesize] = useState(false);
 
     const { completion: prdText, complete: generatePrd, isLoading: isStreamingPrd } = useCompletion({
         api: '/api/generate-prd',
@@ -56,6 +61,13 @@ export default function GenerativeArchitectPaid() {
         }
     }, [hasUnlocked, blueprintPayload, appState]);
 
+    useEffect(() => {
+        if (appState === 'prd_review' && autoSynthesize) {
+            setAutoSynthesize(false);
+            handleSynthesizeArchitecture(currentTier);
+        }
+    }, [appState, autoSynthesize, currentTier]);
+
     const handleCopyPRD = async () => {
         if (!prdText) return;
         try {
@@ -67,21 +79,26 @@ export default function GenerativeArchitectPaid() {
         }
     };
 
-    const handleGeneratePRD = async () => {
+    const handleGeneratePRD = async (overrideTier?: 'standard' | 'premium') => {
         if (!query.trim()) return;
 
+        const targetTier = overrideTier || 'standard';
+        setCurrentTier(targetTier);
         setAppState('streaming_prd');
         setError(null);
         setResult(null);
         setTier(null);
+        setBlueprintPayload(null);
+        setHasUnlocked(false);
         
-        // Pass the query to the PRD generator
-        generatePrd(query);
+        // Pass the query to the PRD generator with tier selection
+        generatePrd(query, { body: { tier: targetTier } });
     };
 
-    const handleSynthesizeArchitecture = async () => {
+    const handleSynthesizeArchitecture = async (overrideTier?: 'standard' | 'premium') => {
         if (!prdText) return;
 
+        const targetTier = overrideTier || currentTier;
         setAppState('generating_arch');
         setError(null);
 
@@ -94,7 +111,7 @@ export default function GenerativeArchitectPaid() {
             fetch("/api/generate-blueprint", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query: finalQuery })
+                body: JSON.stringify({ query: finalQuery, tier: targetTier })
             }).then(async (res) => {
                 if (!res.ok) throw new Error("Failed to generate architecture.");
                 const data = await res.json();
@@ -199,13 +216,13 @@ export default function GenerativeArchitectPaid() {
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' && !e.shiftKey) {
                                     e.preventDefault();
-                                    handleGeneratePRD();
+                                    handleGeneratePRD('standard');
                                 }
                             }}
                         />
                         {appState === 'input' && (
                         <button
-                            onClick={handleGeneratePRD}
+                            onClick={() => handleGeneratePRD('standard')}
                             disabled={!query.trim()}
                             className="absolute bottom-4 right-4 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed group flex items-center font-bold text-sm tracking-wide"
                         >
@@ -261,7 +278,7 @@ export default function GenerativeArchitectPaid() {
 
                             {appState === 'prd_review' && (
                                 <button
-                                    onClick={handleSynthesizeArchitecture}
+                                    onClick={() => handleSynthesizeArchitecture()}
                                     className="mt-6 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded-xl transition-transform duration-300 hover:scale-[1.02] flex items-center font-bold text-base shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] group"
                                 >
                                     <Sparkle size={20} className="mr-3 text-cyan-200 animate-pulse" />
@@ -329,6 +346,15 @@ export default function GenerativeArchitectPaid() {
                             <div className="w-full mb-8 text-left">
                                 <BlueprintCard intent="custom_generated" blueprint={result} />
                             </div>
+
+                            {currentTier === 'standard' && (
+                                <ArbitragePremiumCTA 
+                                    onUpgrade={() => {
+                                        setAutoSynthesize(true);
+                                        handleGeneratePRD('premium');
+                                    }} 
+                                />
+                            )}
 
                             <div className="w-full mb-12 text-left bg-gradient-to-br from-zinc-900/80 to-black p-8 rounded-2xl border border-white/10 shadow-lg relative overflow-hidden">
                                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-[60px] pointer-events-none"></div>

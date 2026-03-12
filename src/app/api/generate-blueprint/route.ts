@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
              return NextResponse.json({ error: "Too many architectural requests. Please try again in a minute." }, { status: 429 });
         }
 
-        let { query } = await req.json();
+        let { query, tier = 'standard' } = await req.json();
 
         if (!query || typeof query !== "string") {
             return NextResponse.json({ error: "Missing query parameter" }, { status: 400 });
@@ -124,13 +124,18 @@ export async function POST(req: NextRequest) {
         // Check if we have API keys. If not, bypass the actual LLM call and return a demo response 
         // to prevent local Next.js crashes while still demonstrating the pipeline.
         if (process.env.OPENAI_API_KEY || process.env.OPENROUTER_API_KEY) {
-            // --- INTERNAL DOGFOODING ---
-            const route = await getOptimalRoute('agentic');
             let optimalModelId = "openai/gpt-4o-mini"; // safety net
-            if (route) {
-                // Because this requires strict JSON orchestration, we prioritize agentic competence and cost
-                optimalModelId = route.smart_value?.model || route.flagship.model;
-                console.log(`[Dogfood] Architect Blueprint generating via: ${optimalModelId}`);
+
+            // --- INTERNAL DOGFOODING for PREMIUM TIER ---
+            if (tier === 'premium') {
+                const route = await getOptimalRoute('agentic');
+                if (route) {
+                    // Because this requires strict JSON orchestration, we prioritize agentic competence and cost
+                    optimalModelId = route.smart_value?.model || route.flagship.model;
+                    console.log(`[Dogfood Premium] Architect Blueprint generating via: ${optimalModelId}`);
+                }
+            } else {
+                console.log(`[Dogfood Standard] Architect Blueprint generating via: ${optimalModelId}`);
             }
 
             const model = createModel(optimalModelId);
