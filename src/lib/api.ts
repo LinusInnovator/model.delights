@@ -82,7 +82,7 @@ export async function fetchModels(): Promise<FetchResult> {
             }
 
             // Reasoning (Deep Logic / O-Series / Top Tier)
-            if (m_id.includes('o1') || m_id.includes('o3') || m_id.includes('sonnet') || m_id.includes('opus') || m_id.includes('reason') || m_id.includes('r1')) {
+            if (m_id.includes('o1') || m_id.includes('o3') || m_id.includes('sonnet') || m_id.includes('opus') || m_id.includes('reason') || m_id.includes('r1') || m_id.includes('grok')) {
                 use_cases.push('Reasoning');
             }
 
