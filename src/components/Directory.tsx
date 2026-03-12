@@ -110,9 +110,9 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     }, [initialData.models, searchQuery, sortMode, activeUseCase, maxBudget, simPromptMs, simOutputMs, simReqs]);
 
     // Format last updated
-    const lastUpdatedStr = initialData.last_updated
-        ? new Date(initialData.last_updated * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-        : 'Never';
+    const lastUpdatedTimestamp = initialData.last_updated
+        ? initialData.last_updated * 1000
+        : null;
 
     // Helper to find alternatives (Bulletproof Fallback & Cheaper Alts)
     const getModelRelations = (model: Model) => {
@@ -317,7 +317,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                 activeUseCase={activeUseCase}
                 setActiveUseCase={setActiveUseCase}
                 totalModels={filteredModels.length}
-                lastUpdated={lastUpdatedStr}
+                lastUpdated={lastUpdatedTimestamp}
             />
 
             <ParetoChart

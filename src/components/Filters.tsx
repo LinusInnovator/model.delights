@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export const USE_CASES = [
     { id: 'all', label: 'All Models', icon: 'ph-infinity' },
@@ -21,7 +21,23 @@ interface FiltersProps {
     activeUseCase: string;
     setActiveUseCase: (val: string) => void;
     totalModels: number;
-    lastUpdated: string;
+    lastUpdated: number | null;
+}
+
+function getRelativeTime(timestamp: number): string {
+    const now = Date.now();
+    const diffInSeconds = Math.floor((now - timestamp) / 1000);
+    
+    if (diffInSeconds < 60) return "just now";
+    
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `updated ${diffInMinutes}m ago`;
+    
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `updated ${diffInHours}h ago`;
+    
+    const diffInDays = Math.floor(diffInHours / 24);
+    return `updated ${diffInDays}d ago`;
 }
 
 export default function Filters({
@@ -34,6 +50,22 @@ export default function Filters({
     totalModels,
     lastUpdated
 }: FiltersProps) {
+    const [relativeTime, setRelativeTime] = useState<string>("syncing...");
+
+    useEffect(() => {
+        if (!lastUpdated) {
+            setRelativeTime("Unknown");
+            return;
+        }
+
+        const updateTime = () => setRelativeTime(getRelativeTime(lastUpdated));
+        updateTime(); // Initial update
+
+        // Update the relative time every 60 seconds
+        const interval = setInterval(updateTime, 60000);
+        return () => clearInterval(interval);
+    }, [lastUpdated]);
+
     return (
         <>
             <div className="controls">
@@ -104,8 +136,8 @@ export default function Filters({
                     <div className="micro-stat" title={`Database: ${totalModels} Models`}>
                         <i className="ph ph-database"></i> <span>{totalModels} Models</span>
                     </div>
-                    <div className="micro-stat" title={`Synced: ${lastUpdated}`} suppressHydrationWarning>
-                        <i className="ph ph-clock-counter-clockwise"></i> <span id="lastUpdatedVal" suppressHydrationWarning>{lastUpdated}</span>
+                    <div className="micro-stat" title={`Synced: ${lastUpdated ? new Date(lastUpdated).toLocaleString() : 'Unknown'}`} suppressHydrationWarning>
+                        <i className="ph ph-clock-counter-clockwise"></i> <span id="lastUpdatedVal" suppressHydrationWarning>{relativeTime}</span>
                     </div>
                 </div>
             </div>

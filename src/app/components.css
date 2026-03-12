@@ -119,8 +119,9 @@ select option {
 
 .micro-stats {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
+    white-space: nowrap;
     background: var(--card-bg);
     padding: 6px 14px;
     border-radius: 30px;
@@ -145,6 +146,7 @@ select option {
 .micro-stat span {
     color: var(--foreground);
     font-weight: 600;
+    white-space: nowrap;
 }
 
 /* Grid */

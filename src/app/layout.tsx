@@ -51,8 +51,8 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <Script 
-            src="https://spell.delights.pro/widget.js" 
+          <Script
+            src="https://spell.delights.pro/widget.js?v=1.1"
             data-site-id="094e9a64-eb73-4d44-a30f-d0b899996ecc"
             data-color="dark"
             data-position="right"
