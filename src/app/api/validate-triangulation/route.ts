@@ -4,11 +4,14 @@ import { z } from 'zod';
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { waitUntil } from "@vercel/functions";
+import { getOptimalRoute } from '@/lib/routingEngine';
 
-const openrouter = createOpenAI({
-    baseURL: 'https://openrouter.ai/api/v1',
-    apiKey: process.env.OPENROUTER_API_KEY,
-});
+const createOpenRouter = (modelId: string) => {
+    return createOpenAI({
+        baseURL: 'https://openrouter.ai/api/v1',
+        apiKey: process.env.OPENROUTER_API_KEY,
+    })(modelId);
+};
 
 const VentureValidationSchema = z.object({
     pattern_match: z.object({
@@ -141,16 +144,26 @@ Core Principles for a NEW CATEGORY:
         const autopsyUserPrompt = `Test my idea and extract the riskiest assumptions using your autopsy engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Treat this as an attacker trying to steal market share.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}${marketInjection}`;
         const catalystUserPrompt = `Evaluate my idea and extract the core exponential growth levers using your catalyst growth engine:\n\nIdea: "${idea}"\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Find the asymmetric wedge to attack the incumbent.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}${marketInjection}`;
 
+        // --- INTERNAL DOGFOODING ---
+        const route = await getOptimalRoute('reasoning');
+        let optimalModelId = "openai/gpt-4o-mini"; // safety net
+        if (route) {
+            // Because this requires deep C-suite synthesis, we prioritize reasoning competence and cost
+            optimalModelId = route.smart_value?.model || route.flagship.model;
+            console.log(`[Dogfood] Validator Triangulating via: ${optimalModelId}`);
+        }
+        const modelInstance = createOpenRouter(optimalModelId);
+
         // Run both models in parallel safely
         const results = await Promise.allSettled([
             generateObject({
-                model: openrouter('openai/gpt-4o-mini'),
+                model: modelInstance,
                 schema: VentureValidationSchema,
                 system: autopsySystemPrompt,
                 prompt: autopsyUserPrompt,
             }),
             generateObject({
-                model: openrouter('openai/gpt-4o-mini'),
+                model: modelInstance,
                 schema: VentureValidationSchema,
                 system: catalystSystemPrompt,
                 prompt: catalystUserPrompt,
@@ -197,7 +210,7 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
             : BaseInsightSchema;
 
         const synthesisResult = await generateObject({
-            model: openrouter('openai/gpt-4o-mini'),
+            model: modelInstance,
             schema: DynamicInsightSchema,
             system: synthesisSystemPrompt,
             prompt: synthesisUserPrompt,

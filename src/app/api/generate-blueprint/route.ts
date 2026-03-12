@@ -11,6 +11,7 @@ import fs from 'fs';
 import path from 'path';
 import schemaDb from '@/lib/schema_blueprints_db.json';
 import { Redis } from '@upstash/redis';
+import { getOptimalRoute } from '@/lib/routingEngine';
 
 const eloScores = Object.values(eloDataRaw as Record<string, number>).sort((a, b) => a - b);
 const medianElo = eloScores[Math.floor(eloScores.length / 2)];
@@ -20,16 +21,16 @@ const maxElo = eloScores[eloScores.length - 1];
 
 // Assuming OPENAI_API_KEY is available OR we are using OpenRouter
 // We will instantiate the provider dynamically based on available env keys
-const createModel = () => {
+const createModel = (modelId: string) => {
     if (process.env.OPENAI_API_KEY) {
         const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
-        return openai("gpt-4o-mini");
+        return openai(modelId.includes('/') ? modelId.split('/')[1] : modelId);
     } else if (process.env.OPENROUTER_API_KEY) {
         const openrouter = createOpenAI({
             baseURL: "https://openrouter.ai/api/v1",
             apiKey: process.env.OPENROUTER_API_KEY,
         });
-        return openrouter("openai/gpt-4o-mini"); // guaranteed JSON schema structured output compatibility
+        return openrouter(modelId); // guaranteed JSON schema structured output compatibility
     } else {
         throw new Error("No OPENAI_API_KEY or OPENROUTER_API_KEY found to power the Generative Architect.");
     }
@@ -123,7 +124,16 @@ export async function POST(req: NextRequest) {
         // Check if we have API keys. If not, bypass the actual LLM call and return a demo response 
         // to prevent local Next.js crashes while still demonstrating the pipeline.
         if (process.env.OPENAI_API_KEY || process.env.OPENROUTER_API_KEY) {
-            const model = createModel();
+            // --- INTERNAL DOGFOODING ---
+            const route = await getOptimalRoute('agentic');
+            let optimalModelId = "openai/gpt-4o-mini"; // safety net
+            if (route) {
+                // Because this requires strict JSON orchestration, we prioritize agentic competence and cost
+                optimalModelId = route.smart_value?.model || route.flagship.model;
+                console.log(`[Dogfood] Architect Blueprint generating via: ${optimalModelId}`);
+            }
+
+            const model = createModel(optimalModelId);
 
             // Extract existing blueprints to feed into LLM for potential interception
             const existingLibrary = (schemaDb as any).blueprints.map((b: any) => ({

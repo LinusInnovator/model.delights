@@ -2,21 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { streamText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { supabase } from "@/lib/supabase";
+import { getOptimalRoute } from "@/lib/routingEngine";
 
 // Maximum duration for the Vercel Edge Function
 export const maxDuration = 45;
 
-const createModel = () => {
+const createModel = (modelId: string) => {
     if (process.env.OPENROUTER_API_KEY) {
         const openrouter = createOpenAI({
             baseURL: "https://openrouter.ai/api/v1",
             apiKey: process.env.OPENROUTER_API_KEY,
         });
-        // We use a high-intelligence, fast model like GPT-4o-mini via OpenRouter
-        return openrouter("openai/gpt-4o-mini");
+        return openrouter(modelId);
     } else if (process.env.OPENAI_API_KEY) {
         const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
-        return openai("gpt-4o-mini");
+        return openai(modelId.includes('/') ? modelId.split('/')[1] : modelId);
     } else {
         throw new Error("No OPENAI_API_KEY or OPENROUTER_API_KEY found to power the Generative Architect.");
     }
@@ -35,7 +35,18 @@ export async function POST(req: NextRequest) {
 
         const sanitizedQuery = userIntent.trim().substring(0, 1000);
 
-        const model = createModel();
+        // --- INTERNAL DOGFOODING ---
+        // Dynamically ask our B2B Value Router for the smartest reasoning model we can afford right now.
+        const route = await getOptimalRoute('reasoning');
+        let optimalModelId = "openai/gpt-4o-mini"; // safety net
+        
+        if (route) {
+            // Because this is an internal backend generator, we inherently favor the Smart Value (-60% cost)
+            optimalModelId = route.smart_value?.model || route.flagship.model;
+            console.log(`[Dogfood] PRD Route: ${optimalModelId}`);
+        }
+
+        const model = createModel(optimalModelId);
 
         // Dynamically fetch the Kano components from the Supabase Data Lake
         let frameworkContext = "";
