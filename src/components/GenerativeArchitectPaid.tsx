@@ -41,6 +41,39 @@ export default function GenerativeArchitectPaid() {
     const [currentTier, setCurrentTier] = useState<'standard' | 'premium'>('standard');
     const [autoSynthesize, setAutoSynthesize] = useState(false);
 
+    // Stripe Redirect Interceptor Hook
+    useEffect(() => {
+        const urlTier = searchParams.get("tier");
+        if (urlTier === 'premium') {
+            const cachedQuery = localStorage.getItem('pending_arbitrage_query');
+            if (cachedQuery) {
+                // User has successfully returned from Stripe.
+                setIsExpanded(true);
+                setQuery(cachedQuery);
+                setAutoSynthesize(true);
+                
+                // Clear the cache to prevent duplicate triggers on reload
+                localStorage.removeItem('pending_arbitrage_query');
+                
+                // We use a slight timeout to ensure React state renders the expanded view first
+                setTimeout(() => {
+                    // Trigger the premium run natively 
+                    // (we emulate the button click by directly invoking the handler)
+                    // Note: Cannot directly pass 'premium' if we don't have access to the function 
+                    // definition inside this hook natively, but we can set the state flag.
+                    setCurrentTier('premium');
+                }, 500);
+            }
+        }
+    }, [searchParams]);
+
+    // Separate effect to trigger the execution once currentTier is set by the interceptor
+    useEffect(() => {
+        if (currentTier === 'premium' && query && appState === 'input' && autoSynthesize) {
+            handleGeneratePRD('premium');
+        }
+    }, [currentTier, query, appState, autoSynthesize]);
+
     const { completion: prdText, complete: generatePrd, isLoading: isStreamingPrd } = useCompletion({
         api: '/api/generate-prd',
         streamProtocol: 'text',
@@ -349,10 +382,7 @@ export default function GenerativeArchitectPaid() {
 
                             {currentTier === 'standard' && (
                                 <ArbitragePremiumCTA 
-                                    onUpgrade={() => {
-                                        setAutoSynthesize(true);
-                                        handleGeneratePRD('premium');
-                                    }} 
+                                    queryText={query}
                                 />
                             )}
 

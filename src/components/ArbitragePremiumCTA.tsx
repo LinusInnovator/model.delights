@@ -1,11 +1,28 @@
 import React from 'react';
 import { Sparkle, ArrowRight } from '@phosphor-icons/react';
+import CheckoutButton from '../app/enterprise/CheckoutButton';
 
 interface Props {
-    onUpgrade: () => void;
+    queryText: string;
 }
 
-export default function ArbitragePremiumCTA({ onUpgrade }: Props) {
+export default function ArbitragePremiumCTA({ queryText }: Props) {
+    const handlePreRedirectCache = () => {
+        // We must cache the user's raw idea so that when Stripe redirects back 
+        // to our frontend, we can automatically pull the intent from local storage 
+        // and trigger the "Premium" double-rerun sequence without losing data.
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('pending_arbitrage_query', queryText);
+            
+            // Generate the dynamic callback URL pointing right back to this exact tool
+            const origin = window.location.origin;
+            return `${origin}/super-architect?tier=premium`;
+        }
+        return '/super-architect?tier=premium';
+    };
+
+    // Calculate the success URL dynamically
+    const successUrl = typeof window !== 'undefined' ? handlePreRedirectCache() : undefined;
     return (
         <div className="w-full relative mt-8 mb-4 p-8 rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-zinc-950/90 to-black overflow-hidden group shadow-[0_0_30px_rgba(0,229,255,0.05)] hover:shadow-[0_0_40px_rgba(0,229,255,0.15)] transition-all duration-500">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] z-0 pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-700"></div>
@@ -24,18 +41,16 @@ export default function ArbitragePremiumCTA({ onUpgrade }: Props) {
                     </p>
                 </div>
                 
-                <div className="w-full md:w-auto flex-shrink-0">
-                    <button 
-                        onClick={onUpgrade}
-                        className="w-full md:w-auto bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center font-bold text-base shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] group/btn relative overflow-hidden"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-white/20 to-cyan-400/0 -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></div>
-                        <Sparkle size={20} className="mr-3 text-cyan-200 animate-pulse relative z-10" />
-                        <span className="relative z-10">Upgrade & Rerun Architecture</span>
-                        <ArrowRight size={20} className="ml-3 group-hover/btn:translate-x-1 transition-transform relative z-10" weight="bold" />
-                    </button>
-                    <p className="text-center mt-3 text-xs text-zinc-500 font-mono tracking-wider uppercase opacity-80">
-                        Test Mode: Execution bypass
+                <div className="w-full md:w-auto flex-shrink-0 flex flex-col items-center">
+                    <div onClick={handlePreRedirectCache} className="w-full">
+                        <CheckoutButton 
+                            label="Buy Premium Blueprint ($99)" 
+                            successUrl={successUrl}
+                            className="w-full md:w-auto bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center font-bold text-base shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] group/btn relative overflow-hidden"
+                        />
+                    </div>
+                    <p className="text-center mt-3 text-xs text-zinc-500 font-mono tracking-wider uppercase opacity-80 flex items-center gap-1">
+                        <Sparkle size={12} /> Powered by Stripe
                     </p>
                 </div>
             </div>

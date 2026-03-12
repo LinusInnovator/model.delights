@@ -25,6 +25,15 @@ export async function POST(req: NextRequest) {
 
         // Grab the authenticated user from Clerk
         const { userId } = await auth();
+        
+        // Check if the client requested a custom redirect URL
+        let customSuccessUrl = null;
+        try {
+            const body = await req.json();
+            customSuccessUrl = body.success_url;
+        } catch (e) {
+            // body is optional or not json
+        }
 
         // This assumes you have created a product in Stripe and have its Price ID.
         // For a generic demo without a hardcoded price ID, we create an ad-hoc price.
@@ -50,7 +59,7 @@ export async function POST(req: NextRequest) {
                 },
             ],
             mode: 'subscription',
-            success_url: `${origin}/enterprise/success?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: customSuccessUrl || `${origin}/enterprise/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${origin}/enterprise/cancel`,
         });
 
