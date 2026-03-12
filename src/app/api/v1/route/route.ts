@@ -13,11 +13,14 @@ export async function GET(request: Request) {
         if (intent.toLowerCase() !== 'all') {
             const mappedIntent = mapIntent(intent).toLowerCase();
             console.log("[DEBUG API] Client requested:", intent, "Mapped to:", mappedIntent);
-            models = models.filter(m => {
-                const hasIntent = m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
-                if (m.id.includes('claude-3-5-sonnet')) console.log(`[DEBUG API] Checking Claude Sonnet Use Cases:`, m.use_cases, "Has Intent?", hasIntent);
-                return hasIntent;
-            });
+            
+            if (mappedIntent !== 'all models') {
+                models = models.filter(m => {
+                    const hasIntent = m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
+                    if (m.id.includes('claude-3-5-sonnet')) console.log(`[DEBUG API] Checking Claude Sonnet Use Cases:`, m.use_cases, "Has Intent?", hasIntent);
+                    return hasIntent;
+                });
+            }
         }
 
         if (models.length === 0) {
@@ -60,11 +63,21 @@ export async function GET(request: Request) {
 
 function mapIntent(intent: string): string {
     const i = intent.toLowerCase();
+    
+    // Original Intents
     if (i.includes('cod') || i.includes('logic') || i.includes('math')) return 'Coding & Logic';
     if (i.includes('fiction') || i.includes('story') || i.includes('complex')) return 'Fictional';
     if (i.includes('draft') || i.includes('fast') || i.includes('cheap')) return 'Drafting';
     if (i.includes('roleplay') || i.includes('uncensor')) return 'Roleplay';
     if (i.includes('vision') || i.includes('image')) return 'Vision';
     if (i.includes('top') || i.includes('flagship')) return 'Top Tier';
+    
+    // Phase 62 Expansion
+    if (i.includes('reason') || i.includes('think') || i.includes('boardroom') || i.includes('plan')) return 'Reasoning';
+    if (i.includes('classif') || i.includes('tag') || i.includes('sort') || i.includes('filter')) return 'Classification';
+    if (i.includes('chat') || i.includes('conversation') || i.includes('support')) return 'Conversational';
+    if (i.includes('agent') || i.includes('tool') || i.includes('strict') || i.includes('json') || i.includes('extract')) return 'Agentic';
+    
+    // Catch-all fail safe
     return 'All Models';
 }

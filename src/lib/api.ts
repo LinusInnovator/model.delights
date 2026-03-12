@@ -81,9 +81,29 @@ export async function fetchModels(): Promise<FetchResult> {
                 use_cases.push('Fictional');
             }
 
+            // Reasoning (Deep Logic / O-Series / Top Tier)
+            if (m_id.includes('o1') || m_id.includes('o3') || m_id.includes('sonnet') || m_id.includes('opus') || m_id.includes('reason') || m_id.includes('r1')) {
+                use_cases.push('Reasoning');
+            }
+
             // Drafting (Fast/cheap models)
             if (m_id.includes('flash') || m_id.includes('haiku') || m_id.includes('mini') || m_id.includes('8b') || m_id.includes('llama-3-8b')) {
                 use_cases.push('Drafting');
+            }
+
+            // Classification / Tagging (Fast Extraction)
+            if (m_id.includes('flash') || m_id.includes('haiku') || m_id.includes('mini') || m_id.includes('8b') || m_id.includes('llama-3-8b') || name.includes('instruct')) {
+                use_cases.push('Classification');
+            }
+
+            // Conversational / Chat
+            if (m_id.includes('claude-3') || m_id.includes('gpt-4') || m_id.includes('gemini') || m_id.includes('llama-3') || m_id.includes('mixtral')) {
+                use_cases.push('Conversational');
+            }
+
+            // Agentic / Tool-Use (JSON/Strict outputs)
+            if (m_id.includes('gpt-4o') || m_id.includes('sonnet') || m_id.includes('opus') || m_id.includes('gemini-1.5-pro') || m_id.includes('o1') || m_id.includes('o3')) {
+                use_cases.push('Agentic');
             }
 
             // Vision
