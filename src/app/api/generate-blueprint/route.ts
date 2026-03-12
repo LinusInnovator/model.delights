@@ -36,7 +36,7 @@ const createModel = () => {
 };
 
 const blueprintSchema = z.object({
-    tier: z.enum(["SIMPLE", "MEDIUM", "MEGA"]).describe("Classify the intent complexity. SIMPLE = standard web app with a few APIs. MEDIUM = background jobs, complex databases, or multi-step reasoning. MEGA = enterprise scale, microservices, specialized heavy infrastructure."),
+    tier: z.enum(["SIMPLE", "MEDIUM", "MEGA"]).describe("Classify the intent complexity. SIMPLE = 1-2 nodes (Brief ideas, single-features). MEDIUM = 3-4 nodes (Standard apps). MEGA = 5-7 nodes (Explicitly requested enterprise microservice graphs)."),
     action: z.enum(['use_existing', 'create_new']).describe("If an existing blueprint matches perfectly, choose 'use_existing'. Otherwise, 'create_new'."),
     existing_id: z.string().describe("If action is 'use_existing', provide the ID of the matched blueprint. Otherwise leave blank ''."),
     name: z.string().describe("If action is 'create_new', provide a professional, capitalized name for this custom pipeline. Otherwise leave blank ''."),
@@ -50,7 +50,7 @@ const blueprintSchema = z.object({
             required_modalities_in: z.array(z.enum(['text', 'audio', 'image', 'video'])).describe("Required input formats."),
             required_modalities_out: z.array(z.enum(['text', 'audio', 'image', 'video'])).describe("Required output formats. Leave empty if none.")
         }).describe("The operational constraints for a single node inside the pipeline.")
-    ).describe("If action is 'create_new', a list of 1 to 7 functional components that make up the complete distributed architecture graph. Do not limit yourself to 1 or 2 components if the PRD implies Enterprise Scale. Break it down into discrete microservices. If action is 'use_existing', provide an empty array [].")
+    ).describe("If action is 'create_new', a list of functional components. MUST strictly obey tier limits: SIMPLE=1-2 nodes, MEDIUM=3-4 nodes, MEGA=5-7 nodes. Do not hallucinate massive scale for brief prompts. If action is 'use_existing', provide an empty array [].")
 });
 
 // Fallback to in-memory locally if Redis env vars are missing
@@ -152,12 +152,16 @@ export async function POST(req: NextRequest) {
                     
                     First, check the <existing_library>. If any existing blueprint matches the intent closely, select action="use_existing" and return its id.
                     If NO existing blueprint matches, select action="create_new", classify the tier (SIMPLE, MEDIUM, MEGA), and deconstruct their PRD into a robust, scalable set of functional AI and infrastructural components.
-                    If the PRD implies enterprise scale, you MUST break it down into a distributed microservice architecture (up to 7 distinct nodes). Do not compress complex PRDs into a single 'core_engine'. 
-                    Separate extraction models, reasoning engines, background workers, and databases into discrete logical components.
-                    HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out' (e.g., 'image', 'audio', 'video').
+                    
+                    === GENERATION GUARDRAILS ===
+                    Rule 1 (MVP Default): Evaluate the depth of the <intent>. If it is brief, vague, or under 3 sentences, you MUST force a SIMPLE or MEDIUM tier MVP (1-3 nodes).
+                    Rule 2 (No Hallucination): You are explicitly FORBIDDEN from generating massive MEGA architectures (5-7 nodes) or extrapolating unrequested media generation components UNLESS the intent explicitly details a highly complex, multi-step distributed workflow.
+                    Rule 3 (Strict Tier Caps): SIMPLE = 1-2 nodes. MEDIUM = 3-4 nodes. MEGA = 5-7 nodes. DO NOT overflow these caps. It is better to compress simple architectures into a single 'core_engine' than to hallucinate unused components.
+                    
+                    If the intent DOES overtly imply enterprise scale, break it down clearly (separate extraction models, reasoning engines, background workers, etc).
+                    HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out'.
                     Define strict mathematical constraints for each component (domain, minimum ELO score, budget limits, modalities) that reflect the exact requirements.
-                    Be extremely dynamic: allocate tiny budgets ($0.05) and assign the 'drafting' domain to simple triage/routing nodes, but allocate massive budgets ($5.0+) and massive ELO requirements (${frontierElo}+) and assign the 'reasoning' domain to the core insight engines or 'coding_and_logic' for programming agents. Let the constraints perfectly map the cognitive profile of the task.
-                    If the tier is MEGA, the architecture MUST explicitly define a Multi-Agent Orchestration layer or distributed event bus.`,
+                    Be extremely dynamic: allocate tiny budgets ($0.05) and assign the 'drafting' domain to simple triage/routing nodes, but allocate massive budgets ($5.0+) and massive ELO requirements (${frontierElo}+) and assign the 'reasoning' domain to the core insight engines or 'coding_and_logic' for programming agents. Let the constraints perfectly map the cognitive profile of the task.`,
             });
 
             // --- THE AUTONOMOUS FLYWHEEL PHASE ---
