@@ -9,7 +9,7 @@ export const metadata = {
 export default function ValidatePage({ searchParams }: { searchParams: { idea?: string } }) {
     return (
         <div className="flex flex-col min-h-screen">
-            <ValidatorFeature initialIdea={searchParams?.idea || ""} />
+            <ValidatorFeature initialIdea={searchParams?.idea || ""} autoStart={!!searchParams?.idea} />
             
             <div className="w-full bg-black border-t border-zinc-900 py-24">
                 <div className="max-w-5xl mx-auto px-6">

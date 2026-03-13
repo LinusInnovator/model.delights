@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Skull,
@@ -82,7 +82,7 @@ const LOADING_SIZZLE = [
     "Drafting Executive Synthesized Insight..."
 ];
 
-export default function ValidatorFeature({ initialIdea = "" }: { initialIdea?: string }) {
+export default function ValidatorFeature({ initialIdea = "", autoStart = false }: { initialIdea?: string, autoStart?: boolean }) {
     const [mode, setMode] = useState<"insight" | "autopsy" | "catalyst">("insight");
     const [idea, setIdea] = useState(initialIdea);
     const [users, setUsers] = useState<number>(1000);
@@ -99,6 +99,17 @@ export default function ValidatorFeature({ initialIdea = "" }: { initialIdea?: s
     const [error, setError] = useState<string | null>(null);
     const [isPivoting, setIsPivoting] = useState(false);
     const [pivots, setPivots] = useState<Pivot[] | null>(null);
+    const hasAutoStarted = useRef(false);
+
+    useEffect(() => {
+        if (autoStart && idea && !hasAutoStarted.current) {
+            hasAutoStarted.current = true;
+            // Delay slightly to let the UI settle and show the loading state properly
+            setTimeout(() => {
+                handleValidate();
+            }, 100);
+        }
+    }, [autoStart, idea]);
 
     const handleValidate = async () => {
         if (!idea.trim()) return;
