@@ -62,6 +62,29 @@ export default function Footer() {
                     </div>
                 </div>
 
+                {/* Categories Navigation (SEO Anchor) */}
+                <div className="flex flex-col gap-3">
+                    <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Model Categories</h4>
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        {[
+                            { name: 'Top Tier', path: '/categories/top-tier' },
+                            { name: 'Coding & Logic', path: '/categories/coding-logic' },
+                            { name: 'Vision', path: '/categories/vision' },
+                            { name: 'Drafting', path: '/categories/drafting' },
+                            { name: 'Roleplay', path: '/categories/roleplay' },
+                            { name: 'Image Gen', path: '/categories/image-gen' }
+                        ].map((cat) => (
+                            <Link 
+                                key={cat.path} 
+                                href={cat.path}
+                                className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors"
+                            >
+                                {cat.name}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Ecosystem Links */}
                 <div className="flex flex-col gap-3">
                     <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Delights Ecosystem</h4>

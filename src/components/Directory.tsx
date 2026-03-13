@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Model, FetchResult } from '@/lib/api';
 import Filters, { USE_CASES } from './Filters';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import ModelCard from './ModelCard';
 import PromoCard from './PromoCard';
 import WildcardCard from './WildcardCard';
@@ -352,6 +353,45 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     ))}
                 </div>
             )}
+
+            {/* SEO internal linking matrix for Category Hubs */}
+            <div className="mt-20 mb-10 w-full bg-zinc-900/40 border border-white/5 p-8 rounded-3xl" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <h3 className="text-2xl font-bold text-white mb-2">Explore LLM Categories</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Link href="/categories/top-tier" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Top Tier Models</span>
+                        <span className="text-zinc-500 text-xs">Unmatched reasoning</span>
+                    </Link>
+                    <Link href="/categories/coding-logic" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Coding & Logic</span>
+                        <span className="text-zinc-500 text-xs">Software engineering</span>
+                    </Link>
+                    <Link href="/categories/vision" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Vision Models</span>
+                        <span className="text-zinc-500 text-xs">Multimodal analytics</span>
+                    </Link>
+                    <Link href="/categories/drafting" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Drafting</span>
+                        <span className="text-zinc-500 text-xs">Fast text generation</span>
+                    </Link>
+                    <Link href="/categories/roleplay" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Roleplay</span>
+                        <span className="text-zinc-500 text-xs">Uncensored persona chat</span>
+                    </Link>
+                    <Link href="/categories/fictional" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Fictional</span>
+                        <span className="text-zinc-500 text-xs">Storytelling & creative</span>
+                    </Link>
+                    <Link href="/categories/image-gen" className="p-4 bg-zinc-950 hover:bg-zinc-800 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-white font-bold group-hover:text-cyan-400">Image Gen</span>
+                        <span className="text-zinc-500 text-xs">Diffusion architecture</span>
+                    </Link>
+                    <Link href="/vs" className="p-4 bg-cyan-950/20 hover:bg-cyan-900/30 border border-cyan-500/20 hover:border-cyan-400/50 rounded-xl transition-all flex flex-col gap-1 group">
+                        <span className="text-cyan-400 font-bold group-hover:text-cyan-300">The VS Engine</span>
+                        <span className="text-cyan-500/70 text-xs">Compare models head-to-head</span>
+                    </Link>
+                </div>
+            </div>
 
             <button
                 className={`surface-up-btn ${showSurfaceUp ? 'visible' : ''}`}
