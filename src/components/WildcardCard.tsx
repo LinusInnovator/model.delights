@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Sparkle, ArrowRight } from '@phosphor-icons/react';
 
 export default function WildcardCard() {
     const [intentData, setIntentData] = useState<any>(null);
@@ -29,50 +30,44 @@ export default function WildcardCard() {
     }, []);
 
     if (!intentData) return (
-        <div className="flex flex-col h-full border border-fuchsia-500/5 bg-fuchsia-500/5 overflow-hidden relative animate-pulse" style={{ minHeight: '150px' }}></div>
+        <div className="flex flex-col h-full rounded-2xl border border-fuchsia-500/20 bg-fuchsia-500/5 overflow-hidden relative animate-pulse" style={{ minHeight: '350px' }}></div>
     );
 
     return (
-        <Link href="/architect" className="block relative h-full transition-transform hover:-translate-y-1 duration-300 pointer-events-auto">
-            <div className="flex flex-col h-full border border-fuchsia-500/20 bg-fuchsia-500/5 hover:bg-fuchsia-500/10 overflow-hidden relative" style={{ minHeight: '150px' }}>
-
+        <Link href={`/super-architect?idea=${encodeURIComponent('I want to build a ' + intentData.name)}`} className="block relative h-full transition-transform hover:-translate-y-1 duration-300 pointer-events-auto group">
+            <div className="model-card flex flex-col justify-between h-full border border-fuchsia-500/40 hover:border-fuchsia-500/80 bg-gradient-to-br from-[#12001A] to-[#1F002E] rounded-2xl overflow-hidden relative text-center pb-8 pt-10 px-6 sm:px-8 shadow-[0_0_20px_rgba(217,70,239,0.15)] group-hover:shadow-[0_10px_30px_rgba(217,70,239,0.3)] transition-all duration-500" style={{ minHeight: '350px' }}>
+                
                 {/* Visual Flair */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-fuchsia-500/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-48 h-48 bg-fuchsia-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none transition-transform group-hover:scale-125 duration-700" />
+                <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
 
-                <div className="p-4 sm:p-5 flex-grow flex flex-col relative z-10">
-                    <div className="flex justify-between items-start mb-2">
-                        <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-lg text-fuchsia-400 leading-tight">
-                                Skip the LLMs.
-                            </h3>
-                        </div>
-                        <span className="flex h-2 w-2 mt-1">
-                            <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-fuchsia-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-fuchsia-500"></span>
-                        </span>
-                    </div>
+                <div className="relative z-10 mb-8 mt-2">
+                    <span className="bg-gradient-to-r from-fuchsia-300 to-purple-300 text-black px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.1em] shadow-[0_2px_15px_rgba(217,70,239,0.5)] inline-flex items-center">
+                        <Sparkle weight="fill" className="mr-2" /> Wildcard Discovered
+                    </span>
+                </div>
 
-                    <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
-                        Building a <strong className="text-white">{intentData.name}</strong>?
+                <div className="relative z-10 flex-grow flex flex-col justify-center mb-8">
+                    <h3 className="text-3xl font-black mb-4 bg-gradient-to-r from-fuchsia-300 to-purple-300 text-transparent bg-clip-text leading-tight tracking-tight">
+                        Skip the LLMs.
+                    </h3>
+                    <p className="text-zinc-300 text-base leading-relaxed max-w-[95%] mx-auto mb-2">
+                        Building a <strong className="text-white font-bold">{intentData.name}</strong>?
                     </p>
-
-                    <p className="text-xs text-white/50 mb-4 leading-relaxed">
+                    <p className="text-zinc-400 text-sm leading-relaxed max-w-[90%] mx-auto">
                         The Discovery Engine found an optimized API stack that bypasses standard text reasoning limitations.
                     </p>
+                </div>
 
-                    <div className="mt-auto pt-4 border-t border-fuchsia-500/10">
-                        {intentData.bleeding_edge_wildcard && (
-                            <div className="mb-3">
-                                <span className="text-[10px] uppercase tracking-[0.2em] text-fuchsia-500/80 mb-1.5 block">Wildcard Discovered</span>
-                                <span className="text-xs font-mono text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/20 px-2 py-1 rounded inline-block">
-                                    {intentData.bleeding_edge_wildcard.id}
-                                </span>
-                            </div>
-                        )}
-                        <span className="text-sm font-medium text-fuchsia-400 flex items-center gap-2 group">
-                            View Blueprint <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
-                        </span>
+                <div className="relative z-10 w-full mt-auto mb-2">
+                    <div className="w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-bold py-4 px-6 rounded-xl shadow-[0_4px_20px_rgba(217,70,239,0.4)] group-hover:shadow-[0_6px_30px_rgba(217,70,239,0.6)] transition-all flex justify-center items-center gap-2 group-hover:-translate-y-1">
+                        View Blueprint <ArrowRight weight="bold" size={18} />
                     </div>
+                    {intentData.bleeding_edge_wildcard && (
+                        <div className="mt-4 opacity-50 font-mono text-[10px] tracking-widest text-fuchsia-300 uppercase">
+                            Node: {intentData.bleeding_edge_wildcard.id}
+                        </div>
+                    )}
                 </div>
             </div>
         </Link>
