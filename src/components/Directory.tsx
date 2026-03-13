@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Model, FetchResult } from '@/lib/api';
-import Filters, { USE_CASES } from './Filters';
+import Filters from './Filters';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import ModelCard from './ModelCard';
@@ -163,6 +163,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             <div className="top-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '40px', flexWrap: 'wrap' }}>
                 <header className="home-header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/logo.png"
                             alt="model.delights logo"
@@ -172,7 +173,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     </div>
                     <p className="subtitle" style={{ marginBottom: '15px', marginTop: '10px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model's true reasoning capability.
+                        <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model&apos;s true reasoning capability.
                         {!isEloExpanded && (
                             <span
                                 onClick={() => setIsEloExpanded(true)}

@@ -68,8 +68,8 @@ export async function resolveCustomBlueprint(intentName: string, components: Rec
     };
 }
 
-function findBestModels(componentName: string, constraints: any, availableKeys: string[], useCaseMap: Map<string, string[]>) {
-    const validCandidates: any[] = [];
+function findBestModels(componentName: string, constraints: any /* eslint-disable-line @typescript-eslint/no-explicit-any */, availableKeys: string[], useCaseMap: Map<string, string[]>) {
+    const validCandidates: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] = [];
 
     for (const row of intelligenceDump.entities) {
         let supportedAlias: string | null = null;

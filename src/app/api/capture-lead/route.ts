@@ -28,13 +28,13 @@ export async function POST(req: Request) {
 
         if (error) {
             console.error("Supabase insert error:", error);
-            return NextResponse.json({ error: 'Failed to capture lead', details: error.message }, { status: 500 });
+            return NextResponse.json({ error: 'Failed to capture lead', details: (error as Error).message }, { status: 500 });
         }
 
         return NextResponse.json({ success: true });
 
-    } catch (e: any) {
+    } catch (e: unknown) {
         console.error("Lead capture failed:", e);
-        return NextResponse.json({ error: 'Internal server error', details: e.message }, { status: 500 });
+        return NextResponse.json({ error: 'Internal server error', details: (e as Error).message }, { status: 500 });
     }
 }

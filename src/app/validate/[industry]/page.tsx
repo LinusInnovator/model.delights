@@ -69,7 +69,7 @@ export default async function IndustryValidationPage({ params }: { params: Promi
                         <h2 className="text-xs uppercase tracking-widest text-rose-500 font-bold mb-3 flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-rose-500"></span> Core Tension Risk
                         </h2>
-                        <p className="text-white font-medium text-lg leading-relaxed">"{data.coreTension}"</p>
+                        <p className="text-white font-medium text-lg leading-relaxed">&quot;{data.coreTension}&quot;</p>
                     </div>
                 </div>
 
@@ -82,7 +82,8 @@ export default async function IndustryValidationPage({ params }: { params: Promi
                         </div>
                         <table className="w-full">
                             <tbody>
-                                {data.failureRatesTable.map((row: any, i: number) => (
+                                { }
+                                {data.failureRatesTable.map((row: any /* eslint-disable-line @typescript-eslint/no-explicit-any */, i: number) => (
                                     <tr key={i} className="border-b border-zinc-800/50 last:border-0 hover:bg-zinc-900 transition-colors">
                                         <td className="p-5 text-sm text-zinc-300 font-medium">{row.reason}</td>
                                         <td className="p-5 text-sm font-mono text-rose-400 text-right whitespace-nowrap">{row.percentage}</td>
@@ -99,7 +100,8 @@ export default async function IndustryValidationPage({ params }: { params: Promi
                         </div>
                         <table className="w-full">
                             <tbody>
-                                {data.acquisitionCostsTable.map((row: any, i: number) => (
+                                { }
+                                {data.acquisitionCostsTable.map((row: any /* eslint-disable-line @typescript-eslint/no-explicit-any */, i: number) => (
                                     <tr key={i} className="border-b border-zinc-800/50 last:border-0 hover:bg-zinc-900 transition-colors">
                                         <td className="p-5 text-sm text-zinc-300 font-medium">{row.channel}</td>
                                         <td className="p-5 text-sm font-mono text-emerald-400 text-right whitespace-nowrap">{row.estimated_cac}</td>
@@ -117,7 +119,7 @@ export default async function IndustryValidationPage({ params }: { params: Promi
                         </span>
                         Run the Triangulation Engine
                     </h2>
-                    <p className="text-zinc-400 text-lg">We've pre-filled the engine with a strong {data.industry} hypothesis. Edit it or run it immediately to see the Autopsy results.</p>
+                    <p className="text-zinc-400 text-lg">We&apos;ve pre-filled the engine with a strong {data.industry} hypothesis. Edit it or run it immediately to see the Autopsy results.</p>
                 </div>
             </main>
             

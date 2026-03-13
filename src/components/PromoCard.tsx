@@ -52,6 +52,7 @@ export default function PromoCard() {
         observer.observe(cardRef.current);
 
         return () => observer.disconnect();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [promo]);
 
     if (loading || !promo) return null;

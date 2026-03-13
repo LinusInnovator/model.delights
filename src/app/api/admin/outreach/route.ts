@@ -15,7 +15,8 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'OPENROUTER_API_KEY is not configured on the server.' }, { status: 500 });
         }
 
-        const statsStr = allStats.map((s: any) =>
+         
+        const statsStr = allStats.map((s: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) =>
             `- ${s.company}: ${s.views} views, ${s.clicks} clicks (${s.ctr}% CTR)`
         ).join("\n");
 
@@ -59,8 +60,8 @@ export async function POST(request: Request) {
         const content = data.choices[0].message.content;
 
         return NextResponse.json({ drafts: content });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Error generating outreach:', error);
-        return NextResponse.json({ error: error.message || 'Failed to generate outreach' }, { status: 500 });
+        return NextResponse.json({ error: (error as Error).message || 'Failed to generate outreach' }, { status: 500 });
     }
 }

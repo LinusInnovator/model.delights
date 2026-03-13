@@ -48,7 +48,7 @@ export default function SuperArchitectPage() {
                                 <Terminal className="text-blue-400" size={24} />
                             </div>
                             <h3 className="font-bold text-lg text-white">Ready to Deploy</h3>
-                            <p className="text-zinc-400 text-sm">Run 'npm install' and strictly copy your API keys from the generated .env template. You are ready to ship to Vercel instantly.</p>
+                            <p className="text-zinc-400 text-sm">Run &apos;npm install&apos; and strictly copy your API keys from the generated .env template. You are ready to ship to Vercel instantly.</p>
                         </div>
                     </div>
                 </div>

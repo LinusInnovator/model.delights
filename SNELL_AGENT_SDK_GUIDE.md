@@ -2,7 +2,12 @@
 **Target Audience**: AI Developer Agent (Antigravity/Cursor) working on the Snell Project.
 
 ## Context
-You are integrating the `@model-delights/router` Universal SDK into the Snell codebase. This SDK acts as an intelligent middleware Gateway. Instead of hardcoding LLM API strings (which change constantly) and trying to route requests yourself, you will query this SDK. It mathematically evaluates the global AI market in real-time and returns the absolute best, most cost-effective model for the given intent.
+You are integrating the `model-delights-snell` Universal SDK into the Snell codebase. 
+
+### Critical Architecture Note: "White-Box" vs OpenRouter Auto
+Do not confuse this SDK with setting a model string to `openrouter/auto`. OpenRouter Auto is a **Black Box Execution** environment—it analyzes the prompt, chooses a model secretly, runs the inference, and bills the account without giving you a chance to control profit margins. 
+
+The Snell SDK is a **White-Box Mathematical Pre-Flight Check**. It does *not* execute prompts. It queries our backend to mathematically evaluate the global AI market in real-time based on LMSys ELO scores. It returns a bifurcated payload containing the absolute Best model (Flagship) AND the smartest, most cost-effective alternative (Smart Value) along with the exact mathematically calculated financial tradeoff *before* you execute the prompt yourself.
 
 This SDK is securely locked behind a bearer token API Gateway running on `model.delights.pro` (or locally on port 3000). To avoid incurring the standard $99/mo B2B API consumption costs for our internal Snell project, we are using a dedicated `INTERNAL_GOD_KEY` to bypass billing.
 
@@ -33,7 +38,7 @@ The SDK is fully isomorphic and exposes native TypeScript definitions. You shoul
 Use this when you want to execute a specific task (like coding, drafting, or vision) and want the engine to dynamically return the absolute best model available on the market right now.
 
 ```typescript
-import { IntelligenceRouter } from '@model-delights/router';
+import { IntelligenceRouter } from 'model-delights-snell';
 
 // 1. Initialize the Router
 const router = new IntelligenceRouter({
@@ -70,7 +75,7 @@ export async function executeSnellTask() {
 Use this if the Snell user types a hallucinated or fuzzy model name (like "claude opus" or "gpt-4 fast") and you need to mathematically resolve it to the exact, copy-pasteable API string required by OpenRouter.
 
 ```typescript
-import { IntelligenceRouter } from '@model-delights/router';
+import { IntelligenceRouter } from 'model-delights-snell';
 
 const router = new IntelligenceRouter({
   apiKey: process.env.INTERNAL_GOD_KEY!,

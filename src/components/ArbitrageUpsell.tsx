@@ -11,7 +11,7 @@ interface ArbitrageUpsellProps {
     worseModelName: string;
 }
 
-export default function ArbitrageUpsell({ modelAName, modelBName, cheaperPercentage, worseModelName }: ArbitrageUpsellProps) {
+export default function ArbitrageUpsell({ modelBName, cheaperPercentage, worseModelName }: ArbitrageUpsellProps) {
     if (cheaperPercentage < 10) return null; // Only show if arbitrage is significant
 
     return (

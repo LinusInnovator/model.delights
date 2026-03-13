@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sparkle, ArrowRight } from '@phosphor-icons/react';
+import { BlueprintData } from './BlueprintCard';
 
 export default function WildcardCard() {
-    const [intentData, setIntentData] = useState<any>(null);
+    const [intentData, setIntentData] = useState<BlueprintData | null>(null);
 
     useEffect(() => {
         const fetchWildcard = async () => {

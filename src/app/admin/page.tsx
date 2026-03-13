@@ -55,8 +55,8 @@ export default function AdminDashboard() {
             if (!res.ok) throw new Error(data.error || "Failed to generate outreach");
 
             setDrafts(data.drafts);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError((err as Error).message);
         } finally {
             setGenerating(false);
         }

@@ -1,3 +1,10 @@
+import { z } from 'zod';
+export declare const RouteQuerySchema: z.ZodObject<{
+    intent: z.ZodOptional<z.ZodString>;
+}, z.core.$strip>;
+export declare const ResolveQuerySchema: z.ZodObject<{
+    q: z.ZodString;
+}, z.core.$strip>;
 export interface RouteResponse {
     intent: string;
     recommended_model: string;

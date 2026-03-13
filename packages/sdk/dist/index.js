@@ -1,8 +1,8 @@
 import { z } from 'zod';
-const RouteQuerySchema = z.object({
+export const RouteQuerySchema = z.object({
     intent: z.string().optional()
 });
-const ResolveQuerySchema = z.object({
+export const ResolveQuerySchema = z.object({
     q: z.string()
 });
 export class IntelligenceRouter {

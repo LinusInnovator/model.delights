@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import { clerkClient } from '@clerk/nextjs/server';
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
-    // @ts-ignore
+    // @ts-expect-error ignore node types
     apiVersion: '2023-10-16',
 }) : null;
 
@@ -22,9 +22,9 @@ export async function POST(req: Request) {
     try {
         if (!signature) throw new Error('No signature provided in headers');
         event = stripe.webhooks.constructEvent(payload, signature, webhookSecret);
-    } catch (err: any) {
-        console.error(`⚠️  Webhook signature verification failed: ${err.message}`);
-        return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+    } catch (err: unknown) {
+        console.error(`⚠️  Webhook signature verification failed: ${(err as Error).message}`);
+        return new NextResponse(`Webhook Error: ${(err as Error).message}`, { status: 400 });
     }
 
     // Handle the event

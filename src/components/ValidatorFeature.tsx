@@ -14,7 +14,6 @@ import {
     Gear,
     RocketLaunch,
     Lightbulb,
-    CaretCircleDoubleRight,
     Target,
     Printer
 } from "@phosphor-icons/react";
@@ -109,6 +108,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                 handleValidate();
             }, 100);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [autoStart, idea]);
 
     const handleValidate = async () => {
@@ -137,8 +137,8 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
             }
             const result = await res.json();
             setData(result);
-        } catch (err: any) {
-            setError(err.message || "The Triangulation Engine encountered a critical exception. Please try again.");
+        } catch (err: unknown) {
+            setError((err as Error).message || "The Triangulation Engine encountered a critical exception. Please try again.");
         } finally {
             clearInterval(interval);
             setIsLoading(false);
@@ -193,7 +193,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
     // Napkin Math Generator
     const generateNapkinMath = () => {
         if (!showEconomics) return [];
-        let chartData = [];
+        const chartData = [];
         let currentUsers = users;
         for (let i = 1; i <= 36; i++) {
             const revenue = currentUsers * price;
@@ -233,7 +233,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                     <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-4 lowercase">
                         Tell us your idea. <br />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-indigo-500 to-emerald-400">
-                            We'll show you the truth.
+                            We&apos;ll show you the truth.
                         </span>
                     </h1>
                     <p className="text-zinc-400 max-w-2xl mx-auto text-lg leading-relaxed">
@@ -410,7 +410,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Executive Verdict</h2>
                                         </div>
                                         <p className="text-xl md:text-2xl text-zinc-200 font-medium leading-relaxed">
-                                            "{data.insightSummary.the_verdict}"
+                                            &quot;{data.insightSummary.the_verdict}&quot;
                                         </p>
                                     </div>
                                 </div>
@@ -475,11 +475,13 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                                                 </defs>
                                                                 <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
                                                                 <XAxis dataKey="name" stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} />
-                                                                <YAxis stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value: any) => `$${value >= 1000000 ? (value / 1000000).toFixed(1) + 'M' : value >= 1000 ? (value / 1000).toFixed(1) + 'k' : value}`} />
+                                                                { }
+                                                                <YAxis stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => `$${value >= 1000000 ? (value / 1000000).toFixed(1) + 'M' : value >= 1000 ? (value / 1000).toFixed(1) + 'k' : value}`} />
+                                                                { }
                                                                 <Tooltip
                                                                     contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '12px', color: '#fff' }}
                                                                     itemStyle={{ color: '#e4e4e7' }}
-                                                                    formatter={(value: any) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)}
+                                                                    formatter={(value: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)}
                                                                 />
                                                                 <Area type="monotone" dataKey="Valuation" stroke="#a855f7" strokeWidth={2} fillOpacity={1} fill="url(#colorValuation)" />
                                                             </AreaChart>
@@ -501,7 +503,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                                 <div className="flex-1 w-full space-y-8">
                                                     <div>
                                                         <h3 className="text-xl font-bold text-white mb-2">Execution Confidence</h3>
-                                                        <p className="text-zinc-400 text-sm leading-relaxed mb-6">Dial in your ability to execute against the AI's findings. The structural base score assumes average execution capability (50%).</p>
+                                                        <p className="text-zinc-400 text-sm leading-relaxed mb-6">Dial in your ability to execute against the AI&apos;s findings. The structural base score assumes average execution capability (50%).</p>
                                                     </div>
 
                                                     <div className="space-y-6">
@@ -571,7 +573,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                                     <div key={i} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 flex flex-col hover:border-red-500/50 transition-colors text-left shadow-2xl">
                                                         <div className="text-xs font-bold uppercase tracking-widest text-red-500 mb-3">{p.title}</div>
                                                         <p className="text-sm text-zinc-400 mb-4 pb-4 border-b border-zinc-800">{p.description}</p>
-                                                        <p className="font-medium text-white mb-4 flex-1">"{p.new_idea}"</p>
+                                                        <p className="font-medium text-white mb-4 flex-1">&quot;{p.new_idea}&quot;</p>
                                                         <div className="flex justify-between items-center mb-6 font-mono text-xs text-zinc-500 border border-zinc-800 rounded-lg p-3 bg-black">
                                                             <div className="flex flex-col">
                                                                 <span className="uppercase text-[10px] tracking-widest mb-1">Price</span>
@@ -598,7 +600,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                 <div className="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-2xl relative overflow-hidden">
                                     <h2 className="text-3xl font-black text-white mb-4 relative z-10">Convinced to build it?</h2>
                                     <p className="text-zinc-400 text-lg mb-8 relative z-10 max-w-xl mx-auto">
-                                        You've triangulated the risk and the upside. Now you need serious infrastructure to deliver. Auto-generate your stack with zero middleware.
+                                        You&apos;ve triangulated the risk and the upside. Now you need serious infrastructure to deliver. Auto-generate your stack with zero middleware.
                                     </p>
                                     <a
                                         href={`/super-architect?idea=${encodeURIComponent(idea)}&pivot=${encodeURIComponent(data?.insightSummary?.strategic_pivot?.action || '')}`}
@@ -716,7 +718,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                                                         {assump.category}
                                                                     </span>
                                                                 </div>
-                                                                <h4 className="text-white font-medium text-lg mb-2">"{assump.assumption}"</h4>
+                                                                <h4 className="text-white font-medium text-lg mb-2">&quot;{assump.assumption}&quot;</h4>
                                                                 <div className="text-zinc-400 text-sm leading-relaxed mb-4">{assump.rationale}</div>
                                                                 <div className="flex items-center gap-6">
                                                                     <div>
@@ -780,7 +782,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                                     <div className="uppercase tracking-widest text-xs font-bold text-indigo-400 mb-2">
                                                         Test {idx + 1}: {exp.experiment_type}
                                                     </div>
-                                                    <h4 className="text-xl font-bold text-white mb-4">Testing: "{exp.assumption_tested}"</h4>
+                                                    <h4 className="text-xl font-bold text-white mb-4">Testing: &quot;{exp.assumption_tested}&quot;</h4>
                                                     <div className="bg-zinc-950/50 rounded p-4 border border-zinc-800 mb-4">
                                                         <span className="text-zinc-500 text-sm block mb-1">Setup Protocol</span>
                                                         <span className="text-zinc-300">{exp.setup}</span>
@@ -823,7 +825,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                                     <div className="space-y-6">
                                         <div>
                                             <div className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Deadliest Assumption</div>
-                                            <p className={`text-lg font-medium ${mode === 'autopsy' ? 'text-red-200' : 'text-emerald-200'}`}>"{activeData.kill_criteria_protocol.deadliest_assumption}"</p>
+                                            <p className={`text-lg font-medium ${mode === 'autopsy' ? 'text-red-200' : 'text-emerald-200'}`}>&quot;{activeData.kill_criteria_protocol.deadliest_assumption}&quot;</p>
                                         </div>
                                         
                                         <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800">
@@ -870,7 +872,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                             <div className="space-y-4 mb-8">
                                 {data.autopsyData.critical_assumptions.slice(0, 3).map((a, i) => (
                                     <div key={i} className="p-4 border border-zinc-800 rounded-lg print:border-black print:bg-white print:text-black break-inside-avoid">
-                                        <p className="font-bold text-lg mb-1">"{a.assumption}"</p>
+                                        <p className="font-bold text-lg mb-1">&quot;{a.assumption}&quot;</p>
                                         <p className="text-sm mb-2">{a.rationale}</p>
                                         <div className="text-xs uppercase font-mono mt-4">
                                             Impact: {a.impact}/5 | Evidence: {a.evidence}/5 | Risk Leverage: {a.leverage_score} ({a.category})
@@ -882,7 +884,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                             {data.autopsyData.kill_criteria_protocol && (
                                 <div className="p-6 border border-zinc-800 rounded-xl mb-8 print:border-black print:bg-white print:text-black break-inside-avoid mt-8">
                                     <h3 className="font-bold mb-2 uppercase text-sm tracking-widest text-zinc-500 print:text-black">Strict 48-Hour Kill Protocol</h3>
-                                    <p className="font-bold text-lg mb-2 text-red-700 print:text-black">"{data.autopsyData.kill_criteria_protocol.deadliest_assumption}"</p>
+                                    <p className="font-bold text-lg mb-2 text-red-700 print:text-black">&quot;{data.autopsyData.kill_criteria_protocol.deadliest_assumption}&quot;</p>
                                     <p className="mb-4">{data.autopsyData.kill_criteria_protocol.validation_protocol}</p>
                                     <div className="p-4 bg-zinc-100 print:bg-zinc-100 print:text-black font-mono text-xs rounded-lg whitespace-pre-wrap mt-4">
                                         {data.autopsyData.kill_criteria_protocol.actionable_template}
@@ -908,7 +910,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                             <div className="space-y-4 mb-8">
                                 {data.catalystData.critical_assumptions.slice(0, 3).map((a, i) => (
                                     <div key={i} className="p-4 border border-zinc-800 rounded-lg print:border-black print:bg-white print:text-black break-inside-avoid">
-                                        <p className="font-bold text-lg mb-1">"{a.assumption}"</p>
+                                        <p className="font-bold text-lg mb-1">&quot;{a.assumption}&quot;</p>
                                         <p className="text-sm mb-2">{a.rationale}</p>
                                         <div className="text-xs uppercase font-mono mt-4">
                                             Impact: {a.impact}/5 | Evidence: {a.evidence}/5 | Growth Leverage: {a.leverage_score} ({a.category})

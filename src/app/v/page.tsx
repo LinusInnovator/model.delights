@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 type Props = {
@@ -6,8 +6,7 @@ type Props = {
 }
 
 export async function generateMetadata(
-    props: Props,
-    parent: ResolvingMetadata
+    props: Props
 ): Promise<Metadata> {
     const searchParams = await props.searchParams;
     
@@ -70,9 +69,10 @@ export default async function ValidatorShareGateway(props: Props) {
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '40px', lineHeight: 1.6 }}>
                 This founder submitted their idea to the model.delights autonomous Red/Green teams.
                 <br /><br />
-                <strong style={{ color: 'var(--text-primary)' }}>"{ide}"</strong>
+                <strong style={{ color: 'var(--text-primary)' }}>&quot;{ide}&quot;</strong>
             </p>
 
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
                 src={ogUrl.toString()} 
                 alt="Triangulation Results" 

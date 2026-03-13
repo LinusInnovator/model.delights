@@ -67,7 +67,7 @@ Be ruthless, precise, and highly strategic.`;
 
     } catch (e: unknown) {
         console.error("Pivot generation failed:", e);
-        const errMessage = e instanceof Error ? e.message : "Failed to generate pivots.";
+        const errMessage = e instanceof Error ? (e as Error).message : "Failed to generate pivots.";
         return NextResponse.json({ error: errMessage }, { status: 500 });
     }
 }

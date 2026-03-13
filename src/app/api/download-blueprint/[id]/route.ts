@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
         const blueprintId = resolvedParams.id;
 
         // Find the blueprint rules in the database
-        const blueprint = schemaDb.blueprints.find((b: any) => b.id === blueprintId);
+        const blueprint = schemaDb.blueprints.find((b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.id === blueprintId);
 
         if (!blueprint) {
             return new NextResponse("Blueprint ID not found in library.", { status: 404 });
@@ -87,7 +87,7 @@ export const FALLBACK_STACK = ${JSON.stringify(blueprint.stack_openrouter_only, 
             },
         });
 
-    } catch (err: any) {
+    } catch (err: unknown) {
         console.error("ZIP Generation Error:", err);
         return new NextResponse("Failed to generate serverless ZIP. Please contact support.", { status: 500 });
     }

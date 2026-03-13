@@ -10,7 +10,7 @@ if (!STRIPE_SECRET_KEY) {
 }
 
 const stripe = STRIPE_SECRET_KEY ? new Stripe(STRIPE_SECRET_KEY, {
-    // @ts-ignore
+    // @ts-expect-error Stripe types
     apiVersion: '2023-10-16',
 }) : null;
 
@@ -64,9 +64,9 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json({ url: session.url });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('[Stripe API Error]', error);
-        return new NextResponse(JSON.stringify({ error: error.message }), {
+        return new NextResponse(JSON.stringify({ error: (error as Error).message }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
         });

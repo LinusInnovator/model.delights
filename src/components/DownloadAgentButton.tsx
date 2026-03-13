@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Robot, Spinner } from '@phosphor-icons/react';
 
 interface DownloadAgentButtonProps {
-    blueprint: any;
+    blueprint: Record<string, unknown>;
     prdText: string;
 }
 
@@ -51,9 +51,9 @@ export default function DownloadAgentButton({ blueprint, prdText }: DownloadAgen
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Download failed:", error);
-            alert(`Download Error: ${error.message}`);
+            alert(`Download Error: ${(error as Error).message}`);
         } finally {
             setIsDownloading(false);
         }

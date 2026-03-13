@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck, ArrowRight, MagnifyingGlass, Sparkle } from "@phosphor-icons/react";
-import Link from "next/link";
+import { ShieldCheck, ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
+
 
 export default function ValidatorGateway() {
     const [query, setQuery] = useState("");
@@ -65,7 +65,7 @@ export default function ValidatorGateway() {
                         What startup idea are you validating today?
                     </h2>
                     <p className="text-zinc-400 text-sm sm:text-base mb-8 max-w-2xl leading-relaxed">
-                        Don't waste engineering hours building something nobody wants. Describe your application idea below. We'll triangulate the structural risks and growth vectors instantly.
+                        Don&apos;t waste engineering hours building something nobody wants. Describe your application idea below. We&apos;ll triangulate the structural risks and growth vectors instantly.
                     </p>
 
                     <div className="w-full max-w-3xl relative mb-6">

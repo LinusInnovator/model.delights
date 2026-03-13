@@ -54,6 +54,7 @@ export default function Filters({
 
     useEffect(() => {
         if (!lastUpdated) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setRelativeTime("Unknown");
             return;
         }

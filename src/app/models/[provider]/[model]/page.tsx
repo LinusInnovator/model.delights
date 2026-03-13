@@ -60,7 +60,7 @@ export default async function ModelProfilePage(props: { params: Promise<{ provid
     // Find direct peers in the same ELO / Pricing bracket for comparison links
     const relatedModels = models
         .filter(m => m.id !== model.id && m.elo && Math.abs(m.elo - (model.elo || 0)) < 100)
-        .sort((a, b) => Math.abs((a.elo || 0) - (model.elo || 0)))
+        .sort((a, b) => Math.abs((a.elo || 0) - (model.elo || 0)) - Math.abs((b.elo || 0) - (model.elo || 0)))
         .slice(0, 6);
 
     const nameDisplay = model.name.replace('Anthropic: ', '').replace('OpenAI: ', '').replace('Meta: ', '').replace('Google: ', '');

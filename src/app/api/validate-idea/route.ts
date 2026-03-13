@@ -90,11 +90,11 @@ Core Principles:
 
         return NextResponse.json(object);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Autopsy Engine error:", error);
         return new NextResponse(JSON.stringify({
             error: "Failed to process validation.",
-            details: error.message || error.toString(),
+            details: (error as Error).message || error.toString(),
             cause: error.cause ? error.cause.toString() : undefined
         }), { status: 500, headers: { "Content-Type": "application/json" } });
     }

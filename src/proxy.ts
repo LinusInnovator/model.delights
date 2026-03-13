@@ -4,6 +4,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 const isProtectedRoute = createRouteMatcher([
     '/api/enterprise(.*)',
+    '/enterprise/dashboard(.*)'
 ]);
 
 const isArchitectRoute = createRouteMatcher([
@@ -80,9 +81,26 @@ export default clerkMiddleware(async (auth, request) => {
             return NextResponse.next();
         }
 
-        // // TODO: Implement DB check for paid Enterprise keys
-        // const isValidPaidKey = await checkKeyInDatabase(token);
-        // if (isValidPaidKey) return NextResponse.next();
+        // DB check for paid Enterprise keys via raw REST for Edge compatibility
+        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            try {
+                const supaRes = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/snell_api_keys?select=id,user_id&api_key=eq.${encodeURIComponent(token)}&limit=1`, {
+                    headers: {
+                        'apikey': process.env.SUPABASE_SERVICE_ROLE_KEY,
+                        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`
+                    }
+                });
+                
+                if (supaRes.ok) {
+                    const data = await supaRes.json();
+                    if (data && data.length > 0) {
+                        return NextResponse.next();
+                    }
+                }
+            } catch (e) {
+                console.error("Supabase edge auth check failed:", e);
+            }
+        }
 
         return new NextResponse(JSON.stringify({ error: 'Invalid API Key' }), {
             status: 403,

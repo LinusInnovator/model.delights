@@ -37,10 +37,11 @@ interface ComparisonChartProps {
 }
 
 export default function ComparisonChart({ modelA, modelB, allModels }: ComparisonChartProps) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const chartRef = useRef<ChartJS<"scatter", any, unknown>>(null);
 
     // Filter models that have ELO and valid pricing > 0 to plot on log scale
-    let chartDataPoints = allModels.filter(m => m.elo && m.pricing_per_1m);
+    const chartDataPoints = allModels.filter(m => m.elo && m.pricing_per_1m);
 
     // Create 3 datasets: Model A, Model B, Background Models
     const createPoint = (m: Model) => {
@@ -93,7 +94,8 @@ export default function ComparisonChart({ modelA, modelB, allModels }: Compariso
         ]
     };
 
-    const chartOptions: any = {
+     
+    const chartOptions: any /* eslint-disable-line @typescript-eslint/no-explicit-any */ = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -126,7 +128,8 @@ export default function ComparisonChart({ modelA, modelB, allModels }: Compariso
                 borderWidth: 1,
                 padding: 12,
                 callbacks: {
-                    label: function (context: any) {
+                     
+                    label: function (context: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
                         const pt = context.raw;
                         const costStr = pt.isFree ? 'Free' : '$' + (pt.x > 0.0001 ? pt.x.toFixed(4) : 0) + ' / 1M';
                         return pt.name + ' | ' + costStr + ' | ELO: ' + pt.y;

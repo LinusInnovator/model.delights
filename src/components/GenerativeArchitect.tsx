@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, Code } from "@phosphor-icons/react";
-import BlueprintCard from "./BlueprintCard";
+import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Code } from "@phosphor-icons/react";
+import BlueprintCard, { BlueprintData } from "./BlueprintCard";
 import CheckoutButton from "../app/enterprise/CheckoutButton";
 import Link from "next/link";
-import DownloadBlueprintButton from "./DownloadBlueprintButton";
+
 
 export default function GenerativeArchitect() {
     const [query, setQuery] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [loadingStep, setLoadingStep] = useState(0);
     const [isFinalizing, setIsFinalizing] = useState(false);
-    const [result, setResult] = useState<any>(null);
+    const [result, setResult] = useState<BlueprintData | null>(null);
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -39,6 +39,7 @@ export default function GenerativeArchitect() {
         }, 700);
 
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isGenerating]);
 
     const handleGenerate = async () => {
@@ -70,10 +71,10 @@ export default function GenerativeArchitect() {
             setIsFinalizing(true);
             await new Promise(resolve => setTimeout(resolve, 1500));
 
-            setResult(data.blueprint);
-            setTier(data.tier || "SIMPLE");
-        } catch (err: any) {
-            setError(err.message || "An unexpected error occurred.");
+            setResult(data.blueprint as BlueprintData);
+            setTier((data.tier as "SIMPLE" | "MEDIUM" | "MEGA") || "SIMPLE");
+        } catch (err: unknown) {
+            setError((err as Error).message || "An unexpected error occurred.");
         } finally {
             setIsGenerating(false);
             setIsFinalizing(false);
@@ -222,7 +223,7 @@ export default function GenerativeArchitect() {
                                         Your specifications outline an enterprise-scale distributed system. A standard Next.js monolithic boilerplate will severely bottleneck your workload.
                                     </p>
                                     <p className="text-zinc-300 text-sm max-w-xl mx-auto relative z-10 mb-2">
-                                        Let's discuss proper event-buses, vector scaling, and multi-tenant isolation.
+                                        Let&apos;s discuss proper event-buses, vector scaling, and multi-tenant isolation.
                                     </p>
 
                                     <div className="relative z-10 w-full max-w-sm mt-4">

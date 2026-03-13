@@ -10,7 +10,7 @@ export const metadata = {
 
 export default async function EnterprisePage() {
     const { sessionClaims } = await auth();
-    const metadata = sessionClaims?.metadata as any;
+    const metadata = sessionClaims?.metadata as Record<string, unknown>;
     const isPro = metadata?.tier === 'PRO' || metadata?.has_ltd === true;
 
     return (
@@ -43,12 +43,12 @@ export default async function EnterprisePage() {
                 </h1>
 
                 <p className="text-xl text-zinc-400 max-w-2xl mb-12">
-                    Our routing engine detects new frontier models the millisecond they drop. We mathematically guarantee your profit margins and ensure your agent's intelligence never decays.
+                    Our routing engine detects new frontier models the millisecond they drop. We mathematically guarantee your profit margins and ensure your agent&apos;s intelligence never decays.
                 </p>
 
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-24">
                     {isPro ? (
-                        <a href="#" className="px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all flex items-center justify-center">
+                        <a href="/enterprise/dashboard" className="px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all flex items-center justify-center">
                             Access Enterprise Dashboard &rarr;
                         </a>
                     ) : (
@@ -57,6 +57,48 @@ export default async function EnterprisePage() {
                     <a href="#integration" className="px-8 py-4 rounded-full font-bold text-lg border border-white/10 hover:bg-white/5 transition-colors flex items-center justify-center">
                         Read the Docs
                     </a>
+                </div>
+
+                {/* Competitive Positioning: The Snell SDK vs OpenRouter Auto */}
+                <div className="w-full text-left mt-8 mb-24 max-w-4xl mx-auto">
+                    <h2 className="text-3xl font-bold mb-6 text-center">White-Box Intelligence vs Black-Box Execution</h2>
+                    <p className="text-zinc-400 text-center mb-12 text-lg">
+                        Why pay for Snell when OpenRouter has a free `openrouter/auto` model? Because auto-routers are black boxes that spend your money invisibly. Snell is a mathematical pre-flight check.
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* OpenRouter Auto */}
+                        <div className="p-8 rounded-2xl bg-red-900/10 border border-red-500/20 flex flex-col items-start gap-4">
+                            <h3 className="text-xl font-bold flex items-center text-red-400">
+                                <svg className="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                OpenRouter &apos;Auto&apos;
+                            </h3>
+                            <p className="text-zinc-400 leading-relaxed text-sm">
+                                You set your model to `auto`. OpenRouter reads your prompt, guesses the complexity, picks a model secretly, runs the inference, and bills you. You have absolutely zero control over your profit margins.
+                            </p>
+                            <ul className="text-sm text-zinc-500 space-y-2 mt-4">
+                                <li className="flex items-center"><span className="text-red-500 mr-2 text-lg">•</span> Black Box Execution</li>
+                                <li className="flex items-center"><span className="text-red-500 mr-2 text-lg">•</span> No margin calculation</li>
+                                <li className="flex items-center"><span className="text-red-500 mr-2 text-lg">•</span> Zero Fallback control</li>
+                            </ul>
+                        </div>
+
+                        {/* Snell Router */}
+                        <div className="p-8 rounded-2xl bg-blue-900/20 border border-blue-500/30 flex flex-col items-start gap-4">
+                            <h3 className="text-xl font-bold flex items-center text-blue-400">
+                                <svg className="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                Snell Enterprise SDK
+                            </h3>
+                            <p className="text-zinc-300 leading-relaxed text-sm">
+                                You ask our API for the best model *before* running inference. We return the global flagship, the exact percentage of intelligence drop for a cheaper alternative, and the precise cost multiplier savings.
+                            </p>
+                            <ul className="text-sm text-zinc-400 space-y-2 mt-4 font-medium">
+                                <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Mathematical Pre-Flight</li>
+                                <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Deterministic ELO scaling</li>
+                                <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Predictable Fallback Arrays</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 {/* The Integration Section (So Smart It Hurts) */}
@@ -76,6 +118,7 @@ export default async function EnterprisePage() {
                             <div className="ml-4 text-xs font-mono text-zinc-500">app/api/route.ts</div>
                         </div>
                         <div className="p-6 overflow-x-auto text-sm font-mono leading-relaxed text-zinc-300">
+                            {/* eslint-disable react/jsx-no-comment-textnodes, react/no-unescaped-entities */}
                             <pre>
                                 <span className="text-purple-400">import</span> {'{'} IntelligenceRouter {'}'} <span className="text-purple-400">from</span> <span className="text-green-400">'@model-delights/snell'</span>;{'\n'}
                                 <span className="text-purple-400">import</span> {'{'} generateText {'}'} <span className="text-purple-400">from</span> <span className="text-green-400">'ai'</span>;{'\n\n'}
@@ -114,7 +157,7 @@ export default async function EnterprisePage() {
                         </div>
                         <h3 className="text-xl font-bold mb-3">Zero-Maintenance SOTA</h3>
                         <p className="text-zinc-400 leading-relaxed relative z-10 text-sm">
-                            When an Anthropic flagship drops, the engine instantly mathematically scores it. Your agents upgrade automatically, ensuring you always ship the world's smartest AI without writing a single line of code.
+                            When an Anthropic flagship drops, the engine instantly mathematically scores it. Your agents upgrade automatically, ensuring you always ship the world&apos;s smartest AI without writing a single line of code.
                         </p>
                     </div>
 
@@ -138,7 +181,7 @@ export default async function EnterprisePage() {
                         </div>
                         <h3 className="text-xl font-bold mb-3">Wide Safety Nets</h3>
                         <p className="text-zinc-400 leading-relaxed text-sm">
-                            Never crash in production. If the engine's primary flagship model goes offline, the API natively returns an array of peer-level models spanning up to 100 ELO points of variance for instant failover.
+                            Never crash in production. If the engine&apos;s primary flagship model goes offline, the API natively returns an array of peer-level models spanning up to 100 ELO points of variance for instant failover.
                         </p>
                     </div>
                 </div>

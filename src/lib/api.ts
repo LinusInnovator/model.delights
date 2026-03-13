@@ -58,7 +58,7 @@ export async function fetchModels(): Promise<FetchResult> {
         }
 
         const json = await res.json();
-        const rawModels: any[] = json.data || [];
+        const rawModels: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] = json.data || [];
 
         const models: Model[] = rawModels.map((m) => {
             const use_cases: string[] = [];

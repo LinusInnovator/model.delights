@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { CloudArrowDown, Spinner } from '@phosphor-icons/react';
 
 interface DownloadBlueprintButtonProps {
-    blueprint: any;
+    blueprint: Record<string, unknown>;
 }
 
 export default function DownloadBlueprintButton({ blueprint }: DownloadBlueprintButtonProps) {
@@ -50,9 +50,9 @@ export default function DownloadBlueprintButton({ blueprint }: DownloadBlueprint
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Download failed:", error);
-            alert(`Download Error: ${error.message}`);
+            alert(`Download Error: ${(error as Error).message}`);
         } finally {
             setIsDownloading(false);
         }

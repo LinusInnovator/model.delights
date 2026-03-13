@@ -37,10 +37,11 @@ interface ParetoChartProps {
 }
 
 export default function ParetoChart({ models, isExpanded, onToggleExpand }: ParetoChartProps) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const chartRef = useRef<ChartJS<"scatter", any, unknown>>(null);
 
     // Filter models that have ELO and valid pricing > 0 to plot on log scale
-    let chartDataPoints = models.filter(m => m.elo && m.pricing_per_1m);
+    const chartDataPoints = models.filter(m => m.elo && m.pricing_per_1m);
 
     const mappedData = chartDataPoints.map(m => {
         const cost = m.pricing_per_1m.prompt + m.pricing_per_1m.completion;
@@ -65,7 +66,8 @@ export default function ParetoChart({ models, isExpanded, onToggleExpand }: Pare
         }]
     };
 
-    const chartOptions: any = {
+     
+    const chartOptions: any /* eslint-disable-line @typescript-eslint/no-explicit-any */ = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -98,7 +100,8 @@ export default function ParetoChart({ models, isExpanded, onToggleExpand }: Pare
                 borderWidth: 1,
                 padding: 12,
                 callbacks: {
-                    label: function (context: any) {
+                     
+                    label: function (context: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
                         const pt = context.raw;
                         const costStr = pt.isFree ? 'Free' : '$' + (pt.x > 0.0001 ? pt.x.toFixed(4) : 0) + ' / 1M';
                         return pt.name + ' | ' + costStr + ' | ELO: ' + pt.y;
@@ -117,7 +120,8 @@ export default function ParetoChart({ models, isExpanded, onToggleExpand }: Pare
                 grid: { color: 'rgba(255, 255, 255, 0.05)' }
             }
         },
-        onClick: (e: any, activeElements: any[], chart: any) => {
+         
+        onClick: (e: any  , activeElements: any  [], chart: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => {
             if (activeElements.length > 0) {
                 const datasetIndex = activeElements[0].datasetIndex;
                 const dataIndex = activeElements[0].index;

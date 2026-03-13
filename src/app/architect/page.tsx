@@ -20,7 +20,7 @@ export default function ArchitectPage() {
                 const catalog = await catalogRes.json();
 
                 if (catalog.available_intents) {
-                    const fetchedBlueprints: any = {};
+                    const fetchedBlueprints: any /* eslint-disable-line @typescript-eslint/no-explicit-any */ = {};
                     // Fetch each intent specifically to get its full stack payload
                     for (const intent of catalog.available_intents) {
                         const res = await fetch(`/api/v1/blueprint?intent=${intent}`);

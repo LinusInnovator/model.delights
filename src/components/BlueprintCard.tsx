@@ -3,18 +3,19 @@
 import React, { useState } from 'react';
 import { Copy, Key, CheckCircle } from '@phosphor-icons/react';
 
-interface ModelNode {
+export interface ModelNode {
     provider: string;
     id: string;
     rationale?: string;
     fallbacks?: { id: string; provider: string }[];
 }
 
-interface BlueprintData {
+export interface BlueprintData {
     name: string;
     stack: Record<string, ModelNode>;
     estimated_cost_per_interaction: string;
     bleeding_edge_wildcard?: ModelNode;
+    [key: string]: unknown;
 }
 
 interface BlueprintCardProps {
@@ -36,7 +37,7 @@ export default function BlueprintCard({ intent, blueprint }: BlueprintCardProps)
         if (p.includes('aws') || p.includes('bedrock')) return 'AWS_ACCESS_KEY_ID';
 
         // Handle fully dynamic providers discovered via the Metarouter
-        let cleanProvider = provider.toUpperCase().replace('_AI', '').replace('-', '_');
+        const cleanProvider = provider.toUpperCase().replace('_AI', '').replace('-', '_');
         return `${cleanProvider}_API_KEY`;
     };
 

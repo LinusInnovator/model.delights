@@ -1,0 +1,77 @@
+
+> openrate-nextjs@0.1.0 lint
+> eslint --fix
+
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/packages/sdk/dist/index.js
+  2:7  warning  'RouteQuerySchema' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  5:7  warning  'ResolveQuerySchema' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/download-blueprint/[id]/route.ts
+   6:10  warning  'Readable' is defined but never used      @typescript-eslint/no-unused-vars
+  55:54  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  56:57  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/generate-blueprint/route.ts
+  124:15  warning  'jsonConstraints' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/og-validate/route.tsx
+   42:25  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+   42:32  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  101:14  warning  'e' is defined but never used                                    @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/promotions/route.ts
+  11:50  error    Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  15:18  warning  'e' is defined but never used                @typescript-eslint/no-unused-vars
+  44:17  warning  'views' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  44:24  warning  'clicks' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  44:32  warning  'ctr' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/promotions/track/route.ts
+  21:50  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  25:18  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  40:18  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/stripe/checkout/route.ts
+  13:5   error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  34:18  warning  'e' is defined but never used                                                                                        @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/v1/blueprint/route.ts
+  63:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/v1/resolve/route.ts
+  66:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/v1/route/route.ts
+  17:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/validate-triangulation/route.ts
+    2:26  warning  'generateText' is defined but never used  @typescript-eslint/no-unused-vars
+  287:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/api/webhooks/stripe/route.ts
+  6:5  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/architect/page.tsx
+  12:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/categories/[slug]/page.tsx
+  70:11  warning  'formatPrice' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/app/validate/[industry]/page.tsx
+  15:12  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+  35:14  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/components/ArbitrageUpsell.tsx
+  14:43  warning  'modelBName' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/lib/architectResolver.ts
+  18:93  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/src/proxy.ts
+  2:15  warning  'NextRequest' is defined but never used                @typescript-eslint/no-unused-vars
+  9:7   warning  'isArchitectRoute' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 34 problems (12 errors, 22 warnings)
+

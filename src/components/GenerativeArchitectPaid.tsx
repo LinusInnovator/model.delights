@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, Circle, FileText, Copy } from "@phosphor-icons/react";
+import { Sparkle, Terminal, ArrowRight, CheckCircle, Spinner, FileText, Copy } from "@phosphor-icons/react";
 import { useCompletion } from '@ai-sdk/react';
 import ReactMarkdown from 'react-markdown';
-import BlueprintCard from "./BlueprintCard";
-import CheckoutButton from "../app/enterprise/CheckoutButton";
+import BlueprintCard, { BlueprintData } from "./BlueprintCard";
+
 import DownloadBlueprintButton from "./DownloadBlueprintButton";
 import DownloadAgentButton from "./DownloadAgentButton";
 import TerminalSizzle from "./TerminalSizzle";
@@ -21,8 +21,8 @@ export default function GenerativeArchitectPaid() {
     
     // UI Flow State
     const [appState, setAppState] = useState<'input' | 'streaming_prd' | 'prd_review' | 'generating_arch' | 'email_capture' | 'finished'>('input');
-    const [result, setResult] = useState<any>(null);
-    const [blueprintPayload, setBlueprintPayload] = useState<any>(null);
+    const [result, setResult] = useState<BlueprintData | null>(null);
+    const [blueprintPayload, setBlueprintPayload] = useState<{ blueprint: BlueprintData; tier: "SIMPLE" | "MEDIUM" | "MEGA" } | null>(null);
     const [hasUnlocked, setHasUnlocked] = useState(false);
     
     // Autoclip Lead Capture State
@@ -30,8 +30,6 @@ export default function GenerativeArchitectPaid() {
     const [isSubmittingEmail, setIsSubmittingEmail] = useState(false);
     
     // Legacy generation state for sizzle component compatibility
-    const isGenerating = appState === 'generating_arch' || appState === 'streaming_prd' || appState === 'email_capture';
-    const isFinalizing = appState === 'finished' && !result; // transition state
     const [tier, setTier] = useState<"SIMPLE" | "MEDIUM" | "MEGA" | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(!!initialIdea);
@@ -72,15 +70,16 @@ export default function GenerativeArchitectPaid() {
         if (currentTier === 'premium' && query && appState === 'input' && autoSynthesize) {
             handleGeneratePRD('premium');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentTier, query, appState, autoSynthesize]);
 
-    const { completion: prdText, complete: generatePrd, isLoading: isStreamingPrd } = useCompletion({
+    const { completion: prdText, complete: generatePrd } = useCompletion({
         api: '/api/generate-prd',
         streamProtocol: 'text',
         onFinish: () => {
             setAppState('prd_review');
         },
-        onError: (e: any) => {
+        onError: (e: Error) => {
             setError(e.message || "Failed to generate PRD");
             setAppState('input');
         }
@@ -99,6 +98,7 @@ export default function GenerativeArchitectPaid() {
             setAutoSynthesize(false);
             handleSynthesizeArchitecture(currentTier);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appState, autoSynthesize, currentTier]);
 
     const handleCopyPRD = async () => {
@@ -162,8 +162,8 @@ export default function GenerativeArchitectPaid() {
                 setAppState('generating_arch');
             }, 1000);
 
-        } catch (err: any) {
-            setError(err.message || "An unexpected error occurred.");
+        } catch (err: unknown) {
+            setError((err as Error).message || "An unexpected error occurred.");
             setAppState('prd_review');
         }
     };

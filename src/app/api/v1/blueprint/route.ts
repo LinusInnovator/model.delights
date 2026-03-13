@@ -10,7 +10,7 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'Blueprints database corruption detected.' }, { status: 503 });
         }
 
-        const availableIntents = data.blueprints.map((b: any) => b.id);
+        const availableIntents = data.blueprints.map((b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.id);
 
         if (!intent) {
             // Return catalog of available intents
@@ -25,7 +25,7 @@ export async function GET(request: Request) {
         const availableKeys = keysParam ? keysParam.toLowerCase().split(',') : ['openrouter', 'fal', 'aws', 'cartesia'];
         const isOpenRouterOnly = availableKeys.length === 1 && availableKeys[0] === 'openrouter';
 
-        const blueprint = data.blueprints.find((b: any) => b.id === intent.toLowerCase());
+        const blueprint = data.blueprints.find((b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.id === intent.toLowerCase());
 
         if (!blueprint) {
             return NextResponse.json({

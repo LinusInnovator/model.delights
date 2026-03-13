@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
 
                 if (components && components.length > 0) {
                     // Group the components by tier for the LLM context window
-                    const grouped = components.reduce((acc: any, curr: any) => {
+                    const grouped = components.reduce((acc: any  , curr: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => {
                         if (!acc[curr.tier]) acc[curr.tier] = [];
                         acc[curr.tier].push(`${curr.component_name}: ${curr.description}`);
                         return acc;
@@ -135,8 +135,8 @@ DO NOT include timelines, sprint planning, or agile management fluff. It must re
             }
         });
 
-    } catch (e: any) {
+    } catch (e: unknown) {
         console.error("PRD Generation Error:", e);
-        return NextResponse.json({ error: e.message || "Failed to stream PRD" }, { status: 500 });
+        return NextResponse.json({ error: (e as Error).message || "Failed to stream PRD" }, { status: 500 });
     }
 }

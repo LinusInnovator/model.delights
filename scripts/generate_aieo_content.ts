@@ -63,6 +63,7 @@ async function findBestDraftingModel() {
     const data = await res.json();
     
     // Simple heuristic for scripting: Find Gemini 1.5 Flash or Pro
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const candidate = data.data.find((m: any) => m.id.includes("gemini-1.5-flash") || m.id.includes("gemini-2.0-flash"));
     const modelId = candidate ? candidate.id : "google/gemini-2.0-flash-lite-preview-02-05:free";
     

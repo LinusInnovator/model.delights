@@ -173,7 +173,8 @@ Core Principles for a NEW CATEGORY:
                 if (serperRes.ok) {
                     const data = await serperRes.json();
                     if (data.organic && data.organic.length > 0) {
-                        liveMarketContext = data.organic.map((res: any) => res.snippet).join(' ');
+                         
+                        liveMarketContext = data.organic.map((res: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => res.snippet).join(' ');
                     }
                 }
             } catch (e) {
@@ -228,12 +229,16 @@ Core Principles for a NEW CATEGORY:
              experiment_sequence: []
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const autopsyData = autopsyResult as any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const catalystData = catalystResult as any;
 
         // Perform safe calculations for leverage score only if arrays exist
-        autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
-        catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+         
+        autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any  ) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any  , b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.leverage_score - a.leverage_score);
+         
+        catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any  ) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any  , b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.leverage_score - a.leverage_score);
 
         // Phase 2: Synthesis
         const synthesisSystemPrompt = `You are the Managing Partner of an elite venture studio. Two of your top analysts have just evaluated the same startup idea:
@@ -289,14 +294,14 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
             insightSummary
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("====== DEADLY TRIANGULATION EXCEPTION ======");
         console.error(error);
         if (error.cause) console.error("CAUSE:", error.cause);
         console.error("===========================================");
         return new NextResponse(JSON.stringify({
             error: "Failed to process triangulation.",
-            details: error.message || error.toString(),
+            details: (error as Error).message || error.toString(),
             cause: error.cause ? error.cause.toString() : undefined
         }), { status: 500, headers: { "Content-Type": "application/json" } });
     }

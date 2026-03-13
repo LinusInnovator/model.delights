@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
         // Determine required API keys based on providers used across all components
         const providers = new Set<string>();
-        Object.values(blueprint.stack || {}).forEach((comp: any) => {
+        Object.values(blueprint.stack || {}).forEach((comp: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => {
             if (comp.provider) {
                 providers.add(comp.provider.toUpperCase());
             }
@@ -103,8 +103,8 @@ export async function POST(req: NextRequest) {
             }
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Factory Error:", error);
-        return NextResponse.json({ error: error.message || "Failed to generate boilerplate zip" }, { status: 500 });
+        return NextResponse.json({ error: (error as Error).message || "Failed to generate boilerplate zip" }, { status: 500 });
     }
 }

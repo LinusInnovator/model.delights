@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkle, ArrowRight } from '@phosphor-icons/react';
+import { Sparkle } from '@phosphor-icons/react';
 import CheckoutButton from '../app/enterprise/CheckoutButton';
 
 interface Props {

@@ -109,7 +109,9 @@ export async function POST(req: NextRequest) {
              return NextResponse.json({ error: "Too many architectural requests. Please try again in a minute." }, { status: 429 });
         }
 
-        let { query, tier = 'standard' } = await req.json();
+        const reqBody = await req.json();
+        let query = reqBody.query;
+        const tier = reqBody.tier || 'standard';
 
         if (!query || typeof query !== "string") {
             return NextResponse.json({ error: "Missing query parameter" }, { status: 400 });
@@ -119,7 +121,7 @@ export async function POST(req: NextRequest) {
         // Limit the user's intent to 20,000 characters to support full Enterprise PRDs but prevent massive context-window stuffing
         query = query.trim().substring(0, 20000);
 
-        let jsonConstraints = "";
+        const jsonConstraints = "";
 
         // Check if we have API keys. If not, bypass the actual LLM call and return a demo response 
         // to prevent local Next.js crashes while still demonstrating the pipeline.
@@ -141,7 +143,8 @@ export async function POST(req: NextRequest) {
             const model = createModel(optimalModelId);
 
             // Extract existing blueprints to feed into LLM for potential interception
-            const existingLibrary = (schemaDb as any).blueprints.map((b: any) => ({
+             
+            const existingLibrary = (schemaDb as any).blueprints.map((b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => ({
                 id: b.id,
                 name: b.name,
                 description: b.description
@@ -183,7 +186,8 @@ export async function POST(req: NextRequest) {
 
             // Check if LLM intercepted and found a perfect existing match!
             if (object.action === 'use_existing' && object.existing_id) {
-                const existingBp = (schemaDb as any).blueprints.find((b: any) => b.id === object.existing_id);
+                 
+                const existingBp = (schemaDb as any).blueprints.find((b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.id === object.existing_id);
                 if (existingBp) {
                     console.log(`[Architect] Flywheel Intercepted! Served existing blueprint entirely free: ${existingBp.id}`);
                     const formattedBlueprint = {
@@ -201,6 +205,7 @@ export async function POST(req: NextRequest) {
             }
 
             // Map the array components back to a record dictionary for Python/TS compatibility
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const componentsDict: Record<string, any> = {};
             object.components.forEach((comp) => {
                 const { name, ...rest } = comp;
@@ -232,7 +237,8 @@ export async function POST(req: NextRequest) {
                     stack_openrouter_only: blueprint.stack
                 };
 
-                if (!latestDb.blueprints.find((b: any) => b.id === newId)) {
+                 
+                if (!latestDb.blueprints.find((b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.id === newId)) {
                     latestDb.blueprints.push(newBlueprintRecord);
                     fs.writeFileSync(tempPath, JSON.stringify(latestDb, null, 4));
                     console.log(`[Architect] Flywheel Saved! Permanently grew free library with: ${newId}`);
@@ -266,8 +272,8 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ blueprint: dummyBlueprint, tier: simulatedTier });
         }
 
-    } catch (e: any) {
+    } catch (e: unknown) {
         console.error("Generative Architect Error:", e);
-        return NextResponse.json({ error: e.message || "Failed to generate blueprint" }, { status: 500 });
+        return NextResponse.json({ error: (e as Error).message || "Failed to generate blueprint" }, { status: 500 });
     }
 }

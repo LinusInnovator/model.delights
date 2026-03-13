@@ -261,8 +261,8 @@ When requested or applicable, inject "Delighters":
             }
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Agent Scaffold Generation Error:", error);
-        return NextResponse.json({ error: error.message || "Failed to generate agent scaffold zip" }, { status: 500 });
+        return NextResponse.json({ error: (error as Error).message || "Failed to generate agent scaffold zip" }, { status: 500 });
     }
 }
