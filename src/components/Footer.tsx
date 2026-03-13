@@ -9,7 +9,7 @@ export default function Footer() {
         { name: 'Intelligence Directory', path: '/' },
         { name: 'The 10x Validator', path: '/validate' },
         { name: 'Architecture Gallery', path: '/architect' },
-        { name: 'VS Engine (Compare)', path: '/vs/openai/gpt-4o/anthropic/claude-3-5-sonnet' },
+        { name: 'VS Engine (Compare)', path: '/vs/openai__gpt-4o/anthropic__claude-3.5-sonnet' },
         { name: 'Enterprise API', path: '/enterprise' },
         { name: 'Admin Dashboard', path: '/admin' },
     ];
