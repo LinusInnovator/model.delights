@@ -54,6 +54,15 @@ export default clerkMiddleware(async (auth, request) => {
 
     // 3. API Key Gateway for B2B API Routes
     if (isPublicV1Route(request)) {
+        // The Architect catalog is a public informational endpoint required by the frontend UI
+        if (request.nextUrl.pathname === '/api/v1/blueprint' && request.method === 'GET') {
+            const authHeader = request.headers.get('authorization');
+            // If they provided a token, we could validate it, but for UI rendering we just let it pass if missing
+            if (!authHeader) {
+                return NextResponse.next();
+            }
+        }
+
         const authHeader = request.headers.get('authorization');
         
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
