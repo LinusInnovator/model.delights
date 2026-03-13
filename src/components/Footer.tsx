@@ -77,7 +77,30 @@ export default function Footer() {
                             <Link 
                                 key={cat.path} 
                                 href={cat.path}
-                                className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors"
+                                className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors cursor-pointer"
+                            >
+                                {cat.name}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Industry Validator (SEO Anchor) */}
+                <div className="flex flex-col gap-3">
+                    <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Industry Validations</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                        {[
+                            { name: 'Full Directory', path: '/validate/industries' },
+                            { name: 'B2B SaaS', path: '/validate/b2b-saas-validation' },
+                            { name: 'Fintech', path: '/validate/fintech-startup-validation' },
+                            { name: 'Healthcare', path: '/validate/healthtech-validation' },
+                            { name: 'Creator Economy', path: '/validate/creator-economy-validation' },
+                            { name: 'eCommerce', path: '/validate/e-commerce-infrastructure' }
+                        ].map((cat) => (
+                            <Link 
+                                key={cat.path} 
+                                href={cat.path}
+                                className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors cursor-pointer"
                             >
                                 {cat.name}
                             </Link>

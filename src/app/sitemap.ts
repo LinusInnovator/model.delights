@@ -42,7 +42,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: `${baseUrl}/vs/${pair}`,
             lastModified: new Date(),
             changeFrequency: 'daily',
+            priority: 0.6,
+        });
+    });
+
+    // Add Individual Model Profiles (200+)
+    models.forEach(model => {
+        routes.push({
+            url: `${baseUrl}/models/${model.id}`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
             priority: 0.8,
+        });
+    });
+
+    // Add Category Hubs
+    const categories = ['top-tier', 'coding-logic', 'fictional', 'drafting', 'roleplay', 'vision', 'image-gen'];
+    categories.forEach(slug => {
+        routes.push({
+            url: `${baseUrl}/categories/${slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9,
         });
     });
 
