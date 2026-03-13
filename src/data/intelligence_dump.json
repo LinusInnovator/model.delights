@@ -295,8 +295,8 @@
     {
       "entity_id": "ent_9041e324",
       "model_id": "minimax/minimax-m2.5",
-      "pricing_prompt": 2.95e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 2.7e-07,
+      "pricing_completion": 9.5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -310,8 +310,8 @@
     {
       "entity_id": "ent_898473f2",
       "model_id": "z-ai/glm-5",
-      "pricing_prompt": 8e-07,
-      "pricing_completion": 2.56e-06,
+      "pricing_prompt": 7.2e-07,
+      "pricing_completion": 2.3e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -1585,8 +1585,8 @@
     {
       "entity_id": "ent_b7dc7ad0",
       "model_id": "qwen/qwen3-vl-30b-a3b-thinking",
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
+      "pricing_prompt": 1.3e-07,
+      "pricing_completion": 1.56e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -1735,8 +1735,8 @@
     {
       "entity_id": "ent_aabcadb2",
       "model_id": "qwen/qwen3-vl-235b-a22b-thinking",
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
+      "pricing_prompt": 2.6e-07,
+      "pricing_completion": 2.6e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -1885,8 +1885,8 @@
     {
       "entity_id": "ent_3af4465c",
       "model_id": "qwen/qwen3-next-80b-a3b-thinking",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 9.75e-08,
+      "pricing_completion": 7.8e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -4525,8 +4525,8 @@
     {
       "entity_id": "ent_c927f3db",
       "model_id": "sao10k/l3.1-euryale-70b",
-      "pricing_prompt": 6.5e-07,
-      "pricing_completion": 7.5e-07,
+      "pricing_prompt": 8.5e-07,
+      "pricing_completion": 8.5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -22303,6 +22303,111 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2603.04459",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_be92cb06",
+      "model_id": "x-ai/grok-4.20-multi-agent-beta",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 6e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "x-ai/grok-4.20-multi-agent-beta",
+          "provider": "x-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c12adfeb",
+      "model_id": "x-ai/grok-4.20-beta",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 6e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "x-ai/grok-4.20-beta",
+          "provider": "x-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8ef2d134",
+      "model_id": "openrouter/hunter-alpha",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openrouter/hunter-alpha",
+          "provider": "openrouter"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_48cfb3a3",
+      "model_id": "openrouter/healer-alpha",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openrouter/healer-alpha",
+          "provider": "openrouter"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_811b396e",
+      "model_id": "nvidia/nemotron-3-super-120b-a12b:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3-super-120b-a12b:free",
+          "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_068ed799",
+      "model_id": "bytedance-seed/seed-2.0-lite",
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 2e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "bytedance-seed/seed-2.0-lite",
+          "provider": "bytedance-seed"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3e4366aa",
+      "model_id": "qwen/qwen3.5-9b",
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 1.5e-07,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.5-9b",
+          "provider": "qwen"
         }
       ]
     }
