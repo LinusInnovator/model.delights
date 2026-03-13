@@ -1,0 +1,44 @@
+{
+  "industry": "Robotics",
+  "slug": "robotics-startup-validation",
+  "title": "Robotics Startup Idea Validation: A Founder's Guide",
+  "executiveBLUF": "Robotics is the interdisciplinary branch of engineering and computer science that deals with the design, construction, operation, and application of robots. Robotics integrates fields of computer science (artificial intelligence and software engineering), electrical engineering, mechanical engineering, and others. The robotics industry is experiencing rapid growth, driven by automation across various sectors including manufacturing, healthcare, logistics, and agriculture. Key applications include industrial robots for assembly and welding, service robots for cleaning and delivery, and specialized robots for exploration and surgery. Challenges include high initial development costs, complex integration with existing systems, regulatory hurdles, and public acceptance concerns. Current market trends lean towards increased autonomy, collaboration between humans and robots, and the integration of AI for advanced capabilities such as object recognition and decision-making; funding is heavily diversified between traditional venture capital, corporate partnerships, and government grants. The industry faces substantial ethical considerations pertaining to job displacement, safety, and the potential misuse of robotic technology; key sectors experiencing highest growth currently are logistics, healthcare, and agricultural robotics.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Market Demand (Product-Market Misfit)",
+      "percentage": "35%"
+    },
+    {
+      "reason": "Technical Challenges/Complexity",
+      "percentage": "25%"
+    },
+    {
+      "reason": "High Development Costs & Long Time to Market",
+      "percentage": "20%"
+    },
+    {
+      "reason": "Insufficient Funding/Cash Flow",
+      "percentage": "10%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Industry Conferences & Trade shows",
+      "estimated_cac": "$5,000 - $20,000+"
+    },
+    {
+      "channel": "Online Advertising (Google Ads, LinkedIn)",
+      "estimated_cac": "$500 - $5,000"
+    },
+    {
+      "channel": "Partnerships & Integrations",
+      "estimated_cac": "$2,000 - $10,000"
+    },
+    {
+      "channel": "Direct Sales & Business Development",
+      "estimated_cac": "$1,000 - $10,000+"
+    }
+  ],
+  "coreTension": "The primary core tension lies in bridging the gap between cutting-edge technological advancements and real-world deployment challenges, encompassing issues such as safety, regulatory compliance, and cost-effectiveness.",
+  "suggestedIdeaToValidate": "Develop an autonomous robotic system for precision agriculture, specifically targeting the automated weeding of organic produce fields using AI-powered computer vision and robotic arm manipulation, offering a chemical-free weed control solution."
+}

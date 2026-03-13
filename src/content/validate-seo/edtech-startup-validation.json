@@ -1,0 +1,44 @@
+{
+  "industry": "EdTech",
+  "slug": "edtech-startup-validation",
+  "title": "Validate Your EdTech Startup Idea",
+  "executiveBLUF": "EdTech, encompassing educational technology, is the combined use of computer hardware, software, and educational theory to facilitate learning. The global EdTech market, valued at USD 106.88 billion in 2022, is projected to reach USD 404.97 billion by 2030, growing at a CAGR of 18.25%. Key sub-sectors include online learning platforms, educational software, and assessment tools. Challenges include high development costs, regulatory hurdles in areas like data privacy (COPPA), scalability issues, and the need for pedagogical soundness, as well as complex sales cycles for B2B solutions. Successful EdTech ventures often integrate personalized learning, adaptive assessment, and data-driven insights to improve educational outcomes. The market is fragmented with significant opportunities for innovation in areas like AI-driven tutoring, virtual and augmented reality learning experiences, and gamified educational content, while competition is fierce among established players and startups.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Market Validation (Building what nobody wants)",
+      "percentage": "42%"
+    },
+    {
+      "reason": "Poor Pedagogy & Learning Outcomes",
+      "percentage": "25%"
+    },
+    {
+      "reason": "Funding & Scalability Issues",
+      "percentage": "18%"
+    },
+    {
+      "reason": "Ineffective Go-To-Market Strategy",
+      "percentage": "15%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "SEO/Content Marketing",
+      "estimated_cac": "$5 - $50 (per lead)"
+    },
+    {
+      "channel": "Paid Advertising (Google Ads, Facebook Ads)",
+      "estimated_cac": "$30 - $150 (per conversion)"
+    },
+    {
+      "channel": "Partnerships (Schools, Institutions)",
+      "estimated_cac": "$100 - $1,000 (per student)"
+    },
+    {
+      "channel": "Social Media Marketing",
+      "estimated_cac": "$20-$100 (per conversion)"
+    }
+  ],
+  "coreTension": "The primary core tension is balancing technological innovation with proven pedagogical effectiveness, while simultaneously navigating the complexity of data privacy regulations and rapidly evolving market demands.",
+  "suggestedIdeaToValidate": "Develop an AI-powered tutoring platform specializing in personalized math education for students with learning differences, integrating adaptive assessments and real-time feedback for parents and teachers."
+}

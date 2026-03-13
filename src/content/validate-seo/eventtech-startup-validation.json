@@ -1,0 +1,44 @@
+{
+  "industry": "EventTech",
+  "slug": "eventtech-startup-validation",
+  "title": "Validate Your EventTech Startup Idea",
+  "executiveBLUF": "EventTech, encompassing technology solutions for event planning and execution, represents a dynamic sector within the broader technology landscape. The industry facilitates events ranging from small meetings to large conferences, offering services such as event management software, virtual event platforms, ticketing systems, and attendee engagement tools. Key trends include the integration of AI for personalized experiences and automation, hybrid event models, and data analytics for event ROI measurement. Major players include established event management companies and tech-focused startups. The global event technology market is projected to reach significant revenue by 2030, driven by the increasing demand for seamless event experiences and data-driven insights. Key challenges include platform scalability, data security and privacy compliance, and the ability to offer engaging experiences in both virtual and in-person formats.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Market Validation",
+      "percentage": "45%"
+    },
+    {
+      "reason": "Poor Product-Market Fit",
+      "percentage": "30%"
+    },
+    {
+      "reason": "Insufficient Funding",
+      "percentage": "15%"
+    },
+    {
+      "reason": "Technical Challenges",
+      "percentage": "10%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Paid Advertising (PPC)",
+      "estimated_cac": "$30 - $75"
+    },
+    {
+      "channel": "Content Marketing & SEO",
+      "estimated_cac": "$20 - $50"
+    },
+    {
+      "channel": "Social Media Marketing",
+      "estimated_cac": "$25 - $60"
+    },
+    {
+      "channel": "Event Sponsorships/Partnerships",
+      "estimated_cac": "$50 - $100+"
+    }
+  ],
+  "coreTension": "The greatest challenge is scaling the platform to accommodate unpredictable spikes in user activity and data loads during major events.",
+  "suggestedIdeaToValidate": "Develop an AI-powered platform that automatically generates personalized event itineraries and networking recommendations for attendees based on their professional interests and past event behaviors, integrated with existing event management systems."
+}

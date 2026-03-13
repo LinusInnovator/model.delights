@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 import { fetchModels } from '@/lib/api';
+import fs from 'fs/promises';
+import path from 'path';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const data = await fetchModels();
@@ -43,6 +45,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         });
     });
+
+    // Add Industry Validator SEO Pages
+    try {
+        const contentDir = path.join(process.cwd(), 'src/content/validate-seo');
+        const files = await fs.readdir(contentDir);
+        for (const file of files) {
+            if (file.endsWith('.json')) {
+                routes.push({
+                    url: `${baseUrl}/validate/${file.replace('.json', '')}`,
+                    lastModified: new Date(),
+                    changeFrequency: 'monthly',
+                    priority: 0.7, // Solid priority for long-tail
+                });
+            }
+        }
+    } catch (e) {
+        console.error("No SEO content generated yet or error reading directory:", e);
+    }
 
     return routes;
 }

@@ -1,0 +1,40 @@
+{
+  "industry": "No-Code/Low-Code Tools",
+  "slug": "no-code-low-code-tools",
+  "title": "Validate Your No-Code/Low-Code Startup Idea",
+  "executiveBLUF": "The No-Code/Low-Code (NCLC) tools industry empowers non-programmers to create software applications without writing code, leveraging visual interfaces and drag-and-drop functionality. This rapidly expanding sector encompasses a wide range of applications, including web development, mobile app creation, database management, and automation workflows. Key players include platforms like Webflow, Bubble, and Zapier, alongside specialized tools addressing niche functionalities. Market growth is driven by increasing demand for digital transformation, the need for faster development cycles, and the shortage of traditional software developers. The inherent benefit for startups is faster time-to-market. However, challenges include platform lock-in, scalability limitations for complex projects, the potential for security vulnerabilities inherent in third-party integrations, and the need for user education to adopt the tools effectively. The industry caters to small businesses, entrepreneurs, and some enterprise-level applications though large organizations often still require custom coding for advanced features and scalability.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Clear Value Proposition / Market Need",
+      "percentage": "35%"
+    },
+    {
+      "reason": "Technical Challenges (Scalability, Integrations)",
+      "percentage": "25%"
+    },
+    {
+      "reason": "Poor User Experience & Platform Lock-In",
+      "percentage": "20%"
+    },
+    {
+      "reason": "Inadequate Marketing and Customer Acquisition",
+      "percentage": "15%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Paid Advertising (Google Ads, Social Media)",
+      "estimated_cac": "$30 - $150"
+    },
+    {
+      "channel": "Content Marketing & SEO",
+      "estimated_cac": "$20 - $80 (per lead)"
+    },
+    {
+      "channel": "Affiliate Marketing",
+      "estimated_cac": "$30 - $100"
+    }
+  ],
+  "coreTension": "The primary industry tension is balancing ease of use with the need for scalability, security, and the ability to handle complex workflows that often require custom code or specialized integrations, or moving away from the platform completely.",
+  "suggestedIdeaToValidate": "A no-code tool for creating interactive, branded customer onboarding checklists that integrate with popular CRMs and project management tools."
+}

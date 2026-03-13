@@ -1,0 +1,44 @@
+{
+  "industry": "AI Infrastructure",
+  "slug": "ai-infrastructure",
+  "title": "Validate Your AI Infrastructure Startup Idea",
+  "executiveBLUF": "AI Infrastructure encompasses hardware, software, and services enabling the development and deployment of artificial intelligence models. This includes specialized processors (GPUs, TPUs), high-performance computing clusters, data storage solutions, and software frameworks (e.g., TensorFlow, PyTorch). The industry supports various AI applications, from machine learning training and inference to data analytics and edge computing. Key players include chip manufacturers, cloud providers, and specialized AI infrastructure vendors. Market dynamics are shaped by increasing AI model complexity, demand for real-time processing, and the need for scalable and cost-effective solutions. Key challenges include hardware bottlenecks, software compatibility, data management, and security, as well as high capital expenditure and specialized talent requirements. Ongoing developments focus on optimized hardware designs, efficient software frameworks, and cloud-based AI services, aiming to democratize AI and improve efficiency across diverse industries.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Scalability and Capacity Planning",
+      "percentage": "35%"
+    },
+    {
+      "reason": "Hardware Bottlenecks and Performance Limitations",
+      "percentage": "25%"
+    },
+    {
+      "reason": "Insufficient Data Management and Preprocessing",
+      "percentage": "20%"
+    },
+    {
+      "reason": "Software Compatibility and Integration Issues",
+      "percentage": "10%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Paid Search (Google Ads)",
+      "estimated_cac": "$80-$150"
+    },
+    {
+      "channel": "Content Marketing & SEO",
+      "estimated_cac": "$50 - $120"
+    },
+    {
+      "channel": "Industry Events & Conferences",
+      "estimated_cac": "$200 - $500"
+    },
+    {
+      "channel": "Strategic Partnerships",
+      "estimated_cac": "$100 - $300"
+    }
+  ],
+  "coreTension": "The primary execution risk is securing sufficient capital and managing the complex technical challenges of building and scaling specialized hardware or software solutions.",
+  "suggestedIdeaToValidate": "A cloud-based AI infrastructure platform that provides pre-configured, optimized environments for training large language models, including automatic scaling, cost optimization, and simplified deployment."
+}

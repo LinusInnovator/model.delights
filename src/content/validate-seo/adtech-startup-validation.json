@@ -1,0 +1,36 @@
+{
+  "industry": "AdTech",
+  "slug": "adtech-startup-validation",
+  "title": "AdTech Startup Idea Validation: A Founder's Guide",
+  "executiveBLUF": "AdTech (Advertising Technology) encompasses the technologies and tools used for digital advertising, including ad serving, programmatic buying, ad exchanges, and analytics. The AdTech industry is a rapidly evolving, multibillion-dollar market, characterized by complex ecosystems, high levels of competition, and a constant need for innovation. Key aspects include real-time bidding (RTB), demand-side platforms (DSPs), supply-side platforms (SSPs), data management platforms (DMPs), and ad networks. The industry is driven by the increasing shift of advertising budgets to digital channels, particularly mobile, video, and social media. Major challenges include ad fraud, data privacy concerns, and the need for more effective targeting and measurement. Regulatory changes, such as GDPR and CCPA, have significantly impacted data collection and usage practices, increasing the need for transparency and user consent. The AdTech landscape is dominated by a few large players (Google, Facebook, Amazon) but offers numerous opportunities for specialized solutions and niche market applications.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Product-Market Fit",
+      "percentage": "42%"
+    },
+    {
+      "reason": "Running Out of Cash",
+      "percentage": "29%"
+    },
+    {
+      "reason": "Poor Marketing & Sales",
+      "percentage": "23%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Paid Search (Google Ads)",
+      "estimated_cac": "$30 - $150 (per conversion)"
+    },
+    {
+      "channel": "Social Media Advertising (Facebook/Instagram)",
+      "estimated_cac": "$20 - $100 (per conversion)"
+    },
+    {
+      "channel": "Content Marketing & SEO",
+      "estimated_cac": "$50 - $200 (per lead)"
+    }
+  ],
+  "coreTension": "The greatest execution risk is achieving sustainable and profitable scale against dominant incumbents and overcoming high customer acquisition costs in a competitive market.",
+  "suggestedIdeaToValidate": "A platform providing AI-powered contextual ad targeting for privacy-focused browsers, optimizing ad spend based on real-time content analysis and user consent signals (e.g., Brave, DuckDuckGo)."
+}

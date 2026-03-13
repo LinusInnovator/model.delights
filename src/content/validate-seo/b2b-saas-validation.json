@@ -1,0 +1,36 @@
+{
+  "industry": "B2B SaaS",
+  "slug": "b2b-saas-validation",
+  "title": "Validate Your B2B SaaS Startup Idea",
+  "executiveBLUF": "B2B SaaS (Business-to-Business Software as a Service) startups offer software solutions delivered over the internet, typically on a subscription basis. Validation is critical, as initial market traction, product-market fit, and scalable customer acquisition are crucial for long-term viability. Key challenges include high customer acquisition costs (CAC), long sales cycles, and churn due to contract length and competitive offerings. Failure rates are often attributed to lack of market need, poor product-market fit, and insufficient funding. Metrics such as Monthly Recurring Revenue (MRR), Customer Lifetime Value (CLTV), and churn rates are fundamental KPIs. Successful B2B SaaS businesses often benefit from strong sales and marketing efforts, robust cybersecurity, and scalable infrastructure. The industry is highly competitive, emphasizing the need for differentiated offerings and strong value propositions to secure early adopters and sustainable growth.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of Market Need",
+      "percentage": "42%"
+    },
+    {
+      "reason": "Running Out of Cash",
+      "percentage": "29%"
+    },
+    {
+      "reason": "Lack of Product-Market Fit",
+      "percentage": "23%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Paid Advertising (Google, LinkedIn)",
+      "estimated_cac": "$300 - $1,000+"
+    },
+    {
+      "channel": "Content Marketing",
+      "estimated_cac": "$100 - $500"
+    },
+    {
+      "channel": "Direct Sales",
+      "estimated_cac": "$500 - $2,000+"
+    }
+  ],
+  "coreTension": "The core tension in B2B SaaS lies in balancing long sales cycles and high customer lifetime value with immediate cash flow and the pressure for rapid growth to secure funding and market share.",
+  "suggestedIdeaToValidate": "A SaaS platform for automating compliance reporting for HIPAA regulations for small to medium-sized healthcare practices, with automated document generation and audit trail features."
+}

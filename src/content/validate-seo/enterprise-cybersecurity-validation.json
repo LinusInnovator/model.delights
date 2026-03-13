@@ -1,0 +1,44 @@
+{
+  "industry": "Enterprise Cybersecurity",
+  "slug": "enterprise-cybersecurity-validation",
+  "title": "Validate Your Enterprise Cybersecurity Startup Idea",
+  "executiveBLUF": "Enterprise cybersecurity involves protecting organizational digital assets from unauthorized access, use, disclosure, disruption, modification, or destruction. It encompasses a wide array of technologies, processes, and practices, including network security, endpoint security, cloud security, application security, data security, and identity and access management. The industry is characterized by a rapidly evolving threat landscape, driven by sophisticated cyberattacks and vulnerabilities. Key challenges include aligning security with business objectives, managing complexity, addressing skills shortages, ensuring compliance, and adapting to emerging technologies like AI/ML and the Internet of Things (IoT). The market is segmented by solution type (e.g., threat intelligence, security information and event management - SIEM, intrusion detection/prevention systems - IDS/IPS, data loss prevention - DLP), deployment model (on-premises, cloud, hybrid), and organization size. Key success factors encompass proactive threat detection, incident response, vulnerability management, compliance adherence, and user awareness training. Competitive landscapes often include established players such as Palo Alto Networks, CrowdStrike, and Cisco, as well as emerging startups focused on niche areas like zero-trust security and cloud-native security platforms. The industry faces constant pressure to adapt to new and evolving threats, including ransomware, advanced persistent threats (APTs), and supply chain attacks. Continuous vigilance, robust incident response plans, and strategic security investments are critical for organizational resilience.",
+  "failureRatesTable": [
+    {
+      "reason": "Lack of market need/product-market fit",
+      "percentage": "37%"
+    },
+    {
+      "reason": "Inadequate funding/runway",
+      "percentage": "29%"
+    },
+    {
+      "reason": "Technical challenges/scaling issues",
+      "percentage": "11%"
+    },
+    {
+      "reason": "Poor sales execution/customer acquisition",
+      "percentage": "10%"
+    }
+  ],
+  "acquisitionCostsTable": [
+    {
+      "channel": "Content Marketing (Blog, Whitepapers)",
+      "estimated_cac": "$500 - $2,000 per qualified lead"
+    },
+    {
+      "channel": "Industry Events/Conferences",
+      "estimated_cac": "$1,000 - $5,000 (per deal, depending on sponsorship level)"
+    },
+    {
+      "channel": "Paid Advertising (PPC, LinkedIn Ads)",
+      "estimated_cac": "$300 - $1,500 per qualified lead"
+    },
+    {
+      "channel": "Channel Partnerships (Resellers, Integrators)",
+      "estimated_cac": "$500 - $3,000 (depending on commission structure)"
+    }
+  ],
+  "coreTension": "The primary industry hurdle lies in rapidly adapting to and defending against novel, sophisticated cyber threats while simultaneously navigating a complex and often fragmented regulatory landscape.",
+  "suggestedIdeaToValidate": "A cloud-based platform leveraging AI and behavioral analytics to provide real-time threat detection and automated incident response for mid-sized enterprises, focusing on identifying and mitigating insider threats."
+}
