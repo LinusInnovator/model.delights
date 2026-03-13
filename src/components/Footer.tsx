@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -26,7 +27,7 @@ export default function Footer() {
                 {/* Brand & Copyright */}
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-cyan-500 rounded-sm opacity-80" />
+                        <Image src="/logo.png" alt="Model Delights Logo" width={24} height={24} className="rounded-md" />
                         <span className="text-white font-bold tracking-tight text-lg">model.delights.pro</span>
                     </div>
                     <p className="text-zinc-500 text-sm">
