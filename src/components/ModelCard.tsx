@@ -162,6 +162,9 @@ export default function ModelCard({
                         <i className="ph ph-cube-transparent" style={{ color: 'var(--accent)' }}></i> Integration Hub
                     </div>
                     <div className="hub-links">
+                        <Link href={`/models/${model.id}`} className="hub-link-btn" style={{ background: 'rgba(0, 229, 255, 0.1)', borderColor: 'rgba(0, 229, 255, 0.3)', color: '#00e5ff' }}>
+                            <i className="ph ph-trend-up"></i> Full Model Profile
+                        </Link>
                         <button
                             className="hub-link-btn copy-model-btn"
                             onClick={handleCopyId}
