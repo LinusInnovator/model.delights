@@ -43,7 +43,7 @@ export const article1: ManifestoArticle = {
       type: "quote",
       content: {
         simple: "People at big companies spend too much time talking, and not enough time building.",
-        professional: "85% of middle management is just corporate cosplay. Agentic AI doesn't need to 'circle back next Tuesday.'",
+        professional: "Up to half of middle management's time is spent in meetings. Agentic AI doesn't need to 'circle back next Tuesday.'",
         academic: "The paradox of mid-level management lies in prioritizing consensus heuristics over actualized output generation."
       }
     },
