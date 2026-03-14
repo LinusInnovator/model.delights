@@ -214,11 +214,21 @@ export default function CinematicLandingPage() {
               <h2 className="text-5xl font-bold mb-6">Precoil Validation.</h2>
               <p className="text-zinc-400 text-xl leading-relaxed">We instantiate dual Red/Green LLM teams to ruthlessly autopsy your startup idea, finding the critical assumptions that will rip it apart before you waste hours compiling.</p>
             </div>
-            <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden">
-               <div className="w-64 h-64 border border-zinc-800 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
-                 <div className="w-48 h-48 border border-zinc-700 rounded-full flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]">
-                   <div className="w-32 h-32 border border-emerald-500/50 rounded-full" />
-                 </div>
+            <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden group">
+               {/* Background Grid */}
+               <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20" />
+               {/* Central Idea Node */}
+               <div className="relative w-32 h-32 rounded-full border-2 border-zinc-700 bg-zinc-900 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                 <div className="w-16 h-16 rounded-full bg-zinc-800 animate-pulse" />
+               </div>
+               
+               {/* Red Team Scan Line */}
+               <div className="absolute top-1/2 left-0 w-full h-[2px] bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.8)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -translate-y-1/2 origin-left animate-[spin_4s_linear_infinite]" />
+               
+               {/* Green Team Validation Rings */}
+               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                 <div className="w-40 h-40 rounded-full border border-emerald-500/0 group-hover:block hidden scale-50 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                 <div className="absolute w-48 h-48 rounded-full border border-emerald-500/0 group-hover:block hidden scale-50 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite_0.5s]" />
                </div>
             </div>
           </div>
@@ -227,12 +237,25 @@ export default function CinematicLandingPage() {
         {/* Card 2 */}
         <div className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-20">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
-            <div className="hidden md:flex aspect-square rounded-[3rem] border border-zinc-800 bg-black items-center justify-center relative overflow-hidden">
-               <div className="w-full h-full relative p-8">
-                 <div className="grid grid-cols-5 grid-rows-5 gap-4 w-full h-full opacity-30">
-                   {[...Array(25)].map((_, i) => <div key={i} className="bg-zinc-700 rounded-full w-2 h-2 m-auto" />)}
+            <div className="hidden md:flex aspect-square rounded-[3rem] border border-zinc-800 bg-black items-center justify-center relative overflow-hidden group">
+               <div className="w-full h-full relative p-12 flex flex-col justify-end gap-2">
+                 {/* Blueprint Wireframes compiling into solid blocks */}
+                 <div className="w-full h-12 border-2 border-dashed border-zinc-700 rounded group-hover:bg-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-700 delay-100 flex items-center px-4">
+                    <div className="w-1/3 h-2 bg-emerald-500/0 group-hover:bg-emerald-500/50 rounded transition-all duration-700 delay-300" />
                  </div>
-                 <div className="absolute top-0 left-0 w-full h-1 bg-emerald-400 shadow-[0_0_20px_#34D399] animate-[scan_3s_ease-in-out_infinite_alternate]" />
+                 <div className="flex gap-2 h-24">
+                   <div className="w-1/3 h-full border-2 border-dashed border-zinc-700 rounded group-hover:bg-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-700 delay-300 flex items-center justify-center">
+                      <div className="w-1/2 h-4 bg-emerald-500/0 group-hover:bg-emerald-500/50 rounded transition-all duration-700 delay-500" />
+                   </div>
+                   <div className="w-2/3 h-full border-2 border-dashed border-zinc-700 rounded group-hover:bg-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-700 delay-500 flex items-center justify-center">
+                      <div className="w-1/2 h-4 bg-emerald-500/0 group-hover:bg-emerald-500/50 rounded transition-all duration-700 delay-700" />
+                   </div>
+                 </div>
+                 <div className="w-full h-32 border-2 border-dashed border-zinc-700 rounded group-hover:bg-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-700 delay-700 relative overflow-hidden flex items-center justify-center">
+                    <div className="w-1/4 h-1/4 bg-emerald-500/0 group-hover:bg-emerald-500/50 rounded transition-all duration-700 delay-1000" />
+                    {/* Scanning Laser */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-emerald-400 shadow-[0_0_10px_#34D399] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-[scan_2s_ease-in-out_infinite_alternate]" />
+                 </div>
                </div>
             </div>
             <div>
@@ -251,9 +274,33 @@ export default function CinematicLandingPage() {
               <h2 className="text-5xl font-bold mb-6">B2B Arbitrage Engine.</h2>
               <p className="text-zinc-400 text-xl leading-relaxed">The production deployment isn't the finish line. Our zero-maintenance B2B router SDK continuously swaps your application's cognitive cores to capture falling API prices automatically.</p>
             </div>
-            <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden">
-               <svg viewBox="0 0 100 50" className="w-full h-full opacity-50 stroke-emerald-400 stroke-2 fill-none">
-                 <path d="M 0 25 L 20 25 L 30 10 L 40 40 L 50 5 L 60 45 L 70 25 L 100 25" className="animate-[dash_2s_linear_infinite]" strokeDasharray="200" strokeDashoffset="200" />
+            <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden group p-12">
+               {/* 3 Model Nodes */}
+               <div className="absolute top-20 left-1/2 -translate-x-1/2 w-16 h-16 rounded-xl border border-zinc-700 bg-zinc-900 flex items-center justify-center text-xs font-mono text-zinc-500 group-hover:border-emerald-500 group-hover:text-emerald-400 transition-all duration-500 z-10">GPT-4</div>
+               <div className="absolute bottom-24 left-16 w-16 h-16 rounded-xl border border-zinc-700 bg-zinc-900 flex items-center justify-center text-xs font-mono text-zinc-500 group-hover:border-rose-500 group-hover:text-rose-400 transition-all duration-500 delay-150 z-10">Claude</div>
+               <div className="absolute bottom-24 right-16 w-16 h-16 rounded-xl border border-zinc-700 bg-zinc-900 flex items-center justify-center text-xs font-mono text-zinc-500 group-hover:border-indigo-500 group-hover:text-indigo-400 transition-all duration-500 delay-300 z-10">Llama</div>
+               
+               {/* Center Router Node */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center z-20">
+                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+               </div>
+
+               {/* Routing Data Packets (SVG Paths) */}
+               <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full pointer-events-none">
+                 <path id="path1" d="M 100 100 L 100 50" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
+                 <path id="path2" d="M 100 100 L 50 140" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
+                 <path id="path3" d="M 100 100 L 150 140" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
+                 
+                 {/* Moving Particles */}
+                 <circle r="3" fill="#34D399" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-500">
+                   <animateMotion dur="1s" repeatCount="indefinite" path="M 100 100 L 100 50" />
+                 </circle>
+                 <circle r="3" fill="#F43F5E" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-700">
+                   <animateMotion dur="1.5s" repeatCount="indefinite" path="M 100 100 L 50 140" />
+                 </circle>
+                 <circle r="3" fill="#6366F1" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-1000">
+                   <animateMotion dur="2s" repeatCount="indefinite" path="M 100 100 L 150 140" />
+                 </circle>
                </svg>
             </div>
           </div>
@@ -267,7 +314,7 @@ export default function CinematicLandingPage() {
           <h2 className="text-5xl md:text-7xl font-bold mb-12 tracking-tight">Stop comparing. <br />Start compiling.</h2>
           <Link href="/validate" className="group relative inline-flex items-center justify-center overflow-hidden rounded-[2rem] bg-emerald-500 px-12 py-6 text-emerald-950 text-xl font-bold transition-transform hover:scale-[1.03] active:scale-95">
              <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
-             <span className="relative z-10 font-[family-name:var(--font-inter)]">Initiate Pre-Mortem &rarr;</span>
+             <span className="relative z-10 font-[family-name:var(--font-inter)]">Test Your Idea Now &rarr;</span>
           </Link>
           <div className="mt-16 flex items-center gap-3 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
