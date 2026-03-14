@@ -18,6 +18,24 @@ export default function PrototryingMesh() {
       <div className="absolute inset-0 bg-[#0f0e15]" />
       <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/30 via-[#d946ef]/15 to-[#f97316]/20" />
 
+      {/* GPU Tiled Starfield 层 (0 DOM nodes per star, 0 JS loops, 100% css performance) */}
+      <div 
+        className="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none"
+        style={{
+          backgroundImage: `
+            radial-gradient(1px 1px at 10% 20%, white, rgba(0,0,0,0)), 
+            radial-gradient(1.5px 1.5px at 30% 60%, white, rgba(0,0,0,0)), 
+            radial-gradient(2px 2px at 60% 80%, rgba(255,255,255,0.8), rgba(0,0,0,0)), 
+            radial-gradient(1px 1px at 80% 30%, white, rgba(0,0,0,0)), 
+            radial-gradient(1.2px 1.2px at 40% 10%, rgba(255,255,255,0.6), rgba(0,0,0,0)),
+            radial-gradient(2.5px 2.5px at 90% 90%, rgba(255,255,255,0.4), rgba(0,0,0,0)),
+            radial-gradient(1px 1px at 50% 50%, white, rgba(0,0,0,0))
+          `,
+          backgroundSize: '200px 200px', // Creates infinite tiling of the above coordinates
+          backgroundRepeat: 'repeat'
+        }}
+      />
+
       {/* Foreground Left Wave SVG (Sharper) */}
       <svg
         viewBox="0 0 1000 1000"
