@@ -109,7 +109,25 @@ export default function AnimatedStarfield() {
       // Seed the initial network growth after a 2-second delay
       // so the underlying static star map is clearly visible first
       initialTimeoutId = setTimeout(() => {
-        const startNode = stars[Math.floor(Math.random() * stars.length)];
+        // Find a star near the left-center of the screen to start the sweep
+        const targetX = width * 0.15;
+        const targetY = height * 0.5;
+        
+        let bestStar: Star | null = null;
+        let bestDist = Infinity;
+
+        for (const s of stars) {
+           const dx = s.x - targetX;
+           const dy = s.y - targetY;
+           const dist = dx * dx + dy * dy;
+           if (dist < bestDist && s.neighbors.length > 0) {
+              bestDist = dist;
+              bestStar = s;
+           }
+        }
+
+        const startNode = bestStar || stars[Math.floor(Math.random() * stars.length)];
+
         if (startNode) {
           awakeNodes.add(startNode);
           seedFronts(startNode);
@@ -163,10 +181,16 @@ export default function AnimatedStarfield() {
       ctx.clearRect(0, 0, width, height);
 
       // 1. Draw all static background stars exactly matching the CSS pattern
+      // with a slight time-offset glimmer
+      const timeMs = performance.now();
       for (const star of stars) {
+        // Calculate a gentle glimmer offset using the star's position to stagger the phase
+        const phaseOffset = (star.x + star.y) * 0.01;
+        const glimmer = Math.sin(timeMs * 0.001 + phaseOffset) * 0.2 + 0.8; // creates a multiplier between 0.6 and 1.0
+        
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * 0.5})`; // Slightly dimmed default
+        ctx.fillStyle = `rgba(255, 255, 255, ${(star.alpha * 0.5) * glimmer})`; // Slightly dimmed default + glimmer
         ctx.fill();
       }
 
