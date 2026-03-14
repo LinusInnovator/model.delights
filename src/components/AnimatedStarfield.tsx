@@ -185,7 +185,7 @@ export default function AnimatedStarfield() {
 
       // 1. Draw all static background stars exactly matching the CSS pattern
       const scrollY = window.scrollY;
-      const parallaxOffset = scrollY * 0.3; // 30% parallax speed relative to scroll
+      const parallaxOffset = scrollY * -0.3; // -30% parallax speed to invert direction
 
       for (const star of stars) {
         // Calculate a gentle glimmer offset using the star's position to stagger the phase
