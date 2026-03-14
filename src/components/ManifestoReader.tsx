@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
-import { Sun, Moon } from "@phosphor-icons/react";
+import { Sun, Moon, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
+import Link from "next/link";
 
 interface ManifestoReaderProps {
   article: ManifestoArticle;
+  allArticles: ManifestoArticle[];
 }
 
-export default function ManifestoReader({ article }: ManifestoReaderProps) {
+export default function ManifestoReader({ article, allArticles }: ManifestoReaderProps) {
   const [tone, setTone] = useState<ToneLevel>("professional");
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [activeNote, setActiveNote] = useState<string | null>(null);
@@ -166,6 +168,37 @@ export default function ManifestoReader({ article }: ManifestoReaderProps) {
               );
             })}
           </div>
+
+          {/* Article Pagination Grid */}
+          <div className={`mt-32 pt-16 border-t flex flex-col md:flex-row gap-6 ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+            {(() => {
+              const currentIndex = allArticles.findIndex(a => a.slug === article.slug);
+              const prevArticle = currentIndex > 0 ? allArticles[currentIndex - 1] : null;
+              const nextArticle = currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null;
+
+              return (
+                <>
+                  {prevArticle && (
+                    <Link href={`?article=${prevArticle.slug}`} className={`flex-1 group flex flex-col p-8 rounded-2xl border transition-all duration-500 ${theme === 'dark' ? 'border-zinc-800 hover:border-emerald-500 hover:bg-zinc-900/50' : 'border-zinc-200 hover:border-emerald-500 hover:bg-zinc-50'}`}>
+                      <div className="flex items-center gap-3 text-emerald-500 mb-4 font-mono text-xs tracking-widest uppercase">
+                        <ArrowLeft weight="bold" /> Previous Part
+                      </div>
+                      <h4 className={`text-xl font-bold font-[family-name:var(--font-playfair)] mb-2 ${headerClass}`}>{prevArticle.title[tone]}</h4>
+                    </Link>
+                  )}
+                  {nextArticle && (
+                    <Link href={`?article=${nextArticle.slug}`} className={`flex-1 group flex flex-col p-8 rounded-2xl border transition-all duration-500 ${theme === 'dark' ? 'border-zinc-800 hover:border-emerald-500 hover:bg-zinc-900/50' : 'border-zinc-200 hover:border-emerald-500 hover:bg-zinc-50'} text-right items-end`}>
+                      <div className="flex items-center gap-3 text-emerald-500 mb-4 font-mono text-xs tracking-widest uppercase">
+                        Next Part <ArrowRight weight="bold" />
+                      </div>
+                      <h4 className={`text-xl font-bold font-[family-name:var(--font-playfair)] mb-2 ${headerClass}`}>{nextArticle.title[tone]}</h4>
+                    </Link>
+                  )}
+                </>
+              );
+            })()}
+          </div>
+
         </article>
 
         {/* Right: Margin Notes (Desktop Only) */}
