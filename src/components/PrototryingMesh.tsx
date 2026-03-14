@@ -1,8 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function PrototryingMesh() {
+  const { scrollYProgress } = useScroll();
+  
+  // As the user scrolls down (0 -> 1), move the stars UP, but slower than the document (parallax)
+  const starY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  
+  // Fade the stars out as they scroll away from the hero section
+  const starOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   // Foreground Left-to-Right wave (Less blurred)
   const fgPath1 = "M 0 1000 L 0 600 C 300 700 500 400 800 500 C 950 550 1000 800 1000 800 L 1000 1000 Z";
   const fgPath2 = "M 0 1000 L 0 700 C 200 800 400 600 700 700 C 900 750 1000 600 1000 600 L 1000 1000 Z";
@@ -13,10 +20,12 @@ export default function PrototryingMesh() {
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden opacity-90 pointer-events-none">
-      {/* GPU Tiled Starfield (100% css performance, no JS) - Fixed so it never moves when scrolling */}
-      <div 
-        className="fixed inset-0 z-0 pointer-events-none mix-blend-screen"
+      {/* GPU Tiled Starfield Parallax  */}
+      <motion.div 
+        className="absolute inset-0 z-0 pointer-events-none mix-blend-screen origin-top"
         style={{
+          y: starY,
+          opacity: starOpacity,
           backgroundImage: `
             radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.8), rgba(0,0,0,0)), 
             radial-gradient(2.5px 2.5px at 30% 60%, rgba(255,255,255,0.7), rgba(0,0,0,0)), 
@@ -27,7 +36,8 @@ export default function PrototryingMesh() {
             radial-gradient(1.5px 1.5px at 50% 50%, rgba(255,255,255,1), rgba(0,0,0,0))
           `,
           backgroundSize: '250px 250px',
-          backgroundRepeat: 'repeat'
+          backgroundRepeat: 'repeat',
+          height: '200vh' // Stretch the layer so it doesn't clip when parallaxing upwards
         }}
       />
 
