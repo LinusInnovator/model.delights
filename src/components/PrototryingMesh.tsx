@@ -14,24 +14,20 @@ export default function PrototryingMesh() {
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden opacity-90 pointer-events-none">
-      {/* Deep Base Static Background Gradient */}
-      <div className="absolute inset-0 bg-[#0f0e15]" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/30 via-[#d946ef]/15 to-[#f97316]/20" />
-
-      {/* GPU Tiled Starfield 层 (0 DOM nodes per star, 0 JS loops, 100% css performance) */}
+      {/* GPU Tiled Starfield (100% css performance, no JS) */}
       <div 
-        className="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
           backgroundImage: `
-            radial-gradient(1px 1px at 10% 20%, white, rgba(0,0,0,0)), 
-            radial-gradient(1.5px 1.5px at 30% 60%, white, rgba(0,0,0,0)), 
-            radial-gradient(2px 2px at 60% 80%, rgba(255,255,255,0.8), rgba(0,0,0,0)), 
-            radial-gradient(1px 1px at 80% 30%, white, rgba(0,0,0,0)), 
-            radial-gradient(1.2px 1.2px at 40% 10%, rgba(255,255,255,0.6), rgba(0,0,0,0)),
-            radial-gradient(2.5px 2.5px at 90% 90%, rgba(255,255,255,0.4), rgba(0,0,0,0)),
-            radial-gradient(1px 1px at 50% 50%, white, rgba(0,0,0,0))
+            radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.8), rgba(0,0,0,0)), 
+            radial-gradient(2.5px 2.5px at 30% 60%, rgba(255,255,255,0.7), rgba(0,0,0,0)), 
+            radial-gradient(3px 3px at 60% 80%, rgba(255,255,255,0.9), rgba(0,0,0,0)), 
+            radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,0.6), rgba(0,0,0,0)), 
+            radial-gradient(2.2px 2.2px at 40% 10%, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+            radial-gradient(3.5px 3.5px at 90% 90%, rgba(255,255,255,0.5), rgba(0,0,0,0)),
+            radial-gradient(1.5px 1.5px at 50% 50%, rgba(255,255,255,1), rgba(0,0,0,0))
           `,
-          backgroundSize: '200px 200px', // Creates infinite tiling of the above coordinates
+          backgroundSize: '250px 250px',
           backgroundRepeat: 'repeat'
         }}
       />
