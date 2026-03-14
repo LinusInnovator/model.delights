@@ -69,9 +69,9 @@ export const article5: ManifestoArticle = {
       id: "p2-list",
       type: "p",
       content: {
-        simple: "We didn't just build a website. We built a whole system. We made a tool to check business ideas, a tool to improve them, a tool to make blueprints, a robot manager, and this whole reading experience.",
-        professional: "We didn't just stand up a landing page. In 11 days, an orchestrator and an AI built an entire product ecosystem: A Business Case Validator, an automatic Improver, a Blueprint Maker equipped with a PRD Generator, the underlying Model SDK to route intelligence, and the cinematic reading platform you are experiencing right now.",
-        academic: "The 11-day development window yielded a multi-faceted application suite consisting of: a heuristic Business Case Validator, an algorithmic Improver, an automated PRD Document Generator (Blueprint Maker), the orchestrating Model SDK layer, and the present volumetric rendering engine."
+        simple: "Actually, this website wasn't the only thing we built. In those 11 days, I built four completely different systems at the same time: <a href='https://model.delights.pro' target='_blank'>model.delights.pro</a>, <a href='https://spell.delights.pro' target='_blank'>spell.delights.pro</a> (a Blueprint Maker and PRD Generator), <a href='https://improve.delights.pro' target='_blank'>improve.delights.pro</a> (a Business Case Validator), and a fourth system that is still a secret.",
+        professional: "As a matter of fact, `model.delights.pro` was just one of *four* diverse projects built simultaneously during that exact 11-day window. The ecosystem includes: <a href='https://spell.delights.pro' target='_blank'>Spell Delights</a> (a Blueprint Maker with a PRD Generator), <a href='https://improve.delights.pro' target='_blank'>Improve Delights</a> (An automated Business Case Validator and Improver), this Model SDK platform, and a fourth project currently operating in stealth. One orchestrator. Four complete products.",
+        academic: "In actuality, the 11-day temporal window accommodated the parallel development of four distinct software platforms: <a href='https://spell.delights.pro' target='_blank'>spell.delights.pro</a> (automated PRD generation), <a href='https://improve.delights.pro' target='_blank'>improve.delights.pro</a> (heuristic business case validation), the `model.delights.pro` platform, and a fourth, unannounced application. This empirical volume serves as the ultimate proof of output asymmetry."
       }
     },
     {

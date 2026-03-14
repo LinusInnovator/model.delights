@@ -268,22 +268,20 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   : block.content[currentTone as ToneLevel] as string;
 
                 if (block.type === 'h2') {
-                  return <h2 key={block.id} className={`text-3xl font-bold mt-16 mb-6 transition-all duration-500 ${headerClass}`}>{textContent}</h2>;
+                  return <h2 key={block.id} className={`text-3xl font-bold mt-16 mb-6 transition-all duration-500 ${headerClass}`} dangerouslySetInnerHTML={{ __html: textContent }} />;
                 }
                 if (block.type === 'h3') {
-                  return <h3 key={block.id} className={`text-2xl font-bold mt-10 mb-4 transition-all duration-500 ${headerClass}`}>{textContent}</h3>;
+                  return <h3 key={block.id} className={`text-2xl font-bold mt-10 mb-4 transition-all duration-500 ${headerClass}`} dangerouslySetInnerHTML={{ __html: textContent }} />;
                 }
                 if (block.type === 'quote') {
                   return (
-                    <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500">
-                      "{textContent}"
-                    </blockquote>
+                    <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500" dangerouslySetInnerHTML={{ __html: `"${textContent}"` }} />
                   );
                 }
                 if (block.type === 'callout') {
                   return (
                     <div key={block.id} className={`my-10 p-6 md:p-8 rounded-2xl ${noteBg} transition-all duration-500`}>
-                      <p className={`text-lg font-medium leading-relaxed ${headerClass}`}>{textContent}</p>
+                      <p className={`text-lg font-medium leading-relaxed ${headerClass} prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: textContent }} />
                     </div>
                   );
                 }
@@ -295,9 +293,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <p className={`text-lg md:text-xl leading-relaxed transition-all duration-500 ${hasNote ? 'cursor-pointer' : ''}`}>
-                      {textContent}
-                    </p>
+                    <p 
+                      className={`text-lg md:text-xl leading-relaxed transition-all duration-500 prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400 ${hasNote ? 'cursor-pointer' : ''}`}
+                      dangerouslySetInnerHTML={{ __html: textContent }}
+                    />
                     
                     {hasNote && (
                       <span className="absolute -left-6 top-2 w-2 h-2 rounded-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
