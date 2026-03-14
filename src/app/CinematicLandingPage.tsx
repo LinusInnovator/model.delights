@@ -116,76 +116,98 @@ export default function CinematicLandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Card 1: Diagnostic */}
-          <Link href="/validate" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Idea Stress-Testing</h3>
-            <p className="text-zinc-400 text-sm">Exposing critical market assumptions.</p>
+          <Link href="/validate" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/60 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] hover:bg-zinc-900/80 transition-all duration-500">
+            {/* Sweeping Glare Effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-emerald-500/0 to-transparent group-hover:via-emerald-500/5 transition-colors duration-1000 pointer-events-none" />
+            
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors relative z-10">Idea Stress-Testing</h3>
+            <p className="text-zinc-400 text-sm relative z-10">Exposing critical market assumptions.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute top-8 right-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
                Run Diagnostics <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-14 left-8 right-8 h-36 flex items-center justify-center">
-               <div className="w-full h-full border border-emerald-500/20 rounded-xl bg-gradient-to-br from-emerald-950/40 to-black/40 backdrop-blur-md flex flex-col items-center justify-center gap-3 group-hover:-translate-y-2 group-hover:border-emerald-500/40 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] transition-all duration-500 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  <div className="text-emerald-400 font-[family-name:var(--font-jetbrains)] text-xs flex items-center gap-2 relative z-10">
-                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_5px_rgba(52,211,153,0.8)]" />
+            <div className="absolute bottom-14 left-8 right-8 h-36 flex items-center justify-center pointer-events-none z-10">
+               <div className="w-full h-full border border-emerald-500/20 rounded-xl bg-gradient-to-br from-emerald-950/40 to-black/40 backdrop-blur-md flex flex-col items-center justify-center gap-3 group-hover:-translate-y-3 group-hover:scale-105 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_40px_rgba(16,185,129,0.2),inset_0_0_20px_rgba(16,185,129,0.1)] transition-all duration-700 ease-out overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="text-emerald-400 font-[family-name:var(--font-jetbrains)] text-xs flex items-center gap-2 relative z-10 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]">
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-[pulse_1s_ease-in-out_infinite] shadow-[0_0_8px_rgba(52,211,153,1)]" />
                     Simulating Go-To-Market...
                   </div>
-                  <div className="w-2/3 h-1 bg-black/50 rounded-full overflow-hidden relative z-10 shadow-[inner_0_1px_2px_rgba(0,0,0,0.8)] border border-emerald-900/30">
-                    <div className="h-full bg-emerald-400 w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[1500ms] delay-200 ease-[cubic-bezier(0.2,0.8,0.2,1)] shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                  <div className="w-3/4 h-1.5 bg-black/60 rounded-full overflow-hidden relative z-10 shadow-[inner_0_2px_4px_rgba(0,0,0,0.8)] border border-emerald-900/50">
+                    {/* The Progress Bar fills faster and brighter on hover */}
+                    <div className="h-full bg-emerald-400 w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[2000ms] delay-100 ease-[cubic-bezier(0.2,0.8,0.2,1)] shadow-[0_0_15px_rgba(52,211,153,1)]" />
                   </div>
                </div>
             </div>
           </Link>
 
           {/* Card 2: PRD Typewriter */}
-          <Link href="/super-architect" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Blueprint Generation</h3>
-            <p className="text-zinc-400 text-sm">Translating ideas to production boilerplates.</p>
+          <Link href="/super-architect" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/60 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] hover:bg-zinc-900/80 transition-all duration-500">
+            {/* Sweeping Glare Effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-emerald-500/0 to-transparent group-hover:via-emerald-500/5 transition-colors duration-1000 pointer-events-none" />
+
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors relative z-10">Blueprint Generation</h3>
+            <p className="text-zinc-400 text-sm relative z-10">Translating ideas to production boilerplates.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute top-8 right-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
                Open Architect <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-14 left-8 right-8 h-36 border border-zinc-800 rounded-xl bg-gradient-to-br from-zinc-900/80 to-black backdrop-blur-md p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 group-hover:border-zinc-700 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-              <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10">
-                <span className="text-emerald-400 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[pulse_1.5s_ease-in-out_infinite]" /> Live Feed</span>
-                <span className="text-zinc-600 font-medium tracking-wider">PRD_STRUCT</span>
+            <div className="absolute bottom-14 left-8 right-8 h-36 border border-zinc-800 rounded-xl bg-gradient-to-br from-zinc-900/80 to-black backdrop-blur-md p-5 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-3 group-hover:scale-105 group-hover:border-emerald-500/40 group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.8),inset_0_0_15px_rgba(16,185,129,0.05)] transition-all duration-700 ease-out overflow-hidden pointer-events-none z-10">
+              {/* Animated Scanline overlay that triggers on hover */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent translate-x-[-100%] group-hover:animate-[scan_2.5s_ease-in-out_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 group-hover:border-zinc-700 transition-colors duration-500">
+                <span className="text-emerald-400 flex items-center gap-2 group-hover:drop-shadow-[0_0_5px_rgba(52,211,153,0.8)] transition-all duration-500"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-[pulse_1s_ease-in-out_infinite] shadow-[0_0_8px_rgba(52,211,153,0.8)]" /> Live Feed</span>
+                <span className="text-zinc-600 font-medium tracking-wider group-hover:text-zinc-400 transition-colors duration-500">PRD_STRUCT</span>
               </div>
-              <div className="mt-1 flex flex-col gap-1.5 relative z-10">
-                <p className="text-zinc-300">Targeting Vision Core...</p>
-                <p className="text-zinc-500">Routing {'>'} Anthropic Claude 3.5</p>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="text-emerald-400/80">Generating</span>
-                  <span className="w-2 h-3 bg-emerald-400 animate-pulse" />
+              <div className="mt-2 flex flex-col gap-1.5 relative z-10">
+                <p className="text-zinc-300 group-hover:translate-x-1 transition-transform duration-500 delay-100">Targeting Vision Core...</p>
+                <p className="text-zinc-500 group-hover:text-zinc-400 group-hover:translate-x-1 transition-all duration-500 delay-200">Routing {'>'} Anthropic Claude 3.5</p>
+                <div className="flex items-center gap-2 mt-2 group-hover:translate-x-1 transition-transform duration-500 delay-300">
+                  <span className="text-emerald-400/80 group-hover:text-emerald-400 font-bold transition-colors duration-500 drop-shadow-[0_0_5px_rgba(52,211,153,0.5)]">Generating</span>
+                  <span className="w-2.5 h-3.5 bg-emerald-400 animate-[pulse_0.4s_ease-in-out_infinite] shadow-[0_0_8px_rgba(52,211,153,1)]" />
                 </div>
               </div>
             </div>
           </Link>
 
           {/* Card 3: Scheduler */}
-          <Link href="/sdk" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Cost Optimization SDK</h3>
-            <p className="text-zinc-400 text-sm">Dynamic model routing for maximum ROI.</p>
+          <Link href="/sdk" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/60 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] hover:bg-zinc-900/80 transition-all duration-500">
+            {/* Sweeping Glare Effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-emerald-500/0 to-transparent group-hover:via-emerald-500/5 transition-colors duration-1000 pointer-events-none" />
+
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors relative z-10">Cost Optimization SDK</h3>
+            <p className="text-zinc-400 text-sm relative z-10">Dynamic model routing for maximum ROI.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute top-8 right-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
                View SDK <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-14 left-8 right-8 h-36 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
-               <div className="grid grid-cols-7 gap-1 h-3/5 p-2 bg-black/40 border border-zinc-800/50 rounded-xl backdrop-blur-sm group-hover:border-zinc-700/50 transition-colors duration-500">
-                  {[...Array(14)].map((_, i) => (
-                    <div key={i} className={`rounded-[3px] border ${i === 9 ? 'bg-emerald-500/20 border-emerald-500/50 group-hover:bg-emerald-500/80 group-hover:border-emerald-400 group-hover:shadow-[0_0_12px_rgba(52,211,153,0.6)]' : 'bg-zinc-900 border-zinc-800 group-hover:border-zinc-700 group-hover:bg-zinc-800/80'} transition-all duration-500 flex items-center justify-center relative overflow-hidden`}>
-                       {i === 9 && <div className="absolute inset-0 bg-emerald-400/20 mix-blend-overlay animate-pulse" />}
-                    </div>
-                  ))}
+            <div className="absolute bottom-14 left-8 right-8 h-36 flex flex-col gap-2 group-hover:-translate-y-3 group-hover:scale-105 transition-all duration-700 ease-out pointer-events-none z-10">
+               <div className="grid grid-cols-7 gap-1 h-3/5 p-2 bg-black/40 border border-zinc-800/50 rounded-xl backdrop-blur-sm group-hover:border-emerald-500/30 group-hover:bg-zinc-950/80 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500">
+                  {[...Array(14)].map((_, i) => {
+                     // Determine stagger delay cleanly inside map based on index for a "wipe" effect
+                     const staggerDelay = `${(i % 7) * 75}ms`;
+                     return (
+                      <div key={i} 
+                           className={`rounded-[3px] border ${i === 9 ? 'bg-emerald-500/40 border-emerald-500/70 shadow-[0_0_15px_rgba(52,211,153,0.5)] group-hover:bg-emerald-400 group-hover:border-emerald-300 group-hover:shadow-[0_0_20px_rgba(52,211,153,1)]' : 'bg-zinc-900 border-zinc-800 group-hover:border-zinc-700 group-hover:bg-zinc-800/80'} transition-all duration-300 flex items-center justify-center relative overflow-hidden`}
+                           style={{ transitionDelay: i !== 9 ? staggerDelay : '0ms' }}>
+                         {i === 9 && <div className="absolute inset-0 bg-emerald-300/30 mix-blend-overlay animate-pulse" />}
+                         {/* Optional tiny network ping on hover for empty nodes */}
+                         {i !== 9 && <div className="w-1 h-1 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/30 transition-colors duration-500" style={{ transitionDelay: staggerDelay }} />}
+                      </div>
+                     );
+                  })}
                </div>
-               <div className="w-full h-2/5 border border-zinc-700 bg-gradient-to-b from-zinc-800 to-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-xl flex items-center justify-center text-xs font-semibold text-zinc-400 group-hover:from-emerald-500 group-hover:to-emerald-600 group-hover:text-emerald-950 group-hover:border-emerald-400 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-300 transform active:scale-[0.98]">
-                  Execute Route()
+               
+               {/* 3D Button Push Effect on Hover */}
+               <div className="w-full h-2/5 border border-zinc-700 bg-gradient-to-b from-zinc-800 to-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-xl flex items-center justify-center text-xs font-semibold text-zinc-400 group-hover:from-emerald-500 group-hover:to-emerald-600 group-hover:text-emerald-950 group-hover:border-emerald-400 group-hover:shadow-[0_5px_0_0_#065f46,0_10px_20px_rgba(16,185,129,0.4),inset_0_1px_0_rgba(255,255,255,0.4)] group-active:shadow-[0_0_0_0_#065f46,0_0_0_rgba(16,185,129,0.4)] group-active:translate-y-[5px] transition-all duration-300 transform">
+                  <span className="group-hover:drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">Execute Route()</span>
                </div>
             </div>
           </Link>
