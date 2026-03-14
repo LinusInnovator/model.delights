@@ -9,13 +9,16 @@ export async function getOptimalWriterModel() {
       baseUrl: process.env.MODEL_DELIGHTS_BASE_URL || "https://model.delights.pro"
     });
     
-    const routingData = await router.getTopModel('writing');
+    const routingData = await router.getTopModel('writing') as any;
+    
+    const smart = routingData.smart_value || routingData.flagship;
+    const fallback = routingData.flagship;
     
     return {
       success: true,
-      flagship: routingData.recommended_model,
-      smartValue: routingData.recommended_model,
-      tradeoff: routingData.metadata?.name ? `Provider: ${routingData.metadata.name}` : undefined
+      flagship: fallback?.model || "anthropic/claude-3.5-sonnet",
+      smartValue: smart?.model || "anthropic/claude-3-haiku",
+      tradeoff: smart?.financial_tradeoff || (fallback?.name ? `Provider: ${fallback.name}` : undefined)
     };
   } catch (error: any) {
     console.error("SDK Server Action Error:", error.message);
