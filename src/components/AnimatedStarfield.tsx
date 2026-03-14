@@ -184,6 +184,9 @@ export default function AnimatedStarfield() {
       ctx.clearRect(0, 0, width, height);
 
       // 1. Draw all static background stars exactly matching the CSS pattern
+      const scrollY = window.scrollY;
+      const parallaxOffset = scrollY * 0.3; // 30% parallax speed relative to scroll
+
       for (const star of stars) {
         // Calculate a gentle glimmer offset using the star's position to stagger the phase
         const phaseOffset = (star.x + star.y) * 0.01;
@@ -196,7 +199,11 @@ export default function AnimatedStarfield() {
         
         // OPTIMIZATION: Use fillRect instead of expensive path operations for tiny 1px-2px geometric dots
         const d = (star.size + 0.5) * 2;
-        ctx.fillRect(star.x - d/2, star.y - d/2, d, d);
+        // Apply parallax offset and wrap around vertically so it never runs out of stars
+        let drawY = star.y - parallaxOffset;
+        drawY = ((drawY % height) + height) % height; 
+        
+        ctx.fillRect(star.x - d/2, drawY - d/2, d, d);
       }
 
       // 2. Draw active fading network lines
@@ -211,8 +218,12 @@ export default function AnimatedStarfield() {
         // Keep 100% visible for 3s, then fade out linearly over 7s
         const fade = age < 3000 ? 1 : 1 - ((age - 3000) / 7000);
         
-        ctx.moveTo(line.a.x, line.a.y);
-        ctx.lineTo(line.b.x, line.b.y);
+        // Apply parallax (without wrapping, so they actually scroll off screen)
+        const startY = line.a.y - parallaxOffset;
+        const endY = line.b.y - parallaxOffset;
+
+        ctx.moveTo(line.a.x, startY);
+        ctx.lineTo(line.b.x, endY);
         ctx.strokeStyle = `rgba(52, 211, 153, ${0.7 * fade})`; 
         ctx.lineWidth = 1.5;
         ctx.stroke();
@@ -230,14 +241,22 @@ export default function AnimatedStarfield() {
         // Keep 100% visible for 3s, then fade out linearly over 7s
         const fade = age < 3000 ? 1 : 1 - ((age - 3000) / 7000);
 
+        const nodeY = node.y - parallaxOffset;
+
         ctx.shadowBlur = 15;
         ctx.shadowColor = `rgba(52, 211, 153, ${0.9 * fade})`;
-        drawRing(node, 0.9 * fade); 
+        
+        // Custom inline ring draw to support parallax Y
+        ctx.beginPath();
+        ctx.arc(node.x, nodeY, 7, 0, PI2);
+        ctx.strokeStyle = `rgba(52, 211, 153, ${0.9 * fade})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
         
         // Highlight the star itself
         const d = (node.size + 1.0) * 2;
         ctx.fillStyle = `rgba(52, 211, 153, ${fade})`;
-        ctx.fillRect(node.x - d/2, node.y - d/2, d, d);
+        ctx.fillRect(node.x - d/2, nodeY - d/2, d, d);
       }
       ctx.shadowBlur = 0;
 
@@ -270,18 +289,28 @@ export default function AnimatedStarfield() {
           }
         } else {
           // Draw the growing line very bright
-          const currentX = front.from.x + dx * front.progress;
-          const currentY = front.from.y + dy * front.progress;
-          
+          const currentX = front.from.x + (front.to.x - front.from.x) * front.progress;
+          const currentY = front.from.y + (front.to.y - front.from.y) * front.progress;
+
+          // Apply parallax to the growing front
+          const startY = front.from.y - parallaxOffset;
+          const drawCurrentY = currentY - parallaxOffset;
+
           ctx.beginPath();
-          ctx.moveTo(front.from.x, front.from.y);
-          ctx.lineTo(currentX, currentY);
+          ctx.moveTo(front.from.x, startY);
+          ctx.lineTo(currentX, drawCurrentY);
           
           ctx.shadowBlur = 20;
           ctx.shadowColor = 'rgba(52, 211, 153, 1)';
-          ctx.strokeStyle = `rgba(52, 211, 153, 1)`;
+          ctx.strokeStyle = `rgba(52, 211, 153, 1)`; // 100% opacity for actively growing fronts
           ctx.lineWidth = 2.5; // Thicker actively growing line
           ctx.stroke();
+          
+          // Draw a bright 'spark' at the leading edge
+          ctx.beginPath();
+          ctx.arc(currentX, drawCurrentY, 3, 0, PI2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
           ctx.shadowBlur = 0;
         }
       }
