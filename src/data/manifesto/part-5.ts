@@ -108,7 +108,7 @@ export const article5: ManifestoArticle = {
       type: "callout",
       content: {
         simple: "The future is here. Stop having meetings and start building your ideas.",
-        professional: "The Call to Action: Fire your consultants. Cancel your steering committee alignment syncs. If you aren't actively building your own interactive realities right now, you are waiting to be replaced.",
+        professional: "The Call to Action: Fire your PowerPoint consultants. Cancel your steering committee alignment syncs. If you aren't actively building your own interactive realities right now, you are waiting to be replaced. If you need hands-on help with making this operational change, reach out to <a href='mailto:linus@delights.pro?subject=Reaching%20out%20after%20reading%20the%20Delights%20Manifesto'>Linus</a>.",
         academic: "Final Hypothesis: The transition from the enterprise paradigm to the solo-agentic paradigm is irreversible. Future macro-economic dominance will belong to asymmetrical, highly leveraged, single-player organizational units."
       }
     }
