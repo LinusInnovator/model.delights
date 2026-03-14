@@ -66,6 +66,15 @@ export const article5: ManifestoArticle = {
       marginNoteId: "unicorn-definition"
     },
     {
+      id: "p2-list",
+      type: "p",
+      content: {
+        simple: "We didn't just build a website. We built a whole system. We made a tool to check business ideas, a tool to improve them, a tool to make blueprints, a robot manager, and this whole reading experience.",
+        professional: "We didn't just stand up a landing page. In 11 days, an orchestrator and an AI built an entire product ecosystem: A Business Case Validator, an automatic Improver, a Blueprint Maker equipped with a PRD Generator, the underlying Model SDK to route intelligence, and the cinematic reading platform you are experiencing right now.",
+        academic: "The 11-day development window yielded a multi-faceted application suite consisting of: a heuristic Business Case Validator, an algorithmic Improver, an automated PRD Document Generator (Blueprint Maker), the orchestrating Model SDK layer, and the present volumetric rendering engine."
+      }
+    },
+    {
       id: "h2-1",
       type: "h2",
       content: {
