@@ -129,7 +129,7 @@ export default function CinematicLandingPage() {
                Open Architect <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-14 left-8 right-8 h-36 border border-zinc-800 rounded-xl bg-gradient-to-br from-zinc-900/80 to-black backdrop-blur-md p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 group-hover:border-zinc-700 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 relative overflow-hidden">
+            <div className="absolute bottom-14 left-8 right-8 h-36 border border-zinc-800 rounded-xl bg-gradient-to-br from-zinc-900/80 to-black backdrop-blur-md p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 group-hover:border-zinc-700 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
               <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10">
                 <span className="text-emerald-400 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[pulse_1.5s_ease-in-out_infinite]" /> Live Feed</span>
