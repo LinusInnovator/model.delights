@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
 import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle } from "@phosphor-icons/react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCompletion } from "@ai-sdk/react";
 import { getOptimalWriterModel } from "@/app/actions/getOptimalWriter";
 
@@ -165,11 +166,28 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 </>
               );
             })()}
-            
             <h2 className="text-xl md:text-2xl opacity-70 leading-relaxed font-light transition-all duration-700">
               {currentTone === 'ai' ? "Dynamically rewritten using the SDK's Best-in-Class reasoning model." : article.subtitle[currentTone as ToneLevel]}
             </h2>
           </header>
+
+          {/* Hero Image */}
+          {article.heroImage && (
+            <div className={`mb-16 relative w-full aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+              <Image 
+                src={article.heroImage.url} 
+                alt={article.heroImage.alt} 
+                fill 
+                className="object-cover object-center translate-y-[-10%]"
+                priority
+                sizes="(max-width: 768px) 100vw, 800px"
+              />
+              {/* Vignette Overlay for cinematic bleed */}
+              {theme === "dark" && (
+                <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80 pointer-events-none" />
+              )}
+            </div>
+          )}
 
           <div className="space-y-8 md:space-y-10 min-h-[500px]">
             {currentTone === 'ai' ? (

@@ -13,8 +13,12 @@ export const article3: ManifestoArticle = {
     professional: "Executives demand 'Steve Jobs-level design,' but structure teams to produce generic SaaS sludge.",
     academic: "Analyzing the cognitive loss inherent in the 'translation layer' between strategic design and engineering execution.",
   },
-  date: "March 16, 2026",
-  readTimeMin: 7,
+  date: "March 14, 2026",
+  readTimeMin: 5,
+  heroImage: {
+    url: "/images/manifesto/part-3.png",
+    alt: "An enormous glowing emerald crystal monolithic structure emerging from an endless, repetitive sea of grey corporate cubicles, representing Taste shattering the translation layer."
+  },
   marginNotes: {
     "gallup-engagement": {
       id: "gallup-engagement",

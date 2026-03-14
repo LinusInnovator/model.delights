@@ -15,6 +15,10 @@ export const article5: ManifestoArticle = {
   },
   date: "March 18, 2026",
   readTimeMin: 5,
+  heroImage: {
+    url: "/images/manifesto/part-5.png",
+    alt: "A solitary developer standing triumphantly atop a massive glowing emerald tech citadel high in the clouds, commanding swarms of digital entities, representing the Era of the Single-Player Unicorn."
+  },
   marginNotes: {
     "unicorn-definition": {
       id: "unicorn-definition",

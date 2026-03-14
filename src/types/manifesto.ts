@@ -21,6 +21,10 @@ export interface ManifestoArticle {
   subtitle: Record<ToneLevel, string>;
   date: string;
   readTimeMin: number;
+  heroImage?: {
+    url: string;
+    alt: string;
+  };
   blocks: ContentBlock[];
   marginNotes: Record<string, MarginNote>;
 }

@@ -15,6 +15,10 @@ export const article1: ManifestoArticle = {
   },
   date: "March 14, 2026",
   readTimeMin: 6,
+  heroImage: {
+    url: "/images/manifesto/part-1.png",
+    alt: "Cinematic rendering of ancient Roman senators struggling with a futuristic Jira board in a neon-lit corporate boardroom, illustrating the paralysis of Horizon 2 innovation."
+  },
   marginNotes: {
     "sloan-meetings": {
       id: "sloan-meetings",

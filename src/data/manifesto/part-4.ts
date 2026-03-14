@@ -13,8 +13,12 @@ export const article4: ManifestoArticle = {
     professional: "I can build the damn thing faster than I can write the Statement of Work.",
     academic: "Analyzing the transition from predictive strategy documentation to deterministic execution.",
   },
-  date: "March 17, 2026",
-  readTimeMin: 6,
+  date: "March 14, 2026",
+  readTimeMin: 5,
+  heroImage: {
+    url: "/images/manifesto/part-4.png",
+    alt: "A crumbling golden classical statue representing an expensive consulting presentation making way for a lone cyberpunk builder crafting a brilliant green holographic terminal from the ruins."
+  },
   marginNotes: {
     "sow-latency": {
       id: "sow-latency",
