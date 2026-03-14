@@ -189,8 +189,8 @@ export default function AnimatedStarfield() {
         const glimmer = Math.sin(timeMs * 0.001 + phaseOffset) * 0.2 + 0.8; // creates a multiplier between 0.6 and 1.0
         
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${(star.alpha * 0.5) * glimmer})`; // Slightly dimmed default + glimmer
+        ctx.arc(star.x, star.y, star.size + 0.5, 0, Math.PI * 2); // Slightly larger
+        ctx.fillStyle = `rgba(255, 255, 255, ${(star.alpha * 0.85) * glimmer})`; // Much brighter base alpha
         ctx.fill();
       }
 
@@ -206,7 +206,7 @@ export default function AnimatedStarfield() {
           ctx.lineTo(starB.x, starB.y);
         }
       }
-      ctx.strokeStyle = `rgba(52, 211, 153, 0.25)`;
+      ctx.strokeStyle = `rgba(52, 211, 153, 0.4)`; // Brighter permanent lines
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -293,7 +293,7 @@ export default function AnimatedStarfield() {
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 pointer-events-none mix-blend-screen opacity-70"
+      className="absolute inset-0 pointer-events-none mix-blend-screen opacity-90"
     />
   );
 }
