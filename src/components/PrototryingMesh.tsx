@@ -26,9 +26,9 @@ export default function PrototryingMesh() {
       >
         <defs>
           <linearGradient id="appleGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0ea5e9" />  {/* Cyan */}
-            <stop offset="50%" stopColor="#3b82f6" /> {/* Blue */}
-            <stop offset="100%" stopColor="#8b5cf6" />{/* Violet */}
+            <stop offset="0%" stopColor="#0284c7" />  {/* Ocean Blue */}
+            <stop offset="50%" stopColor="#06b6d4" /> {/* Bright Cyan */}
+            <stop offset="100%" stopColor="#14b8a6" />{/* Caribbean Teal */}
           </linearGradient>
         </defs>
         <motion.path
@@ -47,9 +47,9 @@ export default function PrototryingMesh() {
       >
         <defs>
           <linearGradient id="appleGrad4" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#d946ef" />   {/* Magenta */}
-            <stop offset="50%" stopColor="#f43f5e" />  {/* Rose */}
-            <stop offset="100%" stopColor="#f97316" /> {/* Orange */}
+            <stop offset="0%" stopColor="#fbbf24" />   {/* Golden Amber */}
+            <stop offset="50%" stopColor="#f97316" />  {/* Vibrant Orange */}
+            <stop offset="100%" stopColor="#e11d48" /> {/* Sunset Rose */}
           </linearGradient>
         </defs>
         <motion.path
