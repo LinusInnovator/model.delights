@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
@@ -11,8 +11,28 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Custom hook to pause heavy CSS/SVG animations when off-screen
+function useInView(options: IntersectionObserverInit = {}) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting);
+    }, { threshold: 0.1, ...options });
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [options]);
+
+  return { ref, inView };
+}
+
 export default function CinematicLandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const card1 = useInView();
+  const card2 = useInView();
+  const card3 = useInView();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -205,9 +225,8 @@ export default function CinematicLandingPage() {
 
       {/* PROTOCOL SECION */}
       <section className="relative w-full bg-zinc-950 pb-40">
-        
         {/* Card 1 */}
-        <div className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-10">
+        <div ref={card1.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-10">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_01</p>
@@ -219,9 +238,14 @@ export default function CinematicLandingPage() {
                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20" />
                {/* Central Idea Node */}
                <div className="relative w-32 h-32 rounded-full border-2 border-zinc-700 bg-zinc-900 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                 <div className="w-16 h-16 rounded-full bg-zinc-800 animate-pulse relative z-10" />
+                 <div className={`w-16 h-16 rounded-full bg-zinc-800 ${card1.inView ? 'animate-pulse' : ''} relative z-10`} />
+                 
+                 {/* Rare Green Team Hit Flash (Every ~12 seconds) */}
+                 <div className={`absolute inset-0 rounded-full bg-emerald-500/80 blur-md min-h-full mix-blend-screen opacity-0 ${card1.inView ? 'group-hover:animate-[pulse_12s_ease-in-out_infinite_4s]' : ''} z-20 transition-opacity duration-1000`} />
+                 <div className={`absolute inset-0 rounded-full bg-emerald-400 opacity-0 ${card1.inView ? 'group-hover:animate-[pulse_12s_ease-in-out_infinite_4s]' : ''} z-20 transition-opacity duration-1000`} />
+
                  {/* Laser Hit Trace (Synchronized with Scan Line) */}
-                 <div className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:animate-[spin_4s_linear_infinite]"
+                 <div className={`absolute inset-[-2px] rounded-full opacity-0 ${card1.inView ? 'group-hover:opacity-100 group-hover:animate-[spin_4s_linear_infinite]' : ''} transition-opacity duration-300 pointer-events-none`}
                       style={{
                         background: 'conic-gradient(from 80deg, transparent 0deg, transparent 80deg, rgba(244,63,94,1) 180deg, transparent 180deg)',
                         maskImage: 'radial-gradient(transparent 60px, black 61px)',
@@ -231,19 +255,19 @@ export default function CinematicLandingPage() {
                </div>
                
                {/* Red Team Scan Line */}
-               <div className="absolute top-1/2 left-0 w-full h-[2px] bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.8)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -translate-y-1/2 origin-left animate-[spin_4s_linear_infinite]" />
+               <div className={`absolute top-1/2 left-0 w-full h-[2px] bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.8)] opacity-0 ${card1.inView ? 'group-hover:opacity-100 animate-[spin_4s_linear_infinite]' : ''} transition-opacity duration-300 transform -translate-y-1/2 origin-left`} />
                
                {/* Green Team Validation Rings */}
                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                 <div className="w-40 h-40 rounded-full border border-emerald-500/0 group-hover:block hidden scale-50 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                 <div className="absolute w-48 h-48 rounded-full border border-emerald-500/0 group-hover:block hidden scale-50 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite_0.5s]" />
+                 <div className={`w-40 h-40 rounded-full border border-emerald-500/0 hidden scale-50 ${card1.inView ? 'group-hover:block group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]' : ''}`} />
+                 <div className={`absolute w-48 h-48 rounded-full border border-emerald-500/0 hidden scale-50 ${card1.inView ? 'group-hover:block group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite_0.5s]' : ''}`} />
                </div>
             </div>
           </div>
         </div>
 
         {/* Card 2 */}
-        <div className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-20">
+        <div ref={card2.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-20">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div className="hidden md:flex aspect-square rounded-[3rem] border border-zinc-800 bg-black items-center justify-center relative overflow-hidden group">
                <div className="w-full h-full relative p-12 flex flex-col justify-end gap-2">
@@ -262,7 +286,7 @@ export default function CinematicLandingPage() {
                  <div className="w-full h-32 border-2 border-dashed border-zinc-700 rounded group-hover:bg-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-700 delay-700 relative overflow-hidden flex items-center justify-center">
                     <div className="w-1/4 h-1/4 bg-emerald-500/0 group-hover:bg-emerald-500/50 rounded transition-all duration-700 delay-1000" />
                     {/* Scanning Laser */}
-                    <div className="absolute top-0 left-0 w-full h-[2px] bg-emerald-400 shadow-[0_0_10px_#34D399] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-[scan_2s_ease-in-out_infinite_alternate]" />
+                    <div className={`absolute top-0 left-0 w-full h-[2px] bg-emerald-400 shadow-[0_0_10px_#34D399] opacity-0 ${card2.inView ? 'group-hover:opacity-100 animate-[scan_2s_ease-in-out_infinite_alternate]' : ''} transition-opacity duration-300`} />
                  </div>
                </div>
             </div>
@@ -275,7 +299,7 @@ export default function CinematicLandingPage() {
         </div>
 
         {/* Card 3 */}
-        <div className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-30">
+        <div ref={card3.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-30">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_03</p>
@@ -290,26 +314,28 @@ export default function CinematicLandingPage() {
                
                {/* Center Router Node */}
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center z-20">
-                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                 <div className={`w-2 h-2 rounded-full bg-emerald-400 ${card3.inView ? 'animate-pulse' : ''}`} />
                </div>
 
                {/* Routing Data Packets (SVG Paths) */}
-               <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full pointer-events-none">
-                 <path id="path1" d="M 100 100 L 100 50" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
-                 <path id="path2" d="M 100 100 L 50 140" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
-                 <path id="path3" d="M 100 100 L 150 140" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
-                 
-                 {/* Moving Particles */}
-                 <circle r="3" fill="#34D399" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-500">
-                   <animateMotion dur="1s" repeatCount="indefinite" path="M 100 100 L 100 50" />
-                 </circle>
-                 <circle r="3" fill="#F43F5E" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-700">
-                   <animateMotion dur="1.5s" repeatCount="indefinite" path="M 100 100 L 50 140" />
-                 </circle>
-                 <circle r="3" fill="#6366F1" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-1000">
-                   <animateMotion dur="2s" repeatCount="indefinite" path="M 100 100 L 150 140" />
-                 </circle>
-               </svg>
+               {card3.inView && (
+                 <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full pointer-events-none">
+                   <path id="path1" d="M 100 100 L 100 50" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
+                   <path id="path2" d="M 100 100 L 50 140" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
+                   <path id="path3" d="M 100 100 L 150 140" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="4 4" />
+                   
+                   {/* Moving Particles */}
+                   <circle r="3" fill="#34D399" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-500">
+                     <animateMotion dur="1s" repeatCount="indefinite" path="M 100 100 L 100 50" />
+                   </circle>
+                   <circle r="3" fill="#F43F5E" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-700">
+                     <animateMotion dur="1.5s" repeatCount="indefinite" path="M 100 100 L 50 140" />
+                   </circle>
+                   <circle r="3" fill="#6366F1" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-1000">
+                     <animateMotion dur="2s" repeatCount="indefinite" path="M 100 100 L 150 140" />
+                   </circle>
+                 </svg>
+               )}
             </div>
           </div>
         </div>
