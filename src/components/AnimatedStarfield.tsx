@@ -53,39 +53,22 @@ export default function AnimatedStarfield() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
 
-      // Recreate the exact 200x200 CSS grid from the original implementation
-      const pattern = [
-        { x: 20, y: 30, size: 1, alpha: 1 },
-        { x: 40, y: 70, size: 1, alpha: 0.8 },
-        { x: 50, y: 160, size: 1, alpha: 0.5 },
-        { x: 90, y: 40, size: 1, alpha: 0.7 },
-        { x: 130, y: 80, size: 1, alpha: 1 },
-        { x: 160, y: 120, size: 1.5, alpha: 0.9 },
-      ];
-
       const newStars: Star[] = [];
-      for (let gridY = -200; gridY < height + 200; gridY += 200) {
-        for (let gridX = -200; gridX < width + 200; gridX += 200) {
-          pattern.forEach(p => {
-            // Add organic scatter between -40px and +40px to break rigid grid
-            const scatterX = (Math.random() - 0.5) * 80;
-            const scatterY = (Math.random() - 0.5) * 80;
-            
-            const sx = gridX + p.x + scatterX;
-            const sy = gridY + p.y + scatterY;
-            
-            if (sx > -50 && sx < width + 50 && sy > -50 && sy < height + 50) {
-                newStars.push({
-                   id: `${sx}-${sy}`,
-                   x: sx,
-                   y: sy,
-                   size: p.size,
-                   alpha: p.alpha,
-                   neighbors: []
-                });
-            }
-          });
-        }
+      
+      // Calculate amount of stars based on screen area (roughly 1 star per 6000 pixels)
+      // This gives about 300-400 stars on a standard 1080p monitor
+      const density = 7000; 
+      const numStars = Math.floor((width * height) / density);
+
+      for (let i = 0; i < numStars; i++) {
+         newStars.push({
+           id: `star-${i}`,
+           x: Math.random() * width,
+           y: Math.random() * height,
+           size: Math.random() < 0.1 ? 1.5 : 1, // 10% are slightly larger
+           alpha: 0.4 + Math.random() * 0.6, // random opacity between 0.4 and 1.0
+           neighbors: []
+         });
       }
 
       // Pre-compute neighbors (distance < 110px works well for the 200x200 grid)
@@ -97,13 +80,14 @@ export default function AnimatedStarfield() {
           const dx = newStars[i].x - newStars[j].x;
           const dy = newStars[i].y - newStars[j].y;
           const dSq = dx * dx + dy * dy;
-          if (dSq < MAX_DIST_SQ) {
+          // Only connect if distance is between 30px and 120px to avoid dense overlapping clusters
+          if (dSq > 900 && dSq < MAX_DIST_SQ) {
             dSqMap.push({ star: newStars[j], dSq });
           }
         }
-        // Take up to 4 nearest neighbors to avoid overly dense webs
+        // Take up to 3 nearest neighbors to avoid overly dense webs
         dSqMap.sort((a, b) => a.dSq - b.dSq);
-        newStars[i].neighbors = dSqMap.slice(0, 4).map(item => item.star);
+        newStars[i].neighbors = dSqMap.slice(0, 3).map(item => item.star);
       }
       stars = newStars;
 
