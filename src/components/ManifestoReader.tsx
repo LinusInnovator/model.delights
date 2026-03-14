@@ -76,7 +76,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         {/* Tone Slider */}
         <div className="flex-1 flex flex-col items-center gap-1">
           <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2">
-            <span>5th Grade</span>
+            <span>In Short</span>
             <span>Consultant</span>
             <span>Academic</span>
           </div>
