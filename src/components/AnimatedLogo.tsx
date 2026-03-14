@@ -21,12 +21,12 @@ export default function AnimatedLogo({ className = "" }: AnimatedLogoProps) {
         [class^="anim-spoke-"] {
           stroke-dasharray: 100 100;
         }
-        .anim-spoke-1 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0s; }
-        .anim-spoke-2 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.5s; }
-        .anim-spoke-3 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.0s; }
-        .anim-spoke-4 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.5s; }
-        .anim-spoke-5 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.0s; }
-        .anim-spoke-6 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.5s; }
+        .anim-spoke-1 { animation: clockSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 0s; }
+        .anim-spoke-2 { animation: clockSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.0s; }
+        .anim-spoke-3 { animation: clockSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.0s; }
+        .anim-spoke-4 { animation: clockSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 3.0s; }
+        .anim-spoke-5 { animation: clockSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 4.0s; }
+        .anim-spoke-6 { animation: clockSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 5.0s; }
       `}} />
       
       <svg 
