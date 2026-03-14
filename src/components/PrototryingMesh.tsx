@@ -16,7 +16,7 @@ export default function PrototryingMesh() {
     <div className="absolute inset-0 z-0 overflow-hidden opacity-90 pointer-events-none">
       {/* Deep Base Static Background Gradient */}
       <div className="absolute inset-0 bg-[#0f0e15]" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/20 via-transparent to-[#f97316]/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/30 via-[#d946ef]/15 to-[#f97316]/20" />
 
       {/* Foreground Left Wave SVG (Sharper) */}
       <svg
