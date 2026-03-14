@@ -70,10 +70,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         const stats = await getOptimalWriterModel();
         setAiStats(stats);
         
-        // Map the full professional text to rewrite
-        const fullText = article.blocks.map(b => {
-           return Array.isArray(b.content.professional) ? b.content.professional.join(' ') : b.content.professional;
-        }).join('\n\n');
+        // Map the full professional text to rewrite (excluding callouts to preserve them)
+        const fullText = article.blocks
+          .filter(b => b.type !== 'callout')
+          .map(b => {
+             return Array.isArray(b.content.professional) ? b.content.professional.join(' ') : b.content.professional;
+          }).join('\n\n');
         
         complete(fullText, { body: { model: stats.smartValue || stats.flagship } });
       } finally {
@@ -245,14 +247,29 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 )}
 
                 <div className="space-y-6">
-                  {completion.split('\n\n').map((paragraph: string, i: number) => (
-                    <p key={i} className="text-lg md:text-xl leading-relaxed animate-fade-in-up transition-all">
-                      {paragraph}
-                      {i === completion.split('\n\n').length - 1 && isStreaming && (
-                         <span className="inline-block w-2 h-4 bg-emerald-500 animate-pulse ml-2 -mb-1" />
-                      )}
-                    </p>
-                  ))}
+                  {completion.split('\n\n').map((paragraph: string, i: number) => {
+                    const isLast = i === completion.split('\n\n').length - 1;
+                    return (
+                      <p key={i} className="text-lg md:text-xl leading-relaxed animate-fade-in-up transition-all prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400">
+                        <span dangerouslySetInnerHTML={{ __html: paragraph }} />
+                        {isLast && isStreaming && (
+                           <span className="inline-block w-2 h-4 bg-emerald-500 animate-pulse ml-2 -mb-1" />
+                        )}
+                      </p>
+                    );
+                  })}
+                  
+                  {/* Append native callouts that shouldn't be rewritten */}
+                  {!isStreaming && completion && article.blocks.filter(b => b.type === 'callout').map((block) => {
+                    const calloutContent = Array.isArray(block.content.professional) 
+                      ? block.content.professional.join("\n") 
+                      : block.content.professional;
+                    return (
+                      <div key={`native-${block.id}`} className={`my-10 p-6 md:p-8 rounded-2xl ${noteBg} transition-all duration-500 animate-fade-in-up`}>
+                        <p className={`text-lg font-medium leading-relaxed ${headerClass} prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: calloutContent }} />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ) : (
