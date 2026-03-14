@@ -87,8 +87,6 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     }
   }, [completion, isStreaming, isAiLoading, article, complete]);
 
-  if (!mounted) return null;
-
   const themeClasses = useMemo(() => ({
     bgClass: theme === "dark" ? "bg-[#09090b] text-zinc-300" : "bg-[#fafafa] text-zinc-800",
     headerClass: theme === "dark" ? "text-white" : "text-black",
@@ -98,6 +96,8 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   }), [theme]);
 
   const { bgClass, headerClass, controlPanelBg, noteBg, noteText } = themeClasses;
+
+  if (!mounted) return null;
 
   return (
     <div className={`min-h-screen w-full transition-colors duration-700 font-sans ${bgClass} pb-40`}>
