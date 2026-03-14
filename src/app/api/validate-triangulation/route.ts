@@ -297,12 +297,12 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
     } catch (error: unknown) {
         console.error("====== DEADLY TRIANGULATION EXCEPTION ======");
         console.error(error);
-        if (error.cause) console.error("CAUSE:", error.cause);
+        if ((error as any).cause) console.error("CAUSE:", (error as any).cause);
         console.error("===========================================");
         return new NextResponse(JSON.stringify({
             error: "Failed to process triangulation.",
-            details: (error as Error).message || error.toString(),
-            cause: error.cause ? error.cause.toString() : undefined
+            details: (error as Error).message || (error as any).toString(),
+            cause: (error as any).cause ? (error as any).cause.toString() : undefined
         }), { status: 500, headers: { "Content-Type": "application/json" } });
     }
 }

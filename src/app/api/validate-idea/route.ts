@@ -94,8 +94,8 @@ Core Principles:
         console.error("Autopsy Engine error:", error);
         return new NextResponse(JSON.stringify({
             error: "Failed to process validation.",
-            details: (error as Error).message || error.toString(),
-            cause: error.cause ? error.cause.toString() : undefined
+            details: (error as Error).message || (error as any).toString(),
+            cause: (error as any).cause ? (error as any).cause.toString() : undefined
         }), { status: 500, headers: { "Content-Type": "application/json" } });
     }
 }
