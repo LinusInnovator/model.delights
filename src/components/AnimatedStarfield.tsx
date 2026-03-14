@@ -28,6 +28,7 @@ export default function AnimatedStarfield() {
     if (!ctx) return;
 
     let animationFrameId: number;
+    let initialTimeoutId: NodeJS.Timeout;
     let stars: Star[] = [];
     
     // Persistent network state
@@ -103,13 +104,17 @@ export default function AnimatedStarfield() {
       awakeNodes.clear();
       activeLines.clear();
       fronts = [];
+      clearTimeout(initialTimeoutId);
 
-      // Seed the initial network growth
-      const startNode = stars[Math.floor(Math.random() * stars.length)];
-      if (startNode) {
-        awakeNodes.add(startNode);
-        seedFronts(startNode);
-      }
+      // Seed the initial network growth after a 2-second delay
+      // so the underlying static star map is clearly visible first
+      initialTimeoutId = setTimeout(() => {
+        const startNode = stars[Math.floor(Math.random() * stars.length)];
+        if (startNode) {
+          awakeNodes.add(startNode);
+          seedFronts(startNode);
+        }
+      }, 2000);
     };
 
     const getLineId = (a: Star, b: Star) => {
@@ -257,6 +262,7 @@ export default function AnimatedStarfield() {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
       clearTimeout(resizeTimeout);
+      clearTimeout(initialTimeoutId);
     };
   }, []);
 
