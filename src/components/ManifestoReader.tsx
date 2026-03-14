@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
 import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -34,14 +34,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     streamProtocol: 'text'
   });
 
-  const getToneFromSlider = (pos: number): ToneLevel | 'ai' => {
-    if (pos === 1) return 'simple';
-    if (pos === 2) return 'professional';
-    if (pos === 3) return 'academic';
+  const currentTone = useMemo(() => {
+    if (sliderPos === 1) return 'simple';
+    if (sliderPos === 2) return 'professional';
+    if (sliderPos === 3) return 'academic';
     return 'ai';
-  };
-
-  const currentTone = getToneFromSlider(sliderPos);
+  }, [sliderPos]);
 
   // Smooth appearance on load
   const [mounted, setMounted] = useState(false);
@@ -49,18 +47,18 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     setMounted(true);
   }, []);
 
-  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleHeroMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     setHeroPanPos({ x, y });
-  };
+  }, []);
 
-  const handleHeroMouseLeave = () => {
+  const handleHeroMouseLeave = useCallback(() => {
     setHeroPanPos({ x: 50, y: 35 }); // Reset to a cinematic slight-top focus
-  };
+  }, []);
 
-  const handleSliderChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSliderChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
     setSliderPos(val);
 
@@ -87,15 +85,19 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         setIsAiLoading(false);
       }
     }
-  };
+  }, [completion, isStreaming, isAiLoading, article, complete]);
 
   if (!mounted) return null;
 
-  const bgClass = theme === "dark" ? "bg-[#09090b] text-zinc-300" : "bg-[#fafafa] text-zinc-800";
-  const headerClass = theme === "dark" ? "text-white" : "text-black";
-  const controlPanelBg = theme === "dark" ? "bg-zinc-900/80 border-zinc-800" : "bg-white/80 border-zinc-200";
-  const noteBg = theme === "dark" ? "bg-zinc-900/50 border-emerald-500/20" : "bg-emerald-50 border-emerald-500/20";
-  const noteText = theme === "dark" ? "text-zinc-400" : "text-zinc-600";
+  const themeClasses = useMemo(() => ({
+    bgClass: theme === "dark" ? "bg-[#09090b] text-zinc-300" : "bg-[#fafafa] text-zinc-800",
+    headerClass: theme === "dark" ? "text-white" : "text-black",
+    controlPanelBg: theme === "dark" ? "bg-zinc-900/80 border-zinc-800" : "bg-white/80 border-zinc-200",
+    noteBg: theme === "dark" ? "bg-zinc-900/50 border-emerald-500/20" : "bg-emerald-50 border-emerald-500/20",
+    noteText: theme === "dark" ? "text-zinc-400" : "text-zinc-600"
+  }), [theme]);
+
+  const { bgClass, headerClass, controlPanelBg, noteBg, noteText } = themeClasses;
 
   return (
     <div className={`min-h-screen w-full transition-colors duration-700 font-sans ${bgClass} pb-40`}>
