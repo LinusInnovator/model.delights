@@ -238,11 +238,14 @@ export default function CinematicLandingPage() {
                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20" />
                {/* Central Idea Node */}
                <div className="relative w-32 h-32 rounded-full border-2 border-zinc-700 bg-zinc-900 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                 <div className={`w-16 h-16 rounded-full bg-zinc-800 ${card1.inView ? 'animate-pulse' : ''} relative z-10`} />
-                 
-                 {/* Rare Green Team Hit Flash (Every ~12 seconds) */}
-                 <div className={`absolute inset-0 rounded-full bg-emerald-500/80 blur-md min-h-full mix-blend-screen opacity-0 ${card1.inView ? 'group-hover:animate-[pulse_12s_ease-in-out_infinite_4s]' : ''} z-20 transition-opacity duration-1000`} />
-                 <div className={`absolute inset-0 rounded-full bg-emerald-400 opacity-0 ${card1.inView ? 'group-hover:animate-[pulse_12s_ease-in-out_infinite_4s]' : ''} z-20 transition-opacity duration-1000`} />
+                 {/* Inner Idea Core (Target of the Green Flash) */}
+                 <div className="relative w-16 h-16 z-20">
+                   <div className={`absolute inset-0 rounded-full bg-zinc-800 ${card1.inView ? 'animate-pulse' : ''} z-10`} />
+                   
+                   {/* Rare Green Team Hit Flash (Every ~12 seconds) */}
+                   <div className={`absolute inset-[-8px] rounded-full bg-emerald-500/80 blur-md opacity-0 ${card1.inView ? 'group-hover:animate-[pulse_12s_ease-in-out_infinite_4s]' : ''} z-20 transition-opacity duration-1000`} />
+                   <div className={`absolute inset-0 rounded-full bg-emerald-400 shadow-[0_0_20px_#34D399] opacity-0 ${card1.inView ? 'group-hover:animate-[pulse_12s_ease-in-out_infinite_4s]' : ''} z-30 transition-opacity duration-1000`} />
+                 </div>
 
                  {/* Laser Hit Trace (Synchronized with Scan Line) */}
                  <div className={`absolute inset-[-2px] rounded-full opacity-0 ${card1.inView ? 'group-hover:opacity-100 group-hover:animate-[spin_4s_linear_infinite]' : ''} transition-opacity duration-300 pointer-events-none`}
