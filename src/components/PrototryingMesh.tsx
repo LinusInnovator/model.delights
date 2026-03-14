@@ -16,7 +16,7 @@ export default function PrototryingMesh() {
     <div className="absolute inset-0 z-0 overflow-hidden opacity-90 pointer-events-none">
       {/* GPU Tiled Starfield (100% css performance, no JS) */}
       <div 
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="absolute inset-0 z-0 pointer-events-none mix-blend-screen"
         style={{
           backgroundImage: `
             radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.8), rgba(0,0,0,0)), 
@@ -35,7 +35,7 @@ export default function PrototryingMesh() {
       {/* Foreground Left Wave SVG (Sharper) */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[150vw] h-[100vh] bottom-0 -left-[25vw] opacity-70 mix-blend-screen blur-[15px] z-10"
+        className="absolute w-[150vw] h-[100vh] bottom-0 -left-[25vw] opacity-70 blur-[15px] z-10 pointer-events-none"
         preserveAspectRatio="none"
       >
         <defs>
@@ -56,7 +56,7 @@ export default function PrototryingMesh() {
       {/* Foreground Right Wave SVG (Sharper) */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[150vw] h-[100vh] -top-[10%] -right-[25vw] opacity-60 mix-blend-screen blur-[20px] z-10"
+        className="absolute w-[150vw] h-[100vh] -top-[10%] -right-[25vw] opacity-80 blur-[20px] z-10 pointer-events-none"
         preserveAspectRatio="none"
       >
         <defs>
