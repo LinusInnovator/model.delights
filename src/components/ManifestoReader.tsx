@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
+import { Sun, Moon } from "@phosphor-icons/react";
 
 interface ManifestoReaderProps {
   article: ManifestoArticle;
@@ -63,7 +64,11 @@ export default function ManifestoReader({ article }: ManifestoReaderProps) {
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           className="flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity"
         >
-          {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+          {theme === 'dark' ? (
+            <><Sun weight="bold" className="w-4 h-4" /> Light</>
+          ) : (
+            <><Moon weight="bold" className="w-4 h-4" /> Dark</>
+          )}
         </button>
 
         {/* Tone Slider */}
