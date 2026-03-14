@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { ClerkProvider } from '@clerk/nextjs';
 import TopBarAuth from "../components/TopBarAuth";
@@ -14,6 +14,17 @@ const inter = Inter({
 
 const outfit = Outfit({
   variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  style: ["normal", "italic"]
+});
+
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 });
 
@@ -44,7 +55,13 @@ export default function RootLayout({
         <head>
           <Script src="https://unpkg.com/@phosphor-icons/web" strategy="beforeInteractive" />
         </head>
-        <body className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col`}>
+        <body className={`${inter.variable} ${outfit.variable} ${playfair.variable} ${jetbrains.variable} antialiased min-h-screen flex flex-col`}>
+          <svg className="pointer-events-none fixed inset-0 z-50 h-[100dvh] w-full opacity-[0.05]">
+            <filter id="noiseFilter">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+          </svg>
           <div className="glass-bg"></div>
           <TopBarAuth />
           <main className="flex-grow">
