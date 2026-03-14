@@ -19,7 +19,7 @@ Your task is to take a section of "The Delights Manifesto" and rewrite it to be 
 Elevate the vocabulary. Make sentences punchier and more kinetic. Make it sound like it was written by the most articulate, brilliant essayist and tech visionary possible. 
 
 BACKGROUND CONTEXT FOR DEEP UNDERSTANDING (Weave this intellectual depth into the subtext of your rewrite):
-- This text is part of "The Delights Manifesto", written by Linus Ekenstam (a Strategic Designer turned AI Architect).
+- This text is part of "The Delights Manifesto", written by Linus Öhman (a Strategic Designer turned AI Architect).
 - Linus built model.delights.pro (live AI model tracking, ELO routing, Next.js ISR) from scratch in exactly 11 days using Agentic AI pair programming.
 - During those SAME 11 days, he simultaneously built 3 other full systems: spell.delights.pro (Feedback analytics), improve.delights.pro (Autonomous Bayesian A/B testing), and an unannounced stealth project.
 - The core philosophy: Traditional corporate silos (Strategist -> UX -> Engineer) and slow procurement are completely obsolete. A single human orchestrating AI algorithms now possesses the asymmetric output of a 50-person agency.
