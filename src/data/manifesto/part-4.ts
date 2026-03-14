@@ -50,9 +50,9 @@ export const article4: ManifestoArticle = {
       id: "p1",
       type: "p",
       content: {
-        simple: "If a big company wants to change, they usually hire a consulting firm. The firm charges millions of dollars to write a long document about how the company should change. But nothing actually changes.",
-        professional: "I've sold digital transformation and strategic design for decades. I know how the sausage is made. Companies pay millions for massive PowerPoint decks outlining *how* they might eventually become customer-focused. We map out abstract journeys and five-year Horizons.",
-        academic: "The traditional consulting model relies on the production of theoretical architecture: customer journey maps, abstracted service blueprints, and predictive roadmaps. This documentation acts as a proxy for actual transformation."
+        simple: "Big companies spend a lot of time planning. They have meetings and make big presentations, but nothing actually gets built. We needed to stop planning and start making.",
+        professional: "I've sold digital transformation and strategic design for decades. I know how the sausage is made. Companies pay millions for massive PowerPoint decks outlining <em>how</em> they might eventually become customer-focused. We map out abstract journeys and five-year Horizons.",
+        academic: "In legacy environments (Horizon 1), structural iteration is paralyzed by theoretical planning. The enterprise expends vast capital on predictive documentation—journey maps and multi-year strategic architectures—prior to any empirical validation."
       }
     },
     {
@@ -87,9 +87,9 @@ export const article4: ManifestoArticle = {
       id: "p4",
       type: "p",
       content: {
-        simple: "Instead of telling people what I was going to do, I just did it. An AI and I built the entire thing in 11 days. We proved it worked.",
-        professional: "Instead of writing an SOW outlining how we *might* scrape OpenRouter APIs and *might* use Next.js ISR for caching... I just built the damn thing entirely in 11 days. I bypassed Agile Theater completely. ",
-        academic: "Instead of detailing the theoretical capacity of Next.js Incremental Static Regeneration to hydrate an edge network without a centralized database, the system was fully coded in 11 days. This circumvents the systemic inefficiencies of 'Agile Theater'."
+        simple: "Instead of talking about how we could build something, I just built it in a few days. Why make a plan when you can make the actual product?",
+        professional: "Instead of writing an SOW outlining how we <em>might</em> scrape OpenRouter APIs and <em>might</em> use Next.js ISR for caching... I just built the damn thing entirely in 11 days. I bypassed Agile Theater completely. ",
+        academic: "Instead of engaging in speculative documentation regarding potential API integration vectors or hypothetical caching architectures, the system was directly compiled and deployed. This empirical execution effectively bypassed the 'Agile Theater' inherent in modern enterprise methodology."
       },
       marginNoteId: "agile-theater"
     },

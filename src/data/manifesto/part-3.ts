@@ -84,7 +84,7 @@ export const article3: ManifestoArticle = {
       type: "p",
       content: {
         simple: "When a designer draws a beautiful picture, they have to hand it to a programmer to build. The programmer is tired and busy, so they use a boring template instead.",
-        professional: "The death of Taste happens in what I call the **Translation Layer**. A Strategic Designer defines the future vision. A Service Designer tries to map the touchpoints. A UX Lead draws up a beautiful, kinetic interface in Figma. They hand it to a Product Manager, who chops it up into Jira tickets. Those tickets go to a stressed Front-End team battling technical debt. To save time, they use generic UI components. The magic is translated into generic SaaS sludge.",
+        professional: "The death of Taste happens in what I call the <strong>Translation Layer</strong>. A Strategic Designer defines the future vision. A Service Designer tries to map the touchpoints. A UX Lead draws up a beautiful, kinetic interface in Figma. They hand it to a Product Manager, who chops it up into Jira tickets. Those tickets go to a stressed Front-End team battling technical debt. To save time, they use generic UI components. The magic is translated into generic SaaS sludge.",
         academic: "The core mechanism driving UX degradation is the 'Translation Layer.' When high-level strategic intent originates with a designer, it inevitably suffers information loss as it traverses operational hierarchies (Strategy to Service Design, to UX, to Product Management, to Engineering). To optimize throughput, engineering defaults to commoditized UI libraries, neutralizing the original kinetic intent."
       },
       marginNoteId: "translation-layer"

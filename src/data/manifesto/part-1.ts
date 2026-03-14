@@ -139,9 +139,9 @@ export const article1: ManifestoArticle = {
       id: "p8",
       type: "p",
       content: {
-        simple: "Instead of building a database, we plugged our website directly into the internet. Every 5 minutes, our website looks at the live AI data, updates all the prices and logic, and builds a brand new version of itself automatically.",
-        professional: "I didn't want to build a platform; I wanted to build an *engine*. So, we scrapped the native database entirely for the AI models. Instead, we wired Next.js backend infrastructure to directly hit live external API endpoints from OpenRouter globally. Every 5 minutes, the server wakes up in the background, fetches the absolute latest pricing and context windows, completely rebuilds the UI, and publishes a new static version of the site.",
-        academic: "We eschewed a localized relational database in favor of a stateless API hydration model. The Next.js framework leverages Incremental Static Regeneration to asynchronously poll external endpoints and rehydrate the Vercel edge network every 300 seconds."
+        simple: "I didn't want to build a normal website; I wanted to build an engine. So, we didn't use a normal database. Instead, the website talks directly to other AI robots constantly. Every 5 minutes, it checks for updates and builds a brand new version of itself.",
+        professional: "I didn't want to build a platform; I wanted to build an <em>engine</em>. So, we scrapped the native database entirely for the AI models. Instead, we wired Next.js backend infrastructure to directly hit live external API endpoints from OpenRouter globally. Every 5 minutes, the server wakes up in the background, fetches the absolute latest pricing and context windows, completely rebuilds the UI, and publishes a new static version of the site.",
+        academic: "The architectural mandate transitioned from a static repository to a dynamic, self-hydrating engine. By eliminating local database dependencies, the execution layer establishes persistent, direct connectivity with globally distributed API endpoints. Through scheduled differential analysis (CRON-triggered Incremental Static Regeneration), the platform autonomously reconstructs and deploys its entire interface topology upon detecting price or context derivations."
       },
       marginNoteId: "tech-isr"
     },

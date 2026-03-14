@@ -106,9 +106,9 @@ export const article2: ManifestoArticle = {
       id: "p5",
       type: "p",
       content: {
-        simple: "But how does the website know if a brand new AI is smart or not? It guesses. If an AI costs a lot of money and has a fancy name like 'GPT-5', our system automatically puts it at the top of the list.",
-        professional: "But here is the final, brutal problem: LMSYS ELO leaderboards are the gold standard for ranking models, but they are entirely manual and take weeks to process a new model. If OpenAI drops 'GPT-5' at 2:00 AM, OpenRouter will have the API ready by 2:05 AM. But LMSYS won't rank it until April. How do you automate *that*?",
-        academic: "A critical dependency conflict arises regarding qualitative model assessment. The industry-standard LMSYS ELO benchmarks operate on a high-latency, manual human-evaluation cycle, frequently trailing API availability by several weeks."
+        simple: "Even the best scoreboard in the world is too slow. It's updated by humans. So, we wrote a giant math equation to guess how good the AI is, instantly.",
+        professional: "But here is the final, brutal problem: LMSYS ELO leaderboards are the gold standard for ranking models, but they are entirely manual and take weeks to process a new model. If OpenAI drops 'GPT-5' at 2:00 AM, OpenRouter will have the API ready by 2:05 AM. But LMSYS won't rank it until April. How do you automate <em>that</em>?",
+        academic: "The primary challenge resides in the manual nature of authoritative benchmarking entities like LMSYS. While their Elo ratings are highly accurate, their evaluation latency introduces unacceptable delays in a continuously deploying ecosystem. The system required an algorithmic proxy to calculate assumed intelligence quotients instantaneously."
       }
     },
     {
