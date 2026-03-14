@@ -22410,6 +22410,21 @@
           "provider": "qwen"
         }
       ]
+    },
+    {
+      "entity_id": "ent_60e0aa62",
+      "model_id": "fal-ai/kling-video/o3/pro/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kling-video/o3/pro/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
