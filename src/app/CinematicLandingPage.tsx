@@ -258,7 +258,7 @@ export default function CinematicLandingPage() {
       {/* PROTOCOL SECION */}
       <section className="relative w-full bg-zinc-950 pb-40">
         {/* Card 1 */}
-        <div ref={card1.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-10">
+        <div ref={card1.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-gradient-to-b from-[#09090b] to-black rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-10 pt-20">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_01</p>
@@ -302,7 +302,7 @@ export default function CinematicLandingPage() {
         </div>
 
         {/* Card 2 */}
-        <div ref={card2.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-20">
+        <div ref={card2.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-gradient-to-b from-black to-[#050508] rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-20 pt-20">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div className="hidden md:flex aspect-square rounded-[3rem] border border-zinc-800 bg-black items-center justify-center relative overflow-hidden">
                <div className="w-full h-full relative p-12 flex flex-col justify-end gap-2">
@@ -352,7 +352,7 @@ export default function CinematicLandingPage() {
         </div>
 
         {/* Card 3 */}
-        <div ref={card3.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 relative z-30">
+        <div ref={card3.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-gradient-to-b from-[#050508] to-black rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-30 pt-20">
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_03</p>
