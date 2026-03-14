@@ -9,9 +9,10 @@ import { Metadata, ResolvingMetadata } from "next";
 const articles = [article1, article2, article3, article4, article5];
 
 export async function generateMetadata(
-  { searchParams }: { searchParams: { article?: string } }
+  { searchParams }: { searchParams: Promise<{ article?: string }> }
 ): Promise<Metadata> {
-  const targetSlug = searchParams.article || "part-1-roman-politicians";
+  const resolvedParams = await searchParams;
+  const targetSlug = resolvedParams.article || "part-1-roman-politicians";
   const activeArticle = articles.find((a) => a.slug === targetSlug) || article1;
   const canonicalUrl = `https://model.delights.pro/manifesto?article=${activeArticle.slug}`;
 
@@ -44,12 +45,13 @@ export async function generateMetadata(
   };
 }
 
-export default function ManifestoPage({
+export default async function ManifestoPage({
   searchParams,
 }: {
-  searchParams: { article?: string };
+  searchParams: Promise<{ article?: string }>;
 }) {
-  const targetSlug = searchParams.article || "part-1-roman-politicians";
+  const resolvedParams = await searchParams;
+  const targetSlug = resolvedParams.article || "part-1-roman-politicians";
   const activeArticle = articles.find((a) => a.slug === targetSlug) || article1;
 
   // AIEO (AI Engine Optimization) & SEO structured data
