@@ -175,7 +175,7 @@ export default function CinematicLandingPage() {
 
       {/* PHILOSOPHY SECTION */}
       <section className="philo-section relative w-full py-40 px-6 md:px-16 bg-transparent">
-        <PrototryingMesh />
+        <PrototryingMesh hideStars topGradientVariant="philosophy" />
         <div className="absolute inset-0 bg-zinc-950/70 z-10 pointer-events-none" />
         <div className="relative z-20 max-w-5xl mx-auto flex flex-col gap-16">
           <h2 className="philo-line text-2xl md:text-4xl font-medium text-zinc-500 tracking-tight">

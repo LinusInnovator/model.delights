@@ -4,7 +4,12 @@ import React, { useId, useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import AnimatedStarfield from "./AnimatedStarfield";
 
-export default function PrototryingMesh() {
+interface PrototryingMeshProps {
+  hideStars?: boolean;
+  topGradientVariant?: 'default' | 'philosophy';
+}
+
+export default function PrototryingMesh({ hideStars = false, topGradientVariant = 'default' }: PrototryingMeshProps) {
   const { scrollYProgress } = useScroll();
   
   // As the user scrolls down (0 -> 1), move the stars UP, but slower than the document (parallax)
@@ -27,7 +32,7 @@ export default function PrototryingMesh() {
       <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/30 via-[#d946ef]/15 to-[#ea580c]/30 mix-blend-screen pointer-events-none" />
 
       {/* High-Performance Canvas Starfield Constellation */}
-      <AnimatedStarfield />
+      {!hideStars && <AnimatedStarfield />}
 
       {/* Foreground Left Wave SVG (Sharper) */}
       <svg
@@ -57,15 +62,23 @@ export default function PrototryingMesh() {
         preserveAspectRatio="none"
       >
         <defs>
-          <linearGradient id="appleGrad4" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#fbbf24" />   {/* Golden Amber */}
-            <stop offset="50%" stopColor="#f97316" />  {/* Vibrant Orange */}
-            <stop offset="100%" stopColor="#e11d48" /> {/* Sunset Rose */}
-          </linearGradient>
+          {topGradientVariant === 'default' ? (
+            <linearGradient id={`${useId()}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#fbbf24" />   {/* Golden Amber */}
+              <stop offset="50%" stopColor="#f97316" />  {/* Vibrant Orange */}
+              <stop offset="100%" stopColor="#e11d48" /> {/* Sunset Rose */}
+            </linearGradient>
+          ) : (
+            <linearGradient id={`${useId()}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#8b5cf6" />   {/* Violet */}
+              <stop offset="50%" stopColor="#d946ef" />  {/* Fuchsia */}
+              <stop offset="100%" stopColor="#f43f5e" /> {/* Rose */}
+            </linearGradient>
+          )}
         </defs>
         <motion.path
           d={fgTopPath1}
-          fill="url(#appleGrad4)"
+          fill={`url(#${useId()}-grad)`}
           animate={{ d: [fgTopPath1, fgTopPath2, fgTopPath1] }}
           transition={{ duration: 16, ease: "easeInOut", repeat: Infinity, delay: 3 }}
         />
