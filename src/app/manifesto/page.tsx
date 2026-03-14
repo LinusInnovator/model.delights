@@ -81,7 +81,7 @@ export default function ManifestoPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ManifestoReader article={activeArticle} allArticles={articles} />
+      <ManifestoReader key={activeArticle.slug} article={activeArticle} allArticles={articles} />
     </div>
   );
 }

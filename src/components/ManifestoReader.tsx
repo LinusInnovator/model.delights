@@ -289,7 +289,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
               return (
                 <>
                   {prevArticle && (
-                    <Link href={`?article=${prevArticle.slug}`} className={`flex-1 group flex flex-col p-8 rounded-2xl border transition-all duration-500 ${theme === 'dark' ? 'border-zinc-800 hover:border-emerald-500 hover:bg-zinc-900/50' : 'border-zinc-200 hover:border-emerald-500 hover:bg-zinc-50'}`}>
+                    <Link href={`/manifesto?article=${prevArticle.slug}`} scroll={true} className={`flex-1 group flex flex-col p-8 rounded-2xl border transition-all duration-500 ${theme === 'dark' ? 'border-zinc-800 hover:border-emerald-500 hover:bg-zinc-900/50' : 'border-zinc-200 hover:border-emerald-500 hover:bg-zinc-50'}`}>
                       <div className="flex items-center gap-3 text-emerald-500 mb-4 font-mono text-xs tracking-widest uppercase">
                         <ArrowLeft weight="bold" /> Previous Part
                       </div>
@@ -299,7 +299,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                     </Link>
                   )}
                   {nextArticle && (
-                    <Link href={`?article=${nextArticle.slug}`} className={`flex-1 group flex flex-col p-8 rounded-2xl border transition-all duration-500 ${theme === 'dark' ? 'border-zinc-800 hover:border-emerald-500 hover:bg-zinc-900/50' : 'border-zinc-200 hover:border-emerald-500 hover:bg-zinc-50'} text-right items-end`}>
+                    <Link href={`/manifesto?article=${nextArticle.slug}`} scroll={true} className={`flex-1 group flex flex-col p-8 rounded-2xl border transition-all duration-500 ${theme === 'dark' ? 'border-zinc-800 hover:border-emerald-500 hover:bg-zinc-900/50' : 'border-zinc-200 hover:border-emerald-500 hover:bg-zinc-50'} text-right items-end`}>
                       <div className="flex items-center gap-3 text-emerald-500 mb-4 font-mono text-xs tracking-widest uppercase">
                         Next Part <ArrowRight weight="bold" />
                       </div>
@@ -317,12 +317,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
         {/* Right: Margin Notes (Desktop Only) */}
         <aside className="hidden lg:block w-72 relative">
-          <div className="sticky top-48 h-[calc(100vh-12rem)]">
+          <div className="sticky top-48 h-[calc(100vh-12rem)] flex flex-col">
             <h3 className="font-mono text-xs tracking-widest text-emerald-500 mb-8 border-b border-emerald-500/20 pb-4">
               MARGIN NOTES
             </h3>
             
-            <div className="space-y-4">
+            <div className="space-y-4 flex-1 overflow-y-auto pr-2 pb-10">
               {Object.values(article.marginNotes).map((note) => {
                 const isActive = activeNote === note.id;
                 return (
@@ -342,7 +342,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
             </div>
             
             {!activeNote && (
-              <p className="absolute bottom-10 left-0 text-xs font-mono opacity-30 italic">
+              <p className="mt-auto pt-4 text-xs font-mono opacity-30 italic">
                 Hover over paragraphs to reveal context notes.
               </p>
             )}
