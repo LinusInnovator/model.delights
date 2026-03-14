@@ -96,9 +96,15 @@ export default function CinematicLandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Card 1: Diagnostic */}
-          <Link href="/validate" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-colors">
+          <Link href="/validate" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
             <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Pre-Mortem Diagnostics</h3>
             <p className="text-zinc-400 text-sm">Validating product-market friction.</p>
+
+            {/* Click-selling Rollover Badge */}
+            <div className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-[family-name:var(--font-inter)] text-xs font-medium translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+               Run Diagnostics <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </div>
+
             <div className="absolute bottom-10 left-8 right-8 h-40 flex items-center justify-center">
                <div className="w-full h-full border border-emerald-500/20 rounded-xl bg-emerald-950/20 flex flex-col items-center justify-center gap-2 group-hover:-translate-y-2 transition-transform duration-500">
                   <div className="text-emerald-400 font-[family-name:var(--font-jetbrains)] text-xs">Simulating Go-To-Market...</div>
@@ -110,9 +116,15 @@ export default function CinematicLandingPage() {
           </Link>
 
           {/* Card 2: PRD Typewriter */}
-          <Link href="/super-architect" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-colors">
+          <Link href="/super-architect" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
             <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Generative Architecture</h3>
             <p className="text-zinc-400 text-sm">Streaming Kano-model product specs.</p>
+
+            {/* Click-selling Rollover Badge */}
+            <div className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-[family-name:var(--font-inter)] text-xs font-medium translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+               Open Architect <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </div>
+
             <div className="absolute bottom-10 left-8 right-8 h-40 border border-zinc-800 rounded-xl bg-black p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
               <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
                 <span className="text-emerald-400 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Live Feed</span>
@@ -125,9 +137,15 @@ export default function CinematicLandingPage() {
           </Link>
 
           {/* Card 3: Scheduler */}
-          <Link href="/models" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-colors">
+          <Link href="/models" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
             <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">B2B Routing SDK</h3>
             <p className="text-zinc-400 text-sm">Zero-maintenance live API arbitrage.</p>
+
+            {/* Click-selling Rollover Badge */}
+            <div className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-[family-name:var(--font-inter)] text-xs font-medium translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+               View SDK <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </div>
+
             <div className="absolute bottom-10 left-8 right-8 h-40 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
                <div className="grid grid-cols-7 gap-1 h-2/3">
                   {[...Array(14)].map((_, i) => (
