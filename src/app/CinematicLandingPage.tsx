@@ -87,15 +87,15 @@ export default function CinematicLandingPage() {
       
       {/* Fixed Branding Header (Persists across scroll) */}
       <header className="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex items-center gap-4 pointer-events-none">
-        <div className="relative w-10 h-10 rounded shrink-0 overflow-hidden mix-blend-lighten opacity-90 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+        <div className="relative w-10 h-10 rounded shrink-0 overflow-hidden mix-blend-screen opacity-90 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
           {/* Note: using native img for simpler mix-blend support, but Next/Image could also work if unoptimized */}
           <img 
             src="/logo.png" 
             alt="Model Delights Pro Logo" 
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain contrast-[3] brightness-[0.7] saturate-0"
           />
         </div>
-        <span className="font-[family-name:var(--font-jetbrains)] text-base font-medium tracking-wider text-zinc-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        <span className="font-[family-name:var(--font-inter)] text-xl font-bold tracking-tight text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           model.delights.pro
         </span>
       </header>
@@ -139,7 +139,7 @@ export default function CinematicLandingPage() {
             <p className="text-zinc-400 text-sm relative z-10">Exposing critical market assumptions.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute top-8 right-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                Run Diagnostics <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
@@ -167,7 +167,7 @@ export default function CinematicLandingPage() {
             <p className="text-zinc-400 text-sm relative z-10">Translating ideas to production boilerplates.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute top-8 right-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                Open Architect <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
@@ -199,7 +199,7 @@ export default function CinematicLandingPage() {
             <p className="text-zinc-400 text-sm relative z-10">Dynamic model routing for maximum ROI.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute top-8 right-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-0 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                View SDK <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
