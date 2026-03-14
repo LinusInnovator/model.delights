@@ -83,8 +83,23 @@ export default function CinematicLandingPage() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full bg-zinc-950 text-zinc-100 overflow-hidden font-sans">
+    <div ref={containerRef} className="w-full bg-zinc-950 text-zinc-100 overflow-hidden font-sans relative">
       
+      {/* Fixed Branding Header (Persists across scroll) */}
+      <header className="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex items-center gap-4 pointer-events-none">
+        <div className="relative w-10 h-10 rounded shrink-0 overflow-hidden mix-blend-lighten opacity-90 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+          {/* Note: using native img for simpler mix-blend support, but Next/Image could also work if unoptimized */}
+          <img 
+            src="/logo.png" 
+            alt="Model Delights Pro Logo" 
+            className="w-full h-full object-contain"
+          />
+        </div>
+        <span className="font-[family-name:var(--font-jetbrains)] text-base font-medium tracking-wider text-zinc-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          model.delights.pro
+        </span>
+      </header>
+
       {/* HERO SECTION */}
       <section className="relative h-[100dvh] w-full flex flex-col justify-end px-6 md:px-16 pb-24 md:pb-32 bg-black">
         <PrototryingMesh id="hero-mesh" />
