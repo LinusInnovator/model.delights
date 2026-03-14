@@ -30,7 +30,7 @@ export default function PrototryingMesh() {
       {/* Top Left Organic Wave SVG */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[300vw] h-[120vh] -top-[10%] -left-[100vw] opacity-50 mix-blend-screen blur-[40px]"
+        className="absolute w-[150vw] h-[120vh] -top-[10%] -left-[25vw] opacity-50 mix-blend-screen blur-[40px]"
         preserveAspectRatio="none"
       >
         <defs>
@@ -51,7 +51,7 @@ export default function PrototryingMesh() {
       {/* Bottom Right Counter-Wave SVG */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[300vw] h-[120vh] -bottom-[10%] -right-[100vw] opacity-40 mix-blend-screen blur-[50px]"
+        className="absolute w-[150vw] h-[120vh] -bottom-[10%] -right-[25vw] opacity-40 mix-blend-screen blur-[50px]"
         preserveAspectRatio="none"
       >
         <defs>
@@ -72,7 +72,7 @@ export default function PrototryingMesh() {
       {/* Foreground Left Wave SVG (Sharper) */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[250vw] h-[100vh] bottom-0 -left-[75vw] opacity-70 mix-blend-screen blur-[15px] z-10"
+        className="absolute w-[150vw] h-[100vh] bottom-0 -left-[25vw] opacity-70 mix-blend-screen blur-[15px] z-10"
         preserveAspectRatio="none"
       >
         <defs>
@@ -93,7 +93,7 @@ export default function PrototryingMesh() {
       {/* Foreground Right Wave SVG (Sharper) */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[250vw] h-[100vh] -top-[10%] -right-[75vw] opacity-60 mix-blend-screen blur-[20px] z-10"
+        className="absolute w-[150vw] h-[100vh] -top-[10%] -right-[25vw] opacity-60 mix-blend-screen blur-[20px] z-10"
         preserveAspectRatio="none"
       >
         <defs>
