@@ -18,6 +18,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [activeNote, setActiveNote] = useState<string | null>(null);
 
+  // Image Panning State
+  const [heroPanPos, setHeroPanPos] = useState({ x: 50, y: 35 });
+
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiStats, setAiStats] = useState<any>(null);
 
@@ -40,6 +43,17 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setHeroPanPos({ x, y });
+  };
+
+  const handleHeroMouseLeave = () => {
+    setHeroPanPos({ x: 50, y: 35 }); // Reset to a cinematic slight-top focus
+  };
 
   const handleSliderChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
@@ -173,18 +187,28 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
           {/* Hero Image */}
           {article.heroImage && (
-            <div className={`mb-16 relative w-full aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
-              <Image 
-                src={article.heroImage.url} 
-                alt={article.heroImage.alt} 
-                fill 
-                className="object-cover object-center translate-y-[-10%]"
-                priority
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
+            <div 
+              className={`mb-16 relative w-full aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in group cursor-crosshair ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}
+              onMouseMove={handleHeroMouseMove}
+              onMouseLeave={handleHeroMouseLeave}
+            >
+              <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                <Image 
+                  src={article.heroImage.url} 
+                  alt={article.heroImage.alt} 
+                  fill 
+                  style={{
+                    objectPosition: `${heroPanPos.x}% ${heroPanPos.y}%`,
+                    transition: "object-position 0.15s ease-out"
+                  }}
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
+              </div>
               {/* Vignette Overlay for cinematic bleed */}
               {theme === "dark" && (
-                <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80 pointer-events-none z-10 transition-opacity duration-700 group-hover:opacity-60" />
               )}
             </div>
           )}
