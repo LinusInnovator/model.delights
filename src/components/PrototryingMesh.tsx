@@ -6,10 +6,10 @@ import AnimatedStarfield from "./AnimatedStarfield";
 
 interface PrototryingMeshProps {
   hideStars?: boolean;
-  topGradientVariant?: 'default' | 'philosophy';
+  variant?: 'default' | 'philosophy';
 }
 
-export default function PrototryingMesh({ hideStars = false, topGradientVariant = 'default' }: PrototryingMeshProps) {
+export default function PrototryingMesh({ hideStars = false, variant = 'default' }: PrototryingMeshProps) {
   const { scrollYProgress } = useScroll();
   const gradId = useId();
   
@@ -35,10 +35,12 @@ export default function PrototryingMesh({ hideStars = false, topGradientVariant 
       {/* High-Performance Canvas Starfield Constellation */}
       {!hideStars && <AnimatedStarfield />}
 
-      {/* Foreground Left Wave SVG (Sharper) */}
+      {/* Foreground Left Wave SVG */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[150vw] h-[100vh] bottom-0 -left-[25vw] opacity-70 blur-[15px] z-10 pointer-events-none"
+        className={`absolute w-[150vw] h-[100vh] bottom-0 -left-[25vw] z-10 pointer-events-none transition-all duration-1000 ${
+          variant === 'philosophy' ? 'opacity-100 blur-[2px]' : 'opacity-70 blur-[15px]'
+        }`}
         preserveAspectRatio="none"
       >
         <defs>
@@ -56,14 +58,16 @@ export default function PrototryingMesh({ hideStars = false, topGradientVariant 
         />
       </svg>
 
-      {/* Foreground Right Wave SVG (Sharper) */}
+      {/* Foreground Right Wave SVG */}
       <svg
         viewBox="0 0 1000 1000"
-        className="absolute w-[150vw] h-[100vh] -top-[10%] -right-[25vw] opacity-80 blur-[20px] z-10 pointer-events-none"
+        className={`absolute w-[150vw] h-[100vh] -top-[10%] -right-[25vw] z-10 pointer-events-none transition-all duration-1000 ${
+          variant === 'philosophy' ? 'opacity-100 blur-[60px]' : 'opacity-80 blur-[20px]'
+        }`}
         preserveAspectRatio="none"
       >
         <defs>
-          {topGradientVariant === 'default' ? (
+          {variant === 'default' ? (
             <linearGradient id={`${gradId}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#fbbf24" />   {/* Golden Amber */}
               <stop offset="50%" stopColor="#f97316" />  {/* Vibrant Orange */}
