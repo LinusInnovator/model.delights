@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import AnimatedLogo from "@/components/AnimatedLogo";
+import AnimatedTextLogo from "@/components/AnimatedTextLogo";
 import AnimatedMeshGradient from '@/components/AnimatedMeshGradient';
 import PrototryingMesh from '@/components/PrototryingMesh';
 
@@ -88,11 +89,9 @@ export default function CinematicLandingPage() {
       
       {/* Fixed Branding Header (Persists across scroll) */}
       <header className="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex items-center gap-4 pointer-events-none">
-        <div className="pointer-events-auto cursor-default flex items-center gap-4 group">
+        <div className="pointer-events-auto cursor-pointer flex items-center gap-4 group">
           <AnimatedLogo className="w-10 h-10 shrink-0 opacity-90" />
-          <span className="font-[family-name:var(--font-inter)] text-xl font-bold tracking-tight text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] group-hover:text-emerald-400 transition-colors duration-500">
-            model.delights.pro
-          </span>
+          <AnimatedTextLogo className="h-4 w-auto shrink-0 opacity-90 mt-1" />
         </div>
       </header>
 
