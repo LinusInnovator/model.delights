@@ -113,8 +113,8 @@ export const article3: ManifestoArticle = {
       type: "p",
       content: {
         simple: "When I built model.delights.pro, I didn't have to hand off my drawings. I just told the AI what to code. We worked together perfectly.",
-        professional: "When we engineered <code className='text-emerald-500'>model.delights.pro</code> over 11 days, the secret to its cinematic aesthetic wasn't just my background as a Strategic Designer. The real secret was that I didn't need to hand the vision down to a UX team or a front-end developer. I could execute it directly in Horizon 1 by pair programming with an advanced, agentic AI.",
-        academic: "The deployment of <code className='text-emerald-500'>model.delights.pro</code> isolated the Strategic Designer from this degradation cycle. Operating in tandem with an advanced Agentic AI completely eliminated the inter-departmental hand-off (from Strategy to UX/UI execution), allowing for the direct computational expression of the original strategic theory."
+        professional: "When we engineered <code class='text-emerald-500'>model.delights.pro</code> over 11 days, the secret to its cinematic aesthetic wasn't just my background as a Strategic Designer. The real secret was that I didn't need to hand the vision down to a UX team or a front-end developer. I could execute it directly in Horizon 1 by pair programming with an advanced, agentic AI.",
+        academic: "The deployment of <code class='text-emerald-500'>model.delights.pro</code> isolated the Strategic Designer from this degradation cycle. Operating in tandem with an advanced Agentic AI completely eliminated the inter-departmental hand-off (from Strategy to UX/UI execution), allowing for the direct computational expression of the original strategic theory."
       },
       marginNoteId: "design-roles"
     },

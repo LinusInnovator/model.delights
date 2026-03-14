@@ -79,8 +79,8 @@ export const article2: ManifestoArticle = {
       type: "p",
       content: {
         simple: "When I built model.delights.pro with an AI in 11 days, we realized databases were too slow. So, we didn't build one.",
-        professional: "When architecting <code className='text-emerald-500'>model.delights.pro</code> over our 11-day sprint, I realized that standing up a traditional database like Supabase or Postgres to track AI models was a trap. It would force me to become a full-time data janitor. So, we abandoned the database entirely.",
-        academic: "The deployment architecture of <code className='text-emerald-500'>model.delights.pro</code> explicitly rejects stateful data persistence. Traditional relational databases (RDBMS) introduce structural atrophy—requiring constant schema migrations and maintenance that siphon velocity from the orchestrator."
+        professional: "When architecting <code class='text-emerald-500'>model.delights.pro</code> over our 11-day sprint, I realized that standing up a traditional database like Supabase or Postgres to track AI models was a trap. It would force me to become a full-time data janitor. So, we abandoned the database entirely.",
+        academic: "The deployment architecture of <code class='text-emerald-500'>model.delights.pro</code> explicitly rejects stateful data persistence. Traditional relational databases (RDBMS) introduce structural atrophy—requiring constant schema migrations and maintenance that siphon velocity from the orchestrator."
       }
     },
     {
@@ -88,7 +88,7 @@ export const article2: ManifestoArticle = {
       type: "p",
       content: {
         simple: "Instead of typing things in, we made the website smart enough to look at the internet by itself. Every 5 minutes, it asks OpenRouter what the newest AI models are and updates the site automatically.",
-        professional: "Instead, we implemented a stateless API hydration model. <code className='text-emerald-500'>fetchModels()</code> is wired directly to the OpenRouter API. Every 5 minutes, using Next.js Incremental Static Regeneration (ISR), the server wakes up, pulls the live telemetry of hundreds of models, parses their exact token pricing and context windows, and instantly rebuilds the entire frontend UI.",
+        professional: "Instead, we implemented a stateless API hydration model. <code class='text-emerald-500'>fetchModels()</code> is wired directly to the OpenRouter API. Every 5 minutes, using Next.js Incremental Static Regeneration (ISR), the server wakes up, pulls the live telemetry of hundreds of models, parses their exact token pricing and context windows, and instantly rebuilds the entire frontend UI.",
         academic: "The system utilizes Next.js Incremental Static Regeneration (ISR) as an automated data pipeline. A serverless CRON architecture queries external APIs at 300-second intervals, hydrating the edge nodes with deterministic pricing metadata without requiring human database administration."
       },
       marginNoteId: "vercel-edge"
