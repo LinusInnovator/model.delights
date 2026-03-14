@@ -79,8 +79,8 @@ export const article3: ManifestoArticle = {
       type: "p",
       content: {
         simple: "When a designer draws a beautiful picture, they have to hand it to a programmer to build. The programmer is tired and busy, so they use a boring template instead.",
-        professional: "The death of Taste happens in what I call the **Translation Layer**. A Strategic Designer creates a beautiful, kinetic vision in Figma. They hand it to a Product Manager, who chops it up into Jira tickets. Those tickets go to a stressed Front-End team battling technical debt. To save time, they use generic, off-the-shelf UI components. The magic is translated into generic SaaS sludge.",
-        academic: "The core mechanism driving UX degradation is the 'Translation Layer.' When strategic intent originates with a designer, it inevitably suffers information loss as it traverses operational hierarchies (Product Management to Engineering). To optimize throughput, engineering defaults to commoditized UI libraries, neutralizing the original kinetic intent."
+        professional: "The death of Taste happens in what I call the **Translation Layer**. A Strategic Designer defines the future vision. A Service Designer tries to map the touchpoints. A UX Lead draws up a beautiful, kinetic interface in Figma. They hand it to a Product Manager, who chops it up into Jira tickets. Those tickets go to a stressed Front-End team battling technical debt. To save time, they use generic UI components. The magic is translated into generic SaaS sludge.",
+        academic: "The core mechanism driving UX degradation is the 'Translation Layer.' When high-level strategic intent originates with a designer, it inevitably suffers information loss as it traverses operational hierarchies (Strategy to Service Design, to UX, to Product Management, to Engineering). To optimize throughput, engineering defaults to commoditized UI libraries, neutralizing the original kinetic intent."
       },
       marginNoteId: "translation-layer"
     },
@@ -108,8 +108,8 @@ export const article3: ManifestoArticle = {
       type: "p",
       content: {
         simple: "When I built model.delights.pro, I didn't have to hand off my drawings. I just told the AI what to code. We worked together perfectly.",
-        professional: "When we engineered `model.delights.pro` over 11 days, the secret to its cinematic, 3D aesthetic wasn't just my background as a Strategic Designer. The real secret was the total elimination of the translation layer. I was pair programming directly with an advanced, agentic AI.",
-        academic: "The deployment of `model.delights.pro` isolated the Strategic Designer from this degradation cycle. Operating in tandem with an advanced Agentic AI completely eliminated the inter-departmental hand-off, allowing for the direct computational expression of the original strategic theory."
+        professional: "When we engineered `model.delights.pro` over 11 days, the secret to its cinematic aesthetic wasn't just my background as a Strategic Designer. The real secret was that I didn't need to hand the vision down to a UX team or a front-end developer. I could execute it directly in Horizon 1 by pair programming with an advanced, agentic AI.",
+        academic: "The deployment of `model.delights.pro` isolated the Strategic Designer from this degradation cycle. Operating in tandem with an advanced Agentic AI completely eliminated the inter-departmental hand-off (from Strategy to UX/UI execution), allowing for the direct computational expression of the original strategic theory."
       }
     },
     {

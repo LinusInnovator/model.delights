@@ -113,8 +113,8 @@ export const article1: ManifestoArticle = {
       type: "p",
       content: {
         simple: "The best part is that I didn't lose my mind trying to organize everything. The AI acted as my entire team. It wrote the code while I acted as the director, making sure the website felt right and looked beautiful.",
-        professional: "What made this possible was the complete removal of the 'translation layer'. In a normal enterprise, a designer has a vision, creates a Figma file, and hands it off to a front-end developer, who translates it poorly due to technical constraints. With Agentic AI, the Strategic Designer acts as the orchestrator. I didn't have to translate my vision; I just commanded the architecture and let the AI handle the boilerplate. This preserves the 'Taste' of the product.",
-        academic: "By eliminating intra-team handoffs, the cognitive fidelity of the original architectural vision is preserved. The solitary designer assumes the role of high-level orchestrator, shifting cognitive load away from syntactic implementation toward strategic alignment and UX refinement."
+        professional: "What made this possible was the complete removal of the 'translation layer'. In a normal enterprise, a Strategic Designer (who usually sits at the top defining the vision) hands off to a Service Designer, who hands off to a UX Lead, who hands off to a front-end developer. With every handoff, the vision translates poorly due to constraints. With Agentic AI, the Strategic Designer can bypass that entire hierarchy and act as the direct orchestrator in Horizon 1. I didn't have to translate my vision; I just commanded the architecture and let the AI handle the boilerplate.",
+        academic: "By eliminating intra-team handoffs, the cognitive fidelity of the original architectural vision is preserved. The Strategic Designer collapses the traditional service and UX design hierarchy, assuming the role of high-level orchestrator and shifting cognitive load away from syntactic implementation toward direct strategic execution."
       }
     },
     {
