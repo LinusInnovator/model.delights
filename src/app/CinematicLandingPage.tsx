@@ -223,7 +223,7 @@ export default function CinematicLandingPage() {
                  {/* Laser Hit Trace (Synchronized with Scan Line) */}
                  <div className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:animate-[spin_4s_linear_infinite]"
                       style={{
-                        background: 'conic-gradient(from 260deg, transparent 0deg, transparent 320deg, rgba(244,63,94,1) 360deg)',
+                        background: 'conic-gradient(from 80deg, transparent 0deg, transparent 80deg, rgba(244,63,94,1) 180deg, transparent 180deg)',
                         maskImage: 'radial-gradient(transparent 60px, black 61px)',
                         WebkitMaskImage: 'radial-gradient(transparent 60px, black 61px)'
                       }}
