@@ -184,12 +184,13 @@ export default function AnimatedStarfield() {
       ctx.clearRect(0, 0, width, height);
 
       // 1. Draw all static background stars exactly matching the CSS pattern
-      // with a strong time-offset glimmer
       for (const star of stars) {
         // Calculate a gentle glimmer offset using the star's position to stagger the phase
         const phaseOffset = (star.x + star.y) * 0.01;
-        // Tripled the amplitude of the effect (0.2 -> 0.6) and increased speed slightly
-        const glimmer = Math.sin(time * 0.0015 + phaseOffset) * 0.6 + 0.6; // creates a multiplier between 0.0 and 1.2
+        // Power of 8 creates a sharp, occasional peak. 
+        // Base visibility is a solid 0.7, peaking up to 1.5 during a blink.
+        const blink = Math.pow(Math.sin(time * 0.0012 + phaseOffset), 8);
+        const glimmer = 0.7 + (blink * 0.8); 
         
         ctx.fillStyle = `rgba(255, 255, 255, ${(star.alpha * 0.85) * glimmer})`;
         
