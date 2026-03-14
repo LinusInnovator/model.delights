@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCompletion } from "@ai-sdk/react";
 import { getOptimalWriterModel } from "@/app/actions/getOptimalWriter";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface ManifestoReaderProps {
   article: ManifestoArticle;
@@ -20,6 +21,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
   // Image Panning State
   const [heroPanPos, setHeroPanPos] = useState({ x: 50, y: 35 });
+
+  // Parallax Scroll State
+  const { scrollY } = useScroll();
+  const yOffset = useTransform(scrollY, [0, 1000], [0, 150]); // Parallax translateY array
 
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiStats, setAiStats] = useState<any>(null);
@@ -192,7 +197,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
               onMouseMove={handleHeroMouseMove}
               onMouseLeave={handleHeroMouseLeave}
             >
-              <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+              <motion.div 
+                style={{ y: yOffset }} 
+                className="absolute inset-[-10%] w-[120%] h-[120%] transition-transform duration-700 ease-out group-hover:scale-[1.03] z-0"
+              >
                 <Image 
                   src={article.heroImage.url} 
                   alt={article.heroImage.alt} 
@@ -205,7 +213,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   priority
                   sizes="(max-width: 768px) 100vw, 800px"
                 />
-              </div>
+              </motion.div>
               {/* Vignette Overlay for cinematic bleed */}
               {theme === "dark" && (
                 <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80 pointer-events-none z-10 transition-opacity duration-700 group-hover:opacity-60" />
