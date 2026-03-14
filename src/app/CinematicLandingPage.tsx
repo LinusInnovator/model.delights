@@ -308,19 +308,37 @@ export default function CinematicLandingPage() {
             <div className="hidden md:flex aspect-square rounded-[3rem] border border-zinc-800 bg-black items-center justify-center relative overflow-hidden">
                <div className="w-full h-full relative p-12 flex flex-col justify-end gap-2">
                  {/* Blueprint Wireframes compiling into solid blocks */}
-                 <div className={`w-full h-12 border-2 border-dashed border-zinc-700 rounded transition-all duration-700 delay-100 flex items-center px-4 ${card2.inView ? 'bg-emerald-500/20 border-emerald-500/50' : ''}`}>
-                    <div className={`w-1/3 h-2 bg-emerald-500/0 rounded transition-all duration-700 delay-300 ${card2.inView ? 'bg-emerald-500/50' : ''}`} />
+                 <style dangerouslySetInnerHTML={{__html: `
+                   @keyframes bpOuter {
+                     0%, 100% { background-color: transparent; border-color: rgba(63, 63, 70, 1); } /* border-zinc-700 */
+                     40%, 60% { background-color: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.5); }
+                   }
+                   @keyframes bpInner {
+                     0%, 100% { background-color: transparent; }
+                     40%, 60% { background-color: rgba(16, 185, 129, 0.5); }
+                   }
+                   .animate-bp-outer-1 { animation: bpOuter 4s ease-in-out infinite 0s; }
+                   .animate-bp-inner-1 { animation: bpInner 4s ease-in-out infinite 0.2s; }
+                   .animate-bp-outer-2 { animation: bpOuter 4s ease-in-out infinite 0.4s; }
+                   .animate-bp-inner-2 { animation: bpInner 4s ease-in-out infinite 0.6s; }
+                   .animate-bp-outer-3 { animation: bpOuter 4s ease-in-out infinite 0.8s; }
+                   .animate-bp-inner-3 { animation: bpInner 4s ease-in-out infinite 1.0s; }
+                   .animate-bp-outer-4 { animation: bpOuter 4s ease-in-out infinite 1.2s; }
+                   .animate-bp-inner-4 { animation: bpInner 4s ease-in-out infinite 1.4s; }
+                 `}} />
+                 <div className={`w-full h-12 border-2 border-dashed border-zinc-700 rounded flex items-center px-4 ${card2.inView ? 'animate-bp-outer-1' : ''}`}>
+                    <div className={`w-1/3 h-2 rounded ${card2.inView ? 'animate-bp-inner-1' : ''}`} />
                  </div>
                  <div className="flex gap-2 h-24">
-                   <div className={`w-1/3 h-full border-2 border-dashed border-zinc-700 rounded transition-all duration-700 delay-300 flex items-center justify-center ${card2.inView ? 'bg-emerald-500/20 border-emerald-500/50' : ''}`}>
-                      <div className={`w-1/2 h-4 bg-emerald-500/0 rounded transition-all duration-700 delay-500 ${card2.inView ? 'bg-emerald-500/50' : ''}`} />
+                   <div className={`w-1/3 h-full border-2 border-dashed border-zinc-700 rounded flex items-center justify-center ${card2.inView ? 'animate-bp-outer-2' : ''}`}>
+                      <div className={`w-1/2 h-4 rounded ${card2.inView ? 'animate-bp-inner-2' : ''}`} />
                    </div>
-                   <div className={`w-2/3 h-full border-2 border-dashed border-zinc-700 rounded transition-all duration-700 delay-500 flex items-center justify-center ${card2.inView ? 'bg-emerald-500/20 border-emerald-500/50' : ''}`}>
-                      <div className={`w-1/2 h-4 bg-emerald-500/0 rounded transition-all duration-700 delay-700 ${card2.inView ? 'bg-emerald-500/50' : ''}`} />
+                   <div className={`w-2/3 h-full border-2 border-dashed border-zinc-700 rounded flex items-center justify-center ${card2.inView ? 'animate-bp-outer-3' : ''}`}>
+                      <div className={`w-1/2 h-4 rounded ${card2.inView ? 'animate-bp-inner-3' : ''}`} />
                    </div>
                  </div>
-                 <div className={`w-full h-32 border-2 border-dashed border-zinc-700 rounded transition-all duration-700 delay-700 relative overflow-hidden flex items-center justify-center ${card2.inView ? 'bg-emerald-500/20 border-emerald-500/50' : ''}`}>
-                    <div className={`w-1/4 h-1/4 bg-emerald-500/0 rounded transition-all duration-700 delay-1000 ${card2.inView ? 'bg-emerald-500/50' : ''}`} />
+                 <div className={`w-full h-32 border-2 border-dashed border-zinc-700 rounded relative overflow-hidden flex items-center justify-center ${card2.inView ? 'animate-bp-outer-4' : ''}`}>
+                    <div className={`w-1/4 h-1/4 rounded ${card2.inView ? 'animate-bp-inner-4' : ''}`} />
                     {/* Scanning Laser */}
                     <div className={`absolute top-0 left-0 w-full h-[2px] bg-emerald-400 shadow-[0_0_10px_#34D399] opacity-0 ${card2.inView ? 'opacity-100 animate-[scan_2s_ease-in-out_infinite_alternate]' : ''} transition-opacity duration-300`} />
                  </div>

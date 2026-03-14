@@ -38,7 +38,7 @@ export default function AnimatedLogo({ className = "" }: AnimatedLogoProps) {
         viewBox="0 0 72 83" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
-        className="text-zinc-400 group-hover:text-emerald-400 transition-colors duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_15px_rgba(52,211,153,0.4)]"
+        className="text-white group-hover:text-emerald-400 transition-colors duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(52,211,153,0.6)]"
       >
         {/* Core Geometry (Hexagons) */}
         <path d="M1 61.5139L35.9324 81.6821L70.8649 61.5139V21.3229L35.9324 1.15466L1 21.3229V61.5139Z" stroke="currentColor" strokeWidth="2" className="opacity-80"/>
