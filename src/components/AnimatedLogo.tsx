@@ -11,25 +11,22 @@ export default function AnimatedLogo({ className = "" }: AnimatedLogoProps) {
     <div className={`relative group ${className}`}>
       {/* Inline style for the custom keyframe animations on the intersecting lines */}
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes drawLine {
+        @keyframes clockSweep {
           0% { stroke-dashoffset: 100; opacity: 0; }
-          10% { opacity: 1; }
-          50% { stroke-dashoffset: 0; opacity: 1; }
-          90% { opacity: 1; }
+          2% { opacity: 1; }
+          15% { stroke-dashoffset: 0; opacity: 1; }
+          30% { stroke-dashoffset: -100; opacity: 0; }
           100% { stroke-dashoffset: -100; opacity: 0; }
         }
-        .anim-line-1 {
-          stroke-dasharray: 40 100;
-          animation: drawLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        [class^="anim-spoke-"] {
+          stroke-dasharray: 100 100;
         }
-        .anim-line-2 {
-          stroke-dasharray: 40 100;
-          animation: drawLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1s;
-        }
-        .anim-line-3 {
-          stroke-dasharray: 40 100;
-          animation: drawLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 2s;
-        }
+        .anim-spoke-1 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0s; }
+        .anim-spoke-2 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.5s; }
+        .anim-spoke-3 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.0s; }
+        .anim-spoke-4 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.5s; }
+        .anim-spoke-5 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.0s; }
+        .anim-spoke-6 { animation: clockSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.5s; }
       `}} />
       
       <svg 
@@ -48,10 +45,19 @@ export default function AnimatedLogo({ className = "" }: AnimatedLogoProps) {
         {/* Center Node */}
         <ellipse cx="35.4458" cy="40.6349" rx="4.40088" ry="4.21413" fill="currentColor" className="opacity-100 group-hover:animate-pulse"/>
 
-        {/* Animated Inner Intersecting Lines */}
-        <line className="anim-line-1" x1="0.746925" y1="61.4883" x2="70.6122" y2="20.4859" stroke="currentColor" strokeWidth="1"/>
-        <line className="anim-line-2" y1="-0.5" x2="81.0083" y2="-0.5" transform="matrix(-0.862445 -0.506151 -0.506151 0.862445 70.3779 62.1256)" stroke="currentColor" strokeWidth="1"/>
-        <line className="anim-line-3" x1="35.4326" y1="80.8987" x2="35.4326" y2="0.371216" stroke="currentColor" strokeWidth="1"/>
+        {/* Animated Inner Intersecting Lines (Clockwise Sweep) */}
+        {/* Top (12 o'clock) */}
+        <line className="anim-spoke-1" x1="35.4458" y1="40.6349" x2="35.4326" y2="0.371216" stroke="currentColor" strokeWidth="1" pathLength="100" />
+        {/* Top-Right (2 o'clock) */}
+        <line className="anim-spoke-2" x1="35.4458" y1="40.6349" x2="70.6122" y2="20.4859" stroke="currentColor" strokeWidth="1" pathLength="100" />
+        {/* Bottom-Right (4 o'clock) */}
+        <line className="anim-spoke-3" x1="35.4458" y1="40.6349" x2="70.63" y2="61.69" stroke="currentColor" strokeWidth="1" pathLength="100" />
+        {/* Bottom (6 o'clock) */}
+        <line className="anim-spoke-4" x1="35.4458" y1="40.6349" x2="35.4326" y2="80.8987" stroke="currentColor" strokeWidth="1" pathLength="100" />
+        {/* Bottom-Left (8 o'clock) */}
+        <line className="anim-spoke-5" x1="35.4458" y1="40.6349" x2="0.746925" y2="61.4883" stroke="currentColor" strokeWidth="1" pathLength="100" />
+        {/* Top-Left (10 o'clock) */}
+        <line className="anim-spoke-6" x1="35.4458" y1="40.6349" x2="0.76" y2="20.69" stroke="currentColor" strokeWidth="1" pathLength="100" />
       </svg>
     </div>
   );
