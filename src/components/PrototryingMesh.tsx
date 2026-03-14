@@ -7,11 +7,13 @@ import AnimatedStarfield from "./AnimatedStarfield";
 interface PrototryingMeshProps {
   hideStars?: boolean;
   variant?: 'default' | 'philosophy';
+  id?: string;
 }
 
-export default function PrototryingMesh({ hideStars = false, variant = 'default' }: PrototryingMeshProps) {
+export default function PrototryingMesh({ hideStars = false, variant = 'default', id }: PrototryingMeshProps) {
   const { scrollYProgress } = useScroll();
-  const gradId = useId();
+  const reactId = useId();
+  const gradId = id || reactId.replace(/:/g, ''); // Ensure safe ID characters
   
   // As the user scrolls down (0 -> 1), move the stars UP, but slower than the document (parallax)
   const starY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
