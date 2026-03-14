@@ -107,11 +107,16 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
         {/* Tone Slider */}
         <div className="flex-1 flex flex-col items-center gap-1">
-          <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4">
-            <span className="flex-1 text-left">In Short</span>
-            <span className="flex-1 text-center">Consultant</span>
-            <span className="flex-1 text-center">Academic</span>
-            <span className="flex-1 text-right text-emerald-500 flex justify-end items-center gap-1"><Sparkle weight="fill" className="w-3 h-3"/> Snell AI</span>
+          <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4 mb-1">
+            <button onClick={() => setSliderPos(1)} className={`flex-1 text-left hover:text-emerald-500 transition-colors ${sliderPos === 1 ? 'text-emerald-500 opacity-100' : ''}`}>In Short</button>
+            <button onClick={() => setSliderPos(2)} className={`flex-1 text-center hover:text-emerald-500 transition-colors ${sliderPos === 2 ? 'text-emerald-500 opacity-100' : ''}`}>Consultant</button>
+            <button onClick={() => setSliderPos(3)} className={`flex-1 text-center hover:text-emerald-500 transition-colors ${sliderPos === 3 ? 'text-emerald-500 opacity-100' : ''}`}>Academic</button>
+            <button 
+              onClick={() => handleSliderChange({target: {value: '4'}} as React.ChangeEvent<HTMLInputElement>)} 
+              className={`flex-1 text-right flex justify-end items-center gap-1 hover:text-emerald-500 transition-colors ${sliderPos === 4 ? 'text-emerald-500 opacity-100' : ''}`}
+            >
+              <Sparkle weight="fill" className="w-3 h-3"/> Model SDK
+            </button>
           </div>
           <input 
             type="range" 
@@ -136,9 +141,31 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
             <p className="text-emerald-500 font-mono text-sm mb-4 tracking-wider">
               PUBLISHED {article.date} • {article.readTimeMin} MIN READ
             </p>
-            <h1 className={`text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold italic leading-tight tracking-tight mb-6 transition-all duration-700 ${headerClass}`}>
-              {currentTone === 'ai' ? article.title['professional'] + " (Snell AI Cut)" : article.title[currentTone as ToneLevel]}
-            </h1>
+            {(() => {
+              const rawTitle = currentTone === 'ai' ? article.title['professional'] : article.title[currentTone as ToneLevel];
+              const parts = rawTitle.split(': ');
+              const partStr = parts.length > 1 ? parts[0] + ':' : '';
+              const mainTitle = parts.length > 1 ? parts.slice(1).join(': ') : rawTitle;
+
+              return (
+                <>
+                  {partStr && (
+                    <span className="block text-emerald-500 font-mono text-xs md:text-sm tracking-widest font-bold uppercase mb-2">
+                      {partStr}
+                    </span>
+                  )}
+                  <h1 className={`text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-playfair)] font-bold italic leading-tight tracking-tight mb-6 transition-all duration-700 ${headerClass} flex flex-wrap items-center gap-4`}>
+                    <span>{mainTitle}</span>
+                    {currentTone === 'ai' && (
+                      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-500 text-base md:text-lg font-sans not-italic font-medium border border-emerald-500/20 shadow-sm align-middle mt-2 md:mt-0">
+                        <Sparkle weight="fill" className="w-4 h-4" /> Model SDK Cut
+                      </span>
+                    )}
+                  </h1>
+                </>
+              );
+            })()}
+            
             <h2 className="text-xl md:text-2xl opacity-70 leading-relaxed font-light transition-all duration-700">
               {currentTone === 'ai' ? "Dynamically rewritten using the SDK's Best-in-Class reasoning model." : article.subtitle[currentTone as ToneLevel]}
             </h2>
@@ -150,7 +177,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 {isAiLoading && (
                   <div className="flex flex-col items-center justify-center py-20 opacity-50">
                     <Sparkle size={32} className="animate-pulse text-emerald-500 mb-4" />
-                    <p className="font-mono text-xs tracking-widest uppercase">Querying Snell SDK for Best Reasoning Model...</p>
+                    <p className="font-mono text-xs tracking-widest uppercase">Querying Model SDK for Best Reasoning Model...</p>
                   </div>
                 )}
                 
