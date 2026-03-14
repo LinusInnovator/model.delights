@@ -11,6 +11,7 @@ interface PrototryingMeshProps {
 
 export default function PrototryingMesh({ hideStars = false, topGradientVariant = 'default' }: PrototryingMeshProps) {
   const { scrollYProgress } = useScroll();
+  const gradId = useId();
   
   // As the user scrolls down (0 -> 1), move the stars UP, but slower than the document (parallax)
   const starY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
@@ -63,13 +64,13 @@ export default function PrototryingMesh({ hideStars = false, topGradientVariant 
       >
         <defs>
           {topGradientVariant === 'default' ? (
-            <linearGradient id={`${useId()}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id={`${gradId}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#fbbf24" />   {/* Golden Amber */}
               <stop offset="50%" stopColor="#f97316" />  {/* Vibrant Orange */}
               <stop offset="100%" stopColor="#e11d48" /> {/* Sunset Rose */}
             </linearGradient>
           ) : (
-            <linearGradient id={`${useId()}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id={`${gradId}-grad`} x1="100%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#8b5cf6" />   {/* Violet */}
               <stop offset="50%" stopColor="#d946ef" />  {/* Fuchsia */}
               <stop offset="100%" stopColor="#f43f5e" /> {/* Rose */}
@@ -78,7 +79,7 @@ export default function PrototryingMesh({ hideStars = false, topGradientVariant 
         </defs>
         <motion.path
           d={fgTopPath1}
-          fill={`url(#${useId()}-grad)`}
+          fill={`url(#${gradId}-grad)`}
           animate={{ d: [fgTopPath1, fgTopPath2, fgTopPath1] }}
           transition={{ duration: 16, ease: "easeInOut", repeat: Infinity, delay: 3 }}
         />

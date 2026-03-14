@@ -64,12 +64,17 @@ export default function AnimatedStarfield() {
       ];
 
       const newStars: Star[] = [];
-      for (let gridY = 0; gridY < height + 200; gridY += 200) {
-        for (let gridX = 0; gridX < width + 200; gridX += 200) {
+      for (let gridY = -200; gridY < height + 200; gridY += 200) {
+        for (let gridX = -200; gridX < width + 200; gridX += 200) {
           pattern.forEach(p => {
-            const sx = gridX + p.x;
-            const sy = gridY + p.y;
-            if (sx < width + 50 && sy < height + 50) {
+            // Add organic scatter between -40px and +40px to break rigid grid
+            const scatterX = (Math.random() - 0.5) * 80;
+            const scatterY = (Math.random() - 0.5) * 80;
+            
+            const sx = gridX + p.x + scatterX;
+            const sy = gridY + p.y + scatterY;
+            
+            if (sx > -50 && sx < width + 50 && sy > -50 && sy < height + 50) {
                 newStars.push({
                    id: `${sx}-${sy}`,
                    x: sx,
