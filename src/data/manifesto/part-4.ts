@@ -60,8 +60,8 @@ export const article4: ManifestoArticle = {
       type: "p",
       content: {
         simple: "By the time everyone agrees on the document, it's been six months. The world has already moved on.",
-        professional: "We create a Statement of Work (SOW). We negotiate terms. We wait for legal. By the time the actual developers are cleared to type their first `npm install`, 6 months have passed. In the era of AI, a 6-month delay guarantees your strategy is obsolete the moment it launches.",
-        academic: "The procurement and alignment phase for these strategic initiatives typically spans two financial quarters. This administrative latency introduces fatal strategic drift, rendering the theoretical model obsolete upon execution."
+        professional: "We create a Statement of Work (SOW). We negotiate terms. We wait for legal. By the time the actual developers are cleared to type their first <code className='text-emerald-500'>npm install</code>, 6 months have passed. In the era of AI, a 6-month delay guarantees your strategy is obsolete the moment it launches.",
+        academic: "The procurement and initiation phase (SOW generation, legal clearance, vendor onboarding) introduces severe temporal friction. By the time engineering initiates environment compilation (<code className='text-emerald-500'>npm install</code>), the strategic assumptions underlying the project are frequently invalid due to market velocity."
       },
       marginNoteId: "sow-latency"
     },
@@ -79,8 +79,8 @@ export const article4: ManifestoArticle = {
       type: "p",
       content: {
         simple: "When I started model.delights.pro, I promised myself I wouldn't make a single presentation or drawing. I went straight to the code.",
-        professional: "When the vision for `model.delights.pro` crystallized, I didn't open Keynote. I didn't open Figma to draw a fake, non-interactive diagram of my database theory. The barrier to writing production code has dropped to zero thanks to Agentic AI.",
-        academic: "With the advent of Agentic AI orchestration, the necessity for intermediate representational models (e.g., non-interactive wireframes, UML diagrams) is eliminated. The optimal path to validation is direct algorithmic instantiation."
+        professional: "When the vision for <code className='text-emerald-500'>model.delights.pro</code> crystallized, I didn't open Keynote. I didn't open Figma to draw a fake, non-interactive diagram of my database theory. The barrier to writing production code has dropped to zero thanks to Agentic AI.",
+        academic: "Upon conceptualizing <code className='text-emerald-500'>model.delights.pro</code>, theoretical documentation tools (presentation software, static wireframes) were bypassed entirely. Agentic orchestration has functionally eliminated the barrier to direct implementation, making strategic documentation superfluous."
       }
     },
     {

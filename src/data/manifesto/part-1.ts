@@ -94,8 +94,8 @@ export const article1: ManifestoArticle = {
       type: "p",
       content: {
         simple: "Working with AI is completely different. Last week, I had an idea. I wanted to build a massive website called model.delights.pro that tracks the smartest AI brains in the world. And I wanted to do it without hiring anyone or having a single meeting.",
-        professional: "Meanwhile, armed with advanced agentic AI, the paradigm flips entirely. I wanted to build `model.delights.pro`—a dynamic data aggregator tracking hundreds of language models in real time, serving as a unified analytics dashboard. If I were at a Fortune 500 company, Step 1 would be drafting a 40-page technical Project Requirements Document (PRD). Instead, we skipped Step 1 to 50, and just started building.",
-        academic: "Conversely, the application of advanced agentic AI paradigms effectively neutralizes institutional friction. The deployment of `model.delights.pro`—a dynamic data pipeline and categorization engine—was initiated without preparatory bureaucratic documentation, relying purely on iterative human-in-the-loop synthesis."
+        professional: "Meanwhile, armed with advanced agentic AI, the paradigm flips entirely. I wanted to build <code className='text-emerald-500'>model.delights.pro</code>—a dynamic data aggregator tracking hundreds of language models in real time, serving as a unified analytics dashboard. If I were at a Fortune 500 company, Step 1 would be drafting a 40-page technical Project Requirements Document (PRD). Instead, we skipped Step 1 to 50, and just started building.",
+        academic: "Conversely, the application of advanced agentic AI paradigms effectively neutralizes institutional friction. The deployment of <code className='text-emerald-500'>model.delights.pro</code>—a dynamic data pipeline and categorization engine—was initiated without preparatory bureaucratic documentation, relying purely on iterative human-in-the-loop synthesis."
       }
     },
     {

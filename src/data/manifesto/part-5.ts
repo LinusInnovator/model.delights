@@ -60,7 +60,7 @@ export const article5: ManifestoArticle = {
       type: "p",
       content: {
         simple: "In exactly 11 days, I went to my computer on Day 0 with nothing. By Day 11, I had a live platform tracking hundreds of AI prices, making its own math decisions, and updating itself without a human.",
-        professional: "Let's review the raw math of the `model.delights.pro` sprint. Day 0: Absolute zero. An empty Next.js directory. Day 11: A fully-deployed, production-ready platform. It features algorithmic dynamic ELO sorting, server-side background caching, zero-maintenance live API feeds, fluid vector SVG cinematic animations, and robust dynamic routing.",
+        professional: "Let's review the raw math of the <code className='text-emerald-500'>model.delights.pro</code> sprint. Day 0: Absolute zero. An empty Next.js directory. Day 11: A fully-deployed, production-ready platform. It features algorithmic dynamic ELO sorting, server-side background caching, zero-maintenance live API feeds, fluid vector SVG cinematic animations, and robust dynamic routing.",
         academic: "The empirical outcome is defined by the 11-day deployment sprint. Day 0 initialized a null state. Day 11 finalized an edge-hydrated Next.js ecosystem featuring algorithmic clustering, stateless caching (ISR), and mathematically generated scalable vector graphics (SVG) with volumetric rendering."
       },
       marginNoteId: "unicorn-definition"
@@ -69,9 +69,9 @@ export const article5: ManifestoArticle = {
       id: "p2-list",
       type: "p",
       content: {
-        simple: "Actually, this website wasn't the only thing we built. In those 11 days, I built four completely different systems at the same time: <a href='https://model.delights.pro' target='_blank'>model.delights.pro</a>, <a href='https://spell.delights.pro' target='_blank'>spell.delights.pro</a> (a feedback analytics tool), <a href='https://improve.delights.pro' target='_blank'>improve.delights.pro</a> (an autonomous A/B testing engine), and a fourth system that is still a secret.",
-        professional: "As a matter of fact, `model.delights.pro` was just one of *four* diverse projects built simultaneously during that exact 11-day window. The ecosystem includes: <a href='https://spell.delights.pro' target='_blank'>Spell Delights</a> (a structural Feedback Analytics pipeline), <a href='https://improve.delights.pro' target='_blank'>Improve Delights</a> (an autonomous A/B testing engine utilizing Bayesian statistics), this Model SDK playground, and a fourth project currently operating in stealth. One orchestrator. Four complete products.",
-        academic: "In actuality, the 11-day temporal window accommodated the parallel development of four distinct software platforms: <a href='https://spell.delights.pro' target='_blank'>spell.delights.pro</a> (Semantic Feedback Analytics), <a href='https://improve.delights.pro' target='_blank'>improve.delights.pro</a> (an autonomous A/B testing engine driven by Bayesian statistical modeling), the `model.delights.pro` platform, and a fourth, unannounced application. This empirical volume serves as the ultimate proof of output asymmetry."
+        simple: "Actually, this website wasn't the only thing we built. In those 11 days, I built four completely different systems at the same time: <a href='https://model.delights.pro' target='_blank'><code className='text-emerald-500'>model.delights.pro</code></a>, <a href='https://spell.delights.pro' target='_blank'>spell.delights.pro</a> (a feedback analytics tool), <a href='https://improve.delights.pro' target='_blank'>improve.delights.pro</a> (an autonomous A/B testing engine), and a fourth system that is still a secret.",
+        professional: "As a matter of fact, <code className='text-emerald-500'>model.delights.pro</code> was just one of <em>four</em> diverse projects built simultaneously during that exact 11-day window. The ecosystem includes: <a href='https://spell.delights.pro' target='_blank'>Spell Delights</a> (a structural Feedback Analytics pipeline), <a href='https://improve.delights.pro' target='_blank'>Improve Delights</a> (an autonomous A/B testing engine utilizing Bayesian statistics), this Model SDK playground, and a fourth project currently operating in stealth. One orchestrator. Four complete products.",
+        academic: "In actuality, the 11-day temporal window accommodated the parallel development of four distinct software platforms: <a href='https://spell.delights.pro' target='_blank'>spell.delights.pro</a> (Semantic Feedback Analytics), <a href='https://improve.delights.pro' target='_blank'>improve.delights.pro</a> (an autonomous A/B testing engine driven by Bayesian statistical modeling), the <code className='text-emerald-500'>model.delights.pro</code> platform, and a fourth, unannounced application. This empirical volume serves as the ultimate proof of output asymmetry."
       }
     },
     {
@@ -98,7 +98,7 @@ export const article5: ManifestoArticle = {
       type: "p",
       content: {
         simple: "Now, an expert with a robot partner can build things faster and better than a massive corporate structure. Big companies have to change, or they will be destroyed by small, fast builders.",
-        professional: "Old businesses must find a way to adapt *now*. A single domain expert wielding an agentic AI is infinitely more dangerous than your 50-person product organization bogged down in technical debt and alignment meetings.",
+        professional: "Old businesses must find a way to adapt <em>now</em>. A single domain expert wielding an agentic AI is infinitely more dangerous than your 50-person product organization bogged down in technical debt and alignment meetings.",
         academic: "Legacy enterprises are structurally incapable of surviving the velocity of solo-agentic orchestration. Multi-tiered organizations crippled by accumulated technical debt cannot iterate rapidly enough to counter the deployment frequency of solitary experts wielding AI."
       },
       marginNoteId: "technical-debt"
