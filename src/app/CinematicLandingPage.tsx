@@ -147,7 +147,7 @@ export default function CinematicLandingPage() {
           </Link>
 
           {/* Card 3: Scheduler */}
-          <Link href="/models" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
+          <Link href="/sdk" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
             <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">B2B Routing SDK</h3>
             <p className="text-zinc-400 text-sm">Zero-maintenance live API arbitrage.</p>
 
@@ -170,6 +170,22 @@ export default function CinematicLandingPage() {
             </div>
           </Link>
 
+        </div>
+        
+        {/* Prominent Link to Models Page */}
+        <div className="mt-16 flex justify-center">
+          <Link 
+            href="/models" 
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-zinc-900 border border-zinc-800 rounded-full hover:bg-zinc-800 hover:border-zinc-700 transition-all duration-300 shadow-xl overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10 font-[family-name:var(--font-inter)] text-sm font-semibold tracking-wide text-zinc-300 group-hover:text-white transition-colors">
+              Explore Available Models
+            </span>
+            <span className="relative z-10 text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">
+              &rarr;
+            </span>
+          </Link>
         </div>
       </section>
 
