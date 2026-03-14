@@ -55,7 +55,7 @@ export default function RootLayout({
         <head>
           <Script src="https://unpkg.com/@phosphor-icons/web" strategy="beforeInteractive" />
         </head>
-        <body className={`${inter.variable} ${outfit.variable} ${playfair.variable} ${jetbrains.variable} antialiased min-h-screen flex flex-col`}>
+        <body suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${playfair.variable} ${jetbrains.variable} antialiased min-h-screen flex flex-col`}>
           <svg className="pointer-events-none fixed inset-0 z-50 h-[100dvh] w-full opacity-[0.05]">
             <filter id="noiseFilter">
               <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
