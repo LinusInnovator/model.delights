@@ -71,8 +71,8 @@ export default function AnimatedStarfield() {
          });
       }
 
-      // Pre-compute neighbors (distance < 110px works well for the 200x200 grid)
-      const MAX_DIST_SQ = 110 * 110;
+      // Pre-compute neighbors (distance < 300px works well for random scatter)
+      const MAX_DIST_SQ = 300 * 300;
       for (let i = 0; i < newStars.length; i++) {
         const dSqMap: { star: Star; dSq: number }[] = [];
         for (let j = 0; j < newStars.length; j++) {
@@ -80,14 +80,14 @@ export default function AnimatedStarfield() {
           const dx = newStars[i].x - newStars[j].x;
           const dy = newStars[i].y - newStars[j].y;
           const dSq = dx * dx + dy * dy;
-          // Only connect if distance is between 30px and 120px to avoid dense overlapping clusters
+          // Only connect if distance is between 30px and 300px to avoid dense overlapping clusters
           if (dSq > 900 && dSq < MAX_DIST_SQ) {
             dSqMap.push({ star: newStars[j], dSq });
           }
         }
-        // Take up to 3 nearest neighbors to avoid overly dense webs
+        // Take up to 4 nearest neighbors to avoid overly dense webs while ensuring connectivity
         dSqMap.sort((a, b) => a.dSq - b.dSq);
-        newStars[i].neighbors = dSqMap.slice(0, 3).map(item => item.star);
+        newStars[i].neighbors = dSqMap.slice(0, 4).map(item => item.star);
       }
       stars = newStars;
 
@@ -100,9 +100,9 @@ export default function AnimatedStarfield() {
       // Seed the initial network growth after a 2-second delay
       // so the underlying static star map is clearly visible first
       initialTimeoutId = setTimeout(() => {
-        // Find a star near the left-center of the screen to start the sweep
-        const targetX = width * 0.15;
-        const targetY = height * 0.5;
+        // Find a star near the bottom-left of the screen to start the sweep
+        const targetX = width * 0.1;
+        const targetY = height * 0.9;
         
         let bestStar: Star | null = null;
         let bestDist = Infinity;
@@ -139,13 +139,20 @@ export default function AnimatedStarfield() {
         return !activeLines.has(lineId);
       });
 
-      if (availableNeighbors.length === 0) return;
+      if (availableNeighbors.length === 0) {
+        // If we hit a dead end, randomly jump-start a new branch from anywhere alive to prevent the network from totally stalling
+        if (fronts.length < 2 && awakeNodes.size > 0) {
+          const randomAwakeNode = Array.from(awakeNodes)[Math.floor(Math.random() * awakeNodes.size)];
+          if (randomAwakeNode) seedFronts(randomAwakeNode);
+        }
+        return;
+      }
 
-      // Pick 1 to 2 random neighbors to grow towards
-      const numToSpawn = Math.min(availableNeighbors.length, Math.random() > 0.5 ? 2 : 1);
-      
-      // Shuffle simply
-      availableNeighbors.sort(() => 0.5 - Math.random());
+      // Sort neighbors by Y coordinate to aggressively prioritize growing UPWARDS towards the top of the screen
+      availableNeighbors.sort((a, b) => a.y - b.y);
+
+      // Pick 1 to 2 neighbors to grow towards (preferentially the highest ones)
+      const numToSpawn = Math.min(availableNeighbors.length, Math.random() > 0.4 ? 2 : 1);
 
       for (let i = 0; i < numToSpawn; i++) {
         fronts.push({
@@ -163,9 +170,9 @@ export default function AnimatedStarfield() {
     const drawRing = (star: Star, opacity: number) => {
       ctx.beginPath();
       // Optimization: use integer bounding boxes conceptually, but arc is fine here as it's only called ~5-10 times max per frame
-      ctx.arc(star.x, star.y, 6, 0, PI2);
+      ctx.arc(star.x, star.y, 7, 0, PI2);
       ctx.strokeStyle = `rgba(52, 211, 153, ${opacity})`;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2; // Made ring slightly thicker and larger for visibility
       ctx.stroke();
     };
 
@@ -189,7 +196,7 @@ export default function AnimatedStarfield() {
         ctx.fillRect(star.x - d/2, star.y - d/2, d, d);
       }
 
-      // 2. Draw permanent network lines (dimly glowing)
+      // 2. Draw permanent network lines (brightly glowing)
       ctx.beginPath();
       for (const line of activeLines.values()) {
         // NO MORE EXPENSIVE STRING SPLITS AND ARRAY FINDS HERE
@@ -197,17 +204,17 @@ export default function AnimatedStarfield() {
         ctx.moveTo(line.a.x, line.a.y);
         ctx.lineTo(line.b.x, line.b.y);
       }
-      ctx.strokeStyle = `rgba(52, 211, 153, 0.4)`; // Brighter permanent lines
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = `rgba(52, 211, 153, 0.7)`; // Boosted from 0.4 to 0.7 for high visibility
+      ctx.lineWidth = 1.5; // Thicker lines
       ctx.stroke();
 
       // 3. Draw permanent awake nodes (rings)
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = 'rgba(52, 211, 153, 0.6)';
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = 'rgba(52, 211, 153, 0.9)';
       for (const node of awakeNodes) {
-        drawRing(node, 0.6);
+        drawRing(node, 0.9); // Boosted from 0.6
         // Highlight the star itself
-        const d = (node.size + 0.5) * 2;
+        const d = (node.size + 1.0) * 2;
         ctx.fillStyle = `rgba(52, 211, 153, 1)`;
         ctx.fillRect(node.x - d/2, node.y - d/2, d, d);
       }
@@ -248,10 +255,10 @@ export default function AnimatedStarfield() {
           ctx.moveTo(front.from.x, front.from.y);
           ctx.lineTo(currentX, currentY);
           
-          ctx.shadowBlur = 12;
+          ctx.shadowBlur = 20;
           ctx.shadowColor = 'rgba(52, 211, 153, 1)';
           ctx.strokeStyle = `rgba(52, 211, 153, 1)`;
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = 2.5; // Thicker actively growing line
           ctx.stroke();
           ctx.shadowBlur = 0;
         }
