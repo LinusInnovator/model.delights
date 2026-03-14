@@ -105,11 +105,15 @@ export default function CinematicLandingPage() {
                Run Diagnostics <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-10 left-8 right-8 h-40 flex items-center justify-center">
-               <div className="w-full h-full border border-emerald-500/20 rounded-xl bg-emerald-950/20 flex flex-col items-center justify-center gap-2 group-hover:-translate-y-2 transition-transform duration-500">
-                  <div className="text-emerald-400 font-[family-name:var(--font-jetbrains)] text-xs">Simulating Go-To-Market...</div>
-                  <div className="w-1/2 h-1 bg-emerald-500/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-400 w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 delay-300" />
+            <div className="absolute bottom-14 left-8 right-8 h-36 flex items-center justify-center">
+               <div className="w-full h-full border border-emerald-500/20 rounded-xl bg-gradient-to-br from-emerald-950/40 to-black/40 backdrop-blur-md flex flex-col items-center justify-center gap-3 group-hover:-translate-y-2 group-hover:border-emerald-500/40 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] transition-all duration-500 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="text-emerald-400 font-[family-name:var(--font-jetbrains)] text-xs flex items-center gap-2 relative z-10">
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_5px_rgba(52,211,153,0.8)]" />
+                    Simulating Go-To-Market...
+                  </div>
+                  <div className="w-2/3 h-1 bg-black/50 rounded-full overflow-hidden relative z-10 shadow-[inner_0_1px_2px_rgba(0,0,0,0.8)] border border-emerald-900/30">
+                    <div className="h-full bg-emerald-400 w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[1500ms] delay-200 ease-[cubic-bezier(0.2,0.8,0.2,1)] shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                   </div>
                </div>
             </div>
@@ -125,14 +129,20 @@ export default function CinematicLandingPage() {
                Open Architect <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-10 left-8 right-8 h-40 border border-zinc-800 rounded-xl bg-black p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                <span className="text-emerald-400 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Live Feed</span>
-                <span>PRD_STRUCT</span>
+            <div className="absolute bottom-14 left-8 right-8 h-36 border border-zinc-800 rounded-xl bg-gradient-to-br from-zinc-900/80 to-black backdrop-blur-md p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 group-hover:border-zinc-700 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+              <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10">
+                <span className="text-emerald-400 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[pulse_1.5s_ease-in-out_infinite]" /> Live Feed</span>
+                <span className="text-zinc-600 font-medium tracking-wider">PRD_STRUCT</span>
               </div>
-              <p className="mt-2 text-zinc-300">Targeting Vision Core...</p>
-              <p className="text-zinc-500">Routing {'>'} Anthropic Claude 3.5</p>
-              <span className="w-2 h-4 bg-emerald-400 animate-pulse mt-auto" />
+              <div className="mt-1 flex flex-col gap-1.5 relative z-10">
+                <p className="text-zinc-300">Targeting Vision Core...</p>
+                <p className="text-zinc-500">Routing {'>'} Anthropic Claude 3.5</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="text-emerald-400/80">Generating</span>
+                  <span className="w-2 h-3 bg-emerald-400 animate-pulse" />
+                </div>
+              </div>
             </div>
           </Link>
 
@@ -146,13 +156,15 @@ export default function CinematicLandingPage() {
                View SDK <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
-            <div className="absolute bottom-10 left-8 right-8 h-40 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
-               <div className="grid grid-cols-7 gap-1 h-2/3">
+            <div className="absolute bottom-14 left-8 right-8 h-36 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
+               <div className="grid grid-cols-7 gap-1 h-3/5 p-2 bg-black/40 border border-zinc-800/50 rounded-xl backdrop-blur-sm group-hover:border-zinc-700/50 transition-colors duration-500">
                   {[...Array(14)].map((_, i) => (
-                    <div key={i} className={`rounded-sm bg-zinc-800/50 ${i === 9 ? 'bg-emerald-500/80 shadow-[0_0_15px_rgba(52,211,153,0.5)]' : ''} transition-colors duration-300`} />
+                    <div key={i} className={`rounded-[3px] border ${i === 9 ? 'bg-emerald-500/20 border-emerald-500/50 group-hover:bg-emerald-500/80 group-hover:border-emerald-400 group-hover:shadow-[0_0_12px_rgba(52,211,153,0.6)]' : 'bg-zinc-900 border-zinc-800 group-hover:border-zinc-700 group-hover:bg-zinc-800/80'} transition-all duration-500 flex items-center justify-center relative overflow-hidden`}>
+                       {i === 9 && <div className="absolute inset-0 bg-emerald-400/20 mix-blend-overlay animate-pulse" />}
+                    </div>
                   ))}
                </div>
-               <div className="w-full h-1/3 border border-zinc-700 bg-zinc-800 rounded-lg flex items-center justify-center text-xs text-zinc-400 group-hover:bg-emerald-950 group-hover:text-emerald-400 group-hover:border-emerald-500 transition-colors duration-300">
+               <div className="w-full h-2/5 border border-zinc-700 bg-gradient-to-b from-zinc-800 to-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-xl flex items-center justify-center text-xs font-semibold text-zinc-400 group-hover:from-emerald-500 group-hover:to-emerald-600 group-hover:text-emerald-950 group-hover:border-emerald-400 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-300 transform active:scale-[0.98]">
                   Execute Route()
                </div>
             </div>
