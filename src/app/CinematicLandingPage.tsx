@@ -90,8 +90,8 @@ export default function CinematicLandingPage() {
       {/* Fixed Branding Header (Persists across scroll) */}
       <header className="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex items-center gap-4 pointer-events-none">
         <div className="pointer-events-auto cursor-pointer flex items-center gap-4 group">
-          <AnimatedLogo className="w-10 h-10 shrink-0 opacity-90" />
-          <AnimatedTextLogo className="h-8 w-auto shrink-0 opacity-90 mt-1" />
+          <AnimatedLogo className="w-14 h-14 shrink-0 opacity-90" />
+          <AnimatedTextLogo className="h-6 w-auto shrink-0 opacity-90 mt-1" />
         </div>
       </header>
 
