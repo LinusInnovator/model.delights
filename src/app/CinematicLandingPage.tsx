@@ -100,7 +100,7 @@ export default function CinematicLandingPage() {
             </span>
           </h1>
           <p className="hero-text mt-8 text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed">
-            Don&apos;t write a single line of code until you know the math works. Pitch your startup. We run the Pre-Mortem, validate the margin, and generate the exact fractional CTO blueprint to build it.
+            Don&apos;t write a single line of code until you know you're building the right thing. Pitch your startup. We stress-test your assumptions, validate your target market, and generate the technical blueprint to build it.
           </p>
           <div className="hero-text mt-10">
             <Link href="/validate" className="group relative inline-flex items-center justify-center overflow-hidden rounded-[2rem] bg-emerald-500 px-8 py-4 text-emerald-950 font-semibold transition-transform hover:scale-[1.03] active:scale-95 z-30">
@@ -117,8 +117,8 @@ export default function CinematicLandingPage() {
           
           {/* Card 1: Diagnostic */}
           <Link href="/validate" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Pre-Mortem Diagnostics</h3>
-            <p className="text-zinc-400 text-sm">Validating product-market friction.</p>
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Idea Stress-Testing</h3>
+            <p className="text-zinc-400 text-sm">Exposing critical market assumptions.</p>
 
             {/* Click-selling Rollover Badge */}
             <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -141,8 +141,8 @@ export default function CinematicLandingPage() {
 
           {/* Card 2: PRD Typewriter */}
           <Link href="/super-architect" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Generative Architecture</h3>
-            <p className="text-zinc-400 text-sm">Streaming Kano-model product specs.</p>
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Blueprint Generation</h3>
+            <p className="text-zinc-400 text-sm">Translating ideas to production boilerplates.</p>
 
             {/* Click-selling Rollover Badge */}
             <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -168,8 +168,8 @@ export default function CinematicLandingPage() {
 
           {/* Card 3: Scheduler */}
           <Link href="/sdk" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-all duration-300">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">B2B Routing SDK</h3>
-            <p className="text-zinc-400 text-sm">Zero-maintenance live API arbitrage.</p>
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Cost Optimization SDK</h3>
+            <p className="text-zinc-400 text-sm">Dynamic model routing for maximum ROI.</p>
 
             {/* Click-selling Rollover Badge */}
             <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -230,8 +230,8 @@ export default function CinematicLandingPage() {
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_01</p>
-              <h2 className="text-5xl font-bold mb-6">Precoil Validation.</h2>
-              <p className="text-zinc-400 text-xl leading-relaxed">We instantiate dual Red/Green LLM teams to ruthlessly autopsy your startup idea, finding the critical assumptions that will rip it apart before you waste hours compiling.</p>
+              <h2 className="text-5xl font-bold mb-6">Automated Idea Stress-Testing.</h2>
+              <p className="text-zinc-400 text-xl leading-relaxed">We deploy specialized AI agents to rigorously debate your startup idea, exposing the critical assumptions and fatal flaws before you spend a single dollar on development.</p>
             </div>
             <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden">
                {/* Background Grid */}
@@ -295,8 +295,8 @@ export default function CinematicLandingPage() {
             </div>
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_02</p>
-              <h2 className="text-5xl font-bold mb-6">Architecture Synthesis.</h2>
-              <p className="text-zinc-400 text-xl leading-relaxed">Bypassing the blank page. We stream a Kano-framework Product Requirement Document directly into a modular Next.js boilerplate, mapped precisely to your Live-ELO validated AI endpoints.</p>
+              <h2 className="text-5xl font-bold mb-6">Requirements & Boilerplates.</h2>
+              <p className="text-zinc-400 text-xl leading-relaxed">Skip the blank page. We convert your validated idea into prioritized product specifications and immediately generate a production-ready Next.js boilerplate customized for your application.</p>
             </div>
           </div>
         </div>
@@ -306,8 +306,8 @@ export default function CinematicLandingPage() {
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_03</p>
-              <h2 className="text-5xl font-bold mb-6">B2B Arbitrage Engine.</h2>
-              <p className="text-zinc-400 text-xl leading-relaxed">The production deployment isn't the finish line. Our zero-maintenance B2B router SDK continuously swaps your application's cognitive cores to capture falling API prices automatically.</p>
+              <h2 className="text-5xl font-bold mb-6">Dynamic AI Routing SDK.</h2>
+              <p className="text-zinc-400 text-xl leading-relaxed">Deployment isn't the finish line. Our zero-maintenance SDK continuously evaluates global LLM capabilities, automatically swapping models to maximize intelligence while minimizing your API costs.</p>
             </div>
             <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden p-12">
                {/* 3 Model Nodes */}
