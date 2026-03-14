@@ -60,9 +60,11 @@ export default function PrototryingMesh({ hideStars = false, variant = 'default'
             </linearGradient>
           )}
         </defs>
-        <path
+        <motion.path
           d={fgPath1}
           fill={`url(#${gradId}-bottom-grad)`}
+          animate={{ d: [fgPath1, fgPath2, fgPath1] }}
+          transition={{ duration: 14, ease: "easeInOut", repeat: Infinity, delay: 1 }}
         />
       </svg>
 
