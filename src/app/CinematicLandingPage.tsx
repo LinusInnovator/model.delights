@@ -1,9 +1,8 @@
-"use client";
-
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import AnimatedMeshGradient from '@/components/AnimatedMeshGradient';
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -65,14 +64,8 @@ export default function CinematicLandingPage() {
       
       {/* HERO SECTION */}
       <section className="relative h-[100dvh] w-full flex flex-col justify-end px-6 md:px-16 pb-24 md:pb-32 bg-black">
-        <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen"
-             style={{
-               backgroundImage: 'url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop")',
-               backgroundSize: 'cover',
-               backgroundPosition: 'center',
-             }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent z-10" />
+        <AnimatedMeshGradient />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent z-10 pointer-events-none" />
 
         <div className="relative z-20 max-w-4xl">
           <h1 className="flex flex-col gap-2">
@@ -148,16 +141,10 @@ export default function CinematicLandingPage() {
       </section>
 
       {/* PHILOSOPHY SECTION */}
-      <section className="philo-section relative w-full py-40 px-6 md:px-16 bg-[#050508]">
-        <div className="absolute inset-0 z-0 opacity-10 mix-blend-screen"
-             style={{
-               backgroundImage: 'url("https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop")',
-               backgroundSize: 'cover',
-               backgroundAttachment: 'fixed',
-               backgroundPosition: 'center',
-             }}
-        />
-        <div className="relative z-10 max-w-5xl mx-auto flex flex-col gap-16">
+      <section className="philo-section relative w-full py-40 px-6 md:px-16 bg-transparent">
+        <AnimatedMeshGradient />
+        <div className="absolute inset-0 bg-zinc-950/70 z-10 pointer-events-none" />
+        <div className="relative z-20 max-w-5xl mx-auto flex flex-col gap-16">
           <h2 className="philo-line text-2xl md:text-4xl font-medium text-zinc-500 tracking-tight">
             Most platforms focus on: <span className="text-zinc-400">Comparing arbitrary benchmarking scores.</span>
           </h2>
