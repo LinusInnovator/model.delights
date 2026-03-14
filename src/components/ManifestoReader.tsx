@@ -21,7 +21,8 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const [aiStats, setAiStats] = useState<any>(null);
 
   const { completion, complete, isLoading: isStreaming } = useCompletion({
-    api: '/api/rewrite'
+    api: '/api/rewrite',
+    streamProtocol: 'text'
   });
 
   const getToneFromSlider = (pos: number): ToneLevel | 'ai' => {
