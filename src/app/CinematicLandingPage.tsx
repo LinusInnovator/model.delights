@@ -96,8 +96,8 @@ export default function CinematicLandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Card 1: Diagnostic */}
-          <div className="relative overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group">
-            <h3 className="text-xl font-bold mb-2">Pre-Mortem Diagnostics</h3>
+          <Link href="/validate" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-colors">
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Pre-Mortem Diagnostics</h3>
             <p className="text-zinc-400 text-sm">Validating product-market friction.</p>
             <div className="absolute bottom-10 left-8 right-8 h-40 flex items-center justify-center">
                <div className="w-full h-full border border-emerald-500/20 rounded-xl bg-emerald-950/20 flex flex-col items-center justify-center gap-2 group-hover:-translate-y-2 transition-transform duration-500">
@@ -107,13 +107,13 @@ export default function CinematicLandingPage() {
                   </div>
                </div>
             </div>
-          </div>
+          </Link>
 
           {/* Card 2: PRD Typewriter */}
-          <div className="relative overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group">
-            <h3 className="text-xl font-bold mb-2">Generative Architecture</h3>
+          <Link href="/super-architect" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-colors">
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">Generative Architecture</h3>
             <p className="text-zinc-400 text-sm">Streaming Kano-model product specs.</p>
-            <div className="absolute bottom-10 left-8 right-8 h-40 border border-zinc-800 rounded-xl bg-black p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2">
+            <div className="absolute bottom-10 left-8 right-8 h-40 border border-zinc-800 rounded-xl bg-black p-4 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
               <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
                 <span className="text-emerald-400 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Live Feed</span>
                 <span>PRD_STRUCT</span>
@@ -122,13 +122,13 @@ export default function CinematicLandingPage() {
               <p className="text-zinc-500">Routing {'>'} Anthropic Claude 3.5</p>
               <span className="w-2 h-4 bg-emerald-400 animate-pulse mt-auto" />
             </div>
-          </div>
+          </Link>
 
           {/* Card 3: Scheduler */}
-          <div className="relative overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group">
-            <h3 className="text-xl font-bold mb-2">B2B Routing SDK</h3>
+          <Link href="/models" className="relative block overflow-hidden rounded-[2rem] bg-zinc-900/50 border border-zinc-800 p-8 h-96 group hover:border-emerald-500/50 transition-colors">
+            <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">B2B Routing SDK</h3>
             <p className="text-zinc-400 text-sm">Zero-maintenance live API arbitrage.</p>
-            <div className="absolute bottom-10 left-8 right-8 h-40 flex flex-col gap-2">
+            <div className="absolute bottom-10 left-8 right-8 h-40 flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500">
                <div className="grid grid-cols-7 gap-1 h-2/3">
                   {[...Array(14)].map((_, i) => (
                     <div key={i} className={`rounded-sm bg-zinc-800/50 ${i === 9 ? 'bg-emerald-500/80 shadow-[0_0_15px_rgba(52,211,153,0.5)]' : ''} transition-colors duration-300`} />
@@ -138,7 +138,7 @@ export default function CinematicLandingPage() {
                   Execute Route()
                </div>
             </div>
-          </div>
+          </Link>
 
         </div>
       </section>
