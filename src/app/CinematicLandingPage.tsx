@@ -219,7 +219,15 @@ export default function CinematicLandingPage() {
                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20" />
                {/* Central Idea Node */}
                <div className="relative w-32 h-32 rounded-full border-2 border-zinc-700 bg-zinc-900 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                 <div className="w-16 h-16 rounded-full bg-zinc-800 animate-pulse" />
+                 <div className="w-16 h-16 rounded-full bg-zinc-800 animate-pulse relative z-10" />
+                 {/* Laser Hit Trace (Synchronized with Scan Line) */}
+                 <div className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:animate-[spin_4s_linear_infinite]"
+                      style={{
+                        background: 'conic-gradient(from 260deg, transparent 0deg, transparent 320deg, rgba(244,63,94,1) 360deg)',
+                        maskImage: 'radial-gradient(transparent 60px, black 61px)',
+                        WebkitMaskImage: 'radial-gradient(transparent 60px, black 61px)'
+                      }}
+                 />
                </div>
                
                {/* Red Team Scan Line */}
