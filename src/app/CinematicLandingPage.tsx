@@ -101,7 +101,7 @@ export default function CinematicLandingPage() {
             <p className="text-zinc-400 text-sm">Validating product-market friction.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-[family-name:var(--font-inter)] text-xs font-medium translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                Run Diagnostics <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
@@ -121,7 +121,7 @@ export default function CinematicLandingPage() {
             <p className="text-zinc-400 text-sm">Streaming Kano-model product specs.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-[family-name:var(--font-inter)] text-xs font-medium translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                Open Architect <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
@@ -142,7 +142,7 @@ export default function CinematicLandingPage() {
             <p className="text-zinc-400 text-sm">Zero-maintenance live API arbitrage.</p>
 
             {/* Click-selling Rollover Badge */}
-            <div className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-[family-name:var(--font-inter)] text-xs font-medium translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/90 text-emerald-950 shadow-[0_4px_20px_-4px_rgba(16,185,129,0.5)] font-[family-name:var(--font-inter)] text-[10px] font-bold uppercase tracking-wider translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                View SDK <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
 
