@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
-import { Sun, Moon, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
+import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle } from "@phosphor-icons/react";
 import Link from "next/link";
+import { useCompletion } from "@ai-sdk/react";
+import { getOptimalWriterModel } from "@/app/actions/getOptimalWriter";
 
 interface ManifestoReaderProps {
   article: ManifestoArticle;
@@ -11,9 +13,25 @@ interface ManifestoReaderProps {
 }
 
 export default function ManifestoReader({ article, allArticles }: ManifestoReaderProps) {
-  const [tone, setTone] = useState<ToneLevel>("professional");
+  const [sliderPos, setSliderPos] = useState(2);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [activeNote, setActiveNote] = useState<string | null>(null);
+
+  const [isAiLoading, setIsAiLoading] = useState(false);
+  const [aiStats, setAiStats] = useState<any>(null);
+
+  const { completion, complete, isLoading: isStreaming } = useCompletion({
+    api: '/api/rewrite'
+  });
+
+  const getToneFromSlider = (pos: number): ToneLevel | 'ai' => {
+    if (pos === 1) return 'simple';
+    if (pos === 2) return 'professional';
+    if (pos === 3) return 'academic';
+    return 'ai';
+  };
+
+  const currentTone = getToneFromSlider(sliderPos);
 
   // Smooth appearance on load
   const [mounted, setMounted] = useState(false);
@@ -21,14 +39,27 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     setMounted(true);
   }, []);
 
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSliderChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
-    if (val === 1) setTone("simple");
-    else if (val === 2) setTone("professional");
-    else setTone("academic");
-  };
+    setSliderPos(val);
 
-  const sliderValue = tone === "simple" ? 1 : tone === "professional" ? 2 : 3;
+    if (val === 4 && !completion && !isStreaming && !isAiLoading) {
+      setIsAiLoading(true);
+      try {
+        const stats = await getOptimalWriterModel();
+        setAiStats(stats);
+        
+        // Map the full professional text to rewrite
+        const fullText = article.blocks.map(b => {
+           return Array.isArray(b.content.professional) ? b.content.professional.join(' ') : b.content.professional;
+        }).join('\n\n');
+        
+        complete(fullText, { body: { model: stats.smartValue || stats.flagship } });
+      } finally {
+        setIsAiLoading(false);
+      }
+    }
+  };
 
   if (!mounted) return null;
 
@@ -75,17 +106,18 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
         {/* Tone Slider */}
         <div className="flex-1 flex flex-col items-center gap-1">
-          <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2">
-            <span>In Short</span>
-            <span>Consultant</span>
-            <span>Academic</span>
+          <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4">
+            <span className="flex-1 text-left">In Short</span>
+            <span className="flex-1 text-center">Consultant</span>
+            <span className="flex-1 text-center">Academic</span>
+            <span className="flex-1 text-right text-emerald-500 flex justify-end items-center gap-1"><Sparkle weight="fill" className="w-3 h-3"/> Snell AI</span>
           </div>
           <input 
             type="range" 
             min="1" 
-            max="3" 
+            max="4" 
             step="1" 
-            value={sliderValue} 
+            value={sliderPos} 
             onChange={handleSliderChange}
             className={`w-full h-1 bg-zinc-700/50 rounded-lg appearance-none cursor-pointer accent-emerald-500`}
           />
@@ -104,69 +136,101 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
               PUBLISHED {article.date} • {article.readTimeMin} MIN READ
             </p>
             <h1 className={`text-5xl md:text-6xl font-[family-name:var(--font-playfair)] font-bold italic leading-tight tracking-tight mb-6 transition-all duration-700 ${headerClass}`}>
-              {article.title[tone]}
+              {currentTone === 'ai' ? article.title['professional'] + " (Snell AI Cut)" : article.title[currentTone as ToneLevel]}
             </h1>
             <h2 className="text-xl md:text-2xl opacity-70 leading-relaxed font-light transition-all duration-700">
-              {article.subtitle[tone]}
+              {currentTone === 'ai' ? "Dynamically rewritten using the SDK's Best-in-Class reasoning model." : article.subtitle[currentTone as ToneLevel]}
             </h2>
           </header>
 
-          <div className="space-y-8 md:space-y-10">
-            {article.blocks.map((block) => {
-              
-              // Handle margin note hover/active states
-              const hasNote = !!block.marginNoteId;
-              const handleMouseEnter = () => hasNote && setActiveNote(block.marginNoteId!);
-              const handleMouseLeave = () => setActiveNote(null);
+          <div className="space-y-8 md:space-y-10 min-h-[500px]">
+            {currentTone === 'ai' ? (
+              <div className="animate-fade-in">
+                {isAiLoading && (
+                  <div className="flex flex-col items-center justify-center py-20 opacity-50">
+                    <Sparkle size={32} className="animate-pulse text-emerald-500 mb-4" />
+                    <p className="font-mono text-xs tracking-widest uppercase">Querying Snell SDK for Best Reasoning Model...</p>
+                  </div>
+                )}
+                
+                {aiStats && (
+                  <div className={`mb-10 p-4 rounded-xl border flex items-center justify-between font-mono text-xs ${theme === 'dark' ? 'bg-zinc-900 border-emerald-500/30' : 'bg-emerald-50 border-emerald-500/30'}`}>
+                    <div className="flex items-center gap-3 text-emerald-500">
+                      <Sparkle weight="fill" />
+                      <span>Live Rewriting Engine</span>
+                    </div>
+                    <div className="flex flex-col items-end gap-1 opacity-70">
+                      <span>Model: {aiStats.smartValue || aiStats.flagship}</span>
+                      {aiStats.tradeoff && <span>Value: {aiStats.tradeoff}</span>}
+                    </div>
+                  </div>
+                )}
 
-              // Render text based on type
-              const textContent = Array.isArray(block.content[tone]) 
-                ? (block.content[tone] as string[]).join("\n") 
-                : block.content[tone] as string;
+                <div className="space-y-6">
+                  {completion.split('\n\n').map((paragraph: string, i: number) => (
+                    <p key={i} className="text-lg md:text-xl leading-relaxed animate-fade-in-up transition-all">
+                      {paragraph}
+                      {i === completion.split('\n\n').length - 1 && isStreaming && (
+                         <span className="inline-block w-2 h-4 bg-emerald-500 animate-pulse ml-2 -mb-1" />
+                      )}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              // Normal Document Blocks
+              article.blocks.map((block) => {
+                
+                const hasNote = !!block.marginNoteId;
+                const handleMouseEnter = () => hasNote && setActiveNote(block.marginNoteId!);
+                const handleMouseLeave = () => setActiveNote(null);
 
-              if (block.type === 'h2') {
-                return <h2 key={block.id} className={`text-3xl font-bold mt-16 mb-6 transition-all duration-500 ${headerClass}`}>{textContent}</h2>;
-              }
-              if (block.type === 'h3') {
-                return <h3 key={block.id} className={`text-2xl font-bold mt-10 mb-4 transition-all duration-500 ${headerClass}`}>{textContent}</h3>;
-              }
-              if (block.type === 'quote') {
+                const textContent = Array.isArray(block.content[currentTone as ToneLevel]) 
+                  ? (block.content[currentTone as ToneLevel] as string[]).join("\n") 
+                  : block.content[currentTone as ToneLevel] as string;
+
+                if (block.type === 'h2') {
+                  return <h2 key={block.id} className={`text-3xl font-bold mt-16 mb-6 transition-all duration-500 ${headerClass}`}>{textContent}</h2>;
+                }
+                if (block.type === 'h3') {
+                  return <h3 key={block.id} className={`text-2xl font-bold mt-10 mb-4 transition-all duration-500 ${headerClass}`}>{textContent}</h3>;
+                }
+                if (block.type === 'quote') {
+                  return (
+                    <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500">
+                      "{textContent}"
+                    </blockquote>
+                  );
+                }
+                if (block.type === 'callout') {
+                  return (
+                    <div key={block.id} className={`my-10 p-6 md:p-8 rounded-2xl ${noteBg} transition-all duration-500`}>
+                      <p className={`text-lg font-medium leading-relaxed ${headerClass}`}>{textContent}</p>
+                    </div>
+                  );
+                }
+
                 return (
-                  <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500">
-                    "{textContent}"
-                  </blockquote>
-                );
-              }
-              if (block.type === 'callout') {
-                return (
-                  <div key={block.id} className={`my-10 p-6 md:p-8 rounded-2xl ${noteBg} transition-all duration-500`}>
-                    <p className={`text-lg font-medium leading-relaxed ${headerClass}`}>{textContent}</p>
+                  <div 
+                    key={block.id} 
+                    className="relative group isolate"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <p className={`text-lg md:text-xl leading-relaxed transition-all duration-500 ${hasNote ? 'cursor-pointer' : ''}`}>
+                      {textContent}
+                    </p>
+                    
+                    {hasNote && (
+                      <span className="absolute -left-6 top-2 w-2 h-2 rounded-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
+                    )}
+                    {hasNote && theme === 'dark' && (
+                       <div className="absolute inset-[-10px] bg-emerald-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10 blur-sm pointer-events-none" />
+                    )}
                   </div>
                 );
-              }
-
-              // Standard Paragraph
-              return (
-                <div 
-                  key={block.id} 
-                  className="relative group isolate"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <p className={`text-lg md:text-xl leading-relaxed transition-all duration-500 ${hasNote ? 'cursor-pointer' : ''}`}>
-                    {textContent}
-                  </p>
-                  
-                  {/* Subtle indicator that there is a margin note associated with this paragraph */}
-                  {hasNote && (
-                    <span className="absolute -left-6 top-2 w-2 h-2 rounded-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
-                  )}
-                  {hasNote && theme === 'dark' && (
-                     <div className="absolute inset-[-10px] bg-emerald-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10 blur-sm pointer-events-none" />
-                  )}
-                </div>
-              );
-            })}
+              })
+            )}
           </div>
 
           {/* Article Pagination Grid */}
@@ -183,7 +247,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                       <div className="flex items-center gap-3 text-emerald-500 mb-4 font-mono text-xs tracking-widest uppercase">
                         <ArrowLeft weight="bold" /> Previous Part
                       </div>
-                      <h4 className={`text-xl font-bold font-[family-name:var(--font-playfair)] mb-2 ${headerClass}`}>{prevArticle.title[tone]}</h4>
+                      <h4 className={`text-xl font-bold font-[family-name:var(--font-playfair)] mb-2 ${headerClass}`}>
+                        {currentTone === 'ai' ? prevArticle.title['professional'] : prevArticle.title[currentTone as ToneLevel]}
+                      </h4>
                     </Link>
                   )}
                   {nextArticle && (
@@ -191,7 +257,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                       <div className="flex items-center gap-3 text-emerald-500 mb-4 font-mono text-xs tracking-widest uppercase">
                         Next Part <ArrowRight weight="bold" />
                       </div>
-                      <h4 className={`text-xl font-bold font-[family-name:var(--font-playfair)] mb-2 ${headerClass}`}>{nextArticle.title[tone]}</h4>
+                      <h4 className={`text-xl font-bold font-[family-name:var(--font-playfair)] mb-2 ${headerClass}`}>
+                      {currentTone === 'ai' ? nextArticle.title['professional'] : nextArticle.title[currentTone as ToneLevel]}
+                      </h4>
                     </Link>
                   )}
                 </>
