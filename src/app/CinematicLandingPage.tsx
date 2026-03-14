@@ -255,11 +255,24 @@ export default function CinematicLandingPage() {
         </div>
       </section>
 
+      {/* GLOBAL NOISE TEXTURE (Frosted grain effect over backgrounds) */}
+      <div className="pointer-events-none fixed inset-0 z-[1] w-full h-full opacity-[0.04] mix-blend-overlay">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 w-full h-full">
+          <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+        </svg>
+      </div>
+
       {/* PROTOCOL SECION */}
       <section className="relative w-full bg-zinc-950 pb-40">
         {/* Card 1 */}
-        <div ref={card1.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-gradient-to-b from-[#09090b] to-black rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-10 pt-20">
-          <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+        <div ref={card1.ref} className="protocol-card overflow-hidden min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-zinc-950 rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-10 pt-20">
+          {/* Subtle Ambient Coloration */}
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
+          
+          <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_01</p>
               <h2 className="text-5xl font-bold mb-6">Automated Idea Stress-Testing.</h2>
@@ -302,8 +315,12 @@ export default function CinematicLandingPage() {
         </div>
 
         {/* Card 2 */}
-        <div ref={card2.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-gradient-to-b from-black to-[#050508] rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-20 pt-20">
-          <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+        <div ref={card2.ref} className="protocol-card overflow-hidden min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-[#050508] rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-20 pt-20">
+          {/* Subtle Ambient Coloration */}
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none translate-y-1/3 -translate-x-1/4" />
+          <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-rose-500/5 rounded-full blur-[100px] pointer-events-none translate-x-1/3" />
+
+          <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
             <div className="hidden md:flex aspect-square rounded-[3rem] border border-zinc-800 bg-black items-center justify-center relative overflow-hidden">
                <div className="w-full h-full relative p-12 flex flex-col justify-end gap-2">
                  {/* Blueprint Wireframes compiling into solid blocks */}
@@ -352,8 +369,11 @@ export default function CinematicLandingPage() {
         </div>
 
         {/* Card 3 */}
-        <div ref={card3.ref} className="protocol-card min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-gradient-to-b from-[#050508] to-black rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-30 pt-20">
-          <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+        <div ref={card3.ref} className="protocol-card overflow-hidden min-h-[100dvh] w-full flex items-center px-6 md:px-16 bg-black rounded-t-[4rem] border-t border-zinc-900 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] relative z-30 pt-20">
+          {/* Subtle Ambient Coloration */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-indigo-500/5 rounded-full blur-[150px] pointer-events-none" />
+
+          <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_03</p>
               <h2 className="text-5xl font-bold mb-6">Dynamic AI Routing SDK.</h2>
