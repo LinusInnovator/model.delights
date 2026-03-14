@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Star {
   id: string;
@@ -20,8 +20,10 @@ interface GrowthFront {
 
 export default function AnimatedStarfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: true });
@@ -293,7 +295,7 @@ export default function AnimatedStarfield() {
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 pointer-events-none mix-blend-screen opacity-90"
+      className={`absolute inset-0 pointer-events-none mix-blend-screen transition-opacity duration-1000 ease-in-out ${isMounted ? 'opacity-90' : 'opacity-0'}`}
     />
   );
 }
