@@ -77,7 +77,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
              return Array.isArray(b.content.professional) ? b.content.professional.join(' ') : b.content.professional;
           }).join('\n\n');
         
-        complete(fullText, { body: { model: stats.smartValue || stats.flagship } });
+        complete(fullText, { 
+          body: { 
+            model: stats.smartValue || stats.flagship,
+            articleContext: `Article Title: ${article.title}\nArticle Theme: ${article.subtitle}`
+          } 
+        });
       } finally {
         setIsAiLoading(false);
       }
