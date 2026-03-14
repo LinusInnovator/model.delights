@@ -34,6 +34,11 @@ export const article3: ManifestoArticle = {
       id: "taste-definition",
       content: "Taste in software isn't just visual; it's the kinetic feel of a micro-interaction, the timing of a physics-based animation, and the unapologetic removal of friction. It requires a singular vision.",
       authorTitle: "Product Design Methodology"
+    },
+    "design-roles": {
+      id: "design-roles",
+      content: "UX Leads govern massive single touchpoints. Service Designers align all scattered touchpoints to the brand. Strategic Designers sit above it all, helping the C-Suite co-create the future 'customer first' vision of the entire business.",
+      authorTitle: "Design Hierarchy Glossary"
     }
   },
   blocks: [
@@ -110,7 +115,8 @@ export const article3: ManifestoArticle = {
         simple: "When I built model.delights.pro, I didn't have to hand off my drawings. I just told the AI what to code. We worked together perfectly.",
         professional: "When we engineered `model.delights.pro` over 11 days, the secret to its cinematic aesthetic wasn't just my background as a Strategic Designer. The real secret was that I didn't need to hand the vision down to a UX team or a front-end developer. I could execute it directly in Horizon 1 by pair programming with an advanced, agentic AI.",
         academic: "The deployment of `model.delights.pro` isolated the Strategic Designer from this degradation cycle. Operating in tandem with an advanced Agentic AI completely eliminated the inter-departmental hand-off (from Strategy to UX/UI execution), allowing for the direct computational expression of the original strategic theory."
-      }
+      },
+      marginNoteId: "design-roles"
     },
     {
       id: "p6",
