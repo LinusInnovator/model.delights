@@ -199,7 +199,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
             >
               <motion.div 
                 style={{ y: yOffset }} 
-                className="absolute inset-[-10%] w-[120%] h-[120%] transition-transform duration-700 ease-out group-hover:scale-[1.03] z-0"
+                className="absolute top-[-40%] bottom-[-40%] left-[-10%] right-[-10%] transition-transform duration-700 ease-out group-hover:scale-[1.03] z-0"
               >
                 <Image 
                   src={article.heroImage.url} 
