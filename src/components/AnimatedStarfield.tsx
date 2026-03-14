@@ -34,8 +34,8 @@ export default function AnimatedStarfield() {
     let stars: Star[] = [];
     
     // Persistent network state
-    let awakeNodes = new Set<Star>();
-    let activeLines = new Map<string, {a: Star; b: Star}>(); 
+    let awakeNodes = new Map<Star, number>(); // Star -> spawn time
+    let activeLines = new Map<string, {a: Star; b: Star; spawnedAt: number}>(); 
     let fronts: GrowthFront[] = [];
     
     let lastTime = performance.now();
@@ -120,7 +120,7 @@ export default function AnimatedStarfield() {
         const startNode = bestStar || stars[Math.floor(Math.random() * stars.length)];
 
         if (startNode) {
-          awakeNodes.add(startNode);
+          awakeNodes.set(startNode, performance.now());
           seedFronts(startNode);
         }
       }, 2000);
@@ -142,7 +142,8 @@ export default function AnimatedStarfield() {
       if (availableNeighbors.length === 0) {
         // If we hit a dead end, randomly jump-start a new branch from anywhere alive to prevent the network from totally stalling
         if (fronts.length < 2 && awakeNodes.size > 0) {
-          const randomAwakeNode = Array.from(awakeNodes)[Math.floor(Math.random() * awakeNodes.size)];
+          const aliveStars = Array.from(awakeNodes.keys());
+          const randomAwakeNode = aliveStars[Math.floor(Math.random() * aliveStars.length)];
           if (randomAwakeNode) seedFronts(randomAwakeNode);
         }
         return;
@@ -196,26 +197,44 @@ export default function AnimatedStarfield() {
         ctx.fillRect(star.x - d/2, star.y - d/2, d, d);
       }
 
-      // 2. Draw permanent network lines (brightly glowing)
+      // 2. Draw active fading network lines
       ctx.beginPath();
-      for (const line of activeLines.values()) {
-        // NO MORE EXPENSIVE STRING SPLITS AND ARRAY FINDS HERE
-        // It's a direct hash map traversal now, 10x faster
+      for (const [lineId, line] of activeLines.entries()) {
+        const age = time - line.spawnedAt;
+        if (age > 10000) {
+          activeLines.delete(lineId); // Line is fully faded and dead
+          continue;
+        }
+
+        // Keep 100% visible for 3s, then fade out linearly over 7s
+        const fade = age < 3000 ? 1 : 1 - ((age - 3000) / 7000);
+        
         ctx.moveTo(line.a.x, line.a.y);
         ctx.lineTo(line.b.x, line.b.y);
+        ctx.strokeStyle = `rgba(52, 211, 153, ${0.7 * fade})`; 
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.beginPath(); // Must begin new path after stroke since strokeStyle changes per line
       }
-      ctx.strokeStyle = `rgba(52, 211, 153, 0.7)`; // Boosted from 0.4 to 0.7 for high visibility
-      ctx.lineWidth = 1.5; // Thicker lines
-      ctx.stroke();
 
-      // 3. Draw permanent awake nodes (rings)
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = 'rgba(52, 211, 153, 0.9)';
-      for (const node of awakeNodes) {
-        drawRing(node, 0.9); // Boosted from 0.6
+      // 3. Draw active fading nodes (rings)
+      for (const [node, spawnedAt] of awakeNodes.entries()) {
+        const age = time - spawnedAt;
+        if (age > 10000) {
+          awakeNodes.delete(node); // Node is fully faded and asleep
+          continue;
+        }
+
+        // Keep 100% visible for 3s, then fade out linearly over 7s
+        const fade = age < 3000 ? 1 : 1 - ((age - 3000) / 7000);
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = `rgba(52, 211, 153, ${0.9 * fade})`;
+        drawRing(node, 0.9 * fade); 
+        
         // Highlight the star itself
         const d = (node.size + 1.0) * 2;
-        ctx.fillStyle = `rgba(52, 211, 153, 1)`;
+        ctx.fillStyle = `rgba(52, 211, 153, ${fade})`;
         ctx.fillRect(node.x - d/2, node.y - d/2, d, d);
       }
       ctx.shadowBlur = 0;
@@ -232,19 +251,20 @@ export default function AnimatedStarfield() {
 
         if (front.progress >= 1) {
           // Front is complete. 
-          // Solidify the line and the node
+          // Solidify the line and the node with a timestamp
           const lineId = getLineId(front.from, front.to);
-          activeLines.set(lineId, { a: front.from, b: front.to });
-          awakeNodes.add(front.to);
+          activeLines.set(lineId, { a: front.from, b: front.to, spawnedAt: time });
+          awakeNodes.set(front.to, time);
           
           // Remove this front
           fronts.splice(i, 1);
 
           // Spawn new fronts from the destination, occasionally spawn a lateral branch
           seedFronts(front.to);
-          if (Math.random() > 0.8) {
-             const randomAwakeNode = Array.from(awakeNodes)[Math.floor(Math.random() * awakeNodes.size)];
-             seedFronts(randomAwakeNode);
+          if (Math.random() > 0.8 && awakeNodes.size > 0) {
+             const aliveStars = Array.from(awakeNodes.keys());
+             const randomAwakeNode = aliveStars[Math.floor(Math.random() * aliveStars.length)];
+             if (randomAwakeNode) seedFronts(randomAwakeNode);
           }
         } else {
           // Draw the growing line very bright
