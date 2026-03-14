@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 export default function AnimatedMeshGradient() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden opacity-80 pointer-events-none">
-      {/* Base Deep Background */}
-      <div className="absolute inset-0 bg-[#050508]" />
+      {/* Deep Purple/Cyan Base */}
+      <div className="absolute inset-0 bg-[#0f0e15]" />
 
-      {/* Deep Emerald Wave */}
+      {/* Deep Violet Wave (Top Right dominant) */}
       <motion.div
-        className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-[#064E3B]/40 blur-[120px] mix-blend-screen"
+        className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-[#7c3aed]/40 blur-[30px] mix-blend-screen"
         animate={{
           x: ["0%", "10%", "-5%", "0%"],
           y: ["0%", "5%", "-10%", "0%"],
@@ -19,9 +19,9 @@ export default function AnimatedMeshGradient() {
         transition={{ duration: 18, ease: "easeInOut", repeat: Infinity }}
       />
 
-      {/* Bright Emerald Highlight */}
+      {/* Bright Cyan / Blue Highlight (Left / Bottom) */}
       <motion.div
-        className="absolute top-[20%] left-[30%] w-[50vw] h-[50vw] rounded-full bg-[#10B981]/20 blur-[100px] mix-blend-screen"
+        className="absolute top-[20%] left-[30%] w-[60vw] h-[60vw] rounded-full bg-[#0ea5e9]/30 blur-[30px] mix-blend-screen"
         animate={{
           x: ["0%", "-15%", "10%", "0%"],
           y: ["0%", "-10%", "15%", "0%"],
@@ -30,9 +30,9 @@ export default function AnimatedMeshGradient() {
         transition={{ duration: 22, ease: "easeInOut", repeat: Infinity, delay: 2 }}
       />
 
-      {/* Subtle Dark Slate / Indigo contrast (gives depth like the apple wallpaper) */}
+      {/* Warm Orange / Peach contrast (gives depth like the apple wallpaper) */}
       <motion.div
-        className="absolute -bottom-[30%] -right-[10%] w-[80vw] h-[80vw] rounded-full bg-[#312E81]/20 blur-[140px] mix-blend-screen"
+        className="absolute -bottom-[30%] -right-[10%] w-[80vw] h-[80vw] rounded-full bg-[#f97316]/20 blur-[30px] mix-blend-screen"
         animate={{
           x: ["0%", "-20%", "5%", "0%"],
           y: ["0%", "-15%", "10%", "0%"],
@@ -41,9 +41,9 @@ export default function AnimatedMeshGradient() {
         transition={{ duration: 25, ease: "easeInOut", repeat: Infinity, delay: 1 }}
       />
       
-      {/* Floating Center Core */}
+      {/* Floating Magenta / Pink Core */}
       <motion.div
-        className="absolute top-[40%] right-[20%] w-[40vw] h-[40vw] rounded-full bg-[#047857]/30 blur-[110px] mix-blend-screen"
+        className="absolute top-[40%] right-[20%] w-[50vw] h-[50vw] rounded-full bg-[#d946ef]/20 blur-[30px] mix-blend-screen"
         animate={{
           x: ["0%", "20%", "-10%", "0%"],
           y: ["0%", "-20%", "5%", "0%"],
