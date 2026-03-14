@@ -44,15 +44,23 @@ export default function PrototryingMesh({ hideStars = false, variant = 'default'
         preserveAspectRatio="none"
       >
         <defs>
-          <linearGradient id="appleGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0284c7" />  {/* Ocean Blue */}
-            <stop offset="50%" stopColor="#06b6d4" /> {/* Bright Cyan */}
-            <stop offset="100%" stopColor="#14b8a6" />{/* Caribbean Teal */}
-          </linearGradient>
+          {variant === 'default' ? (
+            <linearGradient id={`${gradId}-bottom-grad`} x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0284c7" />  {/* Ocean Blue */}
+              <stop offset="50%" stopColor="#06b6d4" /> {/* Bright Cyan */}
+              <stop offset="100%" stopColor="#14b8a6" />{/* Caribbean Teal */}
+            </linearGradient>
+          ) : (
+            <linearGradient id={`${gradId}-bottom-grad`} x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0f172a" />   {/* Deep Slate/Navy */}
+              <stop offset="50%" stopColor="#0f3f4a" />  {/* Dark Ocean Muted Teal */}
+              <stop offset="100%" stopColor="#256d7b" /> {/* Muted Seafoam Top */}
+            </linearGradient>
+          )}
         </defs>
         <motion.path
           d={fgPath1}
-          fill="url(#appleGrad3)"
+          fill={`url(#${gradId}-bottom-grad)`}
           animate={{ d: [fgPath1, fgPath2, fgPath1] }}
           transition={{ duration: 14, ease: "easeInOut", repeat: Infinity, delay: 1 }}
         />
