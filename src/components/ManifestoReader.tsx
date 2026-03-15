@@ -30,9 +30,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   
   // Clean, high-performance vertical scroll parallax mapping to percentages
   const { scrollY } = useScroll();
-  // We map 0-1200px of scroll to a 0-15% downward translation. 
+  // We map 0-800px of scroll to a 0-26% downward translation. 
   // It uses a percentage so it natively scales to the image height without hardcoded pixel overflows.
-  const yScrollOffset = useTransform(scrollY, [0, 1200], ["0%", "15%"]); 
+  const yScrollOffset = useTransform(scrollY, [0, 800], ["0%", "26.25%"]); 
   
   // Create unified motion templates at the top level to strictly follow Rules of Hooks
   const parallaxX = useMotionTemplate`${panX}%`;
@@ -304,9 +304,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   y: parallaxY
                 }} 
                 // We calculate the bottom starting point precisely. 
-                // Using top-[-10%] protects against desktop mouse hovering up.
-                // Using bottom-[-25%] ensures we have 25% of vertical bleed. Our scroll mapping only uses 15%, leaving 10% for hover. It will never clip.
-                className="absolute top-[-10%] bottom-[-25%] left-[-10%] right-[-10%] z-0"
+                // Using top-[-50%] and bottom-[-10%] makes the image 160% the height of the container.
+                // It starts anchored near the bottom (leaving 10% for safe mouse panning).
+                // Translating it down by 26.25% (42/160) perfectly aligns the top of the image to the top of the container.
+                className="absolute top-[-50%] bottom-[-10%] left-[-10%] right-[-10%] z-0"
               >
                 <Image 
                   src={article.heroImage.url} 
