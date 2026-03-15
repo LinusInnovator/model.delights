@@ -191,29 +191,38 @@ Core Principles for a NEW CATEGORY:
 
         // --- INTERNAL DOGFOODING ---
         const route = await getOptimalRoute('reasoning');
-        let optimalModelId = "openai/gpt-4o-mini"; // safety net
+        let modelsToTry = ["openai/gpt-4o-mini"]; // safety net
         if (route) {
-            optimalModelId = route.smart_value?.model || route.flagship.model;
-            // console.log(`[Dogfood] Validator Triangulating via: ${optimalModelId}`);
+            const primary = route.smart_value?.model || route.flagship.model;
+            const fallbacks = route.fallback_array || [];
+            // De-duplicate and limit to max 3 attempts to stay somewhat within the 45s window
+            modelsToTry = Array.from(new Set([primary, ...fallbacks])).slice(0, 3);
         }
-        const modelInstance = createOpenRouter(optimalModelId);
 
         let autopsyData: any = providedAutopsyData;
         let catalystData: any = providedCatalystData;
 
         if (phase === "red" || phase === "all") {
-            try {
-                const res = await generateObject({
-                    model: modelInstance,
-                    schema: VentureValidationSchema,
-                    system: autopsySystemPrompt,
-                    prompt: autopsyUserPrompt,
-                });
-                autopsyData = res.object as any;
-                autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
-            } catch (e) {
+            let success = false;
+            for (const modelId of modelsToTry) {
+                try {
+                    const res = await generateObject({
+                        model: createOpenRouter(modelId),
+                        schema: VentureValidationSchema,
+                        system: autopsySystemPrompt,
+                        prompt: autopsyUserPrompt,
+                    });
+                    autopsyData = res.object as any;
+                    autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+                    success = true;
+                    break;
+                } catch (e) {
+                    console.warn(`[Red Team] Model ${modelId} failed:`, e);
+                }
+            }
+            if (!success) {
                 autopsyData = {
-                    pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out. They were likely too focused on the failure vectors to respond." },
+                    pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out for all fallback models. Too many complex vectors." },
                     critical_assumptions: [],
                     logic_chain: ["Red Team analysis unavailable."],
                     experiment_sequence: [],
@@ -228,18 +237,26 @@ Core Principles for a NEW CATEGORY:
         }
 
         if (phase === "green" || phase === "all") {
-            try {
-                const res = await generateObject({
-                    model: modelInstance,
-                    schema: VentureValidationSchema,
-                    system: catalystSystemPrompt,
-                    prompt: catalystUserPrompt,
-                });
-                catalystData = res.object as any;
-                catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
-            } catch (e) {
+            let success = false;
+            for (const modelId of modelsToTry) {
+                try {
+                    const res = await generateObject({
+                        model: createOpenRouter(modelId),
+                        schema: VentureValidationSchema,
+                        system: catalystSystemPrompt,
+                        prompt: catalystUserPrompt,
+                    });
+                    catalystData = res.object as any;
+                    catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+                    success = true;
+                    break;
+                } catch (e) {
+                    console.warn(`[Green Team] Model ${modelId} failed:`, e);
+                }
+            }
+            if (!success) {
                 catalystData = {
-                     pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out. Growth vectors could not be mapped." },
+                     pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out for all fallback models. Growth vectors could not be mapped." },
                      critical_assumptions: [],
                      logic_chain: ["Green Team analysis unavailable."],
                      experiment_sequence: [],
@@ -271,14 +288,28 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
                 ? BaseInsightSchema.merge(EconomicsSchemaExtension)
                 : BaseInsightSchema;
 
-            const synthesisResult = await generateObject({
-                model: modelInstance,
-                schema: DynamicInsightSchema,
-                system: synthesisSystemPrompt,
-                prompt: synthesisUserPrompt,
-            });
+            let insightSummary: any = null;
+            let synthesisSuccess = false;
 
-            const insightSummary = synthesisResult.object;
+            for (const modelId of modelsToTry) {
+                try {
+                    const synthesisResult = await generateObject({
+                        model: createOpenRouter(modelId),
+                        schema: DynamicInsightSchema,
+                        system: synthesisSystemPrompt,
+                        prompt: synthesisUserPrompt,
+                    });
+                    insightSummary = synthesisResult.object;
+                    synthesisSuccess = true;
+                    break;
+                } catch (e) {
+                    console.warn(`[Synthesis] Model ${modelId} failed:`, e);
+                }
+            }
+
+            if (!synthesisSuccess) {
+                throw new Error("Synthesis failed to complete across all fallback models.");
+            }
 
             // --- SILENT TELEMETRY LOGGING (Phase 31 Data Lake) ---
             if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
