@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
-import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle } from "@phosphor-icons/react";
+import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle, X } from "@phosphor-icons/react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCompletion } from "@ai-sdk/react";
 import { getOptimalWriterModel } from "@/app/actions/getOptimalWriter";
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate, AnimatePresence } from "framer-motion";
 import AnimatedLogo from "@/components/AnimatedLogo";
 import AnimatedTextLogo from "@/components/AnimatedTextLogo";
 
@@ -21,6 +21,18 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [copyTone, setCopyTone] = useState<"truth" | "nice">("truth");
   const [activeNote, setActiveNote] = useState<string | null>(null);
+  const [isHeroFullscreen, setIsHeroFullscreen] = useState(false);
+
+  useEffect(() => {
+    if (isHeroFullscreen) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [isHeroFullscreen]);
 
   // Image Panning State (Desktop & Mobile Unified Transforms)
   const springConfig = { damping: 25, stiffness: 120, mass: 0.5 };
@@ -331,9 +343,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
           {/* Hero Image */}
           {article.heroImage && (
             <div 
-              className={`mb-16 relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in group cursor-crosshair ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}
+              className={`mb-16 relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in group cursor-zoom-in ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}
               onMouseMove={handleHeroMouseMove}
               onMouseLeave={handleHeroMouseLeave}
+              onClick={() => setIsHeroFullscreen(true)}
             >
               {/* Unified High-Performance GPU Parallax Layer */}
               <motion.div 
@@ -580,6 +593,66 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         </aside>
 
       </main>
+
+      {/* Fullscreen Hero Image Modal */}
+      <AnimatePresence>
+        {isHeroFullscreen && article.heroImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 md:p-12"
+            onClick={() => setIsHeroFullscreen(false)}
+          >
+            {/* Blurry Backdrop */}
+            <div className={`absolute inset-0 backdrop-blur-2xl ${theme === 'dark' ? 'bg-black/90' : 'bg-white/95'}`} />
+
+            {/* Close Button */}
+            <button
+              onClick={() => setIsHeroFullscreen(false)}
+              className={`absolute top-6 right-6 md:top-8 md:right-8 z-50 p-3 rounded-full transition-colors ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-black/5 hover:bg-black/10 text-black'}`}
+              aria-label="Close fullscreen image"
+            >
+              <X weight="bold" className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+
+            {/* Image Container */}
+            <motion.div 
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300, delay: 0.1 }}
+              className="relative w-full max-w-7xl flex-1 max-h-[80vh] rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10 z-10"
+              onClick={(e) => e.stopPropagation()} // Prevent clicking image from closing
+            >
+              <Image 
+                src={article.heroImage.url} 
+                alt={article.heroImage.alt} 
+                fill 
+                style={{ objectFit: 'contain' }}
+                priority
+                sizes="100vw"
+                className="select-none"
+              />
+            </motion.div>
+
+            {/* Caption / Explanation */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+              className="relative z-10 mt-6 md:mt-8 max-w-3xl text-center px-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className={`text-sm md:text-base font-medium tracking-wide ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-800'} font-[family-name:var(--font-playfair)] italic`}>
+                {article.heroImage.alt}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
