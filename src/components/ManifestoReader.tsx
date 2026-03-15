@@ -26,6 +26,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const springConfig = { damping: 20, stiffness: 100, mass: 0.5 };
   const smoothGyroX = useSpring(50, springConfig);
   const smoothGyroY = useSpring(50, springConfig);
+  
+  // Create a combined motion value for the object-position CSS property
+  const smoothObjectPosition = useTransform(
+    [smoothGyroX, smoothGyroY], 
+    ([x, y]) => `${x}% ${y}%`
+  );
 
   // Mobile Dynamic Pill State
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -339,10 +345,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 className="absolute inset-[-15%] w-[130%] h-[130%] object-cover block md:hidden z-0"
                 style={{
                   y: yOffset,
-                  objectPosition: useTransform(
-                    [smoothGyroX, smoothGyroY], 
-                    ([x, y]) => `${x}% ${y}%`
-                  ) as any
+                  objectPosition: smoothObjectPosition as any
                 }}
               />
 
