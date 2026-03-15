@@ -22425,6 +22425,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_21ed7971",
+      "model_id": "minimax/minimax-m2.5:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "minimax/minimax-m2.5:free",
+          "provider": "minimax"
+        }
+      ]
     }
   ]
 }
