@@ -117,12 +117,14 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const themeClasses = useMemo(() => ({
     bgClass: theme === "dark" ? "bg-[#09090b] text-zinc-300" : "bg-[#fafafa] text-zinc-800",
     headerClass: theme === "dark" ? "text-white" : "text-black",
-    controlPanelBg: theme === "dark" ? "bg-zinc-900/80 border-zinc-800" : "bg-white/80 border-zinc-200",
+    controlPanelGlass: theme === "dark" 
+      ? "bg-zinc-900/40 backdrop-blur-3xl backdrop-saturate-150 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)]" 
+      : "bg-white/40 backdrop-blur-3xl backdrop-saturate-150 border border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.6)]",
     noteBg: theme === "dark" ? "bg-zinc-900/50 border-emerald-500/20" : "bg-emerald-50 border-emerald-500/20",
     noteText: theme === "dark" ? "text-zinc-400" : "text-zinc-600"
   }), [theme]);
 
-  const { bgClass, headerClass, controlPanelBg, noteBg, noteText } = themeClasses;
+  const { bgClass, headerClass, controlPanelGlass, noteBg, noteText } = themeClasses;
 
   if (!mounted) return null;
 
@@ -197,7 +199,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
       
       {/* 1. Mobile Closed "Dynamic Pill" */}
       <motion.div 
-        className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-2 px-6 py-3 rounded-full backdrop-blur-xl border shadow-2xl cursor-pointer ${controlPanelBg}`}
+        className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-2 px-6 py-3 rounded-full cursor-pointer ${controlPanelGlass}`}
         onClick={() => setIsMobileNavOpen(true)}
         initial={false}
         animate={{ y: isMobileNavOpen ? 100 : 0, opacity: isMobileNavOpen ? 0 : 1, pointerEvents: isMobileNavOpen ? 'none' : 'auto' }}
@@ -221,7 +223,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
       
       {/* 3. Mobile Expanded Slider Modal */}
       <motion.div 
-        className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md px-6 py-5 rounded-3xl backdrop-blur-xl border shadow-2xl flex flex-col items-center justify-between gap-4 ${controlPanelBg}`}
+        className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md px-6 py-5 rounded-3xl flex flex-col items-center justify-between gap-4 ${controlPanelGlass}`}
         initial={false}
         animate={{ 
           y: isMobileNavOpen ? 0 : 100,
@@ -236,7 +238,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
       {/* 4. Desktop Persistent Panel */}
       <div 
-        className={`hidden lg:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl px-6 py-4 rounded-full backdrop-blur-xl border shadow-xl items-center justify-between gap-6 ${controlPanelBg}`}
+        className={`hidden lg:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl px-6 py-4 rounded-full items-center justify-between gap-6 ${controlPanelGlass}`}
       >
         {renderSettingsContent(false)}
       </div>
