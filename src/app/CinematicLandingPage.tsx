@@ -88,10 +88,19 @@ export default function CinematicLandingPage() {
     <div ref={containerRef} className="w-full bg-zinc-950 text-zinc-100 overflow-hidden font-sans relative">
       
       {/* Fixed Branding Header (Persists across scroll) */}
-      <header className="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex items-center gap-4 pointer-events-none">
+      <header className="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex justify-between items-center pointer-events-none">
         <div className="pointer-events-auto cursor-pointer flex items-center gap-4 group">
           <AnimatedLogo className="w-11 h-11 shrink-0 opacity-90" />
           <AnimatedTextLogo className="h-9 w-auto shrink-0 opacity-90 mt-1" />
+        </div>
+        <div className="pointer-events-auto">
+          <Link 
+            href="/manifesto" 
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-md hover:bg-zinc-800 hover:border-emerald-500/30 transition-all duration-300"
+          >
+            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-zinc-400 tracking-widest uppercase group-hover:text-emerald-400 transition-colors">Manifesto</span>
+            <span className="text-zinc-600 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">&rarr;</span>
+          </Link>
         </div>
       </header>
 
@@ -423,7 +432,12 @@ export default function CinematicLandingPage() {
              <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
              <span className="relative z-10 font-[family-name:var(--font-inter)]">Test Your Idea Now &rarr;</span>
           </Link>
-          <div className="mt-16 flex items-center gap-3 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500">
+          <div className="mt-8 flex items-center gap-8">
+            <Link href="/manifesto" className="font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 hover:text-emerald-400 underline decoration-zinc-800 underline-offset-4 hover:decoration-emerald-500/30 transition-all uppercase tracking-widest">
+              Read The Manifesto
+            </Link>
+          </div>
+          <div className="mt-12 flex items-center gap-3 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             INTELLIGENCE_ENGINE: OPERATIONAL
           </div>
