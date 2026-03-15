@@ -10,15 +10,21 @@ export interface ContentBlock {
   id: string;
   type: 'p' | 'h2' | 'h3' | 'quote' | 'list' | 'callout';
   // The content itself changes based on the tone
-  content: Record<ToneLevel, string | string[]>; 
+  content: Record<ToneLevel, string | string[]> & {
+    nice?: Record<ToneLevel, string | string[]>;
+  }; 
   marginNoteId?: string; // Links this block to a specific side-note
 }
 
 export interface ManifestoArticle {
   slug: string;
   partNumber: number;
-  title: Record<ToneLevel, string>;
-  subtitle: Record<ToneLevel, string>;
+  title: Record<ToneLevel, string> & {
+    nice?: Record<ToneLevel, string>;
+  };
+  subtitle: Record<ToneLevel, string> & {
+    nice?: Record<ToneLevel, string>;
+  };
   date: string;
   readTimeMin: number;
   heroImage?: {
