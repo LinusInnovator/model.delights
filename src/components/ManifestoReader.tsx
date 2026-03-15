@@ -173,9 +173,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity ${!isMobile ? 'shrink-0' : ''}`}
       >
         {theme === 'dark' ? (
-          <><Sun weight="bold" className="w-4 h-4" /> Light Mode</>
-        ) : (
           <><Moon weight="bold" className="w-4 h-4" /> Dark Mode</>
+        ) : (
+          <><Sun weight="bold" className="w-4 h-4" /> Light Mode</>
         )}
       </button>
     );
@@ -186,9 +186,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity ${!isMobile ? 'shrink-0' : ''}`}
       >
         {copyTone === 'truth' ? (
-          <><Heart weight="bold" className="w-4 h-4" /> Nice Mode</>
-        ) : (
           <><Lightning weight="bold" className="w-4 h-4" /> Honest Mode</>
+        ) : (
+          <><Heart weight="bold" className="w-4 h-4" /> Nice Mode</>
         )}
       </button>
     );
@@ -277,6 +277,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
             <span className="flex items-center gap-1.5 text-emerald-500"><Sparkle weight="fill"/> Model SDK</span>
           ) : currentTone === 'simple' ? 'In Short' : currentTone === 'professional' ? 'Consultant' : 'Academic'}
         </span>
+        {copyTone === 'truth' ? <Lightning weight="fill" className="text-zinc-500 w-4 h-4" /> : <Heart weight="fill" className="text-zinc-500 w-4 h-4" />}
       </motion.div>
 
       {/* 2. Mobile Backdrop Overlay */}
