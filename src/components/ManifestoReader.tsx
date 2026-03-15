@@ -246,7 +246,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
           <AnimatedLogo className={`w-10 h-10 md:w-12 md:h-12 shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
           <div className="flex flex-col justify-center">
-            <AnimatedTextLogo className={`h-5 md:h-6 w-auto shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
+            <AnimatedTextLogo className={`h-[26px] md:h-8 w-auto shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
             <span className="text-[10px] md:text-[11px] font-mono tracking-widest uppercase opacity-50 ml-1.5 mt-0.5 relative top-[-2px]">Manifesto</span>
           </div>
         </Link>
