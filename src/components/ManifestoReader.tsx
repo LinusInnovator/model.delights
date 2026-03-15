@@ -24,13 +24,15 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   // Image Panning State (Desktop & Mobile Unified Transforms)
   const springConfig = { damping: 25, stiffness: 120, mass: 0.5 };
   
-  // X and Y will map from -15% to +15% to shift the oversized wrapper
+  // X and Y will map from -5% to +5% to shift the oversized wrapper based on mouse hover
   const panX = useSpring(0, springConfig);
   const panY = useSpring(0, springConfig);
   
-  // We combine scroll transform with the gyro/mouse pan transform for Y
+  // Clean, high-performance vertical scroll parallax mapping to percentages
   const { scrollY } = useScroll();
-  const yScrollOffset = useTransform(scrollY, [0, 1000], [0, 150]); 
+  // We map 0-1200px of scroll to a 0-15% downward translation. 
+  // It uses a percentage so it natively scales to the image height without hardcoded pixel overflows.
+  const yScrollOffset = useTransform(scrollY, [0, 1200], ["0%", "15%"]); 
   
   // Create unified motion templates at the top level to strictly follow Rules of Hooks
   const parallaxX = useMotionTemplate`${panX}%`;
@@ -66,9 +68,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     // Only apply mouse parallax if we aren't on a touch/gyroscopic device
     if (window.matchMedia("(hover: none)").matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    // Center is 0, edges are -15% to 15%
-    const xPct = (((e.clientX - rect.left) / rect.width) - 0.5) * -30;
-    const yPct = (((e.clientY - rect.top) / rect.height) - 0.5) * -30;
+    // Center is 0, edges are -5% to 5%
+    const xPct = (((e.clientX - rect.left) / rect.width) - 0.5) * -10;
+    const yPct = (((e.clientY - rect.top) / rect.height) - 0.5) * -10;
     panX.set(xPct);
     panY.set(yPct);
   }, [panX, panY]);
@@ -79,42 +81,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     panY.set(0);
   }, [panX, panY]);
 
-  // Gyroscopic Parallax for Mobile (Smooth Springs)
-  useEffect(() => {
-    let ticking = false;
-    
-    const handleOrientation = (e: DeviceOrientationEvent) => {
-      if (!e.gamma || !e.beta) return;
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          // e.gamma and e.beta are guaranteed non-null due to the early return check
-          const gamma = e.gamma as number;
-          const beta = e.beta as number;
-          
-          // Map tilt to -15% to 15% translation
-          // clamp gamma between -45 and 45. 
-          const normalizedGamma = Math.max(-45, Math.min(45, gamma));
-          const targetX = (normalizedGamma / 45) * 15;
-          
-          // clamp beta rest position around 45 degrees
-          const normalizedBeta = Math.max(-45, Math.min(45, beta - 45));
-          const targetY = (normalizedBeta / 45) * 15;
-          
-          panX.set(targetX);
-          panY.set(targetY);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
 
-    if (window.DeviceOrientationEvent && window.matchMedia("(hover: none)").matches) {
-       window.addEventListener('deviceorientation', handleOrientation);
-    }
-    return () => {
-      window.removeEventListener('deviceorientation', handleOrientation);
-    };
-  }, [panX, panY]);
 
   const handleSliderChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
@@ -335,7 +302,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   x: parallaxX,
                   y: parallaxY
                 }} 
-                className="absolute top-[-20%] bottom-[-20%] left-[-20%] right-[-20%] z-0"
+                // We calculate the bottom starting point precisely. 
+                // Using top-[-10%] protects against desktop mouse hovering up.
+                // Using bottom-[-25%] ensures we have 25% of vertical bleed. Our scroll mapping only uses 15%, leaving 10% for hover. It will never clip.
+                className="absolute top-[-10%] bottom-[-25%] left-[-10%] right-[-10%] z-0"
               >
                 <Image 
                   src={article.heroImage.url} 
