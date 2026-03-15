@@ -27,6 +27,7 @@ export const article1: ManifestoArticle = {
   readTimeMin: 6,
   heroImage: {
     url: "/images/manifesto/part-1.png",
+    videoUrl: "/images/manifesto/part-1.mp4",
     alt: "Cinematic rendering of ancient Roman senators struggling with a futuristic Jira board in a neon-lit corporate boardroom, illustrating the paralysis of Horizon 2 innovation."
   },
   marginNotes: {

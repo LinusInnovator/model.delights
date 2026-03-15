@@ -27,6 +27,7 @@ export const article2: ManifestoArticle = {
   readTimeMin: 7,
   heroImage: {
     url: "/images/manifesto/part-2.png",
+    videoUrl: "/images/manifesto/part-2.mp4",
     alt: "A sleek, emerald green futuristic AI entity holding a glowing crystal above a massive tangled pile of corporate red tape and bureaucratic paperwork."
   },
   marginNotes: {
