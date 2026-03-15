@@ -455,24 +455,54 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   : block.content[currentTone as ToneLevel];
 
                 const textContent = Array.isArray(rawContent) 
-                  ? rawContent.join("\n") 
+                  ? rawContent.join("\n\n") 
                   : rawContent;
+                
+                const paragraphs = textContent.split(/\n\s*\n/).filter(Boolean);
 
                 if (block.type === 'h2') {
-                  return <h2 key={block.id} className={`text-3xl font-bold mt-16 mb-6 transition-all duration-500 ${headerClass} leading-tight`} dangerouslySetInnerHTML={{ __html: textContent }} />;
+                  return (
+                    <div key={block.id} className="mt-16 mb-6">
+                      <h2 className={`text-3xl font-bold transition-all duration-500 ${headerClass} leading-tight`} dangerouslySetInnerHTML={{ __html: paragraphs[0] }} />
+                      {paragraphs.length > 1 && (
+                        <div className="mt-6 space-y-6">
+                          {paragraphs.slice(1).map((p: string, i: number) => (
+                            <p key={i} className={`text-lg md:text-xl leading-relaxed md:leading-[1.8] transition-all duration-500 prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: p }} />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
                 }
                 if (block.type === 'h3') {
-                  return <h3 key={block.id} className={`text-2xl font-bold mt-10 mb-4 transition-all duration-500 ${headerClass} leading-snug`} dangerouslySetInnerHTML={{ __html: textContent }} />;
+                  return (
+                    <div key={block.id} className="mt-10 mb-4">
+                      <h3 className={`text-2xl font-bold transition-all duration-500 ${headerClass} leading-snug`} dangerouslySetInnerHTML={{ __html: paragraphs[0] }} />
+                      {paragraphs.length > 1 && (
+                        <div className="mt-4 space-y-6">
+                          {paragraphs.slice(1).map((p: string, i: number) => (
+                            <p key={i} className={`text-lg md:text-xl leading-relaxed md:leading-[1.8] transition-all duration-500 prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: p }} />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
                 }
                 if (block.type === 'quote') {
                   return (
-                    <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl md:text-3xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500 leading-tight" dangerouslySetInnerHTML={{ __html: `"${textContent}"` }} />
+                    <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl md:text-3xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500 leading-tight">
+                      {paragraphs.map((p: string, i: number) => (
+                         <span key={i} className="block mb-6 last:mb-0" dangerouslySetInnerHTML={{ __html: i === 0 ? `"${p}"` : p }} />
+                      ))}
+                    </blockquote>
                   );
                 }
                 if (block.type === 'callout') {
                   return (
-                    <div key={block.id} className={`my-10 p-6 md:p-8 rounded-2xl ${noteBg} transition-all duration-500`}>
-                      <p className={`text-lg font-medium leading-relaxed ${headerClass} prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: textContent }} />
+                    <div key={block.id} className={`my-10 p-6 md:p-8 rounded-2xl ${noteBg} transition-all duration-500 space-y-4`}>
+                      {paragraphs.map((p: string, i: number) => (
+                        <p key={i} className={`text-lg font-medium leading-relaxed ${headerClass} prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: p }} />
+                      ))}
                     </div>
                   );
                 }
@@ -484,11 +514,14 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <p 
+                    <div 
                       onClick={handleMobileTap}
-                      className={`text-lg md:text-xl leading-relaxed md:leading-[1.8] transition-all duration-500 prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400 ${hasNote ? 'cursor-pointer' : ''}`}
-                      dangerouslySetInnerHTML={{ __html: textContent }}
-                    />
+                      className={`space-y-6 transition-all duration-500 ${hasNote ? 'cursor-pointer' : ''}`}
+                    >
+                      {paragraphs.map((p: string, i: number) => (
+                         <p key={i} className={`text-lg md:text-xl leading-relaxed md:leading-[1.8] prose-a:text-emerald-500 prose-a:underline hover:prose-a:text-emerald-400`} dangerouslySetInnerHTML={{ __html: p }} />
+                      ))}
+                    </div>
                     
                     {hasNote && (
                       <span 
