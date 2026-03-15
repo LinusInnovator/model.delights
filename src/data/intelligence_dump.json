@@ -22440,6 +22440,21 @@
           "provider": "minimax"
         }
       ]
+    },
+    {
+      "entity_id": "ent_cbb1b84b",
+      "model_id": "z-ai/glm-5-turbo",
+      "pricing_prompt": 9.6e-07,
+      "pricing_completion": 3.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "z-ai/glm-5-turbo",
+          "provider": "z-ai"
+        }
+      ]
     }
   ]
 }
