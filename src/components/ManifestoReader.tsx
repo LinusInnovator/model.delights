@@ -540,9 +540,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 if (block.type === 'quote') {
                   return (
                     <blockquote key={block.id} className="pl-6 border-l-4 border-emerald-500 my-10 italic text-2xl md:text-3xl font-[family-name:var(--font-playfair)] opacity-90 transition-all duration-500 leading-tight">
-                      {paragraphs.map((p: string, i: number) => (
-                         <span key={i} className="block mb-6 last:mb-0" dangerouslySetInnerHTML={{ __html: i === 0 ? `"${p}"` : p }} />
-                      ))}
+                      {paragraphs.map((p: string, i: number) => {
+                         const isFirst = i === 0;
+                         const isLast = i === paragraphs.length - 1;
+                         const formatted = isFirst && isLast ? `"${p}"` : isFirst ? `"${p}` : isLast ? `${p}"` : p;
+                         return <span key={i} className="block mb-6 last:mb-0" dangerouslySetInnerHTML={{ __html: formatted }} />;
+                      })}
                     </blockquote>
                   );
                 }
