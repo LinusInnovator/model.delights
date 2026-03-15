@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCompletion } from "@ai-sdk/react";
 import { getOptimalWriterModel } from "@/app/actions/getOptimalWriter";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 interface ManifestoReaderProps {
   article: ManifestoArticle;
@@ -19,8 +19,13 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [activeNote, setActiveNote] = useState<string | null>(null);
 
-  // Image Panning State
+  // Image Panning State (Desktop)
   const [heroPanPos, setHeroPanPos] = useState({ x: 50, y: 50 });
+
+  // Smooth Gyroscopic Springs (Mobile)
+  const springConfig = { damping: 20, stiffness: 100, mass: 0.5 };
+  const smoothGyroX = useSpring(50, springConfig);
+  const smoothGyroY = useSpring(50, springConfig);
 
   // Mobile Dynamic Pill State
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -64,17 +69,31 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     setHeroPanPos({ x: 50, y: 50 }); // Reset to cinematic center focus
   }, []);
 
-  // Gyroscopic Parallax for Mobile
+  // Gyroscopic Parallax for Mobile (Smooth Springs)
   useEffect(() => {
+    let ticking = false;
+    
     const handleOrientation = (e: DeviceOrientationEvent) => {
       if (!e.gamma || !e.beta) return;
-      // gamma (tilt left/right) is -90 to 90
-      // beta (tilt front/back) is -180 to 180
-      // Map to 0-100% for object-position
-      const x = Math.min(100, Math.max(0, 50 + (e.gamma / 45) * 50));
-      // Baseline resting angle is usually around 45 degrees for a phone in hand
-      const y = Math.min(100, Math.max(0, 50 + ((e.beta - 45) / 45) * 50));
-      setHeroPanPos({ x, y });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          // e.gamma and e.beta are guaranteed non-null due to the early return check
+          const gamma = e.gamma as number;
+          const beta = e.beta as number;
+          
+          // gamma (tilt left/right) is usually -90 to 90
+          // beta (tilt front/back) is usually -180 to 180
+          // Map to 0-100% for object-position, clamping aggressively so it doesn't spin out
+          const targetX = Math.min(100, Math.max(0, 50 + (gamma / 30) * 50));
+          // Baseline resting angle is usually around 45 degrees for a phone in hand
+          const targetY = Math.min(100, Math.max(0, 50 + ((beta - 45) / 30) * 50));
+          
+          smoothGyroX.set(targetX);
+          smoothGyroY.set(targetY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     if (window.DeviceOrientationEvent && window.matchMedia("(hover: none)").matches) {
@@ -83,7 +102,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     return () => {
       window.removeEventListener('deviceorientation', handleOrientation);
     };
-  }, []);
+  }, [smoothGyroX, smoothGyroY]);
 
   const handleSliderChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
@@ -241,8 +260,16 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         {renderSettingsContent(false)}
       </div>
 
+      {/* Top Navigation Logo (Filling the empty space) */}
+      <div className="absolute top-10 left-6 z-40">
+        <Link href="/" className="flex flex-col gap-0 group">
+          <span className={`text-xl font-bold tracking-tight font-sans ${theme === 'dark' ? 'text-white' : 'text-black'}`}>model.<span className="text-emerald-500">delights</span></span>
+          <span className="text-[10px] font-mono tracking-widest uppercase opacity-50 group-hover:opacity-100 transition-opacity">Manifesto</span>
+        </Link>
+      </div>
+
       {/* Main Content Area */}
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-40 md:pt-48 flex gap-12">
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-32 md:pt-48 flex gap-12">
         
         {/* Left/Center: Article Text */}
         <article className="flex-1 max-w-2xl mx-auto md:mx-0">
@@ -289,7 +316,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
             >
               <motion.div 
                 style={{ y: yOffset }} 
-                className="absolute top-[-40%] bottom-[-40%] left-[-10%] right-[-10%] transition-transform duration-700 ease-out group-hover:scale-[1.03] z-0"
+                className="absolute top-[-40%] bottom-[-40%] left-[-10%] right-[-10%] transition-transform duration-700 ease-out group-hover:scale-[1.03] z-0 hidden md:block"
               >
                 <Image 
                   src={article.heroImage.url} 
@@ -304,6 +331,21 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   sizes="(max-width: 768px) 100vw, 800px"
                 />
               </motion.div>
+              
+              {/* Mobile Separated Parallax Layer (Using Physics Springs) */}
+              <motion.img 
+                src={article.heroImage.url} 
+                alt={article.heroImage.alt} 
+                className="absolute inset-[-15%] w-[130%] h-[130%] object-cover block md:hidden z-0"
+                style={{
+                  y: yOffset,
+                  objectPosition: useTransform(
+                    [smoothGyroX, smoothGyroY], 
+                    ([x, y]) => `${x}% ${y}%`
+                  ) as any
+                }}
+              />
+
               {/* Vignette Overlay for cinematic bleed */}
               {theme === "dark" && (
                 <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80 pointer-events-none z-10 transition-opacity duration-700 group-hover:opacity-60" />
