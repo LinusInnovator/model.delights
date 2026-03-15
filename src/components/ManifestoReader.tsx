@@ -32,6 +32,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const { scrollY } = useScroll();
   const yScrollOffset = useTransform(scrollY, [0, 1000], [0, 150]); 
   
+  // Create unified motion templates at the top level to strictly follow Rules of Hooks
+  const parallaxX = useMotionTemplate`${panX}%`;
+  const parallaxY = useMotionTemplate`calc(${panY}% + ${yScrollOffset}px)`;
+  
   // Mobile Dynamic Pill State
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   
@@ -328,8 +332,8 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
               {/* Unified High-Performance GPU Parallax Layer */}
               <motion.div 
                 style={{ 
-                  x: useMotionTemplate`${panX}%`,
-                  y: useMotionTemplate`calc(${panY}% + ${yScrollOffset}px)`
+                  x: parallaxX,
+                  y: parallaxY
                 }} 
                 className="absolute top-[-20%] bottom-[-20%] left-[-20%] right-[-20%] z-0"
               >
