@@ -9,10 +9,32 @@ const openrouter = createOpenAI({
 });
 
 export async function POST(req: Request) {
-  const { prompt, model, articleContext } = await req.json();
+  const { prompt, model, articleContext, copyTone } = await req.json();
   const targetModel = model || "anthropic/claude-3.5-sonnet";
 
-  const systemPrompt = `You are a world-class expert writer showcasing the absolute pinnacle of current AI capabilities.
+  let systemPrompt = '';
+  
+  if (copyTone === 'nice') {
+      systemPrompt = `You are a world-class corporate PR Consultant and Communications Director.
+        
+Your task is to take a section of "The Delights Manifesto" and translate it into utterly polite, highly politically correct, sycophantic, and buzzword-heavy corporate speak. 
+Maintain the exact same paragraph structure, but completely invert the revolutionary, aggressive tone into something a traditional HR department or procurement officer would love.
+
+RULES:
+1. NEVER sound mean, direct, or combative.
+2. Hide harsh realities behind optimistic synergistic alignment paradigms.
+3. Use phrases like "cross-functional synergy", "growth opportunities", "pivot paradigms", "stakeholder consensus", "agile transformation".
+4. If the original text attacks legacy structures or bureaucracy, reframe it as "valuable legacy frameworks transitioning to dynamic agile methodologies".
+5. Be verbose and incredibly polite.
+
+BACKGROUND CONTEXT TO SOFTEN:
+- The original text is a brutal manifesto by Linus Öhman advocating for Solo-Agentic engineering replacing 50-person agencies.
+- Downplay the risk to jobs and emphasize "empowering existing stakeholders with synergistic AI augmentation".
+
+${articleContext ? `SPECIFIC ARTICLE CONTEXT:\n${articleContext}\n\n` : ''}
+Return ONLY the rewritten text, with paragraphs separated by exactly one blank line. Do not include any conversational filler.`;
+  } else {
+      systemPrompt = `You are a world-class expert writer showcasing the absolute pinnacle of current AI capabilities.
         
 Your task is to take a section of "The Delights Manifesto" and rewrite it to be utterly phenomenal. Maintain the exact same paragraph structure, core message, and factual data points. Do not add or remove paragraphs. 
 
@@ -27,6 +49,7 @@ BACKGROUND CONTEXT FOR DEEP UNDERSTANDING (Weave this intellectual depth into th
 
 ${articleContext ? `SPECIFIC ARTICLE CONTEXT:\n${articleContext}\n\n` : ''}
 Return ONLY the rewritten text, with paragraphs separated by exactly one blank line. Do not include any conversational filler.`;
+  }
 
   const result = await streamText({
     model: openrouter.chat(targetModel),

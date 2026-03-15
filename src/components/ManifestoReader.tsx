@@ -19,6 +19,7 @@ interface ManifestoReaderProps {
 export default function ManifestoReader({ article, allArticles }: ManifestoReaderProps) {
   const [sliderPos, setSliderPos] = useState(2);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [copyTone, setCopyTone] = useState<"truth" | "nice">("truth");
   const [activeNote, setActiveNote] = useState<string | null>(null);
 
   // Image Panning State (Desktop & Mobile Unified Transforms)
@@ -105,14 +106,15 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         complete(fullText, { 
           body: { 
             model: stats.smartValue || stats.flagship,
-            articleContext: `Article Title: ${article.title}\nArticle Theme: ${article.subtitle}`
+            articleContext: `Article Title: ${article.title}\nArticle Theme: ${article.subtitle}`,
+            copyTone: copyTone
           } 
         });
       } finally {
         setIsAiLoading(false);
       }
     }
-  }, [completion, isStreaming, isAiLoading, article, complete]);
+  }, [completion, isStreaming, isAiLoading, article, complete, copyTone]);
 
   const themeClasses = useMemo(() => ({
     bgClass: theme === "dark" ? "bg-[#09090b] text-zinc-300" : "bg-[#fafafa] text-zinc-800",
@@ -130,16 +132,41 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
   const renderSettingsContent = (isMobile: boolean) => (
     <>
-      <button 
-        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity w-full lg:w-auto justify-center lg:justify-start ${isMobile ? 'pb-4 border-b border-zinc-500/20' : ''}`}
-      >
-        {theme === 'dark' ? (
-          <><Sun weight="bold" className="w-4 h-4" /> Light</>
-        ) : (
-          <><Moon weight="bold" className="w-4 h-4" /> Dark</>
-        )}
-      </button>
+      <div className={`flex w-full ${isMobile ? 'justify-between pb-4 border-b border-zinc-500/20' : 'gap-4 lg:w-auto shrink-0'} items-center`}>
+        <button 
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity`}
+        >
+          {theme === 'dark' ? (
+            <><Sun weight="bold" className="w-4 h-4" /> Light Mode</>
+          ) : (
+            <><Moon weight="bold" className="w-4 h-4" /> Dark Mode</>
+          )}
+        </button>
+
+        {/* The new "Nice" vs "Truth" copy switch toggle */}
+        <button 
+          onClick={() => setCopyTone(copyTone === 'truth' ? 'nice' : 'truth')}
+          className={`group flex items-center shrink-0 w-[44px] h-[22px] bg-zinc-800 border border-white/10 rounded-full relative transition-colors duration-300 overflow-hidden shadow-inner ${copyTone === 'nice' ? 'bg-indigo-900/40 border-indigo-500/30' : ''}`}
+          aria-label="Toggle Copy Tone"
+        >
+          {/* Track background */}
+          <div className="absolute inset-0 w-full h-full flex items-center justify-between px-1 text-[8px] font-bold uppercase tracking-wider text-zinc-500 pointer-events-none">
+            <span className={`${copyTone === 'truth' ? 'opacity-0' : 'opacity-100 text-indigo-400'} ml-0.5 transition-opacity`}>Nice</span>
+            <span className={`${copyTone === 'truth' ? 'opacity-100' : 'opacity-0'} mr-[-1px] transition-opacity`}>Honest</span>
+          </div>
+          {/* The switch thumb */}
+          <motion.div 
+            className={`w-[18px] h-[18px] rounded-full shadow-md z-10 flex items-center justify-center`}
+            initial={false}
+            animate={{ 
+              x: copyTone === 'nice' ? 24 : 2, 
+              backgroundColor: copyTone === 'nice' ? '#818cf8' : '#e4e4e7' 
+            }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          />
+        </button>
+      </div>
 
       <div className={`flex-1 flex flex-col items-center gap-2 w-full ${isMobile ? 'pt-2' : ''}`}>
         <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4 mb-1">
@@ -265,7 +292,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
               PUBLISHED {article.date} • {article.readTimeMin} MIN READ
             </p>
             {(() => {
-              const rawTitle = currentTone === 'ai' ? article.title['professional'] : article.title[currentTone as ToneLevel];
+              const baseTone = currentTone === 'ai' ? 'professional' : currentTone as ToneLevel;
+              const rawTitle = copyTone === 'nice' && (article as any).nice?.title 
+                  ? (article as any).nice.title[baseTone] 
+                  : article.title[baseTone];
               const parts = rawTitle.split(': ');
               const partStr = parts.length > 1 ? parts[0] + ':' : '';
               const mainTitle = parts.length > 1 ? parts.slice(1).join(': ') : rawTitle;
@@ -289,7 +319,12 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
               );
             })()}
             <h2 className="text-xl md:text-2xl opacity-70 leading-relaxed font-light transition-all duration-700">
-              {currentTone === 'ai' ? "Dynamically rewritten using the SDK's Best-in-Class reasoning model." : article.subtitle[currentTone as ToneLevel]}
+              {currentTone === 'ai' 
+                  ? "Dynamically rewritten using the SDK's Best-in-Class reasoning model." 
+                  : (copyTone === 'nice' && (article as any).nice?.subtitle
+                      ? (article as any).nice.subtitle[currentTone as ToneLevel]
+                      : article.subtitle[currentTone as ToneLevel]
+                    )}
             </h2>
           </header>
 
@@ -399,9 +434,13 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   }
                 };
 
-                const textContent = Array.isArray(block.content[currentTone as ToneLevel]) 
-                  ? (block.content[currentTone as ToneLevel] as string[]).join("\n") 
-                  : block.content[currentTone as ToneLevel] as string;
+                const rawContent = copyTone === 'nice' && (block.content as any).nice
+                  ? (block.content as any).nice[currentTone as ToneLevel] || block.content[currentTone as ToneLevel]
+                  : block.content[currentTone as ToneLevel];
+
+                const textContent = Array.isArray(rawContent) 
+                  ? rawContent.join("\n") 
+                  : rawContent;
 
                 if (block.type === 'h2') {
                   return <h2 key={block.id} className={`text-3xl font-bold mt-16 mb-6 transition-all duration-500 ${headerClass} leading-tight`} dangerouslySetInnerHTML={{ __html: textContent }} />;
