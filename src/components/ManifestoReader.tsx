@@ -73,11 +73,35 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     return 'ai';
   }, [sliderPos]);
 
-  // Smooth appearance on load
+  // Smooth appearance on load & restore settings
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    const savedSlider = localStorage.getItem('manifesto_sliderPos');
+    const savedTheme = localStorage.getItem('manifesto_theme');
+    const savedTone = localStorage.getItem('manifesto_copyTone');
+
+    if (savedSlider) {
+      const pos = parseInt(savedSlider, 10);
+      setSliderPos(pos === 4 ? 2 : pos); // If they left on SDK, downgrade to Consultant
+    }
+    if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme);
+    if (savedTone === 'truth' || savedTone === 'nice') setCopyTone(savedTone);
+
     setMounted(true);
   }, []);
+
+  // Save changes to localStorage
+  useEffect(() => {
+    if (mounted) localStorage.setItem('manifesto_sliderPos', sliderPos.toString());
+  }, [sliderPos, mounted]);
+
+  useEffect(() => {
+    if (mounted) localStorage.setItem('manifesto_theme', theme);
+  }, [theme, mounted]);
+
+  useEffect(() => {
+    if (mounted) localStorage.setItem('manifesto_copyTone', copyTone);
+  }, [copyTone, mounted]);
 
   const handleHeroMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     // Only apply mouse parallax if we aren't on a touch/gyroscopic device
