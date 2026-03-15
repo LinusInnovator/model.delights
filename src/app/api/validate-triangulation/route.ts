@@ -219,14 +219,24 @@ Core Principles for a NEW CATEGORY:
             pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out. They were likely too focused on the failure vectors to respond." },
             critical_assumptions: [],
             logic_chain: ["Red Team analysis unavailable."],
-            experiment_sequence: []
+            experiment_sequence: [],
+            kill_criteria_protocol: {
+                deadliest_assumption: "Engine Timeout",
+                validation_protocol: "Retry request",
+                actionable_template: "Please click validate again."
+            }
         };
         
         const catalystResult = results[1].status === 'fulfilled' ? results[1].value.object : {
              pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out. Growth vectors could not be mapped." },
              critical_assumptions: [],
              logic_chain: ["Green Team analysis unavailable."],
-             experiment_sequence: []
+             experiment_sequence: [],
+             kill_criteria_protocol: {
+                 deadliest_assumption: "Engine Timeout",
+                 validation_protocol: "Retry request",
+                 actionable_template: "Please click validate again."
+             }
         };
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

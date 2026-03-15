@@ -132,8 +132,19 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
             });
 
             if (!res.ok) {
-                const errorData = await res.json().catch(() => ({}));
-                throw new Error(errorData.error || "Triangulation orchestrator failed.");
+                let errorMsg = "Triangulation orchestrator failed.";
+                try {
+                    const text = await res.text();
+                    try {
+                        const errorData = JSON.parse(text);
+                        errorMsg = errorData.error || errorData.details || errorMsg;
+                    } catch {
+                        errorMsg = res.status === 504 ? "Engine Timeout: The AI models took longer than 45 seconds to synthesize this idea. Try again." : `Server Error (${res.status}): ${text.substring(0, 50)}...`;
+                    }
+                } catch {
+                    errorMsg = `Server Error (${res.status})`;
+                }
+                throw new Error(errorMsg);
             }
             const result = await res.json();
             setData(result);
