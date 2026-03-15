@@ -27,6 +27,7 @@ export const article4: ManifestoArticle = {
   readTimeMin: 5,
   heroImage: {
     url: "/images/manifesto/part-4.png",
+    videoUrl: "/images/manifesto/part-4.mp4",
     alt: "A crumbling golden classical statue representing an expensive consulting presentation making way for a lone cyberpunk builder crafting a brilliant green holographic terminal from the ruins."
   },
   marginNotes: {
