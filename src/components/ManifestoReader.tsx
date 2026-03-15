@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
-import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle, X } from "@phosphor-icons/react";
+import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle, X, Heart, Lightning } from "@phosphor-icons/react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCompletion } from "@ai-sdk/react";
@@ -142,43 +142,43 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
   if (!mounted) return null;
 
-  const renderSettingsContent = (isMobile: boolean) => (
-    <>
-      <div className={`flex w-full ${isMobile ? 'justify-between pb-4 border-b border-zinc-500/20' : 'gap-4 lg:w-auto shrink-0'} items-center`}>
-        <button 
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity`}
-        >
-          {theme === 'dark' ? (
-            <><Sun weight="bold" className="w-4 h-4" /> Light Mode</>
-          ) : (
-            <><Moon weight="bold" className="w-4 h-4" /> Dark Mode</>
-          )}
-        </button>
+  const renderSettingsContent = (isMobile: boolean) => {
+    const ThemeButton = () => (
+      <button 
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity ${!isMobile ? 'shrink-0' : ''}`}
+      >
+        {theme === 'dark' ? (
+          <><Sun weight="bold" className="w-4 h-4" /> Light Mode</>
+        ) : (
+          <><Moon weight="bold" className="w-4 h-4" /> Dark Mode</>
+        )}
+      </button>
+    );
 
-        {/* The new "Nice" vs "Truth" copy switch toggle */}
-        <button 
-          onClick={() => setCopyTone(copyTone === 'truth' ? 'nice' : 'truth')}
-          className={`group flex items-center shrink-0 w-[44px] h-[22px] bg-zinc-800 border border-white/10 rounded-full relative transition-colors duration-300 overflow-hidden shadow-inner ${copyTone === 'nice' ? 'bg-indigo-900/40 border-indigo-500/30' : ''}`}
-          aria-label="Toggle Copy Tone"
-        >
-          {/* Track background */}
-          <div className="absolute inset-0 w-full h-full flex items-center justify-between px-1 text-[8px] font-bold uppercase tracking-wider text-zinc-500 pointer-events-none">
-            <span className={`${copyTone === 'truth' ? 'opacity-0' : 'opacity-100 text-indigo-400'} ml-0.5 transition-opacity`}>Nice</span>
-            <span className={`${copyTone === 'truth' ? 'opacity-100' : 'opacity-0'} mr-[-1px] transition-opacity`}>Honest</span>
+    const ToneButton = () => (
+      <button 
+        onClick={() => setCopyTone(copyTone === 'truth' ? 'nice' : 'truth')}
+        className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity ${!isMobile ? 'shrink-0' : ''}`}
+      >
+        {copyTone === 'truth' ? (
+          <><Heart weight="bold" className="w-4 h-4" /> Nice Mode</>
+        ) : (
+          <><Lightning weight="bold" className="w-4 h-4" /> Honest Mode</>
+        )}
+      </button>
+    );
+
+    return (
+      <>
+        {isMobile && (
+          <div className="flex w-full justify-between pb-4 border-b border-zinc-500/20 items-center">
+            <ThemeButton />
+            <ToneButton />
           </div>
-          {/* The switch thumb */}
-          <motion.div 
-            className={`w-[18px] h-[18px] rounded-full shadow-md z-10 flex items-center justify-center`}
-            initial={false}
-            animate={{ 
-              x: copyTone === 'nice' ? 24 : 2, 
-              backgroundColor: copyTone === 'nice' ? '#818cf8' : '#e4e4e7' 
-            }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          />
-        </button>
-      </div>
+        )}
+
+        {!isMobile && <ThemeButton />}
 
       <div className={`flex-1 flex flex-col items-center gap-2 w-full ${isMobile ? 'pt-2' : ''}`}>
         <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4 mb-1">
@@ -203,6 +203,8 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         />
       </div>
       
+      {!isMobile && <ToneButton />}
+
       {isMobile && (
         <button 
           onClick={() => setIsMobileNavOpen(false)}
@@ -213,6 +215,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
       )}
     </>
   );
+};
 
   return (
     <div className={`min-h-screen w-full transition-colors duration-700 font-sans ${bgClass} pb-40`}>
