@@ -20,7 +20,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const [activeNote, setActiveNote] = useState<string | null>(null);
 
   // Image Panning State
-  const [heroPanPos, setHeroPanPos] = useState({ x: 50, y: 35 });
+  const [heroPanPos, setHeroPanPos] = useState({ x: 50, y: 50 });
 
   // Mobile Dynamic Pill State
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -61,7 +61,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
   const handleHeroMouseLeave = useCallback(() => {
     if (window.matchMedia("(hover: none)").matches) return;
-    setHeroPanPos({ x: 50, y: 35 }); // Reset to a cinematic slight-top focus
+    setHeroPanPos({ x: 50, y: 50 }); // Reset to cinematic center focus
   }, []);
 
   // Gyroscopic Parallax for Mobile
@@ -126,6 +126,53 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
 
   if (!mounted) return null;
 
+  const renderSettingsContent = (isMobile: boolean) => (
+    <>
+      <button 
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity w-full lg:w-auto justify-center lg:justify-start ${isMobile ? 'pb-4 border-b border-zinc-500/20' : ''}`}
+      >
+        {theme === 'dark' ? (
+          <><Sun weight="bold" className="w-4 h-4" /> Light</>
+        ) : (
+          <><Moon weight="bold" className="w-4 h-4" /> Dark</>
+        )}
+      </button>
+
+      <div className={`flex-1 flex flex-col items-center gap-2 w-full ${isMobile ? 'pt-2' : ''}`}>
+        <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4 mb-1">
+          <button onClick={() => {setSliderPos(1); setIsMobileNavOpen(false)}} className={`flex-1 text-left flex justify-start items-center hover:text-emerald-500 transition-colors ${sliderPos === 1 ? 'text-emerald-500 opacity-100' : ''}`}>In Short</button>
+          <button onClick={() => {setSliderPos(2); setIsMobileNavOpen(false)}} className={`flex-1 text-center hover:text-emerald-500 transition-colors ${sliderPos === 2 ? 'text-emerald-500 opacity-100' : ''}`}>Consultant</button>
+          <button onClick={() => {setSliderPos(3); setIsMobileNavOpen(false)}} className={`flex-1 text-center hover:text-emerald-500 transition-colors ${sliderPos === 3 ? 'text-emerald-500 opacity-100' : ''}`}>Academic</button>
+          <button 
+            onClick={(e) => {handleSliderChange({target: {value: '4'}} as React.ChangeEvent<HTMLInputElement>); setIsMobileNavOpen(false)}} 
+            className={`flex-1 text-right flex justify-end items-center gap-1 hover:text-emerald-500 transition-colors ${sliderPos === 4 ? 'text-emerald-500 opacity-100' : ''}`}
+          >
+            <Sparkle weight="fill" className="w-3 h-3"/> {isMobile ? "SDK" : "Model SDK"}
+          </button>
+        </div>
+        <input 
+          type="range" 
+          min="1" 
+          max="4" 
+          step="1" 
+          value={sliderPos} 
+          onChange={handleSliderChange}
+          className={`w-full h-1.5 bg-zinc-700/50 rounded-lg appearance-none cursor-pointer accent-emerald-500 shadow-inner`}
+        />
+      </div>
+      
+      {isMobile && (
+        <button 
+          onClick={() => setIsMobileNavOpen(false)}
+          className="w-full py-3 mt-4 text-xs font-bold font-mono tracking-widest uppercase bg-zinc-500/10 hover:bg-zinc-500/20 transition-colors rounded-xl"
+        >
+          Close Settings
+        </button>
+      )}
+    </>
+  );
+
   return (
     <div className={`min-h-screen w-full transition-colors duration-700 font-sans ${bgClass} pb-40`}>
       
@@ -146,103 +193,53 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         </>
       )}
 
-      {/* Floating Control Panel (Desktop & Expanded Mobile) */}
-      <>
-        {/* Mobile Closed "Dynamic Pill" State */}
-        <motion.div 
-          className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-2 px-6 py-3 rounded-full backdrop-blur-xl border shadow-2xl cursor-pointer ${controlPanelBg}`}
-          onClick={() => setIsMobileNavOpen(true)}
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: isMobileNavOpen ? 100 : 0, opacity: isMobileNavOpen ? 0 : 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        >
-          {theme === 'dark' ? <Moon weight="fill" className="text-zinc-400 w-4 h-4" /> : <Sun weight="fill" className="text-zinc-500 w-4 h-4" />}
-          <span className="text-sm font-bold tracking-widest uppercase font-mono mt-0.5">
-            {currentTone === 'ai' ? (
-              <span className="flex items-center gap-1.5 text-emerald-500"><Sparkle weight="fill"/> Model SDK</span>
-            ) : currentTone === 'simple' ? 'In Short' : currentTone === 'professional' ? 'Consultant' : 'Academic'}
-          </span>
-        </motion.div>
+      {/* Floating Control Panels */}
+      
+      {/* 1. Mobile Closed "Dynamic Pill" */}
+      <motion.div 
+        className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-2 px-6 py-3 rounded-full backdrop-blur-xl border shadow-2xl cursor-pointer ${controlPanelBg}`}
+        onClick={() => setIsMobileNavOpen(true)}
+        initial={false}
+        animate={{ y: isMobileNavOpen ? 100 : 0, opacity: isMobileNavOpen ? 0 : 1, pointerEvents: isMobileNavOpen ? 'none' : 'auto' }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      >
+        {theme === 'dark' ? <Moon weight="fill" className="text-zinc-400 w-4 h-4" /> : <Sun weight="fill" className="text-zinc-500 w-4 h-4" />}
+        <span className="text-sm font-bold tracking-widest uppercase font-mono mt-0.5">
+          {currentTone === 'ai' ? (
+            <span className="flex items-center gap-1.5 text-emerald-500"><Sparkle weight="fill"/> Model SDK</span>
+          ) : currentTone === 'simple' ? 'In Short' : currentTone === 'professional' ? 'Consultant' : 'Academic'}
+        </span>
+      </motion.div>
 
-        {/* The Actual Panel (Desktop Normal, Mobile Expanded) */}
-        {/* Mobile Backdrop Overlay */}
-        {isMobileNavOpen && (
-           <div 
-             className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
-             onClick={() => setIsMobileNavOpen(false)}
-           />
-        )}
-        
-        <motion.div 
-          className={`fixed z-50 w-[95%] max-w-2xl px-6 py-5 rounded-3xl lg:rounded-full backdrop-blur-xl border shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 ${controlPanelBg} 
-            bottom-8 left-1/2 -translate-x-1/2 lg:bottom-auto lg:top-6 lg:w-[90%]`}
-          initial={false}
-          animate={{ 
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            pointerEvents: "auto"
-          }}
-          style={{
-            // On mobile, hidden unless open. On desktop, always visible.
-            display: "flex",
-          }}
-          variants={{
-            mobileHidden: { y: 100, opacity: 0, scale: 0.95, pointerEvents: "none", zIndex: -1 },
-            mobileVisible: { y: 0, opacity: 1, scale: 1, pointerEvents: "auto", zIndex: 50 },
-            desktopVisible: { y: 0, opacity: 1, scale: 1, pointerEvents: "auto", zIndex: 50 },
-          }}
-        >
-          {/* We use a CSS class to hide/show the actual block without JS conditional rendering causing layout jumps */}
-          <div className={`w-full flex-col lg:flex-row items-center justify-between gap-6 lg:flex ${isMobileNavOpen ? 'flex' : 'hidden lg:flex'}`}>
-            {/* Theme Toggle */}
-            <button 
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity w-full lg:w-auto justify-center lg:justify-start pb-4 border-b lg:border-0 border-zinc-500/20 lg:pb-0"
-            >
-              {theme === 'dark' ? (
-                <><Sun weight="bold" className="w-4 h-4" /> Light</>
-              ) : (
-                <><Moon weight="bold" className="w-4 h-4" /> Dark</>
-              )}
-            </button>
+      {/* 2. Mobile Backdrop Overlay */}
+      {isMobileNavOpen && (
+         <div 
+           className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+           onClick={() => setIsMobileNavOpen(false)}
+         />
+      )}
+      
+      {/* 3. Mobile Expanded Slider Modal */}
+      <motion.div 
+        className={`lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md px-6 py-5 rounded-3xl backdrop-blur-xl border shadow-2xl flex flex-col items-center justify-between gap-4 ${controlPanelBg}`}
+        initial={false}
+        animate={{ 
+          y: isMobileNavOpen ? 0 : 100,
+          opacity: isMobileNavOpen ? 1 : 0,
+          scale: isMobileNavOpen ? 1 : 0.95,
+          pointerEvents: isMobileNavOpen ? 'auto' : 'none'
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      >
+        {renderSettingsContent(true)}
+      </motion.div>
 
-            {/* Tone Slider */}
-            <div className="flex-1 flex flex-col items-center gap-2 w-full pt-2 lg:pt-0">
-              <div className="flex justify-between w-full text-[10px] uppercase font-bold tracking-widest opacity-50 px-2 lg:px-4 mb-1">
-                <button onClick={() => {setSliderPos(1); setIsMobileNavOpen(false)}} className={`flex-1 text-left hover:text-emerald-500 transition-colors ${sliderPos === 1 ? 'text-emerald-500 opacity-100' : ''}`}>In Short</button>
-                <button onClick={() => {setSliderPos(2); setIsMobileNavOpen(false)}} className={`flex-1 text-center hover:text-emerald-500 transition-colors ${sliderPos === 2 ? 'text-emerald-500 opacity-100' : ''}`}>Consultant</button>
-                <button onClick={() => {setSliderPos(3); setIsMobileNavOpen(false)}} className={`flex-1 text-center hover:text-emerald-500 transition-colors ${sliderPos === 3 ? 'text-emerald-500 opacity-100' : ''}`}>Academic</button>
-                <button 
-                  onClick={(e) => {handleSliderChange({target: {value: '4'}} as React.ChangeEvent<HTMLInputElement>); setIsMobileNavOpen(false)}} 
-                  className={`flex-1 text-right flex justify-end items-center gap-1 hover:text-emerald-500 transition-colors ${sliderPos === 4 ? 'text-emerald-500 opacity-100' : ''}`}
-                >
-                  <Sparkle weight="fill" className="w-3 h-3"/> Model SDK
-                </button>
-              </div>
-              <input 
-                type="range" 
-                min="1" 
-                max="4" 
-                step="1" 
-                value={sliderPos} 
-                onChange={handleSliderChange}
-                className={`w-full h-1.5 bg-zinc-700/50 rounded-lg appearance-none cursor-pointer accent-emerald-500 shadow-inner`}
-              />
-            </div>
-            
-            {/* Mobile Close Button */}
-            {isMobileNavOpen && (
-              <button 
-                onClick={() => setIsMobileNavOpen(false)}
-                className="lg:hidden w-full py-3 mt-4 text-xs font-mono tracking-widest uppercase bg-zinc-500/10 rounded-xl"
-              >
-                Close Settings
-              </button>
-            )}
-          </div>
-        </motion.div>
-      </>
+      {/* 4. Desktop Persistent Panel */}
+      <div 
+        className={`hidden lg:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl px-6 py-4 rounded-full backdrop-blur-xl border shadow-xl items-center justify-between gap-6 ${controlPanelBg}`}
+      >
+        {renderSettingsContent(false)}
+      </div>
 
       {/* Main Content Area */}
       <main className="relative z-10 max-w-5xl mx-auto px-6 pt-40 md:pt-48 flex gap-12">
@@ -286,7 +283,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
           {/* Hero Image */}
           {article.heroImage && (
             <div 
-              className={`mb-16 relative w-full aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in group cursor-crosshair ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}
+              className={`mb-16 relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-700 animate-fade-in group cursor-crosshair ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}
               onMouseMove={handleHeroMouseMove}
               onMouseLeave={handleHeroMouseLeave}
             >
