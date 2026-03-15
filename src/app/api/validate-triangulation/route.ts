@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
                 pipeline.expire(`rate_limit_validator_${ip}`, 60, "NX");
                 const results = await pipeline.exec();
                 const requestsInLastMinute = results[0] as number;
-                if (requestsInLastMinute > 5) shouldRateLimit = true;
+                if (requestsInLastMinute > 15) shouldRateLimit = true;
             } catch (redisError) {
                 console.warn("Redis rate limiting failed, falling back to local memory map.", redisError);
             }
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
                 rateData.count = 0;
                 rateData.timestamp = now;
             }
-            if (rateData.count >= 5) {
+            if (rateData.count >= 15) {
                 shouldRateLimit = true;
             } else {
                 rateData.count++;
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
         }
 
         const payload = await req.json();
-        const { idea, users = 1000, price = 20, inference = 500, includeEconomics = false, ventureType = "zero_to_one", incumbentTarget = "" } = payload;
+        const { phase = "all", autopsyData: providedAutopsyData, catalystData: providedCatalystData, idea, users = 1000, price = 20, inference = 500, includeEconomics = false, ventureType = "zero_to_one", incumbentTarget = "" } = payload;
 
         if (!idea) {
             return new NextResponse("Missing idea payload.", { status: 400 });
@@ -193,65 +193,68 @@ Core Principles for a NEW CATEGORY:
         const route = await getOptimalRoute('reasoning');
         let optimalModelId = "openai/gpt-4o-mini"; // safety net
         if (route) {
-            // Because this requires deep C-suite synthesis, we prioritize reasoning competence and cost
             optimalModelId = route.smart_value?.model || route.flagship.model;
-            console.log(`[Dogfood] Validator Triangulating via: ${optimalModelId}`);
+            // console.log(`[Dogfood] Validator Triangulating via: ${optimalModelId}`);
         }
         const modelInstance = createOpenRouter(optimalModelId);
 
-        // Run both models in parallel safely
-        const results = await Promise.allSettled([
-            generateObject({
-                model: modelInstance,
-                schema: VentureValidationSchema,
-                system: autopsySystemPrompt,
-                prompt: autopsyUserPrompt,
-            }),
-            generateObject({
-                model: modelInstance,
-                schema: VentureValidationSchema,
-                system: catalystSystemPrompt,
-                prompt: catalystUserPrompt,
-            })
-        ]);
+        let autopsyData: any = providedAutopsyData;
+        let catalystData: any = providedCatalystData;
 
-        const autopsyResult = results[0].status === 'fulfilled' ? results[0].value.object : {
-            pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out. They were likely too focused on the failure vectors to respond." },
-            critical_assumptions: [],
-            logic_chain: ["Red Team analysis unavailable."],
-            experiment_sequence: [],
-            kill_criteria_protocol: {
-                deadliest_assumption: "Engine Timeout",
-                validation_protocol: "Retry request",
-                actionable_template: "Please click validate again."
+        if (phase === "red" || phase === "all") {
+            try {
+                const res = await generateObject({
+                    model: modelInstance,
+                    schema: VentureValidationSchema,
+                    system: autopsySystemPrompt,
+                    prompt: autopsyUserPrompt,
+                });
+                autopsyData = res.object as any;
+                autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+            } catch (e) {
+                autopsyData = {
+                    pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out. They were likely too focused on the failure vectors to respond." },
+                    critical_assumptions: [],
+                    logic_chain: ["Red Team analysis unavailable."],
+                    experiment_sequence: [],
+                    kill_criteria_protocol: {
+                        deadliest_assumption: "Engine Timeout",
+                        validation_protocol: "Retry request",
+                        actionable_template: "Please click validate again."
+                    }
+                };
             }
-        };
-        
-        const catalystResult = results[1].status === 'fulfilled' ? results[1].value.object : {
-             pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out. Growth vectors could not be mapped." },
-             critical_assumptions: [],
-             logic_chain: ["Green Team analysis unavailable."],
-             experiment_sequence: [],
-             kill_criteria_protocol: {
-                 deadliest_assumption: "Engine Timeout",
-                 validation_protocol: "Retry request",
-                 actionable_template: "Please click validate again."
-             }
-        };
+            if (phase === "red") return NextResponse.json({ autopsyData });
+        }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const autopsyData = autopsyResult as any;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const catalystData = catalystResult as any;
+        if (phase === "green" || phase === "all") {
+            try {
+                const res = await generateObject({
+                    model: modelInstance,
+                    schema: VentureValidationSchema,
+                    system: catalystSystemPrompt,
+                    prompt: catalystUserPrompt,
+                });
+                catalystData = res.object as any;
+                catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+            } catch (e) {
+                catalystData = {
+                     pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out. Growth vectors could not be mapped." },
+                     critical_assumptions: [],
+                     logic_chain: ["Green Team analysis unavailable."],
+                     experiment_sequence: [],
+                     kill_criteria_protocol: {
+                         deadliest_assumption: "Engine Timeout",
+                         validation_protocol: "Retry request",
+                         actionable_template: "Please click validate again."
+                     }
+                };
+            }
+            if (phase === "green") return NextResponse.json({ catalystData });
+        }
 
-        // Perform safe calculations for leverage score only if arrays exist
-         
-        autopsyData.critical_assumptions = (autopsyData.critical_assumptions || []).map((a: any  ) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any  , b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.leverage_score - a.leverage_score);
-         
-        catalystData.critical_assumptions = (catalystData.critical_assumptions || []).map((a: any  ) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any  , b: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => b.leverage_score - a.leverage_score);
-
-        // Phase 2: Synthesis
-        const synthesisSystemPrompt = `You are the Managing Partner of an elite venture studio. Two of your top analysts have just evaluated the same startup idea:
+        if (phase === "synthesis" || phase === "all") {
+            const synthesisSystemPrompt = `You are the Managing Partner of an elite venture studio. Two of your top analysts have just evaluated the same startup idea:
 - The Red Team mapped out the fundamental kill-switches and failure states.
 - The Green Team mapped out the exponential moats and scaling levers.
 
@@ -262,47 +265,47 @@ ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI 
 - Assign a 'base_opportunity_score' from 1-100. This is your objective assessment of the idea's structural potential, *assuming* the founder has average execution capabilities.
 - Your tone should be decisive, objective, and highly authoritative. No fluff.`;
 
-        const synthesisUserPrompt = `The startup idea: "${idea}"\n${includeEconomics ? `\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n` : ''}\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
+            const synthesisUserPrompt = `The startup idea: "${idea}"\n${includeEconomics ? `\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n` : ''}\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
 
-        const DynamicInsightSchema = includeEconomics 
-            ? BaseInsightSchema.merge(EconomicsSchemaExtension)
-            : BaseInsightSchema;
+            const DynamicInsightSchema = includeEconomics 
+                ? BaseInsightSchema.merge(EconomicsSchemaExtension)
+                : BaseInsightSchema;
 
-        const synthesisResult = await generateObject({
-            model: modelInstance,
-            schema: DynamicInsightSchema,
-            system: synthesisSystemPrompt,
-            prompt: synthesisUserPrompt,
-        });
+            const synthesisResult = await generateObject({
+                model: modelInstance,
+                schema: DynamicInsightSchema,
+                system: synthesisSystemPrompt,
+                prompt: synthesisUserPrompt,
+            });
 
-        const insightSummary = synthesisResult.object;
+            const insightSummary = synthesisResult.object;
 
-        // --- SILENT TELEMETRY LOGGING (Phase 31 Data Lake) ---
-        // Fire-and-forget insertion of the raw validation payload using waitUntil so it doesn't block the response.
-        if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            waitUntil(
-                (supabase.from('triangulator_audits').insert([
-                  {
-                    idea: idea,
-                    venture_type: ventureType,
-                    incumbent_target: incumbentTarget,
-                    base_opportunity_score: insightSummary.base_opportunity_score,
-                    red_team_fatal_flaw: autopsyData.critical_assumptions?.[0]?.assumption || "N/A",
-                    green_team_wedge: catalystData.critical_assumptions?.[0]?.assumption || "N/A",
-                    raw_insight_json: insightSummary,
-                    created_at: new Date().toISOString()
-                  }
-                ]).then(({ error }) => {
-                    if (error) console.error("Triangulation Telemetry failure (ignored):", error);
-                }) as Promise<any>)
-            );
+            // --- SILENT TELEMETRY LOGGING (Phase 31 Data Lake) ---
+            if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+                waitUntil(
+                    (supabase.from('triangulator_audits').insert([
+                      {
+                        idea: idea,
+                        venture_type: ventureType,
+                        incumbent_target: incumbentTarget,
+                        base_opportunity_score: insightSummary.base_opportunity_score,
+                        red_team_fatal_flaw: autopsyData?.critical_assumptions?.[0]?.assumption || "N/A",
+                        green_team_wedge: catalystData?.critical_assumptions?.[0]?.assumption || "N/A",
+                        raw_insight_json: insightSummary,
+                        created_at: new Date().toISOString()
+                      }
+                    ]).then(({ error }) => {
+                        if (error) console.error("Triangulation Telemetry failure (ignored):", error);
+                    }) as Promise<any>)
+                );
+            }
+
+            return NextResponse.json({
+                autopsyData,
+                catalystData,
+                insightSummary
+            });
         }
-
-        return NextResponse.json({
-            autopsyData,
-            catalystData,
-            insightSummary
-        });
 
     } catch (error: unknown) {
         console.error("====== DEADLY TRIANGULATION EXCEPTION ======");

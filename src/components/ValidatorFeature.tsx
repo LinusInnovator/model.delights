@@ -125,29 +125,56 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
         }, 2000);
 
         try {
-            const res = await fetch("/api/validate-triangulation", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ idea, users, price, inference, includeEconomics: showEconomics, ventureType, incumbentTarget }),
-            });
+            const fetchOpts = { method: "POST", headers: { "Content-Type": "application/json" } };
+            const basePayload = { idea, users, price, inference, includeEconomics: showEconomics, ventureType, incumbentTarget };
+            
+            const [redRes, greenRes] = await Promise.all([
+                fetch("/api/validate-triangulation", { ...fetchOpts, body: JSON.stringify({ ...basePayload, phase: "red" }) }),
+                fetch("/api/validate-triangulation", { ...fetchOpts, body: JSON.stringify({ ...basePayload, phase: "green" }) })
+            ]);
 
-            if (!res.ok) {
-                let errorMsg = "Triangulation orchestrator failed.";
+            const handleError = async (res: Response, phaseName: string) => {
+                let errorMsg = `Triangulation orchestrator failed during ${phaseName} analysis.`;
                 try {
                     const text = await res.text();
                     try {
                         const errorData = JSON.parse(text);
                         errorMsg = errorData.error || errorData.details || errorMsg;
                     } catch {
-                        errorMsg = res.status === 504 ? "Engine Timeout: The AI models took longer than 45 seconds to synthesize this idea. Try again." : `Server Error (${res.status}): ${text.substring(0, 50)}...`;
+                        errorMsg = res.status === 504 ? `Engine Timeout: The ${phaseName} analysis took longer than 45 seconds. Try again.` : `Server Error (${res.status}): ${text.substring(0, 50)}...`;
                     }
                 } catch {
-                    errorMsg = `Server Error (${res.status})`;
+                    errorMsg = `Server Error (${res.status}) in ${phaseName}`;
                 }
                 throw new Error(errorMsg);
-            }
-            const result = await res.json();
-            setData(result);
+            };
+
+            if (!redRes.ok) await handleError(redRes, "Red Team");
+            if (!greenRes.ok) await handleError(greenRes, "Green Team");
+
+            const redResult = await redRes.json();
+            const greenResult = await greenRes.json();
+
+            // Phase 2: Synthesis
+            const synthesisRes = await fetch("/api/validate-triangulation", {
+                ...fetchOpts, 
+                body: JSON.stringify({ 
+                    ...basePayload, 
+                    phase: "synthesis",
+                    autopsyData: redResult.autopsyData,
+                    catalystData: greenResult.catalystData
+                })
+            });
+
+            if (!synthesisRes.ok) await handleError(synthesisRes, "Synthesis");
+
+            const synthesisResult = await synthesisRes.json();
+            
+            setData({
+                autopsyData: redResult.autopsyData,
+                catalystData: greenResult.catalystData,
+                insightSummary: synthesisResult.insightSummary
+            });
         } catch (err: unknown) {
             setError((err as Error).message || "The Triangulation Engine encountered a critical exception. Please try again.");
         } finally {
