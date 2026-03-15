@@ -435,7 +435,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                     
                     {hasNote && (
                       <span 
-                        className={`absolute -left-2 md:-left-6 top-2 w-2 h-2 rounded-full transition-all duration-300 md:hidden lg:block
+                        className={`absolute -left-[10px] md:-left-6 top-2 w-2 h-2 rounded-full transition-all duration-300 md:hidden lg:block
                           ${activeNote === block.marginNoteId ? 'bg-emerald-500 opacity-100 scale-125' : 'bg-emerald-500/30 opacity-100 lg:opacity-0 lg:group-hover:opacity-100'}
                         `} 
                         onClick={handleMobileTap}
