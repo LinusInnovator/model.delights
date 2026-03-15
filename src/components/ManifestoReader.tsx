@@ -36,7 +36,8 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   
   // Create unified motion templates at the top level to strictly follow Rules of Hooks
   const parallaxX = useMotionTemplate`${panX}%`;
-  const parallaxY = useMotionTemplate`calc(${panY}% + ${yScrollOffset}px)`;
+  // The yScrollOffset maps to a string like "15%", so we just add it without appending "px"
+  const parallaxY = useMotionTemplate`calc(${panY}% + ${yScrollOffset})`;
   
   // Mobile Dynamic Pill State
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -242,10 +243,10 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
       {/* Top Navigation Logo (Filling the empty space) */}
       <div className="absolute top-8 left-6 z-40">
         <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
-          <AnimatedLogo className={`w-8 h-8 md:w-10 md:h-10 shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
-          <div className="flex flex-col">
-            <AnimatedTextLogo className={`h-4 md:h-5 w-auto shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
-            <span className="text-[9px] font-mono tracking-widest uppercase opacity-50 ml-1.5 mt-0.5">Manifesto</span>
+          <AnimatedLogo className={`w-10 h-10 md:w-12 md:h-12 shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
+          <div className="flex flex-col justify-center">
+            <AnimatedTextLogo className={`h-5 md:h-6 w-auto shrink-0 ${theme === 'light' ? 'invert' : ''}`} />
+            <span className="text-[10px] md:text-[11px] font-mono tracking-widest uppercase opacity-50 ml-1.5 mt-0.5 relative top-[-2px]">Manifesto</span>
           </div>
         </Link>
       </div>
