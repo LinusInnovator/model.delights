@@ -29,6 +29,7 @@ export interface ManifestoArticle {
   readTimeMin: number;
   heroImage?: {
     url: string;
+    videoUrl?: string;
     alt: string;
   };
   blocks: ContentBlock[];

@@ -27,6 +27,7 @@ export const article5: ManifestoArticle = {
   readTimeMin: 5,
   heroImage: {
     url: "/images/manifesto/part-5.png",
+    videoUrl: "/images/manifesto/part-5.mp4",
     alt: "A solitary developer standing triumphantly atop a massive glowing emerald tech citadel high in the clouds, commanding swarms of digital entities, representing the Era of the Single-Player Unicorn."
   },
   marginNotes: {

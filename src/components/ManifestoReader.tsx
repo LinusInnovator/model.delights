@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ManifestoArticle, ToneLevel, ContentBlock, MarginNote } from "@/types/manifesto";
 import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle, X, Heart, Lightning } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -22,6 +22,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
   const [copyTone, setCopyTone] = useState<"truth" | "nice">("truth");
   const [activeNote, setActiveNote] = useState<string | null>(null);
   const [isHeroFullscreen, setIsHeroFullscreen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (isHeroFullscreen) {
@@ -112,12 +113,24 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
     const yPct = (((e.clientY - rect.top) / rect.height) - 0.5) * -10;
     panX.set(xPct);
     panY.set(yPct);
+
+    // Play video if it exists and hasn't started playing
+    if (videoRef.current && videoRef.current.paused) {
+      videoRef.current.play().catch(() => {
+        // Ignore auto-play errors (e.g., user hasn't interacted yet)
+      });
+    }
   }, [panX, panY]);
 
   const handleHeroMouseLeave = useCallback(() => {
     if (window.matchMedia("(hover: none)").matches) return;
     panX.set(0);
     panY.set(0);
+
+    // Pause video
+    if (videoRef.current && !videoRef.current.paused) {
+      videoRef.current.pause();
+    }
   }, [panX, panY]);
 
 
@@ -395,7 +408,18 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                   style={{ objectFit: 'cover', objectPosition: 'top' }}
                   priority
                   sizes="(max-width: 768px) 150vw, 150vw"
+                  className={`transition-opacity duration-700 ${article.heroImage.videoUrl ? 'group-hover:opacity-0' : ''}`}
                 />
+                {article.heroImage.videoUrl && (
+                  <video 
+                    ref={videoRef}
+                    src={article.heroImage.videoUrl} 
+                    className="absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                    loop
+                    muted
+                    playsInline
+                  />
+                )}
               </motion.div>
 
               {/* Vignette Overlay for cinematic bleed */}
