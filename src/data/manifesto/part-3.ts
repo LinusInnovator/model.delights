@@ -57,7 +57,7 @@ export const article3: ManifestoArticle = {
       content: {
         simple: "Let's talk about the bosses in Horizon 3. These are the executives who want to build the next big thing. They sit in big offices and wonder why their new software looks like a boring spreadsheet.",
         professional: "We've dismantled the Roman Politicians of H2, and we've bypassed the database janitors of H1. Now, let's look up to Horizon 3. This is where the C-Suite sits, demanding transformational innovation. They point to beautifully crafted physical products or hyper-polished consumer apps and ask: 'Why can't we build something with that level of taste?'",
-        academic: "Horizon 3 (H3) represents the executive suite focused on transformational innovation. However, a persistent friction exists between H3 strategic intent and the qualitative output of the organization—manifesting frequently as a deficit in UX 'taste'. "
+        academic: "Horizon 3 (H3) represents the executive suite focused on transformational innovation. However, a persistent friction exists between H3 strategic intent and the qualitative output of the organization, manifesting frequently as a deficit in UX 'taste'. "
       }
     },
     {
@@ -66,7 +66,7 @@ export const article3: ManifestoArticle = {
       content: {
         simple: "The truth is, 8 out of 10 workers don't really care about their jobs right now. They are just clicking buttons until it's time to go home. You can't make magical software with a tired team.",
         professional: "The brutal truth is sitting right in front of them: you cannot mandate 'Taste' from a workforce that is fundamentally checked out. When 79% of the global workforce is disengaged, burning $8.9 Trillion in lost productivity every year, your ticket backlog is being cleared by people who just want to go home.",
-        academic: "This qualitative deficit correlates directly to systemic workforce alienation. Recent macro-economic analyses indicate that 79% of the global workforce exhibits active disengagement. The financial penalty—estimated at $8.9 Trillion annually—translates directly into degraded software craftsmanship."
+        academic: "This qualitative deficit correlates directly to systemic workforce alienation. Recent macro-economic analyses indicate that 79% of the global workforce exhibits active disengagement. The financial penalty, estimated at $8.9 Trillion annually, translates directly into degraded software craftsmanship."
       },
       marginNoteId: "gallup-engagement"
     },
@@ -93,9 +93,9 @@ export const article3: ManifestoArticle = {
       id: "p4",
       type: "p",
       content: {
-        simple: "That's why when you use corporate software, it all feels the same. There's no fun. There's no style.",
-        professional: "By the time it reaches the user, it feels exactly like every other enterprise software tool on the market. It functions, but it lacks soul. Taste requires a singular, uncompromising vision—which is impossible to maintain across a 15-person handoff.",
-        academic: "Consequently, enterprise software homogenizes. The final artifact favors functional compliance over emotional resonance. The preservation of 'Taste' requires a high-fidelity conceptual linkage that multi-actor pipelines fundamentally disrupt."
+        simple: "By the time the product reaches the user, it feels boring. It works, but it has no soul. You need one person with a strong vision to keep the soul alive, but that's impossible when 15 people have to touch the code.",
+        professional: "By the time it reaches the user, it feels exactly like every other enterprise software tool on the market. It works, but it lacks soul. Taste requires a singular, uncompromising vision, which is impossible to maintain across a 15-person handoff.",
+        academic: "The final product invariably suffers from institutional homogenization. While functionally viable, it completely lacks aesthetic resonance or 'soul'. Maintaining rigorous UX standards across horizontal deployment pipelines requires authoritative centralization, which agile methodologies natively resist."
       },
       marginNoteId: "taste-definition"
     },
@@ -124,7 +124,7 @@ export const article3: ManifestoArticle = {
       content: {
         simple: "I wanted the website to look like dark, frosted glass with glowing colors. I didn't have to argue with a team; the AI just built it.",
         professional: "I didn't have to argue for the ROI of implementing a mathematical SVG radar-sweep animation in the logo. I didn't have to compromise on the 50-pixel drop shadows that make the UI cards feel like physical, overlapping metal plates. We implemented an absolute-positioned SVG noise-filter layer to give the entire site a physical 'frosted glass' texture.",
-        academic: "The architect could mandate complex volumetric interactions—such as heavily parameterized CSS drop shadows and dynamically generated SVG scalar noise layers—without negotiating technical feasibility with a constrained engineering unit."
+        academic: "The architect could mandate complex volumetric interactions, such as heavily parameterized CSS drop shadows and dynamically generated SVG scalar noise layers, without negotiating technical feasibility with a constrained engineering unit."
       }
     },
     {

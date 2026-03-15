@@ -60,7 +60,7 @@ export const article2: ManifestoArticle = {
       type: "p",
       content: {
         simple: "If a company wants to add a new AI model to their list, a human has to type it into a database, a manager has to check it, and another person has to push a button. It takes weeks.",
-        professional: "Consider a traditional product catalog. If a new AI model is released, a Product Manager writes a ticket. A data entry specialist updates a PostgreSQL database. A developer writes a migration. QA tests the rendering. By the time the model is live on the website, it's already obsolete. This is why 70% of digital transformations fail—they transform the PowerPoint, but not the deployment velocity.",
+        professional: "Consider a traditional product catalog. If a new AI model is released, a Product Manager writes a ticket. A data entry specialist updates a PostgreSQL database. A developer writes a migration. QA tests the rendering. By the time the model is live on the website, it's already obsolete. This is why 70% of digital transformations fail: they transform the PowerPoint, but not the deployment velocity.",
         academic: "Traditional enterprise architectures rely on manual CRUD (Create, Read, Update, Delete) operations. This necessitates human-in-the-loop administration for every minor data state change, resulting in severe informational latency. The architecture assumes data is static, when in reality, the AI market is hyper-fluid."
       },
       marginNoteId: "h1-failure"
@@ -80,7 +80,7 @@ export const article2: ManifestoArticle = {
       content: {
         simple: "When I built model.delights.pro with an AI in 11 days, we realized databases were too slow. So, we didn't build one.",
         professional: "When architecting <code class='text-emerald-500'>model.delights.pro</code> over our 11-day sprint, I realized that standing up a traditional database like Supabase or Postgres to track AI models was a trap. It would force me to become a full-time data janitor. So, we abandoned the database entirely.",
-        academic: "The deployment architecture of <code class='text-emerald-500'>model.delights.pro</code> explicitly rejects stateful data persistence. Traditional relational databases (RDBMS) introduce structural atrophy—requiring constant schema migrations and maintenance that siphon velocity from the orchestrator."
+        academic: "The deployment architecture of <code class='text-emerald-500'>model.delights.pro</code> explicitly rejects stateful data persistence. Traditional relational databases (RDBMS) introduce structural atrophy, requiring constant schema migrations and maintenance that siphon velocity from the orchestrator."
       }
     },
     {

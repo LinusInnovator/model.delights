@@ -32,7 +32,7 @@ export const article5: ManifestoArticle = {
     },
     "technical-debt": {
       id: "technical-debt",
-      content: "Enterprise organizations naturally accrete 'Technical Debt'—old, poorly written code that slows down future development. A solo-agentic builder can completely rewrite systems from scratch rather than paying down decade-old debt.",
+      content: "Enterprise organizations naturally accrete 'Technical Debt', which is old, poorly written code that slows down future development. A solo-agentic builder can completely rewrite systems from scratch rather than paying down decade-old debt.",
       authorTitle: "Software Architecture"
     }
   },

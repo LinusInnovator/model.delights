@@ -22,7 +22,7 @@ export const article1: ManifestoArticle = {
   marginNotes: {
     "sloan-meetings": {
       id: "sloan-meetings",
-      content: "MIT Sloan researchers found that the average executive now spends up to 23 hours a week in meetings—up from just 10 hours in the 1960s. Middle management is literally scheduled out of actionable production.",
+      content: "MIT Sloan researchers found that the average executive now spends up to 23 hours a week in meetings, up from just 10 hours in the 1960s. Middle management is literally scheduled out of actionable production.",
       authorTitle: "MIT Sloan Management Review"
     },
     "mckinsey-fail": {
@@ -75,7 +75,7 @@ export const article1: ManifestoArticle = {
       type: "p",
       content: {
         simple: "Because everyone is stuck in meetings, nobody cares about making something great anymore. They just want to go home. The software turns out bad because the people building it are bored and tired.",
-        professional: "When you build an organization this way, you guarantee a catastrophic failure rate for any new technology initiative. When you divorce the builders from the actual decision making, you drain all the passion out of the room. Executives sit in Horizon 3 wondering what the hell is taking so long, not realizing they designed exactly this sluggish reality. And the customers are left with software that feels like it was designed by a committee—because it was.",
+        professional: "When you build an organization this way, you guarantee a catastrophic failure rate for any new technology initiative. When you divorce the builders from the actual decision making, you drain all the passion out of the room. Executives sit in Horizon 3 wondering what the hell is taking so long, not realizing they designed exactly this sluggish reality. And the customers are left with software that feels like it was designed by a committee, because it was.",
         academic: "The disconnect between executive strategy (H3) and core production (H1) leads to a profound degradation of workforce morale and output quality. When developers are alienated from product decisions, system failure rates skyrocket and end-user experiences degrade substantially."
       },
       marginNoteId: "mckinsey-fail"
@@ -94,8 +94,8 @@ export const article1: ManifestoArticle = {
       type: "p",
       content: {
         simple: "Working with AI is completely different. Last week, I had an idea. I wanted to build a massive website called model.delights.pro that tracks the smartest AI brains in the world. And I wanted to do it without hiring anyone or having a single meeting.",
-        professional: "Meanwhile, armed with advanced agentic AI, the paradigm flips entirely. I wanted to build <code class='text-emerald-500'>model.delights.pro</code>—a dynamic data aggregator tracking hundreds of language models in real time, serving as a unified analytics dashboard. If I were at a Fortune 500 company, Step 1 would be drafting a 40-page technical Project Requirements Document (PRD). Instead, we skipped Step 1 to 50, and just started building.",
-        academic: "Conversely, the application of advanced agentic AI paradigms effectively neutralizes institutional friction. The deployment of <code class='text-emerald-500'>model.delights.pro</code>—a dynamic data pipeline and categorization engine—was initiated without preparatory bureaucratic documentation, relying purely on iterative human-in-the-loop synthesis."
+        professional: "Meanwhile, armed with advanced agentic AI, the paradigm flips entirely. I wanted to build <code class='text-emerald-500'>model.delights.pro</code>, a dynamic data aggregator tracking hundreds of language models in real time, serving as a unified analytics dashboard. If I were at a Fortune 500 company, Step 1 would be drafting a 40-page technical Project Requirements Document (PRD). Instead, we skipped Step 1 to 50, and just started building.",
+        academic: "Conversely, the application of advanced agentic AI paradigms effectively neutralizes institutional friction. The deployment of <code class='text-emerald-500'>model.delights.pro</code>, a dynamic data pipeline and categorization engine, was initiated without preparatory bureaucratic documentation, relying purely on iterative human-in-the-loop synthesis."
       }
     },
     {
@@ -103,7 +103,7 @@ export const article1: ManifestoArticle = {
       type: "p",
       content: {
         simple: "In exactly 11 days, an AI and I built the entire thing. We even made it look super cool with 3D graphics and glowing colors. We didn't need to check Jira. We didn't need to ask for permission. We just built.",
-        professional: "We designed, architected, and deployed the entire complex platform in exactly 11 days. And we didn't just ship an MVP—we shipped a heavily animated, mathematically precise cinematic UI pulling live data. The gap between corporate inertia and soloist velocity has never been wider. While traditional teams were arguing over sprint points, we were pushing live cinematic glow effects into production.",
+        professional: "We designed, architected, and deployed the entire complex platform in exactly 11 days. And we didn't just ship an MVP. We shipped a heavily animated, mathematically precise cinematic UI pulling live data. The gap between corporate inertia and soloist velocity has never been wider. While traditional teams were arguing over sprint points, we were pushing live cinematic glow effects into production.",
         academic: "The entire platform was conceptualized, computationally generated, and deployed to production within an 11-day sprint. This isolated environment demonstrates unprecedented soloist velocity, achieving feature parity with platforms typically requiring multi-quarter engineering cycles."
       },
       marginNoteId: "gallup-engagement"

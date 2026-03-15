@@ -27,7 +27,7 @@ export const article4: ManifestoArticle = {
     },
     "agile-theater": {
       id: "agile-theater",
-      content: "Many organizations engage in 'Agile Theater'—using the terminology of fast iteration (sprints, scrums) while maintaining the rigid, slow approval processes characteristic of traditional waterfall models.",
+      content: "Many organizations engage in 'Agile Theater', using the terminology of fast iteration (sprints, scrums) while maintaining the rigid, slow approval processes characteristic of traditional waterfall models.",
       authorTitle: "Corporate Agile Transformation"
     },
     "proof-of-work": {
@@ -52,7 +52,7 @@ export const article4: ManifestoArticle = {
       content: {
         simple: "Big companies spend a lot of time planning. They have meetings and make big presentations, but nothing actually gets built. We needed to stop planning and start making.",
         professional: "I've sold digital transformation and strategic design for decades. I know how the sausage is made. Companies pay millions for massive PowerPoint decks outlining <em>how</em> they might eventually become customer-focused. We map out abstract journeys and five-year Horizons.",
-        academic: "In legacy environments (Horizon 1), structural iteration is paralyzed by theoretical planning. The enterprise expends vast capital on predictive documentation—journey maps and multi-year strategic architectures—prior to any empirical validation."
+        academic: "In legacy environments (Horizon 1), structural iteration is paralyzed by theoretical planning. The enterprise expends vast capital on predictive documentation, such as journey maps and multi-year strategic architectures, prior to any empirical validation."
       }
     },
     {
@@ -98,7 +98,7 @@ export const article4: ManifestoArticle = {
       type: "p",
       content: {
         simple: "A real website feels totally different than a drawing. You can click the buttons. You can see the math happen. Drawings can lie; websites can't.",
-        professional: "This is the power of 'Proof of Work'. When you present a 70-page slide deck, executives argue over abstract bullet points. But when you drop a live URL with a heavily animated, massive 3D interface that actively fetches live API pricing telemetry—there is no argument. The codebase is the undeniable proof.",
+        professional: "This is the power of 'Proof of Work'. When you present a 70-page slide deck, executives argue over abstract bullet points. But when you drop a live URL with a heavily animated, massive 3D interface that actively fetches live API pricing telemetry, there is no argument. The codebase is the undeniable proof.",
         academic: "Deploying an interactive codebase establishes definitive Proof of Work. While theoretical models invite abstract debate, an instantiated prototype with live data telemetry forces stakeholders to engage with the structural reality of the system."
       },
       marginNoteId: "proof-of-work"
