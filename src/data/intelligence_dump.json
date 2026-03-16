@@ -207,7 +207,7 @@
       "model_id": "openai/gpt-5.3-codex",
       "pricing_prompt": 1.75e-06,
       "pricing_completion": 1.4e-05,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
