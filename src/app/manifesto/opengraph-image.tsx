@@ -40,15 +40,17 @@ export default async function Image() {
         {/* Title */}
         <div
           style={{
+            display: 'flex',
+            flexDirection: 'column',
             fontSize: 84,
             fontWeight: 800,
             letterSpacing: '-0.03em',
             marginBottom: '40px',
             lineHeight: 1.1,
-            display: 'block'
           }}
         >
-          The AI-First<br />Publishing Manifesto
+          <span>The AI-First</span>
+          <span>Publishing Manifesto</span>
         </div>
         
         {/* Subtitle */}
@@ -64,8 +66,8 @@ export default async function Image() {
         
         {/* Decorative Element */}
         <div style={{ position: 'absolute', bottom: '80px', right: '80px', display: 'flex' }}>
-             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
              </svg>
         </div>
       </div>
