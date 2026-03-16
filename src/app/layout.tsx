@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { ClerkProvider } from '@clerk/nextjs';
+import { Analytics } from "@vercel/analytics/react";
 import TopBarAuth from "../components/TopBarAuth";
 import Footer from "../components/Footer";
 import "./globals.css";
@@ -73,6 +74,7 @@ export default function RootLayout({
             data-genie-id="15037964-879e-408c-9154-fa13810a1862"
             strategy="lazyOnload"
           />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
