@@ -72,9 +72,9 @@ export default function RootLayout({
           {/* Using a native standard script tag to ensure data attributes are readable via document.currentScript by the widget */}
           <script
             src="https://spell.delights.pro/widget.js?v=1.1"
-            data-genie-id="15037964-879e-408c-9154-fa13810a1862"
+            data-genie-id="ae9409cd-3016-424a-bc8f-3974ac6d48cf"
             defer
-          />
+          ></script>
           <Analytics />
         </body>
       </html>

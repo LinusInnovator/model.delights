@@ -16,6 +16,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     const [searchQuery, setSearchQuery] = useState('');
     const [sortMode, setSortMode] = useState('elo-desc');
     const [activeUseCase, setActiveUseCase] = useState('all');
+    const [activeModality, setActiveModality] = useState('text'); // Default to text for standard router capabilities
     const [isEloExpanded, setIsEloExpanded] = useState(false);
 
     const PRESETS = {
@@ -54,6 +55,11 @@ export default function Directory({ initialData }: { initialData: FetchResult })
 
     const filteredModels = useMemo(() => {
         let result = initialData.models;
+
+        // Modality Filter
+        if (activeModality !== 'all') {
+            result = result.filter(m => m.modality_type === activeModality);
+        }
 
         // Use Case Filter
         if (activeUseCase !== 'all') {
@@ -108,7 +114,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
         });
 
         return result;
-    }, [initialData.models, searchQuery, sortMode, activeUseCase, maxBudget, simPromptMs, simOutputMs, simReqs]);
+    }, [initialData.models, searchQuery, sortMode, activeUseCase, activeModality, maxBudget, simPromptMs, simOutputMs, simReqs]);
 
     // Format last updated
     const lastUpdatedTimestamp = initialData.last_updated
@@ -196,8 +202,9 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     </div>
                 </header>
 
-                {/* Keeping Simulator for parity */}
-                <div className="simulator-panel home-simulator">
+                {/* Hide Simulator for non-text modalities where token math is confusing */}
+                {(activeModality === 'text' || activeModality === 'all') && (
+                    <div className="simulator-panel home-simulator">
                     <div className="simulator-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
                             <h2>Cost Simulator</h2>
@@ -305,6 +312,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                         </div>
                     </div>
                 </div>
+                )}
             </div>
 
             <div style={{ width: '100%', marginBottom: '40px' }}>
@@ -318,15 +326,19 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                 setSortMode={setSortMode}
                 activeUseCase={activeUseCase}
                 setActiveUseCase={setActiveUseCase}
+                activeModality={activeModality}
+                setActiveModality={setActiveModality}
                 totalModels={filteredModels.length}
                 lastUpdated={lastUpdatedTimestamp}
             />
 
-            <ParetoChart
-                models={filteredModels}
-                isExpanded={isChartExpanded}
-                onToggleExpand={() => setIsChartExpanded(!isChartExpanded)}
-            />
+            {(activeModality === 'text' || activeModality === 'all') && (
+                <ParetoChart
+                    models={filteredModels}
+                    isExpanded={isChartExpanded}
+                    onToggleExpand={() => setIsChartExpanded(!isChartExpanded)}
+                />
+            )}
 
             {filteredModels.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '50px', color: 'var(--text-secondary)' }}>

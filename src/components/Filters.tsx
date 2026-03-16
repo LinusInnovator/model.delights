@@ -3,14 +3,21 @@
 import React, { useState, useEffect } from "react";
 
 export const USE_CASES = [
-    { id: 'all', label: 'All Models', icon: 'ph-infinity' },
+    { id: 'all', label: 'All Use Cases', icon: 'ph-infinity' },
     { id: 'Top Tier', label: 'Top Tier', icon: 'ph-star' },
     { id: 'Coding & Logic', label: 'Coding & Logic', icon: 'ph-code' },
     { id: 'Fictional', label: 'Fictional', icon: 'ph-pen-nib' },
     { id: 'Drafting', label: 'Drafting', icon: 'ph-lightning' },
     { id: 'Roleplay', label: 'Roleplay', icon: 'ph-mask-happy' },
-    { id: 'Vision', label: 'Vision', icon: 'ph-eye' },
-    { id: 'Image Gen', label: 'Image Gen', icon: 'ph-image' }
+    { id: 'Vision', label: 'Vision', icon: 'ph-eye' }
+];
+
+export const MODALITIES = [
+    { id: 'all', label: 'All Media', icon: 'ph-circles-four' },
+    { id: 'text', label: 'Text & Code', icon: 'ph-text-t' },
+    { id: 'image', label: 'Images', icon: 'ph-image' },
+    { id: 'video', label: 'Video', icon: 'ph-video-camera' },
+    { id: 'audio', label: 'Audio & Voice', icon: 'ph-speaker-high' }
 ];
 
 interface FiltersProps {
@@ -20,6 +27,8 @@ interface FiltersProps {
     setSortMode: (val: string) => void;
     activeUseCase: string;
     setActiveUseCase: (val: string) => void;
+    activeModality: string;
+    setActiveModality: (val: string) => void;
     totalModels: number;
     lastUpdated: number | null;
 }
@@ -47,6 +56,8 @@ export default function Filters({
     setSortMode,
     activeUseCase,
     setActiveUseCase,
+    activeModality,
+    setActiveModality,
     totalModels,
     lastUpdated
 }: FiltersProps) {
@@ -118,6 +129,38 @@ export default function Filters({
                         <option value="name-asc">Name (A-Z)</option>
                     </select>
                 </div>
+            </div>
+
+            <div className="modality-matrix" style={{ display: 'flex', gap: '10px', marginTop: '15px', marginBottom: '15px', flexWrap: 'wrap' }}>
+                {MODALITIES.map(mod => (
+                    <button
+                        key={mod.id}
+                        onClick={() => setActiveModality(mod.id)}
+                        style={{
+                            background: activeModality === mod.id ? 'var(--accent)' : 'rgba(255,255,255,0.05)',
+                            color: activeModality === mod.id ? '#000' : '#fff',
+                            border: '1px solid',
+                            borderColor: activeModality === mod.id ? 'var(--accent)' : 'rgba(255,255,255,0.1)',
+                            padding: '8px 16px',
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            fontWeight: activeModality === mod.id ? 600 : 400,
+                            transition: 'all 0.2s ease',
+                            fontSize: '0.9rem'
+                        }}
+                        onMouseEnter={e => {
+                            if (activeModality !== mod.id) e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                        }}
+                        onMouseLeave={e => {
+                            if (activeModality !== mod.id) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                        }}
+                    >
+                        <i className={`ph ${mod.icon}`}></i> {mod.label}
+                    </button>
+                ))}
             </div>
 
             <div className="controls-top-row">

@@ -69,10 +69,26 @@ export default function ModelCard({
                 <div className="card-front">
                     <div className="model-header">
                         <div className="model-title">{nameDisplay}</div>
-                        <div className="badges-wrap">
+                        <div className="badges-wrap" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                            {model.gateway === 'fal.ai' ? (
+                                <span className="gateway-badge fal" style={{ background: 'rgba(255, 51, 153, 0.15)', color: '#ff3399', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                    <i className="ph-fill ph-lightning"></i> Fal.ai
+                                </span>
+                            ) : (
+                                <span className="gateway-badge or" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                    <i className="ph-fill ph-intersect"></i> OpenRouter
+                                </span>
+                            )}
+                            
                             {model.elo && (
                                 <span className="elo-badge" style={{ background: 'rgba(255, 215, 0, 0.15)', color: '#ffd700', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                                     ELO: {model.elo}
+                                </span>
+                            )}
+                            
+                            {(model.modality_type && model.modality_type !== 'text') && (
+                                <span className="modality-badge" style={{ background: 'rgba(168, 85, 247, 0.15)', color: '#a855f7', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                    {model.modality_type}
                                 </span>
                             )}
                         </div>
@@ -172,9 +188,17 @@ export default function ModelCard({
                         >
                             {copiedId ? <><i className="ph ph-check"></i> Copied!</> : <><i className="ph ph-copy"></i> Copy Model ID</>}
                         </button>
-                        <a href={`https://openrouter.ai/models/${model.id}`} target="_blank" className="hub-link-btn" rel="noreferrer">
-                            <i className="ph ph-book-open"></i> OpenRouter Specs
-                        </a>
+                        
+                        {model.gateway === 'fal.ai' ? (
+                            <a href={`https://fal.ai/models/${model.id}`} target="_blank" className="hub-link-btn" rel="noreferrer">
+                                <i className="ph ph-book-open"></i> Fal.ai Documentation
+                            </a>
+                        ) : (
+                            <a href={`https://openrouter.ai/models/${model.id}`} target="_blank" className="hub-link-btn" rel="noreferrer">
+                                <i className="ph ph-book-open"></i> OpenRouter Specs
+                            </a>
+                        )}
+
                         <a href={`https://huggingface.co/search/full-text?q=${encodeURIComponent(nameDisplay)}&type=model`} target="_blank" className="hub-link-btn" rel="noreferrer">
                             <i className="ph ph-magnifying-glass"></i> HuggingFace Search
                         </a>

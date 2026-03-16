@@ -30,6 +30,8 @@ export interface Model {
     use_cases: string[];
     elo: number | null;
     value_score: number;
+    gateway?: string;
+    modality_type?: string;
 }
 
 export interface FetchResult {
@@ -40,13 +42,18 @@ export interface FetchResult {
 export async function fetchModels(): Promise<FetchResult> {
     try {
         let lmsysEloMap: Record<string, number> = {};
+        let dumpData: any = null;
         try {
             const dataPath = path.join(process.cwd(), 'src/data/lmsys_elo.json');
             if (fs.existsSync(dataPath)) {
                 lmsysEloMap = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
             }
+            const dumpPath = path.join(process.cwd(), 'src/data/intelligence_dump.json');
+            if (fs.existsSync(dumpPath)) {
+                dumpData = JSON.parse(fs.readFileSync(dumpPath, 'utf-8'));
+            }
         } catch (e) {
-            console.error("Failed to load LMSYS ELO data", e);
+            console.error("Failed to load local data files", e);
         }
 
         const res = await fetch("https://openrouter.ai/api/v1/models", {
@@ -168,14 +175,67 @@ export async function fetchModels(): Promise<FetchResult> {
                 }
             }
 
+            // Determine modality primarily for OR models
+            let modality_type = 'text';
+            if (use_cases.includes('Image Gen')) modality_type = 'image';
+            else if (use_cases.includes('Vision')) modality_type = 'text'; // Vision implies text output typically, but multimodal input
+
             return {
                 ...m,
                 use_cases,
                 pricing_per_1m,
                 elo,
-                value_score
+                value_score,
+                gateway: 'openrouter',
+                modality_type
             };
         });
+
+        // Merge Fal.ai models from intelligence dump
+        if (dumpData && dumpData.entities) {
+            dumpData.entities.forEach((ent: any) => {
+                const falEvent = ent.events.find((e: any) => e.provider === 'fal.ai');
+                if (falEvent) {
+                    const m_id = falEvent.alias;
+                    const name = ent.model_id.split('/').pop() || m_id;
+                    const use_cases: string[] = [];
+                    let modality_type = 'text';
+
+                    if (ent.modalities_out.includes('video')) {
+                        use_cases.push('Video Gen');
+                        modality_type = 'video';
+                    } else if (ent.modalities_out.includes('audio')) {
+                         use_cases.push('Audio Gen');
+                         modality_type = 'audio';
+                    } else if (ent.modalities_out.includes('image') || ent.modalities_out.includes('->image')) {
+                         use_cases.push('Image Gen');
+                         modality_type = 'image';
+                    } else if (ent.modalities_in.includes('image')) {
+                         use_cases.push('Vision');
+                    }
+                    
+                    const pricing_per_1m: ModelPricing = {
+                         prompt: (ent.pricing_prompt || 0) * 1000000,
+                         completion: (ent.pricing_completion || 0) * 1000000
+                    };
+                    
+                    models.push({
+                        id: m_id,
+                        name: name,
+                        description: `Fast, production-ready ${modality_type} model via Fal.ai.`,
+                        context_length: 0,
+                        created: Math.floor(Date.now() / 1000), // generic timestamp
+                        pricing: {},
+                        pricing_per_1m,
+                        use_cases,
+                        elo: null, // Visual models don't use standard ELO right now
+                        value_score: 999999,
+                        gateway: 'fal.ai',
+                        modality_type
+                    });
+                }
+            });
+        }
 
         // Second pass: Dynamic 'Top Tier' detection without hardcoding versions
         const TOP_PROVIDERS = ['openai', 'anthropic', 'google', 'deepseek', 'x-ai', 'mistral'];
