@@ -26,10 +26,10 @@ export default function Footer() {
                 
                 {/* Brand & Copyright */}
                 <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                         <Image src="/logo.png" alt="Model Delights Logo" width={24} height={24} className="rounded-md" />
                         <span className="text-white font-bold tracking-tight text-lg">model.delights.pro</span>
-                    </div>
+                    </Link>
                     <p className="text-zinc-500 text-sm">
                         Delights.pro is a DreamValidator brand. <br/>
                         &copy; {currentYear} All rights reserved.
