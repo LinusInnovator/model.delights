@@ -61,7 +61,7 @@ const EconomicsSchemaExtension = z.object({
     })
 });
 
-export const maxDuration = 45;
+export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
     try {
@@ -206,7 +206,79 @@ Core Principles for a NEW CATEGORY:
         let autopsyData: any = providedAutopsyData;
         let catalystData: any = providedCatalystData;
 
-        if (phase === "red" || phase === "all") {
+        if (phase === "all") {
+            const redTeamPromise = async () => {
+                for (const modelId of modelsToTry) {
+                    try {
+                        const res = await generateObject({
+                            model: createOpenRouter(modelId),
+                            schema: VentureValidationSchema,
+                            system: autopsySystemPrompt,
+                            prompt: autopsyUserPrompt,
+                        });
+                        const data = res.object as any;
+                        data.critical_assumptions = (data.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+                        return data;
+                    } catch (e) {
+                        console.warn(`[Red Team] Model ${modelId} failed:`, e);
+                    }
+                }
+                throw new Error("Red Team analysis timed out line");
+            };
+
+            const greenTeamPromise = async () => {
+                for (const modelId of modelsToTry) {
+                    try {
+                        const res = await generateObject({
+                            model: createOpenRouter(modelId),
+                            schema: VentureValidationSchema,
+                            system: catalystSystemPrompt,
+                            prompt: catalystUserPrompt,
+                        });
+                        const data = res.object as any;
+                        data.critical_assumptions = (data.critical_assumptions || []).map((a: any) => ({ ...a, leverage_score: a.impact * (6 - a.evidence) })).sort((a: any, b: any) => b.leverage_score - a.leverage_score);
+                        return data;
+                    } catch (e) {
+                        console.warn(`[Green Team] Model ${modelId} failed:`, e);
+                    }
+                }
+                throw new Error("Green Team analysis timed out line");
+            };
+
+            const [redResult, greenResult] = await Promise.allSettled([redTeamPromise(), greenTeamPromise()]);
+
+            if (redResult.status === 'fulfilled') {
+                autopsyData = redResult.value;
+            } else {
+                autopsyData = {
+                    pattern_match: { historical_pattern: "API Timeout", rationale: "The Red Team analysis timed out for all fallback models. Too many complex vectors." },
+                    critical_assumptions: [],
+                    logic_chain: ["Red Team analysis unavailable."],
+                    experiment_sequence: [],
+                    kill_criteria_protocol: {
+                        deadliest_assumption: "Engine Timeout",
+                        validation_protocol: "Retry request",
+                        actionable_template: "Please click validate again."
+                    }
+                };
+            }
+
+            if (greenResult.status === 'fulfilled') {
+                catalystData = greenResult.value;
+            } else {
+                catalystData = {
+                     pattern_match: { historical_pattern: "API Timeout", rationale: "The Green Team analysis timed out for all fallback models. Growth vectors could not be mapped." },
+                     critical_assumptions: [],
+                     logic_chain: ["Green Team analysis unavailable."],
+                     experiment_sequence: [],
+                     kill_criteria_protocol: {
+                         deadliest_assumption: "Engine Timeout",
+                         validation_protocol: "Retry request",
+                         actionable_template: "Please click validate again."
+                     }
+                };
+            }
+        } else if (phase === "red") {
             let success = false;
             for (const modelId of modelsToTry) {
                 try {
@@ -237,10 +309,8 @@ Core Principles for a NEW CATEGORY:
                     }
                 };
             }
-            if (phase === "red") return NextResponse.json({ autopsyData });
-        }
-
-        if (phase === "green" || phase === "all") {
+            return NextResponse.json({ autopsyData });
+        } else if (phase === "green") {
             let success = false;
             for (const modelId of modelsToTry) {
                 try {
@@ -271,7 +341,7 @@ Core Principles for a NEW CATEGORY:
                      }
                 };
             }
-            if (phase === "green") return NextResponse.json({ catalystData });
+            return NextResponse.json({ catalystData });
         }
 
         if (phase === "synthesis" || phase === "all") {
