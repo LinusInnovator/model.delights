@@ -33,13 +33,20 @@ export async function generateMetadata(
           height: 630,
           alt: activeArticle.heroImage.alt,
         }
-      ] : [],
+      ] : [
+        {
+          url: "/og-manifesto.png",
+          width: 1200,
+          height: 630,
+          alt: "The AI-First Publishing Manifesto | model.delights"
+        }
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: activeArticle.title.professional,
       description: activeArticle.subtitle.professional,
-      images: activeArticle.heroImage ? [activeArticle.heroImage.url] : [],
+      images: activeArticle.heroImage ? [activeArticle.heroImage.url] : ["/og-manifesto.png"],
       creator: "@ModelDelights",
     }
   };

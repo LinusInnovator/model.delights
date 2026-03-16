@@ -38,11 +38,21 @@ export const metadata: Metadata = {
     title: "model.delights | The AI Developer's Smart Routing Matrix",
     description: "The real-time LLM directory for AI engineers. Instantly compare API costs versus live intelligence to find the perfect model.",
     type: "website",
+    url: "https://model.delights.pro",
+    images: [
+      {
+        url: "/og-main.png",
+        width: 1200,
+        height: 630,
+        alt: "model.delights | The Smart Matrix for AI Developers"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "model.delights | The AI Developer's Smart Routing Matrix",
     description: "Stop overpaying for AI APIs. Find the smartest, most cost-effective LLMs in seconds.",
+    images: ["/og-main.png"]
   }
 };
 
