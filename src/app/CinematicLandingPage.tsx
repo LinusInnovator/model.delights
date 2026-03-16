@@ -119,7 +119,7 @@ export default function CinematicLandingPage() {
             </span>
           </h1>
           <p className="hero-text mt-8 text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed">
-            Don&apos;t write a single line of code until you know you're building the right thing. Pitch your startup. We stress-test your assumptions, validate your target market, and generate the technical blueprint to build it.
+            Don&apos;t write a single line of code until you know you're building the right thing. Pitch your startup. We stress-test your assumptions, validate your target market, generate the technical blueprint to build it, and power its intelligence forever with our Intelligent Model Routing SDK.
           </p>
           <div className="hero-text mt-10">
             <Link href="/validate" className="group relative inline-flex items-center justify-center overflow-hidden rounded-[2rem] bg-emerald-500 px-8 py-4 text-emerald-950 font-semibold transition-transform hover:scale-[1.03] active:scale-95 z-30">
