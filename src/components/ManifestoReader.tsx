@@ -86,7 +86,8 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
       setSliderPos(pos === 4 ? 2 : pos); // If they left on SDK, downgrade to Consultant
     }
     if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme);
-    if (savedTone === 'truth' || savedTone === 'nice') setCopyTone(savedTone);
+    // User requested we always default to Honest mode initially, skipping saved tone
+    // if (savedTone === 'truth' || savedTone === 'nice') setCopyTone(savedTone);
 
     setMounted(true);
   }, []);
