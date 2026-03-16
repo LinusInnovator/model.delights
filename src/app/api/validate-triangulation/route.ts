@@ -130,6 +130,8 @@ Core Principles for a NEW CATEGORY:
 - Feasibility = operational, technical, or organizational delivery.
 - Your tone is calm, coaching-oriented, and executive-level. No motivational hype.
 - You must ruthlessly extract the riskiest assumptions—the ones that act as kill-switches for the business. Fill the "logic_chain" with how the business collapses.
+- ASSUME EXTRAORDINARY EXECUTION: You must assume the founder possesses top 1% extraordinary execution capabilities. Do not kill an idea simply because it is "hard to build", "requires a lot of capital", or because a giant incumbent currently exists. Identify structural/mathematical flaws.
+- TEMPORAL ISOLATION (CRITICAL): You must evaluate this idea as if it is Day 1 of this category. DO NOT call it a "clone" or say it competes with a "dominant incumbent" (e.g., if the idea describes Spotify, evaluate the *concept* of music streaming, do not say "Spotify already does this").
 - Produce the kill_criteria_protocol as the definitive 48-hour testing action plan. Write actual email/page copy for the actionable_template.
 - Output pure, objective, deterministic JSON based on the provided schema.
 - IMPORTANT: Invent plausible worst-case assumptions based on whatever fragment of information is provided.`;
@@ -152,6 +154,8 @@ Core Principles for a NEW CATEGORY:
 - Feasibility = compounding technical/operational moats.
 - Your tone is highly optimistic, visionary, and executive-level. 
 - You must extract the most critical "Success Assumptions"—the fundamental beliefs that, if true, mean this business will scale exponentially and thrive.
+- ASSUME EXTRAORDINARY EXECUTION: You must evaluate the absolute highest structural ceiling of this category, assuming the founder is a generational talent capable of top 1% execution and fundraising. Suspend disbelief about incumbent monopolies.
+- TEMPORAL ISOLATION (CRITICAL): You must evaluate this idea as if it is Day 1 of this category. DO NOT call it a "clone" or say it competes with a "dominant incumbent" (e.g., if the idea describes Spotify, evaluate the *concept* of music streaming, do not say "Spotify already does this").
 - Produce the kill_criteria_protocol, but reframe it as a 'Growth Validation Protocol' to test their biggest scaling lever within 48 hours.
 - Output pure, objective, deterministic JSON based on the provided schema. Note: Use "logic_chain" to define the blueprint to scale.
 - IMPORTANT: Invent plausible best-case growth levers based on whatever fragment of information is provided.`;
@@ -279,7 +283,9 @@ Your job is to read their structured findings and deliver the final Executive In
 - Synthesize the tension: What is the core underlying bet this founder is actually making? ${ventureType === "challenger" ? "Is their asymmetric wedge sharp enough to actually bleed the incumbent?" : "Where do the Red Team and Green Team intersect?"}
 ${includeEconomics ? `- Calculate a brutally honest 'ai_unit_economics_autopsy'. Read the founder's financial parameters (Users, Price, AI Requests per user). Assume an average AI cost of $5.00 per 1M tokens, and assume each AI request consumes about 2000 tokens ($0.01 cost). Multiply (Users * AI Requests * 0.01) to find their Monthly API burn. Compare that monthly burn to their Monthly Revenue (Users * Price). Do their gross margins survive, or do they bankrupt themselves?` : ''}
 ${ventureType === "challenger" ? `- If the startup's wedge relies heavily on AI Margin Arbitrage (undercutting the incumbent on price via AI), specifically recommend they adopt the "Model.Delights Node Edge Architecture" in the 'strategic_pivot' rationale to legally print margins via OpenRouter LLM routing.` : ''}
-- Assign a 'base_opportunity_score' from 1-100. This is your objective assessment of the idea's structural potential, *assuming* the founder has average execution capabilities.
+- TEMPORAL ISOLATION: Evaluate this as if it is Day 1 of this category. Suspend all knowledge of present-day incumbents.
+- ASSUME TECHNOLOGICAL OPTIMISM: If the idea relies on a frontier technology (like AI), you must assume the underlying technology will follow an exponential compounding curve of capability. Do not kill an idea because "current AI cannot reliably do X". Assume it will.
+- Assign a 'base_opportunity_score' from 1-100. This is your objective assessment of the idea's structural potential, *assuming* the founder possesses top 1% extraordinary execution capabilities and an infinite time horizon. Evaluate the pure, mechanical upside of the category without a cynical 'execution penalty'.
 - Your tone should be decisive, objective, and highly authoritative. No fluff.`;
 
             const synthesisUserPrompt = `The startup idea: "${idea}"\n${includeEconomics ? `\n=== Founder's Financial Architecture ===\nEstimated Users: ${users}\nMonthly Price per User: $${price}\nMonthly AI Inference Requests per User: ${inference}\n` : ''}\n=== Red Team Findings ===\n${JSON.stringify(autopsyData, null, 2)}\n\n=== Green Team Findings ===\n${JSON.stringify(catalystData, null, 2)}`;
