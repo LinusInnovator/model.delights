@@ -200,9 +200,9 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
         className={`flex items-center gap-2 text-sm font-medium opacity-70 hover:opacity-100 transition-opacity ${!isMobile ? 'shrink-0' : ''}`}
       >
         {copyTone === 'truth' ? (
-          <><Lightning weight="bold" className="w-4 h-4" /> Honest Mode</>
+          <><Lightning weight="bold" className="w-4 h-4" /> Honest Voice</>
         ) : (
-          <><Heart weight="bold" className="w-4 h-4" /> Nice Mode</>
+          <><Heart weight="bold" className="w-4 h-4" /> Nice Voice</>
         )}
       </button>
     );
