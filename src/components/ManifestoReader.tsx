@@ -563,6 +563,7 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 return (
                   <div 
                     key={block.id} 
+                    id={block.marginNoteId ? `margin-note-ref-${block.marginNoteId}` : undefined}
                     className="relative group isolate"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
@@ -660,7 +661,14 @@ export default function ManifestoReader({ article, allArticles }: ManifestoReade
                 return (
                   <div 
                     key={note.id}
-                    className={`p-5 rounded-xl border transition-all duration-500 ${isActive ? 'scale-105 shadow-xl border-emerald-500 ' + noteBg : 'opacity-40 border-transparent hover:opacity-100'}`}
+                    onClick={() => {
+                      const el = document.getElementById(`margin-note-ref-${note.id}`);
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setActiveNote(note.id);
+                      }
+                    }}
+                    className={`p-5 rounded-xl border transition-all duration-500 cursor-pointer ${isActive ? 'scale-105 shadow-xl border-emerald-500 ' + noteBg : 'opacity-40 border-transparent hover:opacity-100'}`}
                   >
                     <p className={`text-sm leading-relaxed ${noteText}`}>{note.content}</p>
                     {note.authorTitle && (
