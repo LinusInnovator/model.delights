@@ -30,6 +30,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://model.delights.pro"),
   title: "model.delights | The AI Developer's Smart Routing Matrix",
   description: "The ultimate real-time LLM directory for AI engineers, developers, and founders. Instantly compare OpenRouter API costs versus live Chatbot Arena ELO intelligence to find the absolute best model for your application.",
   keywords: ["AI developers", "LLM pricing", "OpenRouter alternative", "AI engineer tools", "API routing", "prompt engineering", "LMSYS ELO", "cost optimization"],
