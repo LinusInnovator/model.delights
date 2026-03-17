@@ -12,6 +12,7 @@ export default function UnicornThesisPage() {
   
   const [unicornCost, setUnicornCost] = useState(100000); // True Premium Retainer
   const [unicornDays, setUnicornDays] = useState(11); // The "11-Day Build" reality
+  const [subsequentBuildDays, setSubsequentBuildDays] = useState(2); // The spell.delights 2-day build speed
 
   const LOADED_COST_PER_HEAD = 15000;
 
@@ -28,6 +29,11 @@ export default function UnicornThesisPage() {
   const theoreticalDailyRevenue = 833; // ≈ $25,000/mo
   const lostRevenueDays = Math.max(0, daysSaved);
   const opportunityCost = Math.max(0, daysSaved * theoreticalDailyRevenue);
+
+  // Market Iterations (Compounding Velocity)
+  // How many times can a team launch/pivot in the specified Agile timeframe?
+  const agileIterations = 1; // Assuming the traditional team takes the full agileMonths just to launch v1.0
+  const unicornIterations = unicornDays >= agileDays ? 1 : 1 + Math.floor((agileDays - unicornDays) / subsequentBuildDays);
 
   // The Brooks's Law Coordination Tax
   const hoursLostPerPathPerWeek = 1.5;
@@ -286,6 +292,18 @@ export default function UnicornThesisPage() {
                          className="w-full accent-emerald-500 bg-black rounded-lg appearance-none h-2"
                       />
                     </div>
+
+                    <div>
+                      <div className="flex justify-between text-sm text-zinc-400 mb-2 mt-4 pt-4 border-t border-zinc-800/50">
+                         <span>Sub-Platform Pivots</span>
+                         <span className="font-mono text-white">{subsequentBuildDays} day{subsequentBuildDays > 1 ? 's' : ''}</span>
+                      </div>
+                      <input 
+                         type="range" min="1" max="14" step="1"
+                         value={subsequentBuildDays} onChange={(e) => setSubsequentBuildDays(Number(e.target.value))}
+                         className="w-full accent-emerald-400/50 bg-black rounded-lg appearance-none h-2 opacity-80"
+                      />
+                    </div>
                  </div>
 
               </div>
@@ -325,6 +343,24 @@ export default function UnicornThesisPage() {
                     <div className="bg-zinc-900/50 rounded-xl p-4 flex justify-between items-center">
                        <span className="text-zinc-400">Lost Revenue Days</span>
                        <span className="font-mono text-2xl text-red-400">{lostRevenueDays} days</span>
+                    </div>
+
+                    <div className="bg-emerald-950/20 border border-emerald-900/50 rounded-xl p-6">
+                       <div className="flex justify-between items-end mb-4">
+                           <div>
+                               <p className="text-emerald-400/80 text-xs font-bold uppercase tracking-widest mb-1">Compounding Velocity</p>
+                               <p className="text-zinc-300 text-sm">Market Iterations ({agileMonths} months)</p>
+                           </div>
+                           <div className="text-right">
+                               <p className="text-sm font-mono text-red-400 line-through decoration-red-900 opacity-60 mb-1">{agileIterations} Product</p>
+                               <p className="text-4xl font-black font-mono text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)] tracking-tight">
+                                 {unicornIterations} Pivots
+                               </p>
+                           </div>
+                       </div>
+                       <p className="text-xs text-emerald-500 mt-2 leading-relaxed border-t border-emerald-900/50 pt-4">
+                         The Unicorn doesn&apos;t just build faster; their tools *compound*. The initial architecture was heavy-lifted in {unicornDays} days. Subsequent sub-platforms cost only {subsequentBuildDays} days. While the bloated team burns budget to launch a single v1.0, the Unicorn has launched, pivoted, or acquired {unicornIterations} entirely distinct market vectors.
+                       </p>
                     </div>
 
                     <div className="bg-indigo-950/20 border border-indigo-900/50 rounded-xl p-6">
