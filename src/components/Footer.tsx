@@ -6,7 +6,7 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     const coreTools = [
-        { name: 'Intelligence Directory', path: '/' },
+        { name: 'Intelligence Directory', path: '/models' },
         { name: 'The 10x Validator', path: '/validate' },
         { name: 'Architecture Gallery', path: '/architect' },
         { name: 'VS Engine (Compare)', path: '/vs/openai__gpt-4o/anthropic__claude-3.5-sonnet' },
