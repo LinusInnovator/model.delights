@@ -59,6 +59,27 @@ export interface TelemetryPayload {
     latency_ms?: number;
     ttft_ms?: number;
 }
+export interface ExecuteOptions {
+    /** Standard incoming message array */
+    messages: {
+        role: string;
+        content: string;
+    }[];
+    /** Provide your raw OpenRouter key here. We DO NOT intercept or log this. */
+    openrouterKey: string;
+    /** The configuration for the Mathematical Routing Engine */
+    config?: RouteConfig;
+    /** Standard JSON schema tools */
+    tools?: Record<string, unknown>[];
+    /** If provided, we will pass this structured output schema to the provider */
+    response_format?: {
+        type: 'json_object';
+    } | Record<string, unknown>;
+    /** Optional site URL for OpenRouter rankings */
+    httpReferer?: string;
+    /** Optional site Name for OpenRouter rankings */
+    xTitle?: string;
+}
 export declare class IntelligenceRouter {
     private apiKey;
     private baseUrl;
@@ -92,5 +113,13 @@ export declare class IntelligenceRouter {
      * NEVER SEND PROMPTS, PIIS, OR RESPONSES THROUGH THIS PIPELINE.
      */
     reportTelemetry(telemetry: TelemetryPayload): Promise<void>;
+    /**
+     * UNIVERSAL EXECUTION WRAPPER (Phase 4 DX)
+     *
+     * Autonomously calculates the optimal route, structures the OpenRouter payload,
+     * executes the fetch locally using the user's API keys (Control Plane Privacy),
+     * and handles silent fallbacks if the primary model fails or hallucinates.
+     */
+    execute(options: ExecuteOptions): Promise<Record<string, unknown>>;
 }
 //# sourceMappingURL=index.d.ts.map

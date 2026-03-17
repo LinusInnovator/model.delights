@@ -60,6 +60,23 @@ export interface TelemetryPayload {
     ttft_ms?: number;
 }
 
+export interface ExecuteOptions {
+    /** Standard incoming message array */
+    messages: { role: string; content: string }[];
+    /** Provide your raw OpenRouter key here. We DO NOT intercept or log this. */
+    openrouterKey: string;
+    /** The configuration for the Mathematical Routing Engine */
+    config?: RouteConfig;
+    /** Standard JSON schema tools */
+    tools?: Record<string, unknown>[];
+    /** If provided, we will pass this structured output schema to the provider */
+    response_format?: { type: 'json_object' } | Record<string, unknown>;
+    /** Optional site URL for OpenRouter rankings */
+    httpReferer?: string;
+    /** Optional site Name for OpenRouter rankings */
+    xTitle?: string;
+}
+
 export class IntelligenceRouter {
   private apiKey: string;
   private baseUrl: string;
@@ -257,5 +274,91 @@ export class IntelligenceRouter {
       } catch (e) {
           // Swallow any sync errors, telemetry must never break downstream execution
       }
+  }
+
+  /**
+   * UNIVERSAL EXECUTION WRAPPER (Phase 4 DX)
+   * 
+   * Autonomously calculates the optimal route, structures the OpenRouter payload,
+   * executes the fetch locally using the user's API keys (Control Plane Privacy),
+   * and handles silent fallbacks if the primary model fails or hallucinates.
+   */
+  async execute(options: ExecuteOptions): Promise<Record<string, unknown>> {
+      if (!options.openrouterKey) {
+          throw new Error("[IntelligenceRouter] execute() requires an 'openrouterKey' to process the fetch securely on your hardware.");
+      }
+
+      // 1. Let the Mathematical Engine pick the best route
+      const route = await this.getTopModel(options.config || {});
+      const modelsToTry = [route.flagship.model];
+
+      if (route.smart_value) {
+          // If a smart value exists, mathematically it belongs BEFORE the flagship in the execution pipeline to save money
+          modelsToTry.unshift(route.smart_value.model);
+      }
+
+      // Append emergency fallbacks at the end
+      if (route.fallback_array) {
+          route.fallback_array.forEach(f => {
+              if (!modelsToTry.includes(f)) modelsToTry.push(f);
+          });
+      }
+
+      let lastError: unknown;
+
+      // 2. Cascade down the mathematically ranked models (Primary -> Smart Value -> Fallback 1 -> Fallback 2)
+      for (const modelId of modelsToTry) {
+          try {
+              const payload: Record<string, unknown> = {
+                  model: modelId,
+                  messages: options.messages,
+              };
+
+              if (options.tools) payload.tools = options.tools;
+              if (options.response_format) payload.response_format = options.response_format;
+
+              const tsStart = Date.now();
+
+              const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                  method: 'POST',
+                  headers: {
+                      'Authorization': `Bearer ${options.openrouterKey}`,
+                      'Content-Type': 'application/json',
+                      'HTTP-Referer': options.httpReferer || 'https://model.delights.pro',
+                      'X-Title': options.xTitle || 'Model Delights Snell Engine'
+                  },
+                  body: JSON.stringify(payload)
+              });
+
+              const tsEnd = Date.now();
+              const latency = tsEnd - tsStart;
+
+              if (!res.ok) {
+                  const errText = await res.text();
+                  throw new Error(`OpenRouter API Error (${res.status}) on model ${modelId}: ${errText}`);
+              }
+
+              const data = await res.json() as Record<string, unknown>;
+              
+              // We inject the latency and the model that actually won the execution back into the payload for the developer
+              data._snell_telemetry = {
+                  model_used: modelId,
+                  latency_ms: latency,
+                  route_calculated: route
+              };
+
+              // Optional: If you wanted to do Post-Response Verification (e.g. checking if it actually returned JSON),
+              // you would do it here. If it fails, throw an Error so the catch block falls back to the next model.
+              
+              return data;
+
+          } catch (e) {
+              console.warn(`[IntelligenceRouter] Execution failed on ${modelId}. Cascading to fallback.`, (e as Error).message);
+              lastError = e;
+              // Continue the loop to try the next model
+          }
+      }
+
+      throw new Error(`[IntelligenceRouter] All models in the cascade failed. Last error: ${(lastError as Error)?.message || String(lastError)}`);
   }
 }

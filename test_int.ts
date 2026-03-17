@@ -54,6 +54,29 @@ async function run() {
     
     console.log("- Telemetry ping fired asynchronously. Check src/data/telemetry_db.jsonl on the server!");
     
+    console.log("\n--- Test 8: Universal Execution Wrapper (Autonomous Fetch) ---");
+    console.log("  Executing a real fetch to OpenRouter. The SDK mathematically picks a model and handles the fetch transparently.");
+    
+    const orKey = process.env.OPENROUTER_API_KEY || '';
+    if (!orKey) {
+        console.log("- SKIP: No OPENROUTER_API_KEY found in .env.local.");
+    } else {
+        const executeRes = await sdkRouter.execute({
+            messages: [{ role: 'user', content: 'What is the capital of France? Return only the city name.' }],
+            openrouterKey: orKey,
+            config: { intent: 'chat', policy: 'max_savings' } // Let it pick the cheapest high-speed chat model
+        });
+        
+        // Note: OpenAI format completion response
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const text = (executeRes as any).choices?.[0]?.message?.content;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const usedModel = (executeRes as any)._snell_telemetry?.model_used;
+        
+        console.log(`- Success! Selected Model: ${usedModel}`);
+        console.log(`- Response: "${text}"`);
+    }
+
     // Give the async fetch 1 second before node kills the script
     await new Promise(r => setTimeout(r, 1000));
 }
