@@ -27435,6 +27435,21 @@
           "provider": "mistralai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_7b6c47bf-099a-4ff9-8a50-1954fd0ea6a3",
+      "model_id": "Scout Signal: Bringing the power of Personal Intelligence to more people",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/products/search/personal-intelligence-expansion/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
