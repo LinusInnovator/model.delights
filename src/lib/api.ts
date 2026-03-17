@@ -9,12 +9,20 @@ export interface ModelHealth {
 export interface ModelPricing {
     prompt: number;
     completion: number;
+    prompt_cached?: number;
 }
 
 export interface ModelArchitecture {
     modality?: string;
     input_modalities?: string[];
     output_modalities?: string[];
+}
+
+export interface ModelIntelligence {
+    global: number;
+    coding: number;
+    chat: number;
+    document: number;
 }
 
 export interface Model {
@@ -28,7 +36,9 @@ export interface Model {
     health?: ModelHealth;
     architecture?: ModelArchitecture;
     use_cases: string[];
-    elo: number | null;
+    intelligence: ModelIntelligence;
+    capabilities: string[];
+    elo: number | null; // Retained temporarily for backward compatibility during migration
     value_score: number;
     gateway?: string;
     modality_type?: string;
@@ -66,6 +76,27 @@ export async function fetchModels(): Promise<FetchResult> {
 
         const json = await res.json();
         const rawModels: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] = json.data || [];
+
+        // --- SDK INTELLIGENCE: Calculate the Floating Baseline ---
+        // Prevents the engine from rotting by calculating dynamic ELO medians from the global leaderboard
+        const allKnownElos = Object.values(lmsysEloMap).map(Number).filter(v => !isNaN(v)).sort((a, b) => b - a);
+        let dynamicFlagshipBaseline = 1300; // Safe mathematical defaults
+        let dynamicHighTierBaseline = 1200;
+        let dynamicFastBaseline = 1150;
+
+        if (allKnownElos.length >= 20) {
+            // Median of Top 10 = Current Flagship Benchmark
+            const top10 = allKnownElos.slice(0, 10);
+            dynamicFlagshipBaseline = top10[Math.floor(top10.length / 2)] + 25; // +25 release hype bump for new models
+
+            // Median of Rank 10-25 = High Tier Benchmark
+            const next15 = allKnownElos.slice(10, 25);
+            dynamicHighTierBaseline = next15[Math.floor(next15.length / 2)];
+
+            // Median of Rank 25-50 = Fast/Drafting Benchmark
+            const next25 = allKnownElos.slice(25, 50);
+            dynamicFastBaseline = next25[Math.floor(next25.length / 2)];
+        }
 
         const models: Model[] = rawModels.map((m) => {
             const use_cases: string[] = [];
@@ -134,58 +165,113 @@ export async function fetchModels(): Promise<FetchResult> {
                 if (!isNaN(parseFloat(m.pricing.completion))) {
                     pricing_per_1m.completion = parseFloat(m.pricing.completion) * 1000000;
                 }
+                // Extract OpenRouter's Prompt Caching Discount if available (Massively impacts RAG routing)
+                if (m.pricing.prompt_cached && !isNaN(parseFloat(m.pricing.prompt_cached))) {
+                    pricing_per_1m.prompt_cached = parseFloat(m.pricing.prompt_cached) * 1000000;
+                }
             }
 
             const total_price_1m = pricing_per_1m.prompt + pricing_per_1m.completion;
+            
+            // For Smart Value mathematical calculations, if the user declares cached_payload=true, we swap to this price.
+            // If they don't, we just fall back to standard prompt cost safely.
+            const total_cached_price_1m = (pricing_per_1m.prompt_cached ?? pricing_per_1m.prompt) + pricing_per_1m.completion;
+
+            const nameAndId = `${m_id} ${name}`.toLowerCase();
+
+            // Determine modality primarily for OR models
+            let modality_type = 'text';
+            if (use_cases.includes('Image Gen')) modality_type = 'image';
+            else if (use_cases.includes('Vision')) modality_type = 'text';
 
             // Assign LMSYS score. If missing, assign a conservative baseline so it sorts below proven gems
             let elo = lmsysEloMap[m.id];
 
             if (!elo) {
-                // Zero-Maintenance Dynamic ELO Engine
-                const nameAndId = `${m_id} ${name}`.toLowerCase();
+                // Zero-Maintenance Dynamic ELO Engine powered by The Floating Baseline
 
                 // Phase 1: String Taxonomy Matcher (Flagship Keywords)
                 if (nameAndId.match(/opus|gpt-?5|gpt-?4|gemini-?3|gemini-?2|o1|o3|405b|72b/)) {
-                    elo = 1300; // Provisional Next-Gen/Flagship
+                    elo = dynamicFlagshipBaseline; 
                 } else if (nameAndId.match(/pro|sonnet|70b|command-r/)) {
-                    elo = 1200; // Provisional High-Tier
+                    elo = dynamicHighTierBaseline; 
                 } else if (nameAndId.match(/flash|haiku|mini|8b|3b|1b|8x7b|lite/)) {
-                    elo = 1150; // Provisional Fast/Drafting
+                    elo = dynamicFastBaseline; 
                 } else {
                     // Phase 2: Free Market Pricing Curve (Price vs Intelligence Correlation)
                     if (total_price_1m >= 15.0) {
-                        elo = 1320; // Extreme capability cost
+                        elo = dynamicFlagshipBaseline; 
                     } else if (total_price_1m >= 5.0) {
-                        elo = 1220; // Mid-market capability
+                        elo = dynamicHighTierBaseline; 
                     } else if (total_price_1m >= 0.5) {
-                        elo = 1120; // Fast/Cheap computation
+                        elo = dynamicFastBaseline; 
                     } else {
                         elo = 1050; // Free/Loss-leader baseline
                     }
                 }
             }
 
+            // Phase 3: Construct Composite Intelligence Matrix (Multi-Axis ELO)
+            const globalElo = elo || 1050; // Fallback should never hit due to phase phases above, but TS safe
+            
+            const intelligence: ModelIntelligence = {
+                global: globalElo,
+                coding: globalElo,
+                chat: globalElo,
+                document: globalElo
+            };
+
+            // Apply Taxonomy Modifiers for Task-Specific Fitness
+            if (use_cases.includes('Coding & Logic')) {
+                intelligence.coding += 50;
+            } else if (nameAndId.match(/flash|haiku|mini|8b/)) {
+                intelligence.coding -= 50; // Small models drop off hard in complex logic
+            }
+
+            if (use_cases.includes('Conversational') || use_cases.includes('Roleplay')) {
+                intelligence.chat += 50;
+            }
+
+            if (use_cases.includes('Reasoning') || m.context_length >= 100000) {
+                intelligence.document += 75; // High context reasoners excel at document processing
+            } else if (m.context_length < 32000) {
+                intelligence.document -= 100; // Low context penalized in docs
+            }
+
+            // Phase 4: Capability Gating Indexing
+            const capabilities: string[] = [];
+            // Infer capabilities from flagship statuses
+            if (nameAndId.match(/gpt-4|gpt-5|claude-3|gemini|mistral|llama-3\.1|o1|o3/)) {
+                capabilities.push('json', 'tools');
+            }
+            if (m.context_length >= 128000) {
+                capabilities.push('long_context');
+            }
+            if (modality_type !== 'text') {
+                capabilities.push(modality_type);
+            }
+
             let value_score = 0;
-            if (elo) {
+            if (globalElo) {
                 if (total_price_1m > 0) {
-                    value_score = elo / total_price_1m;
+                    value_score = globalElo / total_price_1m;
                 } else {
                     value_score = 999999;
                 }
             }
 
-            // Determine modality primarily for OR models
-            let modality_type = 'text';
-            if (use_cases.includes('Image Gen')) modality_type = 'image';
-            else if (use_cases.includes('Vision')) modality_type = 'text'; // Vision implies text output typically, but multimodal input
+            // Extract health or fallback to standard assuming it works
+            const health: ModelHealth = m.health || { status: 'green' };
 
             return {
                 ...m,
                 use_cases,
                 pricing_per_1m,
-                elo,
+                elo: globalElo, // Keep backward compatible
+                intelligence,
+                capabilities,
                 value_score,
+                health,
                 gateway: 'openrouter',
                 modality_type
             };
@@ -229,6 +315,8 @@ export async function fetchModels(): Promise<FetchResult> {
                         pricing_per_1m,
                         use_cases,
                         elo: null, // Visual models don't use standard ELO right now
+                        intelligence: { global: 1000, coding: 0, chat: 0, document: 0 },
+                        capabilities: [modality_type],
                         value_score: 999999,
                         gateway: 'fal.ai',
                         modality_type

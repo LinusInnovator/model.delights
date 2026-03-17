@@ -16,19 +16,119 @@ export interface RoutingResponse {
     fallback_array: string[];
 }
 
-export async function getOptimalRoute(intent: string = 'all'): Promise<RoutingResponse | null> {
+export type RoutingPolicy = 'max_quality' | 'balanced' | 'max_savings' | 'low_latency' | 'high_reliability';
+
+export interface RouteConfig {
+    intent?: string;
+    estimatedInputTokens?: number;
+    capabilities?: string[];
+    policy?: RoutingPolicy;
+    cached_payload?: boolean;
+}
+
+export async function getOptimalRoute(config: RouteConfig = {}): Promise<RoutingResponse | null> {
+    const { 
+        intent = 'all', 
+        estimatedInputTokens = 0, 
+        capabilities = [], 
+        policy = 'balanced',
+        cached_payload = false
+    } = config;
+
     try {
         const data = await fetchModels();
         let models = data.models;
 
-        if (intent.toLowerCase() !== 'all') {
-            const mappedIntent = mapIntent(intent).toLowerCase();
-            
-            if (mappedIntent !== 'all models') {
-                models = models.filter(m => {
-                    return m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
-                });
+        // --- SDK INTELLIGENCE: Capability Gating ---
+        // Verifies the model can actually fulfill the runtime contract before scoring
+        if (capabilities.length > 0) {
+            models = models.filter(m => {
+                const modelCaps = m.capabilities || [];
+                return capabilities.every(cap => modelCaps.includes(cap.toLowerCase().trim()));
+            });
+        }
+
+        // --- SDK INTELLIGENCE: Tri-State Context Failsafe (Hard Fit) ---
+        // Instantly strips out models that will mathematically fail to process the user's prompt
+        if (estimatedInputTokens > 0) {
+            models = models.filter(m => (m.context_length || 0) >= estimatedInputTokens);
+        }
+
+        const mappedIntent = mapIntent(intent).toLowerCase();
+        let axis: 'global' | 'coding' | 'chat' | 'document' = 'global';
+        if (mappedIntent === 'coding & logic') axis = 'coding';
+        else if (mappedIntent === 'fictional' || mappedIntent === 'reasoning') axis = 'document';
+        else if (mappedIntent === 'conversational' || mappedIntent === 'roleplay') axis = 'chat';
+
+        // --- SDK INTELLIGENCE: Continuous Routing Math (Composite Scores) ---
+        // Replaces single blunt penalties with continuous policy-weighted adjustments
+        models = models.map(m => {
+            const task_score = m.intelligence ? (m.intelligence[axis] || m.intelligence.global) : (m.elo || 1050);
+
+            let latency_penalty = 0;
+            let reliability_penalty = 0;
+            let cost_penalty = 0;
+
+            // Safe Fit Penalty (Attention degradation near token cap)
+            if (estimatedInputTokens > 0) {
+                const utilization = estimatedInputTokens / (m.context_length || 1);
+                if (utilization > 0.75) {
+                    reliability_penalty += 50; 
+                }
             }
+
+            // Continuous Uptime & Reliability Penalties
+            if (m.health?.status) {
+                if (m.health.status === 'amber') reliability_penalty += 50;
+                else if (m.health.status === 'red') reliability_penalty += 250; // Severe outage, but potentially recoverable mathematically if policy ignores reliability
+            }
+            if (m.health?.ttft) {
+                if (m.health.ttft > 2000) latency_penalty += 25;
+                if (m.health.ttft > 5000) latency_penalty += 100;
+            }
+
+            // Apply Caching Economics
+            let active_prompt_price = m.pricing_per_1m.prompt;
+            if (cached_payload && m.pricing_per_1m.prompt_cached !== undefined) {
+                // Massive discount unlocked via repetitive RAG context caching
+                active_prompt_price = m.pricing_per_1m.prompt_cached;
+            }
+            const total_price_1m = active_prompt_price + m.pricing_per_1m.completion;
+
+            // Policy-Aware Weighting Modes
+            if (policy === 'max_quality') {
+                cost_penalty = 0; 
+            } else if (policy === 'max_savings') {
+                cost_penalty = total_price_1m * 50; 
+            } else if (policy === 'low_latency') {
+                latency_penalty *= 3; 
+            } else if (policy === 'high_reliability') {
+                reliability_penalty *= 3; 
+            } else {
+                // balanced
+                cost_penalty = total_price_1m * 10;
+            }
+
+            // Economic Fit 
+            if (estimatedInputTokens > 0 && policy !== 'max_quality') {
+                const strCost = (estimatedInputTokens / 1000000) * total_price_1m;
+                if (strCost > 1.0) { // Costs more than $1 just to process the prompt
+                    cost_penalty += 100;
+                }
+            }
+
+            const activeElo = task_score - reliability_penalty - latency_penalty - cost_penalty;
+
+            return {
+                ...m,
+                elo: activeElo // Redefine `elo` temporarily for the legacy downstream sorting code
+            };
+        });
+
+        if (intent.toLowerCase() !== 'all' && mappedIntent !== 'all models') {
+            models = models.filter(m => {
+                return m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
+            });
         }
 
         if (models.length === 0) return null;
@@ -36,7 +136,13 @@ export async function getOptimalRoute(intent: string = 'all'): Promise<RoutingRe
         models.sort((a, b) => (b.elo || 0) - (a.elo || 0));
 
         const flagship = models[0];
-        const flagshipCost1M = flagship.pricing_per_1m.prompt + flagship.pricing_per_1m.completion;
+        
+        // Recalculate true payload cost for the return statements
+        let flagship_active_prompt = flagship.pricing_per_1m.prompt;
+        if (cached_payload && flagship.pricing_per_1m.prompt_cached !== undefined) {
+            flagship_active_prompt = flagship.pricing_per_1m.prompt_cached;
+        }
+        const flagshipCost1M = flagship_active_prompt + flagship.pricing_per_1m.completion;
 
         const isExtremeEnterprise = flagshipCost1M >= 10.0;
         const eloRadius = isExtremeEnterprise ? 250 : 100;
@@ -49,8 +155,10 @@ export async function getOptimalRoute(intent: string = 'all'): Promise<RoutingRe
         );
 
         highCapabilitySubset = highCapabilitySubset.filter(m => {
-            const cost = m.pricing_per_1m.prompt + m.pricing_per_1m.completion;
-            return cost <= (flagshipCost1M * 0.40);
+             let m_active_prompt = m.pricing_per_1m.prompt;
+             if (cached_payload && m.pricing_per_1m.prompt_cached !== undefined) m_active_prompt = m.pricing_per_1m.prompt_cached;
+             const cost = m_active_prompt + m.pricing_per_1m.completion;
+             return cost <= (flagshipCost1M * 0.40);
         });
 
         highCapabilitySubset.sort((a, b) => (b.elo as number) - (a.elo as number));
@@ -61,7 +169,11 @@ export async function getOptimalRoute(intent: string = 'all'): Promise<RoutingRe
         if (highCapabilitySubset.length > 0) {
             const sv = highCapabilitySubset[0];
             smartValue = sv;
-            const valueCost1M = sv.pricing_per_1m.prompt + sv.pricing_per_1m.completion;
+            
+            let sv_active_prompt = sv.pricing_per_1m.prompt;
+            if (cached_payload && sv.pricing_per_1m.prompt_cached !== undefined) sv_active_prompt = sv.pricing_per_1m.prompt_cached;
+            
+            const valueCost1M = sv_active_prompt + sv.pricing_per_1m.completion;
 
             const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
             const eloDropPercent = (((flagship.elo as number) - (sv.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
@@ -95,7 +207,11 @@ export async function getOptimalRoute(intent: string = 'all'): Promise<RoutingRe
                 smart_value: {
                     model: smartValue.id,
                     elo: smartValue.elo,
-                    cost_per_1m: (smartValue.pricing_per_1m.prompt + smartValue.pricing_per_1m.completion),
+                    cost_per_1m: (() => {
+                        let p = smartValue.pricing_per_1m.prompt;
+                        if (cached_payload && smartValue.pricing_per_1m.prompt_cached !== undefined) p = smartValue.pricing_per_1m.prompt_cached;
+                        return p + smartValue.pricing_per_1m.completion;
+                    })(),
                     name: smartValue.name,
                     financial_tradeoff: financialTradeoff,
                     context_length: smartValue.context_length

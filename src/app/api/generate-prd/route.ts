@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
         
         if (tier === 'premium') {
             // Dynamically ask our B2B Value Router for the smartest reasoning model we can afford right now.
-            const route = await getOptimalRoute('reasoning');
+            const route = await getOptimalRoute({ intent: 'reasoning' });
             if (route) {
                 // Because this is an internal backend generator, we inherently favor the Smart Value (-60% cost)
                 optimalModelId = route.smart_value?.model || route.flagship.model;

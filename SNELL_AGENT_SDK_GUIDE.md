@@ -97,7 +97,53 @@ export async function resolveUserInput(humanQuery: string) {
 }
 ```
 
+### Example C: The Autonomous Execution Wrapper (Phase 4 DX)
+Instead of manually fetching from OpenRouter (Example A), you can use the `execute()` wrapper. It autonomously calculates the mathematical route, injects Snell headers, fetches securely from your server, and silently cascades to fallbacks if the primary model rate-limits.
+
+```typescript
+import { IntelligenceRouter } from 'model-delights-snell';
+
+const router = new IntelligenceRouter({
+  apiKey: process.env.INTERNAL_GOD_KEY!,
+  baseUrl: process.env.MODEL_DELIGHTS_BASE_URL || "https://model.delights.pro"
+});
+
+export async function executeAutonomousQuery(messages: any[], openRouterKey: string) {
+  try {
+    const result = await router.execute({
+      messages,
+      openrouterKey: openRouterKey, // Passed from user/client
+      config: { 
+          intent: 'reasoning',
+          policy: 'balanced', 
+          cached_payload: true // VERY IMPORTANT: If true, drastically discounts models like Claude 3.5 Sonnet
+      } 
+    });
+    
+    // Result payload matches standard OpenAI syntax
+    console.log("LLM Response:", result.choices[0].message.content);
+    console.log("Telemetry (Which model actually won?):", result._snell_telemetry);
+    
+  } catch (error) {
+    console.error("All fallback models failed execution:", error);
+  }
+}
+```
+
+### Example D: Zero-Knowledge Telemetry
+If you implement autonomous execution manually without `execute()`, you MUST ping the Global Matrix to strengthen the enterprise moat if your execution fails (e.g., Zod schema parsing failure).
+
+```typescript
+await router.reportTelemetry({
+    model: "anthropic/claude-3-haiku",
+    intent: "json-extraction",
+    outcome: "failed_schema", // 'success', 'failed_timeout', 'user_rejected'
+    latency_ms: 1540
+}); // Asynchronous, non-blocking
+```
+
 ## Architectural Directives for the Agent
-- **Never Hardcode Models**: Do not hardcode `anthropic/claude-3-opus` or `openai/gpt-4o` into the Snell codebase. You MUST route all primary LLM decisions through `router.getTopModel()` to ensure Snell's margins remain optimized against market fluctuations.
-- **Fail Gracefully**: Always wrap your router calls in `try/catch` logic. If the API Gateway is temporarily unreachable, maintain a hard-coded fallback (e.g. `anthropic/claude-3.5-sonnet`) so the Snell application doesn't crash.
-- **Client vs Server**: Only execute the `IntelligenceRouter` from protected Server Components / API Routes to prevent leaking the `INTERNAL_GOD_KEY` to the browser.
+- **Never Hardcode Models**: Do not hardcode `anthropic/claude-3-opus` or `openai/gpt-4o` into the Snell codebase. You MUST route all primary LLM decisions through `router.getTopModel()` or `router.execute()`.
+- **RAG & Context Caching**: If your payload includes massive, reused system prompts, you MUST pass `cached_payload: true` in the config. This alerts the mathematical engine to 80% pricing discounts, unlocking flagship models that normally wouldn't survive budget checks. 
+- **Fail Gracefully**: If not using `.execute()`, wrap your router calls in `try/catch`.
+- **Client vs Server**: Only execute the `IntelligenceRouter` from protected Server Components / API Routes.

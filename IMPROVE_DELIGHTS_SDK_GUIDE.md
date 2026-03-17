@@ -35,8 +35,8 @@ MODEL_DELIGHTS_BASE_URL=https://model.delights.pro
 ## 3. Implementation Patterns for `budget=yes`
 The SDK is fully isomorphic and exposes native TypeScript definitions. For this project, your primary goal is to fetch the highest-ROI model and execute your prompt with it to save costs.
 
-### Example A: Dynamic Intent Routing (Budget Mode)
-Use this when you want to execute a specific task while aggressively tracking the profit margin.
+### Example A: Universal Execution Wrapper (Autonomous Fetch)
+Instead of writing OpenRouter fetches manually and trying to handle model timeouts, use the built in `.execute()` wrapper. It handles fallback loops automatically.
 
 ```typescript
 import { IntelligenceRouter } from 'model-delights-snell';
@@ -47,27 +47,26 @@ const router = new IntelligenceRouter({
   baseUrl: process.env.MODEL_DELIGHTS_BASE_URL || "https://model.delights.pro"
 });
 
-export async function executeImproveTask() {
+export async function executeImproveTask(messages: any[], userOpenRouterKey: string) {
   try {
-    // 2. Query the engine for the best model for your specific intent
-    // Valid intents include: 'reasoning', 'agentic', 'classification', 'conversational', 'coding', etc.
-    const routingData = await router.getOptimalRouting('reasoning');
+    // 2. Execute. The router mathematically pulls the smartest model, prioritizing "smart_value" because of budget constraints.
+    const result = await router.execute({
+        messages,
+        openrouterKey: userOpenRouterKey,
+        config: {
+            intent: 'reasoning',
+            // [BUDGET=YES]: If we pass cached_payload, models like Claude 3.5 Sonnet get massive discounts
+            // and might qualify as cheap enough to use!
+            cached_payload: true 
+        }
+    });
     
-    let targetModel = routingData.flagship.model;
-    
-    // 3. (BUDGET=YES LOGIC) ALWAYS prefer the Smart Value tradeoff
-    if (routingData.smart_value) {
-      targetModel = routingData.smart_value.model;
-      console.log(`[Budget Active] Using ${targetModel} instead of ${routingData.flagship.model}`);
-      console.log(`[Margin Saved] ${routingData.smart_value.financial_tradeoff}`); 
-    }
-    
-    // 4. Feed `targetModel` naturally to your OpenRouter SDK / LangChain / OpenAI Client
-    // const response = await openai.chat.completions.create({ model: targetModel, ... })
+    console.log("Response:", result.choices[0].message.content);
+    console.log("Model Actually Used:", result._snell_telemetry.model_used);
     
   } catch (error) {
-    console.error("SDK Routing Failed:", error);
-    // Add graceful degradation logic here (e.g. fallback to 'anthropic/claude-3.5-haiku')
+    console.error("SDK Execution Failed:", error);
+    // Add graceful degradation logic here
   }
 }
 ```
@@ -81,7 +80,7 @@ const { fallback_array } = await router.getOptimalRouting('coding');
 ```
 
 ## Architectural Directives for the Agent
-- **Never Hardcode Models**: Do not hardcode `anthropic/claude-3-opus` or `openai/gpt-4o`. You MUST route all primary LLM decisions through the router engine.
-- **Enforce Budget Restrictions**: `budget=yes` is the primary directive. If `routingData.smart_value` exists, you must use it. Disregard flagship models unless `smart_value` is null.
-- **Fail Gracefully**: Always wrap your router calls in `try/catch` logic. If the API Gateway is unreachable, maintain a hard-coded, cheap fallback (e.g. `anthropic/claude-3-haiku`) so the application doesn't crash.
-- **Client vs Server**: Only execute the `IntelligenceRouter` from protected Server Components / API Routes to prevent leaking the `INTERNAL_GOD_KEY` to the browser.
+- **Never Hardcode Models**: Do not hardcode `anthropic/claude-3-opus` or `openai/gpt-4o`. You MUST route all primary LLM decisions through `router.execute()`.
+- **Enforce Budget Restrictions**: `budget=yes` is the primary directive. `execute()` naturally prefers `smart_value` if it is present. To maximize intelligence on a budget, **always pass `cached_payload: true`** if passing large system prompts, as the mathematical discount unlocks extreme value.
+- **Fail Gracefully**: Always wrap your router calls in `try/catch` logic. `execute()` has automatic fallbacks, but you must catch absolute network failures.
+- **Client vs Server**: Only execute the `IntelligenceRouter` from protected Server Components / API Routes.

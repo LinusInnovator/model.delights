@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
 
             // --- INTERNAL DOGFOODING for PREMIUM TIER ---
             if (tier === 'premium') {
-                const route = await getOptimalRoute('agentic');
+                const route = await getOptimalRoute({ intent: 'agentic' });
                 if (route) {
                     // Because this requires strict JSON orchestration, we prioritize agentic competence and cost
                     optimalModelId = route.smart_value?.model || route.flagship.model;

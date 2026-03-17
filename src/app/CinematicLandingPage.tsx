@@ -95,6 +95,12 @@ export default function CinematicLandingPage() {
         </div>
         <div className="pointer-events-auto">
           <Link 
+            href="/unicorn" 
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-950/30 border border-emerald-900/50 backdrop-blur-md hover:bg-emerald-900/40 hover:border-emerald-500/50 transition-all duration-300 mr-4"
+          >
+            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-emerald-400/80 tracking-widest uppercase group-hover:text-emerald-300 transition-colors">The Unicorn Thesis</span>
+          </Link>
+          <Link 
             href="/manifesto" 
             className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-md hover:bg-zinc-800 hover:border-emerald-500/30 transition-all duration-300"
           >
@@ -385,8 +391,8 @@ export default function CinematicLandingPage() {
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_03</p>
-              <h2 className="text-5xl font-bold mb-6">Dynamic AI Routing SDK.</h2>
-              <p className="text-zinc-400 text-xl leading-relaxed">Deployment isn't the finish line. Our zero-maintenance SDK continuously evaluates global LLM capabilities, automatically swapping models to maximize intelligence while minimizing your API costs.</p>
+              <h2 className="text-5xl font-bold mb-6">Zero-Proxy AI Routing SDK.</h2>
+              <p className="text-zinc-400 text-xl leading-relaxed">Deployment isn't the finish line. Our zero-maintenance SDK operates strictly as a Control Plane. It continuously evaluates global LLM capabilities and autonomously executes the best mathematical routing natively on your server. Zero proxying. 100% data privacy.</p>
             </div>
             <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden p-12">
                {/* 3 Model Nodes */}
@@ -435,6 +441,10 @@ export default function CinematicLandingPage() {
           <div className="mt-8 flex items-center gap-8">
             <Link href="/manifesto" className="font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 hover:text-emerald-400 underline decoration-zinc-800 underline-offset-4 hover:decoration-emerald-500/30 transition-all uppercase tracking-widest">
               Read The Manifesto
+            </Link>
+            <span className="text-zinc-800">|</span>
+            <Link href="/unicorn" className="font-[family-name:var(--font-jetbrains)] text-xs text-emerald-500/70 hover:text-emerald-400 underline decoration-emerald-900 underline-offset-4 hover:decoration-emerald-500/50 transition-all uppercase tracking-widest">
+              The Unicorn Thesis
             </Link>
           </div>
           <div className="mt-12 flex items-center gap-3 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500">

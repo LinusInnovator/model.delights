@@ -93,6 +93,56 @@ export default function SDKPage() {
                 {'}'}
              </div>
           </div>
+          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group">
+             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <span className="text-emerald-400">03.</span> Context-Caching Economics
+             </h3>
+             <p className="text-zinc-400 leading-relaxed text-sm mb-6">
+               When parsing massive, repetitive system prompts, the mathematical engine calculates Anthropic/Google caching discounts on the fly. This frequently unlocks flagship reasoning models that would otherwise fail strict budget checks.
+             </p>
+             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
+                <span className="text-zinc-500">// B2B RAG applications see up to 80% cost reduction</span><br/>
+                <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">getOptimalRouting</span>({'{'} <br/>
+                <span className="text-white ml-4">intent:</span> <span className="text-amber-300">'code-reasoning'</span>,<br/>
+                <span className="text-white ml-4">policy:</span> <span className="text-amber-300">'max_savings'</span>,<br/>
+                <span className="text-white ml-4">cached_payload:</span> <span className="text-indigo-400">true</span><br/>
+                {'}'});
+             </div>
+          </div>
+
+          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group">
+             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <span className="text-emerald-400">04.</span> Zero-Knowledge Architecture
+             </h3>
+             <p className="text-zinc-400 leading-relaxed text-sm mb-6">
+               Strict Control Plane isolation. We push the intelligence matrix directly to your server and you execute the `fetch` natively using your own OpenRouter/OpenAI API keys. Your custom prompts and proprietary PII data never touch our servers.
+             </p>
+             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
+                <span className="text-zinc-500">// Completely asynchronous, anonymous pings map the global baseline</span><br/>
+                <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">reportTelemetry</span>({'{'}<br/>
+                <span className="text-white ml-4">outcome:</span> <span className="text-amber-300">'failed_schema_validation'</span>,<br/>
+                <span className="text-white ml-4">latency_ms:</span> <span className="text-amber-300">1405</span><br/>
+                {'}'});
+             </div>
+          </div>
+
+          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group md:col-span-2">
+             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <span className="text-emerald-400">05.</span> Universal Execution Vehicle 
+             </h3>
+             <p className="text-zinc-400 leading-relaxed text-sm mb-6 max-w-3xl">
+               Don't want to build manual HTTP fetches and retry loops? The SDK provides an optional, fully autonomous wrapper. It evaluates the matrix, ranks the optimal models, executes the local fetch using your API keys, and silently cascades down a fallback array if the primary provider throws a 429 Rate Limit error. 
+             </p>
+             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
+                <span className="text-indigo-400">const</span> response = <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">execute</span>({'{'}<br/>
+                <span className="text-white ml-4">messages:</span> [{'{'} role: <span className="text-amber-300">'user'</span>, content: <span className="text-amber-300">'Fix this auth bug'</span> {'}'}],<br/>
+                <span className="text-white ml-4">openrouterKey:</span> process.env.<span className="text-white">OPENROUTER_API_KEY</span>, <span className="text-zinc-500">// Handled 100% locally</span><br/>
+                <span className="text-white ml-4">config:</span> {'{'} intent: <span className="text-amber-300">'coding'</span>, policy: <span className="text-amber-300">'low_latency'</span> {'}'}<br/>
+                {'}'});<br/><br/>
+                <span className="text-zinc-500">// Returns the model that successfully survived the fallback cascade</span><br/>
+                console.log(response.<span className="text-emerald-400">_snell_telemetry</span>.model_used);
+             </div>
+          </div>
           
         </div>
 
