@@ -159,5 +159,31 @@ export class IntelligenceRouter {
         }
         return data;
     }
+    /**
+     * ZERO-KNOWLEDGE LOGGING
+     * Reports an anonymous execution outcome to the central Mathematical Matrix.
+     * This builds the protective moat by mathematically degrading models that fail real-world tasks.
+     *
+     * NEVER SEND PROMPTS, PIIS, OR RESPONSES THROUGH THIS PIPELINE.
+     */
+    async reportTelemetry(telemetry) {
+        try {
+            const url = new URL(`${this.baseUrl}/api/v1/telemetry`);
+            // Fire and forget, absolutely non-blocking
+            fetch(url.toString(), {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${this.apiKey}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(telemetry)
+            }).catch((e) => {
+                console.warn("[IntelligenceRouter] Anonymous telemetry submission failed, continuing execution.", e);
+            });
+        }
+        catch (e) {
+            // Swallow any sync errors, telemetry must never break downstream execution
+        }
+    }
 }
 //# sourceMappingURL=index.js.map

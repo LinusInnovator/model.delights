@@ -64,6 +64,12 @@ export default clerkMiddleware(async (auth, request) => {
             }
         }
 
+        // The Zero-Knowledge Telemetry pipeline is open to external SDK instances that DO NOT have the INTERNAL_GOD_KEY
+        // They only possess an OpenRouter key, so we allow the telemetry payload to hit the endpoint where Zod sanitizes it.
+        if (request.nextUrl.pathname === '/api/v1/telemetry' && request.method === 'POST') {
+            return NextResponse.next();
+        }
+
         const authHeader = request.headers.get('authorization');
         
         if (!authHeader || !authHeader.startsWith('Bearer ')) {

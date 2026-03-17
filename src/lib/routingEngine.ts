@@ -23,6 +23,7 @@ export interface RouteConfig {
     estimatedInputTokens?: number;
     capabilities?: string[];
     policy?: RoutingPolicy;
+    cached_payload?: boolean;
 }
 
 export async function getOptimalRoute(config: RouteConfig = {}): Promise<RoutingResponse | null> {
@@ -30,7 +31,8 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         intent = 'all', 
         estimatedInputTokens = 0, 
         capabilities = [], 
-        policy = 'balanced' 
+        policy = 'balanced',
+        cached_payload = false
     } = config;
 
     try {
@@ -85,7 +87,13 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
                 if (m.health.ttft > 5000) latency_penalty += 100;
             }
 
-            const total_price_1m = m.pricing_per_1m.prompt + m.pricing_per_1m.completion;
+            // Apply Caching Economics
+            let active_prompt_price = m.pricing_per_1m.prompt;
+            if (cached_payload && m.pricing_per_1m.prompt_cached !== undefined) {
+                // Massive discount unlocked via repetitive RAG context caching
+                active_prompt_price = m.pricing_per_1m.prompt_cached;
+            }
+            const total_price_1m = active_prompt_price + m.pricing_per_1m.completion;
 
             // Policy-Aware Weighting Modes
             if (policy === 'max_quality') {
@@ -128,7 +136,13 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         models.sort((a, b) => (b.elo || 0) - (a.elo || 0));
 
         const flagship = models[0];
-        const flagshipCost1M = flagship.pricing_per_1m.prompt + flagship.pricing_per_1m.completion;
+        
+        // Recalculate true payload cost for the return statements
+        let flagship_active_prompt = flagship.pricing_per_1m.prompt;
+        if (cached_payload && flagship.pricing_per_1m.prompt_cached !== undefined) {
+            flagship_active_prompt = flagship.pricing_per_1m.prompt_cached;
+        }
+        const flagshipCost1M = flagship_active_prompt + flagship.pricing_per_1m.completion;
 
         const isExtremeEnterprise = flagshipCost1M >= 10.0;
         const eloRadius = isExtremeEnterprise ? 250 : 100;
@@ -141,8 +155,10 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         );
 
         highCapabilitySubset = highCapabilitySubset.filter(m => {
-            const cost = m.pricing_per_1m.prompt + m.pricing_per_1m.completion;
-            return cost <= (flagshipCost1M * 0.40);
+             let m_active_prompt = m.pricing_per_1m.prompt;
+             if (cached_payload && m.pricing_per_1m.prompt_cached !== undefined) m_active_prompt = m.pricing_per_1m.prompt_cached;
+             const cost = m_active_prompt + m.pricing_per_1m.completion;
+             return cost <= (flagshipCost1M * 0.40);
         });
 
         highCapabilitySubset.sort((a, b) => (b.elo as number) - (a.elo as number));
@@ -153,7 +169,11 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         if (highCapabilitySubset.length > 0) {
             const sv = highCapabilitySubset[0];
             smartValue = sv;
-            const valueCost1M = sv.pricing_per_1m.prompt + sv.pricing_per_1m.completion;
+            
+            let sv_active_prompt = sv.pricing_per_1m.prompt;
+            if (cached_payload && sv.pricing_per_1m.prompt_cached !== undefined) sv_active_prompt = sv.pricing_per_1m.prompt_cached;
+            
+            const valueCost1M = sv_active_prompt + sv.pricing_per_1m.completion;
 
             const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
             const eloDropPercent = (((flagship.elo as number) - (sv.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
@@ -187,7 +207,11 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
                 smart_value: {
                     model: smartValue.id,
                     elo: smartValue.elo,
-                    cost_per_1m: (smartValue.pricing_per_1m.prompt + smartValue.pricing_per_1m.completion),
+                    cost_per_1m: (() => {
+                        let p = smartValue.pricing_per_1m.prompt;
+                        if (cached_payload && smartValue.pricing_per_1m.prompt_cached !== undefined) p = smartValue.pricing_per_1m.prompt_cached;
+                        return p + smartValue.pricing_per_1m.completion;
+                    })(),
                     name: smartValue.name,
                     financial_tradeoff: financialTradeoff,
                     context_length: smartValue.context_length

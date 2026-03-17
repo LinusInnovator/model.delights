@@ -49,6 +49,15 @@ export interface RouteConfig {
     estimatedInputTokens?: number;
     capabilities?: string[];
     policy?: RoutingPolicy;
+    cached_payload?: boolean;
+}
+export type TelemetryOutcome = 'success' | 'failed_schema' | 'failed_timeout' | 'failed_hallucination' | 'failed_context_limit' | 'user_rejected';
+export interface TelemetryPayload {
+    model: string;
+    intent: string;
+    outcome: TelemetryOutcome;
+    latency_ms?: number;
+    ttft_ms?: number;
 }
 export declare class IntelligenceRouter {
     private apiKey;
@@ -75,5 +84,13 @@ export declare class IntelligenceRouter {
      * @param q e.g., "claude opus" -> "anthropic/claude-3-opus:beta"
      */
     resolve(q: string): Promise<ResolveResponse>;
+    /**
+     * ZERO-KNOWLEDGE LOGGING
+     * Reports an anonymous execution outcome to the central Mathematical Matrix.
+     * This builds the protective moat by mathematically degrading models that fail real-world tasks.
+     *
+     * NEVER SEND PROMPTS, PIIS, OR RESPONSES THROUGH THIS PIPELINE.
+     */
+    reportTelemetry(telemetry: TelemetryPayload): Promise<void>;
 }
 //# sourceMappingURL=index.d.ts.map

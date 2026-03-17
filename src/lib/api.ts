@@ -9,6 +9,7 @@ export interface ModelHealth {
 export interface ModelPricing {
     prompt: number;
     completion: number;
+    prompt_cached?: number;
 }
 
 export interface ModelArchitecture {
@@ -164,9 +165,17 @@ export async function fetchModels(): Promise<FetchResult> {
                 if (!isNaN(parseFloat(m.pricing.completion))) {
                     pricing_per_1m.completion = parseFloat(m.pricing.completion) * 1000000;
                 }
+                // Extract OpenRouter's Prompt Caching Discount if available (Massively impacts RAG routing)
+                if (m.pricing.prompt_cached && !isNaN(parseFloat(m.pricing.prompt_cached))) {
+                    pricing_per_1m.prompt_cached = parseFloat(m.pricing.prompt_cached) * 1000000;
+                }
             }
 
             const total_price_1m = pricing_per_1m.prompt + pricing_per_1m.completion;
+            
+            // For Smart Value mathematical calculations, if the user declares cached_payload=true, we swap to this price.
+            // If they don't, we just fall back to standard prompt cost safely.
+            const total_cached_price_1m = (pricing_per_1m.prompt_cached ?? pricing_per_1m.prompt) + pricing_per_1m.completion;
 
             const nameAndId = `${m_id} ${name}`.toLowerCase();
 
