@@ -27420,6 +27420,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_48cbeb2f",
+      "model_id": "mistralai/mistral-small-2603",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "mistralai/mistral-small-2603",
+          "provider": "mistralai"
+        }
+      ]
     }
   ]
 }
