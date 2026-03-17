@@ -93,19 +93,19 @@ export default function CinematicLandingPage() {
           <AnimatedLogo className="w-11 h-11 shrink-0 opacity-90" />
           <AnimatedTextLogo className="h-9 w-auto shrink-0 opacity-90 mt-1" />
         </div>
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto flex items-center gap-4">
           <Link 
             href="/unicorn" 
-            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-950/30 border border-emerald-900/50 backdrop-blur-md hover:bg-emerald-900/40 hover:border-emerald-500/50 transition-all duration-300 mr-4"
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-950/20 border border-emerald-500/20 backdrop-blur-md hover:bg-emerald-900/30 hover:border-emerald-500/40 transition-all duration-300"
           >
-            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-emerald-400/80 tracking-widest uppercase group-hover:text-emerald-300 transition-colors">The Unicorn Thesis</span>
+            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-emerald-400 tracking-widest uppercase group-hover:text-emerald-300 transition-colors">The Unicorn Thesis</span>
           </Link>
           <Link 
             href="/manifesto" 
-            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-md hover:bg-zinc-800 hover:border-emerald-500/30 transition-all duration-300"
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900/30 border border-zinc-700/50 backdrop-blur-md hover:bg-zinc-800/40 hover:border-zinc-500/50 transition-all duration-300"
           >
-            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-zinc-400 tracking-widest uppercase group-hover:text-emerald-400 transition-colors">Manifesto</span>
-            <span className="text-zinc-600 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">&rarr;</span>
+            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-zinc-300 tracking-widest uppercase group-hover:text-white transition-colors">Manifesto</span>
+            <span className="text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all">&rarr;</span>
           </Link>
         </div>
       </header>
