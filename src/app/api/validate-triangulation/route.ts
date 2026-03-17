@@ -194,7 +194,7 @@ Core Principles for a NEW CATEGORY:
         const catalystUserPrompt = `Evaluate my idea and extract the core exponential growth levers using your catalyst growth engine:\n\n<intent>\n${idea}\n</intent>\n${promptInjectionGuard}\n\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Find the asymmetric wedge to attack the incumbent.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}${marketInjection}`;
 
         // --- INTERNAL DOGFOODING ---
-        const route = await getOptimalRoute('reasoning');
+        const route = await getOptimalRoute({ intent: 'reasoning' });
         let modelsToTry = ["openai/gpt-4o-mini"]; // safety net
         if (route) {
             const primary = route.smart_value?.model || route.flagship.model;

@@ -48,7 +48,7 @@ Do NOT give generic advice. Give them 3 new hardcoded business ideas based on th
 Be ruthless, precise, and highly strategic.`;
 
         // Leverage internal routing engine to find the smartest, cheapest reasoning model
-        const route = await getOptimalRoute('reasoning');
+        const route = await getOptimalRoute({ intent: 'reasoning' });
         let optimalModelId = "openai/gpt-4o-mini"; 
         if (route) {
             optimalModelId = route.smart_value?.model || route.flagship.model;

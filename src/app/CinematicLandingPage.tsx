@@ -385,8 +385,8 @@ export default function CinematicLandingPage() {
           <div className="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
             <div>
               <p className="font-[family-name:var(--font-jetbrains)] text-emerald-400 mb-6">STEP_03</p>
-              <h2 className="text-5xl font-bold mb-6">Dynamic AI Routing SDK.</h2>
-              <p className="text-zinc-400 text-xl leading-relaxed">Deployment isn't the finish line. Our zero-maintenance SDK continuously evaluates global LLM capabilities, automatically swapping models to maximize intelligence while minimizing your API costs.</p>
+              <h2 className="text-5xl font-bold mb-6">Zero-Proxy AI Routing SDK.</h2>
+              <p className="text-zinc-400 text-xl leading-relaxed">Deployment isn't the finish line. Our zero-maintenance SDK operates strictly as a Control Plane. It continuously evaluates global LLM capabilities and autonomously executes the best mathematical routing natively on your server. Zero proxying. 100% data privacy.</p>
             </div>
             <div className="aspect-square rounded-[3rem] border border-zinc-800 bg-black flex items-center justify-center relative overflow-hidden p-12">
                {/* 3 Model Nodes */}
