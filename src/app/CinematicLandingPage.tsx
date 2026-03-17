@@ -95,6 +95,12 @@ export default function CinematicLandingPage() {
         </div>
         <div className="pointer-events-auto">
           <Link 
+            href="/unicorn" 
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-950/30 border border-emerald-900/50 backdrop-blur-md hover:bg-emerald-900/40 hover:border-emerald-500/50 transition-all duration-300 mr-4"
+          >
+            <span className="font-[family-name:var(--font-jetbrains)] text-[10px] text-emerald-400/80 tracking-widest uppercase group-hover:text-emerald-300 transition-colors">The Unicorn Thesis</span>
+          </Link>
+          <Link 
             href="/manifesto" 
             className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-md hover:bg-zinc-800 hover:border-emerald-500/30 transition-all duration-300"
           >
@@ -435,6 +441,10 @@ export default function CinematicLandingPage() {
           <div className="mt-8 flex items-center gap-8">
             <Link href="/manifesto" className="font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500 hover:text-emerald-400 underline decoration-zinc-800 underline-offset-4 hover:decoration-emerald-500/30 transition-all uppercase tracking-widest">
               Read The Manifesto
+            </Link>
+            <span className="text-zinc-800">|</span>
+            <Link href="/unicorn" className="font-[family-name:var(--font-jetbrains)] text-xs text-emerald-500/70 hover:text-emerald-400 underline decoration-emerald-900 underline-offset-4 hover:decoration-emerald-500/50 transition-all uppercase tracking-widest">
+              The Unicorn Thesis
             </Link>
           </div>
           <div className="mt-12 flex items-center gap-3 font-[family-name:var(--font-jetbrains)] text-xs text-zinc-500">
