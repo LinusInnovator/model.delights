@@ -10,8 +10,8 @@ export default function UnicornThesisPage() {
   const [teamSize, setTeamSize] = useState(7);
   const [agileMonths, setAgileMonths] = useState(6);
   
-  const [unicornCost, setUnicornCost] = useState(30000); // Premium price
-  const [unicornMonths, setUnicornMonths] = useState(1);
+  const [unicornCost, setUnicornCost] = useState(100000); // True Premium Retainer
+  const [unicornDays, setUnicornDays] = useState(11); // The "11-Day Build" reality
 
   const LOADED_COST_PER_HEAD = 15000;
 
@@ -19,12 +19,15 @@ export default function UnicornThesisPage() {
   const communicationPaths = (teamSize * (teamSize - 1)) / 2;
   const agileMonthlyBurn = teamSize * LOADED_COST_PER_HEAD;
   const totalAgileBurn = agileMonthlyBurn * agileMonths;
-  const totalUnicornBurn = unicornCost * unicornMonths;
   
-  const monthsSaved = agileMonths - unicornMonths;
-  const theoreticalMonthlyRevenue = 25000; // Assumption for opportunity cost
-  const lostRevenueDays = Math.max(0, monthsSaved * 30);
-  const opportunityCost = Math.max(0, monthsSaved * theoreticalMonthlyRevenue);
+  const unicornDailyRate = unicornCost / 30;
+  const totalUnicornBurn = unicornDailyRate * unicornDays;
+  
+  const agileDays = agileMonths * 30;
+  const daysSaved = agileDays - unicornDays;
+  const theoreticalDailyRevenue = 833; // ≈ $25,000/mo
+  const lostRevenueDays = Math.max(0, daysSaved);
+  const opportunityCost = Math.max(0, daysSaved * theoreticalDailyRevenue);
 
   // The Brooks's Law Coordination Tax
   const hoursLostPerPathPerWeek = 1.5;
@@ -266,7 +269,7 @@ export default function UnicornThesisPage() {
                          <span className="font-mono text-white">${unicornCost.toLocaleString()}/mo</span>
                       </div>
                       <input 
-                         type="range" min="15000" max="60000" step="5000"
+                         type="range" min="50000" max="250000" step="10000"
                          value={unicornCost} onChange={(e) => setUnicornCost(Number(e.target.value))}
                          className="w-full accent-emerald-500 bg-black rounded-lg appearance-none h-2"
                       />
@@ -275,11 +278,11 @@ export default function UnicornThesisPage() {
                     <div>
                       <div className="flex justify-between text-sm text-zinc-400 mb-2">
                          <span>Time to Market MVP</span>
-                         <span className="font-mono text-white">{unicornMonths} month{unicornMonths > 1 ? 's' : ''}</span>
+                         <span className="font-mono text-white">{unicornDays} day{unicornDays > 1 ? 's' : ''}</span>
                       </div>
                       <input 
-                         type="range" min="1" max="4" step="1"
-                         value={unicornMonths} onChange={(e) => setUnicornMonths(Number(e.target.value))}
+                         type="range" min="2" max="30" step="1"
+                         value={unicornDays} onChange={(e) => setUnicornDays(Number(e.target.value))}
                          className="w-full accent-emerald-500 bg-black rounded-lg appearance-none h-2"
                       />
                     </div>
@@ -325,12 +328,12 @@ export default function UnicornThesisPage() {
                     </div>
 
                     <div className="bg-indigo-950/20 border border-indigo-900/50 rounded-xl p-6">
-                       <p className="text-zinc-400 text-sm mb-2">Assumed Opportunity Cost (at ${theoreticalMonthlyRevenue.toLocaleString()}/mo)</p>
+                       <p className="text-zinc-400 text-sm mb-2">Assumed Opportunity Cost (at ${Math.round(theoreticalDailyRevenue).toLocaleString()}/day)</p>
                        <p className="text-4xl font-black font-mono bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-orange-400 tracking-tight">
-                         -${opportunityCost.toLocaleString()}
+                         -${Math.round(opportunityCost).toLocaleString()}
                        </p>
                        <p className="text-xs text-zinc-500 mt-4 leading-relaxed">
-                         The Unicorn is financially superior even if they cost the exact same amount as a 5-person agency. Time dilation destroys valuations.
+                         The Unicorn's monthly retainer might be {Math.round(unicornCost / agileMonthlyBurn * 10) / 10}x higher than the bloated team's burn rate. But because they ship in {unicornDays} days instead of {agileMonths} months, the actual CapEx to reach market is dramatically lower, and the recovered opportunity cost is astronomical.
                        </p>
                     </div>
                  </div>
