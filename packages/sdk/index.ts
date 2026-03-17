@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
 export const RouteQuerySchema = z.object({
-  intent: z.string().optional()
+  intent: z.string().optional(),
+  estimatedInputTokens: z.number().optional()
 });
 
 export const ResolveQuerySchema = z.object({
@@ -79,11 +80,12 @@ export class IntelligenceRouter {
     return response.json() as Promise<T>;
   }
 
-  /**
-   * Generates a robust, zero-latency fallback manifest if the API gateway is unreachable.
-   */
-  private getOfflineManifest(intent: string): RouteResponse {
+  private getOfflineManifest(intent: string, estimatedInputTokens?: number): RouteResponse {
     const intentLower = intent.toLowerCase();
+    
+    // Default high-context fallback models
+    const flagshipContext = 200000;
+    const smartValueContext = 1000000;
     
     const fallback: RouteResponse = {
         intent: intent,
@@ -92,7 +94,7 @@ export class IntelligenceRouter {
             elo: 1250,
             cost_per_1m: 15.0,
             name: "Claude 3.5 Sonnet (Offline Fallback)",
-            context_length: 200000
+            context_length: flagshipContext
         },
         smart_value: {
             model: "google/gemini-flash-1.5-8b",
@@ -100,14 +102,22 @@ export class IntelligenceRouter {
             cost_per_1m: 0.15,
             name: "Gemini 1.5 Flash 8B (Offline Fallback)",
             financial_tradeoff: "Emergency Fallback: High Speed Draft Mode",
-            context_length: 1000000
+            context_length: smartValueContext
         },
         fallback_array: ["anthropic/claude-3.5-sonnet", "google/gemini-flash-1.5-8b", "openai/gpt-4o-mini"]
     };
     
+    // Remove smart_value if payload is absurdly huge for it, which is rare for 1M tokens but mathematically correct
+    if (estimatedInputTokens && estimatedInputTokens > smartValueContext) {
+        delete fallback.smart_value;
+    }
+    
     if (intentLower.includes('cod') || intentLower.includes('logic')) {
-        fallback.smart_value!.model = "meta-llama/llama-3.1-8b-instruct";
-        fallback.smart_value!.name = "Llama 3.1 8B Instruct (Offline Fallback)";
+        // Llama 3.1 8B only supports 128k context, failsafe if payload is larger
+        if (!estimatedInputTokens || estimatedInputTokens <= 128000) {
+            fallback.smart_value!.model = "meta-llama/llama-3.1-8b-instruct";
+            fallback.smart_value!.name = "Llama 3.1 8B Instruct (Offline Fallback)";
+        }
     } else if (intentLower.includes('vision') || intentLower.includes('image')) {
         fallback.flagship.model = "openai/gpt-4o";
         fallback.flagship.name = "GPT-4o (Offline Fallback)";
@@ -122,10 +132,11 @@ export class IntelligenceRouter {
    * Get the absolute best mathematically-verified model for a specific cognitive intent.
    * Utilizes local RAM caching to achieve absolute 0ms resolution times.
    * @param intent e.g., "coding", "drafting", "vision"
+   * @param estimatedInputTokens Optional context window to instantly filter out incompatible models
    */
-  async getTopModel(intent: string = "all"): Promise<RouteResponse> {
+  async getTopModel(intent: string = "all", estimatedInputTokens?: number): Promise<RouteResponse> {
     const now = Date.now();
-    const cacheKey = intent.toLowerCase();
+    const cacheKey = intent.toLowerCase() + (estimatedInputTokens ? `_${estimatedInputTokens}` : "");
     const cached = this._routeCache.get(cacheKey);
 
     // 1. Check local in-memory TTL cache (0ms latency target)
@@ -135,7 +146,11 @@ export class IntelligenceRouter {
 
     // 2. Fetch fresh data from API Gateway
     try {
-      const data = await this.fetchApi<RouteResponse>("/api/v1/route", { intent });
+      const params: Record<string, string> = { intent };
+      if (estimatedInputTokens) {
+          params.tokens = estimatedInputTokens.toString();
+      }
+      const data = await this.fetchApi<RouteResponse>("/api/v1/route", params);
       if (data) {
         this._routeCache.set(cacheKey, { data, timestamp: now });
         return data;
@@ -145,7 +160,7 @@ export class IntelligenceRouter {
     }
 
     // 3. Fail gracefully via compiled Offline Manifest if network is down
-    const fallback = this.getOfflineManifest(intent);
+    const fallback = this.getOfflineManifest(intent, estimatedInputTokens);
     
     // Only temporarily cache the fallback for a short burst (60 seconds) so we try to recover network soon
     this._routeCache.set(cacheKey, { data: fallback, timestamp: now - this.CACHE_TTL_MS + 60000 });

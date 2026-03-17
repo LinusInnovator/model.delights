@@ -16,10 +16,29 @@ export interface RoutingResponse {
     fallback_array: string[];
 }
 
-export async function getOptimalRoute(intent: string = 'all'): Promise<RoutingResponse | null> {
+export async function getOptimalRoute(intent: string = 'all', estimatedInputTokens?: number): Promise<RoutingResponse | null> {
     try {
         const data = await fetchModels();
         let models = data.models;
+
+        // --- SDK INTELLIGENCE: Payload-Aware Context Failsafe ---
+        // Instantly strips out models that will mathematically fail to process the user's prompt
+        if (estimatedInputTokens && estimatedInputTokens > 0) {
+            models = models.filter(m => (m.context_length || 0) >= estimatedInputTokens);
+        }
+
+        // --- SDK INTELLIGENCE: Latency / Uptime Degradation Penalty ---
+        // Mathematically slashes the ELO of models that have a degraded network state on OpenRouter
+        models = models.map(m => {
+            let activeElo = m.elo;
+            if (activeElo && m.health?.status && m.health.status !== 'green') {
+                activeElo = activeElo - 150; // Harsh 150-point penalty temporarily degrades prioritizing struggling models
+            }
+            return {
+                ...m,
+                elo: activeElo
+            };
+        });
 
         if (intent.toLowerCase() !== 'all') {
             const mappedIntent = mapIntent(intent).toLowerCase();

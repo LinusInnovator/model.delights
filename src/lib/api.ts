@@ -67,6 +67,27 @@ export async function fetchModels(): Promise<FetchResult> {
         const json = await res.json();
         const rawModels: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] = json.data || [];
 
+        // --- SDK INTELLIGENCE: Calculate the Floating Baseline ---
+        // Prevents the engine from rotting by calculating dynamic ELO medians from the global leaderboard
+        const allKnownElos = Object.values(lmsysEloMap).map(Number).filter(v => !isNaN(v)).sort((a, b) => b - a);
+        let dynamicFlagshipBaseline = 1300; // Safe mathematical defaults
+        let dynamicHighTierBaseline = 1200;
+        let dynamicFastBaseline = 1150;
+
+        if (allKnownElos.length >= 20) {
+            // Median of Top 10 = Current Flagship Benchmark
+            const top10 = allKnownElos.slice(0, 10);
+            dynamicFlagshipBaseline = top10[Math.floor(top10.length / 2)] + 25; // +25 release hype bump for new models
+
+            // Median of Rank 10-25 = High Tier Benchmark
+            const next15 = allKnownElos.slice(10, 25);
+            dynamicHighTierBaseline = next15[Math.floor(next15.length / 2)];
+
+            // Median of Rank 25-50 = Fast/Drafting Benchmark
+            const next25 = allKnownElos.slice(25, 50);
+            dynamicFastBaseline = next25[Math.floor(next25.length / 2)];
+        }
+
         const models: Model[] = rawModels.map((m) => {
             const use_cases: string[] = [];
             const m_id = (m.id || "").toLowerCase();
@@ -142,24 +163,24 @@ export async function fetchModels(): Promise<FetchResult> {
             let elo = lmsysEloMap[m.id];
 
             if (!elo) {
-                // Zero-Maintenance Dynamic ELO Engine
+                // Zero-Maintenance Dynamic ELO Engine powered by The Floating Baseline
                 const nameAndId = `${m_id} ${name}`.toLowerCase();
 
                 // Phase 1: String Taxonomy Matcher (Flagship Keywords)
                 if (nameAndId.match(/opus|gpt-?5|gpt-?4|gemini-?3|gemini-?2|o1|o3|405b|72b/)) {
-                    elo = 1300; // Provisional Next-Gen/Flagship
+                    elo = dynamicFlagshipBaseline; 
                 } else if (nameAndId.match(/pro|sonnet|70b|command-r/)) {
-                    elo = 1200; // Provisional High-Tier
+                    elo = dynamicHighTierBaseline; 
                 } else if (nameAndId.match(/flash|haiku|mini|8b|3b|1b|8x7b|lite/)) {
-                    elo = 1150; // Provisional Fast/Drafting
+                    elo = dynamicFastBaseline; 
                 } else {
                     // Phase 2: Free Market Pricing Curve (Price vs Intelligence Correlation)
                     if (total_price_1m >= 15.0) {
-                        elo = 1320; // Extreme capability cost
+                        elo = dynamicFlagshipBaseline; 
                     } else if (total_price_1m >= 5.0) {
-                        elo = 1220; // Mid-market capability
+                        elo = dynamicHighTierBaseline; 
                     } else if (total_price_1m >= 0.5) {
-                        elo = 1120; // Fast/Cheap computation
+                        elo = dynamicFastBaseline; 
                     } else {
                         elo = 1050; // Free/Loss-leader baseline
                     }
@@ -180,12 +201,16 @@ export async function fetchModels(): Promise<FetchResult> {
             if (use_cases.includes('Image Gen')) modality_type = 'image';
             else if (use_cases.includes('Vision')) modality_type = 'text'; // Vision implies text output typically, but multimodal input
 
+            // Extract health or fallback to standard assuming it works
+            const health: ModelHealth = m.health || { status: 'green' };
+
             return {
                 ...m,
                 use_cases,
                 pricing_per_1m,
                 elo,
                 value_score,
+                health,
                 gateway: 'openrouter',
                 modality_type
             };
