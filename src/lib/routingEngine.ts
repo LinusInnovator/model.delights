@@ -16,38 +16,111 @@ export interface RoutingResponse {
     fallback_array: string[];
 }
 
-export async function getOptimalRoute(intent: string = 'all', estimatedInputTokens?: number): Promise<RoutingResponse | null> {
+export type RoutingPolicy = 'max_quality' | 'balanced' | 'max_savings' | 'low_latency' | 'high_reliability';
+
+export interface RouteConfig {
+    intent?: string;
+    estimatedInputTokens?: number;
+    capabilities?: string[];
+    policy?: RoutingPolicy;
+}
+
+export async function getOptimalRoute(config: RouteConfig = {}): Promise<RoutingResponse | null> {
+    const { 
+        intent = 'all', 
+        estimatedInputTokens = 0, 
+        capabilities = [], 
+        policy = 'balanced' 
+    } = config;
+
     try {
         const data = await fetchModels();
         let models = data.models;
 
-        // --- SDK INTELLIGENCE: Payload-Aware Context Failsafe ---
+        // --- SDK INTELLIGENCE: Capability Gating ---
+        // Verifies the model can actually fulfill the runtime contract before scoring
+        if (capabilities.length > 0) {
+            models = models.filter(m => {
+                const modelCaps = m.capabilities || [];
+                return capabilities.every(cap => modelCaps.includes(cap.toLowerCase().trim()));
+            });
+        }
+
+        // --- SDK INTELLIGENCE: Tri-State Context Failsafe (Hard Fit) ---
         // Instantly strips out models that will mathematically fail to process the user's prompt
-        if (estimatedInputTokens && estimatedInputTokens > 0) {
+        if (estimatedInputTokens > 0) {
             models = models.filter(m => (m.context_length || 0) >= estimatedInputTokens);
         }
 
-        // --- SDK INTELLIGENCE: Latency / Uptime Degradation Penalty ---
-        // Mathematically slashes the ELO of models that have a degraded network state on OpenRouter
+        const mappedIntent = mapIntent(intent).toLowerCase();
+        let axis: 'global' | 'coding' | 'chat' | 'document' = 'global';
+        if (mappedIntent === 'coding & logic') axis = 'coding';
+        else if (mappedIntent === 'fictional' || mappedIntent === 'reasoning') axis = 'document';
+        else if (mappedIntent === 'conversational' || mappedIntent === 'roleplay') axis = 'chat';
+
+        // --- SDK INTELLIGENCE: Continuous Routing Math (Composite Scores) ---
+        // Replaces single blunt penalties with continuous policy-weighted adjustments
         models = models.map(m => {
-            let activeElo = m.elo;
-            if (activeElo && m.health?.status && m.health.status !== 'green') {
-                activeElo = activeElo - 150; // Harsh 150-point penalty temporarily degrades prioritizing struggling models
+            const task_score = m.intelligence ? (m.intelligence[axis] || m.intelligence.global) : (m.elo || 1050);
+
+            let latency_penalty = 0;
+            let reliability_penalty = 0;
+            let cost_penalty = 0;
+
+            // Safe Fit Penalty (Attention degradation near token cap)
+            if (estimatedInputTokens > 0) {
+                const utilization = estimatedInputTokens / (m.context_length || 1);
+                if (utilization > 0.75) {
+                    reliability_penalty += 50; 
+                }
             }
+
+            // Continuous Uptime & Reliability Penalties
+            if (m.health?.status) {
+                if (m.health.status === 'amber') reliability_penalty += 50;
+                else if (m.health.status === 'red') reliability_penalty += 250; // Severe outage, but potentially recoverable mathematically if policy ignores reliability
+            }
+            if (m.health?.ttft) {
+                if (m.health.ttft > 2000) latency_penalty += 25;
+                if (m.health.ttft > 5000) latency_penalty += 100;
+            }
+
+            const total_price_1m = m.pricing_per_1m.prompt + m.pricing_per_1m.completion;
+
+            // Policy-Aware Weighting Modes
+            if (policy === 'max_quality') {
+                cost_penalty = 0; 
+            } else if (policy === 'max_savings') {
+                cost_penalty = total_price_1m * 50; 
+            } else if (policy === 'low_latency') {
+                latency_penalty *= 3; 
+            } else if (policy === 'high_reliability') {
+                reliability_penalty *= 3; 
+            } else {
+                // balanced
+                cost_penalty = total_price_1m * 10;
+            }
+
+            // Economic Fit 
+            if (estimatedInputTokens > 0 && policy !== 'max_quality') {
+                const strCost = (estimatedInputTokens / 1000000) * total_price_1m;
+                if (strCost > 1.0) { // Costs more than $1 just to process the prompt
+                    cost_penalty += 100;
+                }
+            }
+
+            const activeElo = task_score - reliability_penalty - latency_penalty - cost_penalty;
+
             return {
                 ...m,
-                elo: activeElo
+                elo: activeElo // Redefine `elo` temporarily for the legacy downstream sorting code
             };
         });
 
-        if (intent.toLowerCase() !== 'all') {
-            const mappedIntent = mapIntent(intent).toLowerCase();
-            
-            if (mappedIntent !== 'all models') {
-                models = models.filter(m => {
-                    return m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
-                });
-            }
+        if (intent.toLowerCase() !== 'all' && mappedIntent !== 'all models') {
+            models = models.filter(m => {
+                return m.use_cases && m.use_cases.some(uc => uc.toLowerCase() === mappedIntent);
+            });
         }
 
         if (models.length === 0) return null;

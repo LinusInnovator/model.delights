@@ -17,6 +17,13 @@ export interface ModelArchitecture {
     output_modalities?: string[];
 }
 
+export interface ModelIntelligence {
+    global: number;
+    coding: number;
+    chat: number;
+    document: number;
+}
+
 export interface Model {
     id: string;
     name: string;
@@ -28,7 +35,9 @@ export interface Model {
     health?: ModelHealth;
     architecture?: ModelArchitecture;
     use_cases: string[];
-    elo: number | null;
+    intelligence: ModelIntelligence;
+    capabilities: string[];
+    elo: number | null; // Retained temporarily for backward compatibility during migration
     value_score: number;
     gateway?: string;
     modality_type?: string;
@@ -159,12 +168,18 @@ export async function fetchModels(): Promise<FetchResult> {
 
             const total_price_1m = pricing_per_1m.prompt + pricing_per_1m.completion;
 
+            const nameAndId = `${m_id} ${name}`.toLowerCase();
+
+            // Determine modality primarily for OR models
+            let modality_type = 'text';
+            if (use_cases.includes('Image Gen')) modality_type = 'image';
+            else if (use_cases.includes('Vision')) modality_type = 'text';
+
             // Assign LMSYS score. If missing, assign a conservative baseline so it sorts below proven gems
             let elo = lmsysEloMap[m.id];
 
             if (!elo) {
                 // Zero-Maintenance Dynamic ELO Engine powered by The Floating Baseline
-                const nameAndId = `${m_id} ${name}`.toLowerCase();
 
                 // Phase 1: String Taxonomy Matcher (Flagship Keywords)
                 if (nameAndId.match(/opus|gpt-?5|gpt-?4|gemini-?3|gemini-?2|o1|o3|405b|72b/)) {
@@ -187,19 +202,54 @@ export async function fetchModels(): Promise<FetchResult> {
                 }
             }
 
+            // Phase 3: Construct Composite Intelligence Matrix (Multi-Axis ELO)
+            const globalElo = elo || 1050; // Fallback should never hit due to phase phases above, but TS safe
+            
+            const intelligence: ModelIntelligence = {
+                global: globalElo,
+                coding: globalElo,
+                chat: globalElo,
+                document: globalElo
+            };
+
+            // Apply Taxonomy Modifiers for Task-Specific Fitness
+            if (use_cases.includes('Coding & Logic')) {
+                intelligence.coding += 50;
+            } else if (nameAndId.match(/flash|haiku|mini|8b/)) {
+                intelligence.coding -= 50; // Small models drop off hard in complex logic
+            }
+
+            if (use_cases.includes('Conversational') || use_cases.includes('Roleplay')) {
+                intelligence.chat += 50;
+            }
+
+            if (use_cases.includes('Reasoning') || m.context_length >= 100000) {
+                intelligence.document += 75; // High context reasoners excel at document processing
+            } else if (m.context_length < 32000) {
+                intelligence.document -= 100; // Low context penalized in docs
+            }
+
+            // Phase 4: Capability Gating Indexing
+            const capabilities: string[] = [];
+            // Infer capabilities from flagship statuses
+            if (nameAndId.match(/gpt-4|gpt-5|claude-3|gemini|mistral|llama-3\.1|o1|o3/)) {
+                capabilities.push('json', 'tools');
+            }
+            if (m.context_length >= 128000) {
+                capabilities.push('long_context');
+            }
+            if (modality_type !== 'text') {
+                capabilities.push(modality_type);
+            }
+
             let value_score = 0;
-            if (elo) {
+            if (globalElo) {
                 if (total_price_1m > 0) {
-                    value_score = elo / total_price_1m;
+                    value_score = globalElo / total_price_1m;
                 } else {
                     value_score = 999999;
                 }
             }
-
-            // Determine modality primarily for OR models
-            let modality_type = 'text';
-            if (use_cases.includes('Image Gen')) modality_type = 'image';
-            else if (use_cases.includes('Vision')) modality_type = 'text'; // Vision implies text output typically, but multimodal input
 
             // Extract health or fallback to standard assuming it works
             const health: ModelHealth = m.health || { status: 'green' };
@@ -208,7 +258,9 @@ export async function fetchModels(): Promise<FetchResult> {
                 ...m,
                 use_cases,
                 pricing_per_1m,
-                elo,
+                elo: globalElo, // Keep backward compatible
+                intelligence,
+                capabilities,
                 value_score,
                 health,
                 gateway: 'openrouter',
@@ -254,6 +306,8 @@ export async function fetchModels(): Promise<FetchResult> {
                         pricing_per_1m,
                         use_cases,
                         elo: null, // Visual models don't use standard ELO right now
+                        intelligence: { global: 1000, coding: 0, chat: 0, document: 0 },
+                        capabilities: [modality_type],
                         value_score: 999999,
                         gateway: 'fal.ai',
                         modality_type

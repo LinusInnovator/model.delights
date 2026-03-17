@@ -2,7 +2,9 @@ import { z } from 'zod';
 
 export const RouteQuerySchema = z.object({
   intent: z.string().optional(),
-  estimatedInputTokens: z.number().optional()
+  estimatedInputTokens: z.number().optional(),
+  capabilities: z.array(z.string()).optional(),
+  policy: z.enum(['max_quality', 'balanced', 'max_savings', 'low_latency', 'high_reliability']).optional()
 });
 
 export const ResolveQuerySchema = z.object({
@@ -36,6 +38,15 @@ export interface ResolveResponse {
 interface CacheEntry<T> {
   data: T;
   timestamp: number;
+}
+
+export type RoutingPolicy = 'max_quality' | 'balanced' | 'max_savings' | 'low_latency' | 'high_reliability';
+
+export interface RouteConfig {
+    intent?: string;
+    estimatedInputTokens?: number;
+    capabilities?: string[];
+    policy?: RoutingPolicy;
 }
 
 export class IntelligenceRouter {
@@ -131,12 +142,32 @@ export class IntelligenceRouter {
   /**
    * Get the absolute best mathematically-verified model for a specific cognitive intent.
    * Utilizes local RAM caching to achieve absolute 0ms resolution times.
-   * @param intent e.g., "coding", "drafting", "vision"
-   * @param estimatedInputTokens Optional context window to instantly filter out incompatible models
+   * @param configOrIntent A configuration object with policy/capabilities, or a legacy intent string
+   * @param legacyEstimatedTokens Optional fallback context window if using legacy string parameter
    */
-  async getTopModel(intent: string = "all", estimatedInputTokens?: number): Promise<RouteResponse> {
+  async getTopModel(configOrIntent: string | RouteConfig = "all", legacyEstimatedTokens?: number): Promise<RouteResponse> {
+    let config: RouteConfig;
+    if (typeof configOrIntent === 'string') {
+        config = { intent: configOrIntent };
+        if (legacyEstimatedTokens !== undefined) {
+            config.estimatedInputTokens = legacyEstimatedTokens;
+        }
+    } else {
+        config = configOrIntent;
+    }
+
+    const { intent = 'all', estimatedInputTokens, capabilities = [], policy = 'balanced' } = config;
+
     const now = Date.now();
-    const cacheKey = intent.toLowerCase() + (estimatedInputTokens ? `_${estimatedInputTokens}` : "");
+    
+    // Construct robust cache key including new policy parameters
+    const cacheKey = [
+        intent.toLowerCase(), 
+        estimatedInputTokens?.toString() || '', 
+        capabilities.join(','), 
+        policy
+    ].join('_');
+    
     const cached = this._routeCache.get(cacheKey);
 
     // 1. Check local in-memory TTL cache (0ms latency target)
@@ -146,9 +177,12 @@ export class IntelligenceRouter {
 
     // 2. Fetch fresh data from API Gateway
     try {
-      const params: Record<string, string> = { intent };
+      const params: Record<string, string> = { intent, policy };
       if (estimatedInputTokens) {
           params.tokens = estimatedInputTokens.toString();
+      }
+      if (capabilities.length > 0) {
+          params.capabilities = capabilities.join(',');
       }
       const data = await this.fetchApi<RouteResponse>("/api/v1/route", params);
       if (data) {
