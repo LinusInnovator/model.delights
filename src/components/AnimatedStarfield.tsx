@@ -11,9 +11,11 @@ interface Star {
   neighbors: Star[];
 }
 
-interface GrowthFront {
-  from: Star;
-  to: Star;
+interface Signal {
+  current: Star;
+  target: Star | null;
+  previous: Star | null;
+  phase: 'ring_in' | 'line_draw' | 'line_fade';
   progress: number;
   speed: number; // pixels per ms
 }
@@ -30,14 +32,8 @@ export default function AnimatedStarfield() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let initialTimeoutId: NodeJS.Timeout;
     let stars: Star[] = [];
-    
-    // Persistent network state
-    let awakeNodes = new Map<Star, number>(); // Star -> spawn time
-    let activeLines = new Map<string, {a: Star; b: Star; spawnedAt: number}>(); 
-    let fronts: GrowthFront[] = [];
-    
+    let signals: Signal[] = [];
     let lastTime = performance.now();
     let width = 0;
     let height = 0;
@@ -54,9 +50,6 @@ export default function AnimatedStarfield() {
       canvas.style.height = `${height}px`;
 
       const newStars: Star[] = [];
-      
-      // Calculate amount of stars based on screen area (roughly 1 star per 6000 pixels)
-      // This gives about 300-400 stars on a standard 1080p monitor
       const density = 7000; 
       const numStars = Math.floor((width * height) / density);
 
@@ -66,13 +59,13 @@ export default function AnimatedStarfield() {
            x: Math.random() * width,
            y: Math.random() * height,
            size: Math.random() < 0.1 ? 1.5 : 1, // 10% are slightly larger
-           alpha: 0.4 + Math.random() * 0.6, // random opacity between 0.4 and 1.0
+           alpha: 0.4 + Math.random() * 0.6,
            neighbors: []
          });
       }
 
-      // Pre-compute neighbors (distance < 300px works well for random scatter)
-      const MAX_DIST_SQ = 300 * 300;
+      // Pre-compute neighbors (distance < 150px)
+      const MAX_DIST_SQ = 150 * 150;
       for (let i = 0; i < newStars.length; i++) {
         const dSqMap: { star: Star; dSq: number }[] = [];
         for (let j = 0; j < newStars.length; j++) {
@@ -80,100 +73,57 @@ export default function AnimatedStarfield() {
           const dx = newStars[i].x - newStars[j].x;
           const dy = newStars[i].y - newStars[j].y;
           const dSq = dx * dx + dy * dy;
-          // Only connect if distance is between 30px and 300px to avoid dense overlapping clusters
-          if (dSq > 900 && dSq < MAX_DIST_SQ) {
+          if (dSq > 400 && dSq < MAX_DIST_SQ) {
             dSqMap.push({ star: newStars[j], dSq });
           }
         }
-        // Take up to 4 nearest neighbors to avoid overly dense webs while ensuring connectivity
+        // sort by nearest, take up to 4
         dSqMap.sort((a, b) => a.dSq - b.dSq);
         newStars[i].neighbors = dSqMap.slice(0, 4).map(item => item.star);
       }
       stars = newStars;
 
-      // Reset network state
-      awakeNodes.clear();
-      activeLines.clear();
-      fronts = [];
-      clearTimeout(initialTimeoutId);
-
-      // Seed the initial network growth after a 2-second delay
-      // so the underlying static star map is clearly visible first
-      initialTimeoutId = setTimeout(() => {
-        // Find a star near the bottom-left of the screen to start the sweep
-        const targetX = width * 0.1;
-        const targetY = height * 0.9;
-        
-        let bestStar: Star | null = null;
-        let bestDist = Infinity;
-
-        for (const s of stars) {
-           const dx = s.x - targetX;
-           const dy = s.y - targetY;
-           const dist = dx * dx + dy * dy;
-           if (dist < bestDist && s.neighbors.length > 0) {
-              bestDist = dist;
-              bestStar = s;
-           }
-        }
-
-        const startNode = bestStar || stars[Math.floor(Math.random() * stars.length)];
-
-        if (startNode) {
-          awakeNodes.set(startNode, performance.now());
-          seedFronts(startNode);
-        }
-      }, 2000);
-    };
-
-    const getLineId = (a: Star, b: Star) => {
-      return a.id < b.id ? `${a.id}|${b.id}` : `${b.id}|${a.id}`;
-    };
-
-    const seedFronts = (fromNode: Star) => {
-      // Don't spawn too many concurrent fronts
-      if (fronts.length > 8) return;
-
-      const availableNeighbors = fromNode.neighbors.filter(n => {
-        const lineId = getLineId(fromNode, n);
-        return !activeLines.has(lineId);
-      });
-
-      if (availableNeighbors.length === 0) {
-        // If we hit a dead end, randomly jump-start a new branch from anywhere alive to prevent the network from totally stalling
-        if (fronts.length < 2 && awakeNodes.size > 0) {
-          const aliveStars = Array.from(awakeNodes.keys());
-          const randomAwakeNode = aliveStars[Math.floor(Math.random() * aliveStars.length)];
-          if (randomAwakeNode) seedFronts(randomAwakeNode);
-        }
-        return;
-      }
-
-      // Sort neighbors by Y coordinate to aggressively prioritize growing UPWARDS towards the top of the screen
-      availableNeighbors.sort((a, b) => a.y - b.y);
-
-      // Pick 1 to 2 neighbors to grow towards (preferentially the highest ones)
-      const numToSpawn = Math.min(availableNeighbors.length, Math.random() > 0.4 ? 2 : 1);
-
-      for (let i = 0; i < numToSpawn; i++) {
-        fronts.push({
-          from: fromNode,
-          to: availableNeighbors[i],
-          progress: 0,
-          speed: 0.03 + Math.random() * 0.04, // 0.03 to 0.07 px per ms
-        });
+      // Init signals (nodes that trace the constellation)
+      // Boosted signal count slightly for more activity
+      const numSignals = Math.max(5, Math.floor(width / 200));
+      signals = [];
+      for (let i = 0; i < numSignals; i++) {
+        spawnSignal();
       }
     };
 
-    // Pre-allocate pi * 2
-    const PI2 = Math.PI * 2;
+    const spawnSignal = (signal?: Signal) => {
+      const availableStars = stars.filter(s => s.neighbors.length > 0);
+      if (availableStars.length === 0) return; // Edge case
+      const startNode = availableStars[Math.floor(Math.random() * availableStars.length)];
+      const targetNode = startNode.neighbors[Math.floor(Math.random() * startNode.neighbors.length)];
+      
+      const newSignal: Signal = {
+        current: startNode,
+        target: targetNode,
+        previous: null,
+        phase: 'ring_in',
+        progress: 0,
+        speed: 0.05 + Math.random() * 0.06, // 0.05 to 0.11 px per ms
+      };
 
-    const drawRing = (star: Star, opacity: number) => {
+      if (signal) {
+        Object.assign(signal, newSignal);
+      } else {
+        signals.push(newSignal);
+      }
+    };
+
+    const easeOutCircle = (t: number) => Math.sqrt(1 - Math.pow(t - 1, 2));
+    const maxRadius = 10;
+    
+    // Emerald 400 RGB: 52, 211, 153
+    const drawRing = (x: number, y: number, radius: number, opacity: number) => {
       ctx.beginPath();
-      // Optimization: use integer bounding boxes conceptually, but arc is fine here as it's only called ~5-10 times max per frame
-      ctx.arc(star.x, star.y, 7, 0, PI2);
+      // Optimization: use integer bounding boxes conceptually, but arc is fine here as it's only called ~10-20 times max per frame
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.strokeStyle = `rgba(52, 211, 153, ${opacity})`;
-      ctx.lineWidth = 2; // Made ring slightly thicker and larger for visibility
+      ctx.lineWidth = 1.5;
       ctx.stroke();
     };
 
@@ -190,129 +140,104 @@ export default function AnimatedStarfield() {
       for (const star of stars) {
         // Calculate a gentle glimmer offset using the star's position to stagger the phase
         const phaseOffset = (star.x + star.y) * 0.01;
-        // Power of 8 creates a sharp, occasional peak. 
-        // Base visibility is a solid 0.7, peaking up to 1.5 during a blink.
         const blink = Math.pow(Math.sin(time * 0.0012 + phaseOffset), 8);
         const glimmer = 0.7 + (blink * 0.8); 
         
         ctx.fillStyle = `rgba(255, 255, 255, ${(star.alpha * 0.85) * glimmer})`;
         
         // OPTIMIZATION: Use fillRect instead of expensive path operations for tiny 1px-2px geometric dots
-        const d = (star.size + 0.5) * 2;
-        // Apply parallax offset and wrap around vertically so it never runs out of stars
         let drawY = star.y - parallaxOffset;
         drawY = ((drawY % height) + height) % height; 
         
+        const d = (star.size + 0.5) * 2;
         ctx.fillRect(star.x - d/2, drawY - d/2, d, d);
       }
 
-      // 2. Draw active fading network lines
-      ctx.beginPath();
-      for (const [lineId, line] of activeLines.entries()) {
-        const age = time - line.spawnedAt;
-        if (age > 10000) {
-          activeLines.delete(lineId); // Line is fully faded and dead
-          continue;
+      // 2. Update and draw signals (the active pulses moving through the network)
+      for (const sig of signals) {
+        if (!sig.target) {
+            spawnSignal(sig);
+            continue;
         }
 
-        // Keep 100% visible for 3s, then fade out linearly over 7s
-        const fade = age < 3000 ? 1 : 1 - ((age - 3000) / 7000);
-        
-        // Apply parallax (without wrapping, so they actually scroll off screen)
-        const startY = line.a.y - parallaxOffset;
-        const endY = line.b.y - parallaxOffset;
-
-        ctx.moveTo(line.a.x, startY);
-        ctx.lineTo(line.b.x, endY);
-        ctx.strokeStyle = `rgba(52, 211, 153, ${0.7 * fade})`; 
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        ctx.beginPath(); // Must begin new path after stroke since strokeStyle changes per line
-      }
-
-      // 3. Draw active fading nodes (rings)
-      for (const [node, spawnedAt] of awakeNodes.entries()) {
-        const age = time - spawnedAt;
-        if (age > 10000) {
-          awakeNodes.delete(node); // Node is fully faded and asleep
-          continue;
-        }
-
-        // Keep 100% visible for 3s, then fade out linearly over 7s
-        const fade = age < 3000 ? 1 : 1 - ((age - 3000) / 7000);
-
-        const nodeY = node.y - parallaxOffset;
-
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = `rgba(52, 211, 153, ${0.9 * fade})`;
-        
-        // Custom inline ring draw to support parallax Y
-        ctx.beginPath();
-        ctx.arc(node.x, nodeY, 7, 0, PI2);
-        ctx.strokeStyle = `rgba(52, 211, 153, ${0.9 * fade})`;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // Highlight the star itself
-        const d = (node.size + 1.0) * 2;
-        ctx.fillStyle = `rgba(52, 211, 153, ${fade})`;
-        ctx.fillRect(node.x - d/2, nodeY - d/2, d, d);
-      }
-      ctx.shadowBlur = 0;
-
-      // 4. Update and draw active growth fronts
-      for (let i = fronts.length - 1; i >= 0; i--) {
-        const front = fronts[i];
-        const dx = front.to.x - front.from.x;
-        const dy = front.to.y - front.from.y;
+        const dx = sig.target.x - sig.current.x;
+        const dy = sig.target.y - sig.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         
-        const duration = dist / front.speed;
-        front.progress += dt / duration;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(52, 211, 153, 0.8)';
 
-        if (front.progress >= 1) {
-          // Front is complete. 
-          // Solidify the line and the node with a timestamp
-          const lineId = getLineId(front.from, front.to);
-          activeLines.set(lineId, { a: front.from, b: front.to, spawnedAt: time });
-          awakeNodes.set(front.to, time);
-          
-          // Remove this front
-          fronts.splice(i, 1);
+        const currentYPara = sig.current.y - parallaxOffset;
+        const targetYPara = sig.target.y - parallaxOffset;
 
-          // Spawn new fronts from the destination, occasionally spawn a lateral branch
-          seedFronts(front.to);
-          if (Math.random() > 0.8 && awakeNodes.size > 0) {
-             const aliveStars = Array.from(awakeNodes.keys());
-             const randomAwakeNode = aliveStars[Math.floor(Math.random() * aliveStars.length)];
-             if (randomAwakeNode) seedFronts(randomAwakeNode);
+        if (sig.phase === 'ring_in') {
+          sig.progress += dt / 600; // 600ms duration
+          if (sig.progress >= 1) {
+            sig.phase = 'line_draw';
+            sig.progress = 0;
+          } else {
+            drawRing(sig.current.x, currentYPara, easeOutCircle(sig.progress) * maxRadius, sig.progress);
           }
-        } else {
-          // Draw the growing line very bright
-          const currentX = front.from.x + (front.to.x - front.from.x) * front.progress;
-          const currentY = front.from.y + (front.to.y - front.from.y) * front.progress;
-
-          // Apply parallax to the growing front
-          const startY = front.from.y - parallaxOffset;
-          const drawCurrentY = currentY - parallaxOffset;
-
-          ctx.beginPath();
-          ctx.moveTo(front.from.x, startY);
-          ctx.lineTo(currentX, drawCurrentY);
-          
-          ctx.shadowBlur = 20;
-          ctx.shadowColor = 'rgba(52, 211, 153, 1)';
-          ctx.strokeStyle = `rgba(52, 211, 153, 1)`; // 100% opacity for actively growing fronts
-          ctx.lineWidth = 2.5; // Thicker actively growing line
-          ctx.stroke();
-          
-          // Draw a bright 'spark' at the leading edge
-          ctx.beginPath();
-          ctx.arc(currentX, drawCurrentY, 3, 0, PI2);
-          ctx.fillStyle = '#fff';
-          ctx.fill();
-          ctx.shadowBlur = 0;
+        } 
+        else if (sig.phase === 'line_draw') {
+          const duration = dist / sig.speed;
+          sig.progress += dt / duration;
+          if (sig.progress >= 1) {
+            sig.phase = 'line_fade';
+            sig.progress = 0;
+          } else {
+            drawRing(sig.current.x, currentYPara, maxRadius, 1);
+            
+            const currentX = sig.current.x + dx * sig.progress;
+            const currentY = currentYPara + dy * sig.progress; // Use straight interpolation for lines
+            
+            ctx.beginPath();
+            ctx.moveTo(sig.current.x, currentYPara);
+            ctx.lineTo(currentX, currentY);
+            ctx.strokeStyle = `rgba(52, 211, 153, 1)`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          }
         }
+        else if (sig.phase === 'line_fade') {
+          sig.progress += dt / 600; // 600ms fade duration
+          if (sig.progress >= 1) {
+            sig.previous = sig.current;
+            sig.current = sig.target;
+            
+            // Pick new target (preferred not to bounce straight back immediately)
+            const nextNeighbors = sig.current.neighbors;
+            if (nextNeighbors.length > 0) {
+              const withoutPrev = nextNeighbors.filter(n => n !== sig.previous);
+              const choices = withoutPrev.length > 0 ? withoutPrev : nextNeighbors;
+              
+              sig.target = choices[Math.floor(Math.random() * choices.length)];
+              sig.phase = 'line_draw';
+              sig.progress = 0;
+            } else {
+              // Dead end -> respawn
+              spawnSignal(sig);
+            }
+          } else {
+            const fade = Math.max(0, 1 - sig.progress);
+            
+            // Fading out old ring
+            drawRing(sig.current.x, currentYPara, maxRadius, fade);
+            
+            // Fading out line
+            ctx.beginPath();
+            ctx.moveTo(sig.current.x, currentYPara);
+            ctx.lineTo(sig.target.x, targetYPara);
+            ctx.strokeStyle = `rgba(52, 211, 153, ${fade})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            // Fading in new ring
+            drawRing(sig.target.x, targetYPara, easeOutCircle(sig.progress) * maxRadius, sig.progress);
+          }
+        }
+        
+        ctx.shadowBlur = 0; // reset for next drawing operations
       }
 
       animationFrameId = requestAnimationFrame(updateAndDraw);
@@ -334,7 +259,6 @@ export default function AnimatedStarfield() {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
       clearTimeout(resizeTimeout);
-      clearTimeout(initialTimeoutId);
     };
   }, []);
 
