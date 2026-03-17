@@ -27450,6 +27450,36 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_a6030570",
+      "model_id": "openai/gpt-5.4-nano",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 1.25e-06,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-5.4-nano",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_45202c93",
+      "model_id": "openai/gpt-5.4-mini",
+      "pricing_prompt": 7.5e-07,
+      "pricing_completion": 4.5e-06,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-5.4-mini",
+          "provider": "openai"
+        }
+      ]
     }
   ]
 }
