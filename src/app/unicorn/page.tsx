@@ -295,14 +295,14 @@ export default function UnicornThesisPage() {
                  
                  <div className="grid grid-cols-2 gap-8 mb-8 pb-8 border-b border-zinc-800">
                     <div>
-                       <p className="text-zinc-500 text-sm mb-1">Traditional Build Cost</p>
-                       <p className="text-3xl font-mono text-zinc-300 drop-shadow-md">
+                       <p className="text-zinc-500 text-sm mb-1 transform translate-y-1">Traditional Build Cost</p>
+                       <p className="text-4xl md:text-5xl font-black font-mono text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] tracking-tight">
                          ${Math.round(totalAgileBurn).toLocaleString()}
                        </p>
                     </div>
                     <div>
-                       <p className="text-zinc-500 text-sm mb-1">Unicorn Build Cost</p>
-                       <p className="text-3xl font-mono text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                       <p className="text-zinc-500 text-sm mb-1 transform translate-y-1">Unicorn Build Cost</p>
+                       <p className="text-4xl md:text-5xl font-black font-mono text-emerald-400 drop-shadow-[0_0_20px_rgba(16,185,129,0.4)] tracking-tight">
                          ${Math.round(totalUnicornBurn).toLocaleString()}
                        </p>
                     </div>
