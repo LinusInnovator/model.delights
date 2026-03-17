@@ -7,19 +7,33 @@ import AnimatedLogo from "@/components/AnimatedLogo";
 import AnimatedTextLogo from "@/components/AnimatedTextLogo";
 
 export default function UnicornThesisPage() {
-  const [agileCost, setAgileCost] = useState(60000);
+  const [teamSize, setTeamSize] = useState(7);
   const [agileMonths, setAgileMonths] = useState(6);
   
   const [unicornCost, setUnicornCost] = useState(30000); // Premium price
   const [unicornMonths, setUnicornMonths] = useState(1);
 
+  const LOADED_COST_PER_HEAD = 15000;
+
   // Math
-  const totalAgileBurn = agileCost * agileMonths;
+  const communicationPaths = (teamSize * (teamSize - 1)) / 2;
+  const agileMonthlyBurn = teamSize * LOADED_COST_PER_HEAD;
+  const totalAgileBurn = agileMonthlyBurn * agileMonths;
   const totalUnicornBurn = unicornCost * unicornMonths;
+  
   const monthsSaved = agileMonths - unicornMonths;
   const theoreticalMonthlyRevenue = 25000; // Assumption for opportunity cost
-  const lostRevenueDays = monthsSaved * 30;
-  const opportunityCost = monthsSaved * theoreticalMonthlyRevenue;
+  const lostRevenueDays = Math.max(0, monthsSaved * 30);
+  const opportunityCost = Math.max(0, monthsSaved * theoreticalMonthlyRevenue);
+
+  // The Brooks's Law Coordination Tax
+  const hoursLostPerPathPerWeek = 1.5;
+  const weeksPerMonth = 4.33;
+  const totalHoursLostPerMonth = communicationPaths * hoursLostPerPathPerWeek * weeksPerMonth;
+  const blendedHourlyRate = LOADED_COST_PER_HEAD / 160;
+  const monthlyCoordinationTax = totalHoursLostPerMonth * blendedHourlyRate;
+  const totalCoordinationTax = monthlyCoordinationTax * agileMonths;
+  const coordinationTaxPct = Math.min(100, Math.round((monthlyCoordinationTax / agileMonthlyBurn) * 100));
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-[family-name:var(--font-inter)] selection:bg-emerald-500/30 overflow-hidden">
@@ -210,14 +224,18 @@ export default function UnicornThesisPage() {
                     
                     <div className="mb-6">
                       <div className="flex justify-between text-sm text-zinc-400 mb-2">
-                         <span>Monthly Burn Rate</span>
-                         <span className="font-mono text-white">${agileCost.toLocaleString()}/mo</span>
+                         <span>Team Size (PM, SM, Devs, QA)</span>
+                         <span className="font-mono text-white">{teamSize} heads</span>
                       </div>
                       <input 
-                         type="range" min="30000" max="150000" step="5000"
-                         value={agileCost} onChange={(e) => setAgileCost(Number(e.target.value))}
+                         type="range" min="3" max="15" step="1"
+                         value={teamSize} onChange={(e) => setTeamSize(Number(e.target.value))}
                          className="w-full accent-zinc-500 bg-black rounded-lg appearance-none h-2"
                       />
+                      <div className="mt-3 flex justify-between text-xs font-mono text-zinc-500 border-t border-zinc-800/50 pt-3">
+                         <span>Burn: ${(agileMonthlyBurn / 1000).toFixed(0)}k/mo</span>
+                         <span className="text-red-400/80">Comm. Paths: {communicationPaths}</span>
+                      </div>
                     </div>
                     
                     <div>
@@ -276,15 +294,26 @@ export default function UnicornThesisPage() {
                     <div>
                        <p className="text-zinc-500 text-sm mb-1">Traditional Build Cost</p>
                        <p className="text-3xl font-mono text-zinc-300 drop-shadow-md">
-                         ${totalAgileBurn.toLocaleString()}
+                         ${Math.round(totalAgileBurn).toLocaleString()}
                        </p>
                     </div>
                     <div>
                        <p className="text-zinc-500 text-sm mb-1">Unicorn Build Cost</p>
                        <p className="text-3xl font-mono text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                         ${totalUnicornBurn.toLocaleString()}
+                         ${Math.round(totalUnicornBurn).toLocaleString()}
                        </p>
                     </div>
+                 </div>
+
+                 <div className="mb-8 pb-8 border-b border-zinc-800">
+                    <h4 className="text-white font-bold mb-4 flex items-center justify-between font-[family-name:var(--font-jetbrains)] border-l-2 border-red-500 pl-4">
+                       The Coordination Tax
+                       <span className="text-red-400 text-xs font-mono bg-red-950/30 px-3 py-1 rounded-full border border-red-900/50">-{coordinationTaxPct}% Velocity</span>
+                    </h4>
+                    <p className="text-zinc-400 text-sm leading-relaxed">
+                       With <strong>{teamSize} members</strong>, there are <strong>{communicationPaths} ongoing communication paths</strong> [N(N-1)/2]. 
+                       Assuming just 1.5 hours lost per path, per week, to alignment and meetings, that is <strong className="text-red-400 font-mono">${Math.round(totalCoordinationTax).toLocaleString()}</strong> burned purely on talking about the code, not writing it.
+                    </p>
                  </div>
 
                  <div className="space-y-6">
