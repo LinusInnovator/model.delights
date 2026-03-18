@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "530223b",
+        "type": "fix",
+        "scope": "ui",
+        "message": "update timeout text warning from 45s to 5m in Triangulation UI to reflect new maxDuration",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "0f9920a",
         "type": "fix",
         "scope": "api",
@@ -310,14 +318,6 @@
         "type": "feat",
         "scope": "home",
         "message": "add links to manifesto in header and footer",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "366163f",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "link part 4 hero video and explicitly track mp4 assets",
         "date": "2026-03-15",
         "isPublic": true
       }

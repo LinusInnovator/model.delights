@@ -22,7 +22,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="w-full bg-zinc-950/80 border-t border-white/5 backdrop-blur-md py-12 px-6 mt-auto">
+        <footer className="relative z-50 w-full bg-zinc-950/80 border-t border-white/5 backdrop-blur-md py-12 px-6 mt-auto">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
                 
                 {/* Brand & Copyright */}
