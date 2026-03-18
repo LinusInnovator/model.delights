@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "d9c1073",
+        "type": "feat",
+        "scope": "ui",
+        "message": "implement 3-tier SDK Package matrix on /sdk landing page to formalize Community, Pro, and Enterprise editions",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "d569f40",
         "type": "fix",
         "scope": "ui",
@@ -310,14 +318,6 @@
         "type": "fix",
         "scope": "manifesto-reader",
         "message": "correct quotation marks for multi-paragraph quote blocks",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "4fa756f",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "link all remaining hero videos",
         "date": "2026-03-15",
         "isPublic": true
       }
