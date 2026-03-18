@@ -2440,8 +2440,8 @@
     {
       "entity_id": "ent_7ff45eaf",
       "model_id": "qwen/qwen3-235b-a22b-thinking-2507",
-      "pricing_prompt": 1.1e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1.495e-07,
+      "pricing_completion": 1.495e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -2770,8 +2770,8 @@
     {
       "entity_id": "ent_063002ab",
       "model_id": "mistralai/mistral-small-3.2-24b-instruct",
-      "pricing_prompt": 6e-08,
-      "pricing_completion": 1.8e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 2e-07,
       "modalities_in": "image,text",
       "modalities_out": "text",
       "events": [
@@ -3580,8 +3580,8 @@
     {
       "entity_id": "ent_33f4b7bc",
       "model_id": "google/gemma-3-27b-it",
-      "pricing_prompt": 4e-08,
-      "pricing_completion": 1.5e-07,
+      "pricing_prompt": 8e-08,
+      "pricing_completion": 1.6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
