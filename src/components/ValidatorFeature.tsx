@@ -141,7 +141,7 @@ export default function ValidatorFeature({ initialIdea = "", autoStart = false }
                         const errorData = JSON.parse(text);
                         errorMsg = errorData.error || errorData.details || errorMsg;
                     } catch {
-                        errorMsg = res.status === 504 ? `Engine Timeout: The ${phaseName} analysis took longer than 45 seconds. Try again.` : `Server Error (${res.status}): ${text.substring(0, 50)}...`;
+                        errorMsg = res.status === 504 ? `Engine Timeout: The ${phaseName} analysis took longer than 5 minutes. Try again.` : `Server Error (${res.status}): ${text.substring(0, 50)}...`;
                     }
                 } catch {
                     errorMsg = `Server Error (${res.status}) in ${phaseName}`;

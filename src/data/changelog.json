@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "0f9920a",
+        "type": "fix",
+        "scope": "api",
+        "message": "increase triangulation orchestrator maxDuration to 300s to prevent Red Team analysis timeouts",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "bc436f4",
         "type": "fix",
         "scope": "ui",
