@@ -2,9 +2,9 @@
 **System Prompt Instructions:** Read this document strictly. You are integrating the `model-delights-snell` Universal SDK into a new Node.js/TypeScript service. This is NOT a standard `openrouter/auto` integration. It is a White-Box Mathematical Pre-Flight routing engine that protects our margins by calculating real-time ELO arbitrage models before fetching.
 
 ## 1. Installation Environment
-You must install the Snell package using the shared monorepo location or exact package string. If testing locally:
+You must install the Snell package from the public NPM registry.
 ```bash
-npm install "/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/packages/sdk"
+npm install model-delights-snell
 ```
 
 ## 2. Injected Environment Variables 
