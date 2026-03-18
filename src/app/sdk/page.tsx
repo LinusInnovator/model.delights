@@ -63,89 +63,97 @@ export default function SDKPage() {
           </div>
         </div>
 
-        {/* Core Concepts Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-24">
-          
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group">
-             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-emerald-400">01.</span> Dynamic Intent Resolution
-             </h3>
-             <p className="text-zinc-400 leading-relaxed text-sm mb-6">
-               Pass intent categories like `coding`, `reasoning`, or `vision` directly to the router instead of static model IDs. Based on the 24-hour global market state, it returns the mathematically superior choice.
-             </p>
-             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
-                <span className="text-indigo-400">const</span> routing = <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">getOptimalRouting</span>(<span className="text-amber-300">'reasoning'</span>);<br/><br/>
-                <span className="text-zinc-500">// Returns: (Currently) 'google/gemini-2.0-pro-exp'</span><br/>
-                <span className="text-white">routing.flagship.model</span>
-             </div>
-          </div>
+        {/* SDK Editions Grid */}
+        <div className="mb-24">
+           <h2 className="text-3xl font-bold mb-10 text-center">Select Your Engine Version</h2>
+           <div className="grid md:grid-cols-3 gap-6">
+              
+              {/* Community Version */}
+              <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 flex flex-col hover:border-zinc-700 transition-colors">
+                 <div className="mb-6">
+                    <h3 className="text-2xl font-black text-white mb-2 tracking-tight">Community <span className="text-zinc-500 font-mono text-sm tracking-normal">v1.x</span></h3>
+                    <p className="text-sm text-zinc-400">The open-source routing core. Perfect for indie hackers, prototyping, and solo validation.</p>
+                 </div>
+                 <div className="font-mono text-sm text-zinc-300 bg-black border border-zinc-800 rounded-lg p-3 mb-8">
+                    npm i model-delights-snell
+                 </div>
+                 <ul className="flex-1 space-y-4 text-sm text-zinc-300">
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Dynamic Intent Resolution.</strong> Route prompts by category (e.g. `coding`) instead of hardcoded model IDs.</div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Baseline ELO Matrix.</strong> Access standard daily Chatbot Arena snapshot evaluations.</div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Universal Execution Vehicle.</strong> Autonomous wrapper handling 429 rate-limit fallback cascades natively.</div>
+                    </li>
+                 </ul>
+                 <button className="w-full mt-8 py-3 rounded-xl bg-zinc-900 text-white font-bold hover:bg-zinc-800 transition-colors">
+                    Read Global Docs
+                 </button>
+              </div>
 
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group">
-             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-emerald-400">02.</span> Arbitrage Value Triggers
-             </h3>
-             <p className="text-zinc-400 leading-relaxed text-sm mb-6">
-               When a flagship model is requested, the SDK simultaneously calculates alternative models operating near the same ELO tier but optimized for massive profit margins.
-             </p>
-             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
-                <span className="text-indigo-400">if</span> (routing.smart_value) {'{\n'}
-                <span className="text-zinc-500 ml-4">// Budget mode: Use Llama 3.1 70B instead.</span><br/>
-                <span className="text-zinc-500 ml-4">// It represents a 95% discount for a 2% Intelligence drop.</span><br/>
-                <span className="text-white ml-4">targetModel</span> = routing.smart_value.model;<br/>
-                {'}'}
-             </div>
-          </div>
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group">
-             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-emerald-400">03.</span> Context-Caching Economics
-             </h3>
-             <p className="text-zinc-400 leading-relaxed text-sm mb-6">
-               When parsing massive, repetitive system prompts, the mathematical engine calculates Anthropic/Google caching discounts on the fly. This frequently unlocks flagship reasoning models that would otherwise fail strict budget checks.
-             </p>
-             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
-                <span className="text-zinc-500">// B2B RAG applications see up to 80% cost reduction</span><br/>
-                <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">getOptimalRouting</span>({'{'} <br/>
-                <span className="text-white ml-4">intent:</span> <span className="text-amber-300">'code-reasoning'</span>,<br/>
-                <span className="text-white ml-4">policy:</span> <span className="text-amber-300">'max_savings'</span>,<br/>
-                <span className="text-white ml-4">cached_payload:</span> <span className="text-indigo-400">true</span><br/>
-                {'}'});
-             </div>
-          </div>
+              {/* Pro Version */}
+              <div className="bg-zinc-900 border border-purple-500/50 rounded-3xl p-8 flex flex-col relative shadow-[0_0_50px_rgba(168,85,247,0.1)] hover:border-purple-400 transition-colors transform md:-translate-y-4">
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-500 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">The Builder's Choice</div>
+                 <div className="mb-6">
+                    <h3 className="text-2xl font-black text-white mb-2 tracking-tight">Pro: Primary <span className="text-purple-400 font-mono text-sm tracking-normal">v2.x</span></h3>
+                    <p className="text-sm text-zinc-400">Yield exponential efficiency. Built for Singular Unicorns and autonomous agent swarms optimized for runway.</p>
+                 </div>
+                 <div className="font-mono text-sm text-purple-200 bg-purple-950/30 border border-purple-900/50 rounded-lg p-3 mb-8">
+                    Requires: OR_API_KEY
+                 </div>
+                 <ul className="flex-1 space-y-4 text-sm text-zinc-300">
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Margin Arbitrage Triggers.</strong> Automatically substitutes flagship models with budget variants (e.g. Llama 3.1 70B) within a 2% intelligence deviation window to capture 95% API margin savings.</div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Context-Caching.</strong> Live mechanical calculations for native Anthropic/Google caching to drop heavy RAG costs by 80%.</div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Hyper-Velocity Routing.</strong> Eradicates agile coordination tax, shrinking 11-day sub-platform builds down to 2-day pivots.</div>
+                    </li>
+                 </ul>
+                 <a href="/architect" className="w-full text-center mt-8 py-3 rounded-xl bg-purple-600 text-white font-bold shadow-lg hover:bg-purple-500 transition-colors">
+                    Access Pro Package
+                 </a>
+              </div>
 
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group">
-             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-emerald-400">04.</span> Zero-Knowledge Architecture
-             </h3>
-             <p className="text-zinc-400 leading-relaxed text-sm mb-6">
-               Strict Control Plane isolation. We push the intelligence matrix directly to your server and you execute the `fetch` natively using your own OpenRouter/OpenAI API keys. Your custom prompts and proprietary PII data never touch our servers.
-             </p>
-             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
-                <span className="text-zinc-500">// Completely asynchronous, anonymous pings map the global baseline</span><br/>
-                <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">reportTelemetry</span>({'{'}<br/>
-                <span className="text-white ml-4">outcome:</span> <span className="text-amber-300">'failed_schema_validation'</span>,<br/>
-                <span className="text-white ml-4">latency_ms:</span> <span className="text-amber-300">1405</span><br/>
-                {'}'});
-             </div>
-          </div>
+              {/* Enterprise Version */}
+              <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 flex flex-col hover:border-emerald-500/50 transition-colors">
+                 <div className="mb-6">
+                    <h3 className="text-2xl font-black text-white mb-2 tracking-tight">Enterprise <span className="text-emerald-500 font-mono text-sm tracking-normal">v3.x</span></h3>
+                    <p className="text-sm text-zinc-400">Absolute maximum intelligence. For institutional AI labs and life-or-death zero-latency financial operations.</p>
+                 </div>
+                 <div className="font-mono text-sm text-emerald-200 bg-emerald-950/30 border border-emerald-900/50 rounded-lg p-3 mb-8">
+                    Contact Engineering Server
+                 </div>
+                 <ul className="flex-1 space-y-4 text-sm text-zinc-300">
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Strict ELO Topology.</strong> Forces the absolute highest-scoring reasoning model on earth for every prompt, completely bypassing margin/cost routing.</div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Zero-Knowledge Architecture.</strong> Strict multi-tenant compliance with isolated control planes. System prompts never traverse the routing payload.</div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Private Telemetry Clusters.</strong> Dedicated data lakes intercepting error cascades and semantic drift.</div>
+                    </li>
+                 </ul>
+                 <a href="/enterprise" className="w-full text-center mt-8 py-3 rounded-xl bg-zinc-900 text-white font-bold hover:bg-zinc-800 transition-colors">
+                    Explore Enterprise
+                 </a>
+              </div>
 
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/50 transition-colors group md:col-span-2">
-             <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-emerald-400">05.</span> Universal Execution Vehicle 
-             </h3>
-             <p className="text-zinc-400 leading-relaxed text-sm mb-6 max-w-3xl">
-               Don't want to build manual HTTP fetches and retry loops? The SDK provides an optional, fully autonomous wrapper. It evaluates the matrix, ranks the optimal models, executes the local fetch using your API keys, and silently cascades down a fallback array if the primary provider throws a 429 Rate Limit error. 
-             </p>
-             <div className="bg-black rounded-lg p-4 font-mono text-xs text-zinc-300 border border-zinc-800">
-                <span className="text-indigo-400">const</span> response = <span className="text-indigo-400">await</span> router.<span className="text-emerald-400">execute</span>({'{'}<br/>
-                <span className="text-white ml-4">messages:</span> [{'{'} role: <span className="text-amber-300">'user'</span>, content: <span className="text-amber-300">'Fix this auth bug'</span> {'}'}],<br/>
-                <span className="text-white ml-4">openrouterKey:</span> process.env.<span className="text-white">OPENROUTER_API_KEY</span>, <span className="text-zinc-500">// Handled 100% locally</span><br/>
-                <span className="text-white ml-4">config:</span> {'{'} intent: <span className="text-amber-300">'coding'</span>, policy: <span className="text-amber-300">'low_latency'</span> {'}'}<br/>
-                {'}'});<br/><br/>
-                <span className="text-zinc-500">// Returns the model that successfully survived the fallback cascade</span><br/>
-                console.log(response.<span className="text-emerald-400">_snell_telemetry</span>.model_used);
-             </div>
-          </div>
-          
+           </div>
         </div>
 
       </main>

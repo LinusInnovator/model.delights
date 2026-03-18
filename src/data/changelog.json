@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "d569f40",
+        "type": "fix",
+        "scope": "ui",
+        "message": "elevate footer z-index to 50 to prevent landing page background overlays from blocking link clicks",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "530223b",
         "type": "fix",
         "scope": "ui",
@@ -310,14 +318,6 @@
         "type": "feat",
         "scope": "manifesto",
         "message": "link all remaining hero videos",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "9bf4d3c",
-        "type": "feat",
-        "scope": "home",
-        "message": "add links to manifesto in header and footer",
         "date": "2026-03-15",
         "isPublic": true
       }
