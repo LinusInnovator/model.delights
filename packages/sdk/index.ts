@@ -232,10 +232,22 @@ export class IntelligenceRouter {
         return data;
       }
     } catch (e) {
-      console.warn(`[IntelligenceRouter] Failed to fetch fresh route for "${intent}". Using offline manifest.`, e);
+      console.warn(`[IntelligenceRouter] Failed to fetch fresh route for "${intent}".`, (e as Error).message);
+      
+      // AUTO-LOOP INTELLIGENCE: Stale Cache Rescue Protocol
+      // If the gateway is down, the hardcoded manifest will eventually become obsolete.
+      // Therefore, we MUST prioritize whatever the "latest and greatest" state was before we went down.
+      if (cached && cached.data) {
+          console.warn(`[IntelligenceRouter] SNELL RESCUE: Serving stale intelligence cache from ${Math.round((now - cached.timestamp)/60000)} minutes ago.`);
+          // Extend the stale cache's TTL temporarily (60s) so we don't spam the broken API 
+          this._routeCache.set(cacheKey, { data: cached.data, timestamp: now - this.CACHE_TTL_MS + 60000 });
+          return cached.data;
+      }
+      
+      console.warn(`[IntelligenceRouter] No memory available. Executing Hardcoded Offline Manifest.`);
     }
 
-    // 3. Fail gracefully via compiled Offline Manifest if network is down
+    // 3. Fail gracefully via compiled Offline Manifest ONLY if network is down AND cache is completely empty (e.g., fresh server spinup)
     const fallback = this.getOfflineManifest(intent, estimatedInputTokens);
     
     // Only temporarily cache the fallback for a short burst (60 seconds) so we try to recover network soon
