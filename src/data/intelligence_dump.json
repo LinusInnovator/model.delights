@@ -29670,6 +29670,21 @@
           "provider": "minimax"
         }
       ]
+    },
+    {
+      "entity_id": "ent_c056b113",
+      "model_id": "nvidia/nemotron-3-super-120b-a12b",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 9e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3-super-120b-a12b",
+          "provider": "nvidia"
+        }
+      ]
     }
   ]
 }
