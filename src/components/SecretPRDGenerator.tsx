@@ -22,7 +22,8 @@ export default function SecretPRDGenerator() {
   // Listen for Option + Command + P
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.altKey && e.metaKey && e.key.toLowerCase() === 'p') {
+      // e.code === 'KeyP' is required because e.altKey (Option) on macOS changes e.key to 'π'
+      if (e.altKey && e.metaKey && (e.key.toLowerCase() === 'p' || e.code === 'KeyP')) {
         e.preventDefault();
         setIsOpen(prev => !prev);
       }

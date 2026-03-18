@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "de0a2d2",
+        "type": "feat",
+        "scope": "ui",
+        "message": "Add automated Changelog pipeline and sync Unicorn messaging to Enterprise/SDK offerings",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "f002192",
         "type": "core",
         "scope": "architecture",
@@ -278,54 +286,6 @@
         "type": "feat",
         "scope": "manifesto",
         "message": "add hover-to-play video support for hero images",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "652298f",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "persist reader settings (theme, tone, length) to localStorage",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "501cae0",
-        "type": "build",
-        "scope": "",
-        "message": "disable eslint for vercel build by ignoring src in flat config",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "6047163",
-        "type": "fix",
-        "scope": "manifesto",
-        "message": "render multiline nice-copy gracefully by splitting into p tags",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "52c7a08",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "add fullscreen image lightbox overlay with captions",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "f764af6",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "add Nice/Truth copy mode switcher and generated nice copy matrix",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "0f58a27",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "add Nice/Truth copy mode switcher and generated nice copy matrix",
         "date": "2026-03-15",
         "isPublic": true
       }
