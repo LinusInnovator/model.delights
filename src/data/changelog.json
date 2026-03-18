@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "e7277e8",
+        "type": "feat",
+        "scope": "ui",
+        "message": "remap PRD generator to Ctrl+Backtick to avoid OS/Browser native printing shortcuts",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "dfd9ae7",
         "type": "feat",
         "scope": "ui",
@@ -294,14 +302,6 @@
         "type": "feat",
         "scope": "manifesto",
         "message": "link part 4 hero video and explicitly track mp4 assets",
-        "date": "2026-03-15",
-        "isPublic": true
-      },
-      {
-        "hash": "b5413cb",
-        "type": "feat",
-        "scope": "manifesto",
-        "message": "add hover-to-play video support for hero images",
         "date": "2026-03-15",
         "isPublic": true
       }
