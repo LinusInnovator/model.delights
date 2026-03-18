@@ -39,7 +39,7 @@ jobs:
           python execution/feed_the_agent.py
         env:
           # Include any necessary API keys (Anthropic, OpenRouter) stored as GitHub Secrets
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_API_KEY: "${{ secrets.OPENROUTER_API_KEY }}"
 
       - name: Commit Updated Intelligence DB & JSON Core
         run: |

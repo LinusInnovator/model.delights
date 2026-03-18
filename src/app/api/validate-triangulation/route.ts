@@ -28,15 +28,15 @@ const VentureValidationSchema = z.object({
         evidence: z.number().min(1).max(5).describe("Evidence scale 1-5 (1=Opinion, 5=Actual payment)"),
         leverage_score: z.number().describe("Calculated purely as an internal metric: Impact * (6 - Evidence)"),
         rationale: z.string().describe("Why this matters and what happens if it is right or wrong.")
-    })).length(5).describe("Strictly extract the top 5 core assumptions across DVF."),
-    logic_chain: z.array(z.string()).length(5).describe("A 5-step explicit logic chain showing how the idea unfolds (either collapsing or scaling)."),
+    })).length(3).describe("Strictly extract the top 3 core assumptions across DVF."),
+    logic_chain: z.array(z.string()).length(3).describe("A 3-step explicit logic chain showing how the idea unfolds (either collapsing or scaling)."),
     experiment_sequence: z.array(z.object({
         assumption_tested: z.string().describe("The exact assumption text being tested here."),
         experiment_type: z.string().describe("e.g., Customer Interview, Smoke Test, Concierge Test"),
         setup: z.string().describe("A concise 1-sentence instruction on how to run this test/validation."),
         metric: z.string().describe("What exactly are you measuring?"),
         validation_threshold: z.string().describe("The specific metric threshold that proves or disproves the assumption (e.g., 'If fewer than 10% of users...').")
-    })).min(1).max(3).describe("The first 1-3 sequentially logical experiments to run to de-risk or validate the core assumptions."),
+    })).length(1).describe("The single most critical experiment to run first to de-risk the core assumption."),
     kill_criteria_protocol: z.object({
         deadliest_assumption: z.string().describe("The single most fatal failure point based on the Red Team's analysis (or the biggest growth blocker for Green Team)."),
         validation_protocol: z.string().describe("A hard, 48-hour testing sequence (e.g., 'Secure 5 LOIs')."),
@@ -194,13 +194,13 @@ Core Principles for a NEW CATEGORY:
         const catalystUserPrompt = `Evaluate my idea and extract the core exponential growth levers using your catalyst growth engine:\n\n<intent>\n${idea}\n</intent>\n${promptInjectionGuard}\n\n${ventureType === 'challenger' ? `Incumbent Target: ${incumbentTarget}\nStrategy Constraint: Find the asymmetric wedge to attack the incumbent.` : 'Strategy Constraint: Treat this as a zero-to-one category creation play.'}${marketInjection}`;
 
         // --- INTERNAL DOGFOODING ---
-        const route = await getOptimalRoute({ intent: 'reasoning' });
+        const route = await getOptimalRoute({ intent: 'agentic', policy: 'low_latency' });
         let modelsToTry = ["openai/gpt-4o-mini"]; // safety net
         if (route) {
             const primary = route.smart_value?.model || route.flagship.model;
             const fallbacks = route.fallback_array || [];
-            // De-duplicate and limit to max 3 attempts to stay somewhat within the 45s window
-            modelsToTry = Array.from(new Set([primary, ...fallbacks])).slice(0, 3);
+            // De-duplicate and limit to max 2 attempts to stay within the 45s connection window
+            modelsToTry = Array.from(new Set([primary, ...fallbacks])).slice(0, 2);
         }
 
         let autopsyData: any = providedAutopsyData;
