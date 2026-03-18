@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { Analytics } from "@vercel/analytics/react";
 import TopBarAuth from "../components/TopBarAuth";
 import Footer from "../components/Footer";
+import SecretPRDGenerator from "../components/SecretPRDGenerator";
 import "./globals.css";
 import "./components.css";
 
@@ -79,6 +80,7 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
+          <SecretPRDGenerator />
           <Footer />
           {/* Using a native standard script tag to ensure data attributes are readable via document.currentScript by the widget */}
           <script
