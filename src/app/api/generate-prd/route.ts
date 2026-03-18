@@ -1,6 +1,8 @@
 import { streamText } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 
+import { getOptimalRoute } from '@/lib/routingEngine';
+
 export const runtime = 'edge';
 
 const openrouter = createOpenRouter({
@@ -9,10 +11,25 @@ const openrouter = createOpenRouter({
 
 export async function POST(req: Request) {
   try {
-    const { prompt, modelId } = await req.json();
+    const { prompt, modelId, tier } = await req.json();
 
-    if (!modelId) {
-      return new Response('Missing modelId', { status: 400 });
+    let optimalModelId = modelId;
+    if (!optimalModelId) {
+        // Dynamically route the PRD generation if the client defers to the backend
+        try {
+            const route = await getOptimalRoute({ 
+                intent: 'agentic', 
+                policy: tier === 'premium' ? 'max_quality' : 'balanced' 
+            });
+            if (route) {
+                optimalModelId = tier === 'premium' ? route.flagship.model : (route.smart_value?.model || route.flagship.model);
+            } else {
+                optimalModelId = 'openai/gpt-4o-mini';
+            }
+        } catch (e) {
+            console.error("Failed to dynamically route PRD request:", e);
+            optimalModelId = 'openai/gpt-4o-mini';
+        }
     }
 
     const systemPrompt = `You are the ultimate Super Architect. Your job is to translate this founder's raw startup idea into a mercilessly precise, human-readable Product Requirements Document (PRD).
@@ -36,7 +53,7 @@ OUTPUT FORMAT:
     - Sequence 3: ...`;
 
     const result = await streamText({
-      model: openrouter(modelId),
+      model: openrouter(optimalModelId),
       system: systemPrompt,
       prompt: prompt,
     });
