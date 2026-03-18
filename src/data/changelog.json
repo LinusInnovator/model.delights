@@ -1,0 +1,334 @@
+[
+  {
+    "date": "2026-03-18",
+    "items": [
+      {
+        "hash": "f002192",
+        "type": "core",
+        "scope": "architecture",
+        "message": "Implement stealth Opt+Cmd+P PRD Generator with intelligence routing integration",
+        "date": "2026-03-18",
+        "isPublic": true
+      }
+    ]
+  },
+  {
+    "date": "2026-03-17",
+    "items": [
+      {
+        "hash": "8fa6550",
+        "type": "feat",
+        "scope": "marketing",
+        "message": "Add Compounding Velocity tracking to Unicorn Matrix",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "c0f0737",
+        "type": "fix",
+        "scope": "marketing",
+        "message": "Correct Intelligence Directory link in Footer to /models",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "94727f1",
+        "type": "feat",
+        "scope": "marketing",
+        "message": "Scale Unicorn math to 11-Day builds and 100k retainers",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "d149064",
+        "type": "feat",
+        "scope": "marketing",
+        "message": "Add Brooks's Law math to Unicorn traction matrix",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "6794f3a",
+        "type": "feat",
+        "scope": "marketing",
+        "message": "Add /unicorn thesis and traction matrix calculator",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "4d7cded",
+        "type": "docs",
+        "scope": "sdk",
+        "message": "Phase 5 Marketing & Guide Overhaul",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "2a6d3d7",
+        "type": "feat",
+        "scope": "sdk",
+        "message": "Phase 4 Universal Execution Wrapper",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "b4cc752",
+        "type": "feat",
+        "scope": "sdk",
+        "message": "Phase 3 Intelligence (Context Caching Math, Zero-Knowledge Telemetry)",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "4368312",
+        "type": "feat",
+        "scope": "sdk",
+        "message": "Phase 2 Adaptive Decision System (Composite ELO, Capability Gating, Policies)",
+        "date": "2026-03-17",
+        "isPublic": true
+      },
+      {
+        "hash": "3cb0e6c",
+        "type": "feat",
+        "scope": "sdk",
+        "message": "implemented Floating Baselines, Payload Failsafes, and Latency Degradation in the routing engine",
+        "date": "2026-03-17",
+        "isPublic": true
+      }
+    ]
+  },
+  {
+    "date": "2026-03-16",
+    "items": [
+      {
+        "hash": "5c3816c",
+        "type": "feat",
+        "scope": "sdk",
+        "message": "bump to v1.1.0 to add absolute 0ms RAM caching with 15min TTL and robust offline manifest fallbacks",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "0afb515",
+        "type": "perf",
+        "scope": "validator",
+        "message": "run Red and Green team analysis concurrently via Promise.allSettled and bump maxDuration to 60s to prevent Vercel timeouts",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "c885324",
+        "type": "fix",
+        "scope": "seo",
+        "message": "convert dynamic Satori OG images to static files to support strict networks like Signal and WhatsApp",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "07c5f83",
+        "type": "feat",
+        "scope": "validator",
+        "message": "shift AI to structural optimistic grading (ignore incumbents, assume top 1% execution)",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "edd1ece",
+        "type": "feat",
+        "scope": "ui",
+        "message": "make footer logotype link to landing page",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "a2d87a7",
+        "type": "fix",
+        "scope": "",
+        "message": "resolve Satori flexbox constraints for Next.js OpenGraph image generation",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "1de2703",
+        "type": "feat",
+        "scope": "",
+        "message": "add dynamic open graph social preview images for root and manifesto",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "4fd6c3f",
+        "type": "fix",
+        "scope": "",
+        "message": "conflict resolution for spell genie setup",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "a237dc5",
+        "type": "fix",
+        "scope": "",
+        "message": "revert spell genie ID to secure version",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "0c35441",
+        "type": "feat",
+        "scope": "",
+        "message": "unified model directory, fal.ai integration, and widget fix",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "a107c65",
+        "type": "feat",
+        "scope": "ui",
+        "message": "scroll to paragraph on desktop margin note click",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "d7e0a79",
+        "type": "fix",
+        "scope": "genie",
+        "message": "change Next.js Script to native script tag for document.currentScript compat",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "b10a484",
+        "type": "feat",
+        "scope": "analytics",
+        "message": "add vercel analytics package",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "3e7d6d1",
+        "type": "feat",
+        "scope": "ui",
+        "message": "change 'Mode' to 'Voice' for tone toggles",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "f1f6e69",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "force page load to always default back to honest mode",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "ce349e2",
+        "type": "feat",
+        "scope": "landing",
+        "message": "update hero text with SDK mention",
+        "date": "2026-03-16",
+        "isPublic": true
+      },
+      {
+        "hash": "5822445",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "rewrite nice mode copy to sound like a heavily polished, overly positive HR junior",
+        "date": "2026-03-16",
+        "isPublic": true
+      }
+    ]
+  },
+  {
+    "date": "2026-03-15",
+    "items": [
+      {
+        "hash": "05e7a48",
+        "type": "fix",
+        "scope": "manifesto-reader",
+        "message": "correct quotation marks for multi-paragraph quote blocks",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "4fa756f",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "link all remaining hero videos",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "9bf4d3c",
+        "type": "feat",
+        "scope": "home",
+        "message": "add links to manifesto in header and footer",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "366163f",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "link part 4 hero video and explicitly track mp4 assets",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "b5413cb",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "add hover-to-play video support for hero images",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "652298f",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "persist reader settings (theme, tone, length) to localStorage",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "501cae0",
+        "type": "build",
+        "scope": "",
+        "message": "disable eslint for vercel build by ignoring src in flat config",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "6047163",
+        "type": "fix",
+        "scope": "manifesto",
+        "message": "render multiline nice-copy gracefully by splitting into p tags",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "52c7a08",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "add fullscreen image lightbox overlay with captions",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "f764af6",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "add Nice/Truth copy mode switcher and generated nice copy matrix",
+        "date": "2026-03-15",
+        "isPublic": true
+      },
+      {
+        "hash": "0f58a27",
+        "type": "feat",
+        "scope": "manifesto",
+        "message": "add Nice/Truth copy mode switcher and generated nice copy matrix",
+        "date": "2026-03-15",
+        "isPublic": true
+      }
+    ]
+  }
+]

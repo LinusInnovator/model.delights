@@ -39,9 +39,11 @@ export default function SDKPage() {
             Universal Intelligence <br className="hidden md:block"/>
             <span className="text-emerald-500 font-serif italic font-light">Routing SDK.</span>
           </h1>
-          <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed">
-            The White-Box mathematical pre-flight engine for enterprise AI architectures. 
-            Stop hardcoding `gpt-4o`. Let our real-time LMSys ELO router inject the absolute highest performing, most cost-effective cognitive core specifically for your task intent.
+          <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed mb-6">
+            The White-Box mathematical pre-flight engine built specifically for <span className="text-white font-semibold">Singular Unicorns</span> and Autonomous Agent Swarms. 
+          </p>
+          <p className="text-lg text-zinc-500 max-w-2xl leading-relaxed">
+            Stop hardcoding `gpt-4o`. Break the coordination tax of traditional agile teams. Let our real-time LMSys ELO router inject the absolute highest performing, most cost-effective cognitive core specifically for your task intent—enabling you to ship sub-platforms in exactly 2 days.
           </p>
         </div>
 
