@@ -12,13 +12,12 @@ The Snell SDK is a **White-Box Mathematical Pre-Flight Check**. It does *not* ex
 This SDK is securely locked behind a bearer token API Gateway running on `model.delights.pro` (or locally on port 3000). To avoid incurring the standard $99/mo B2B API consumption costs for our internal Snell project, we are using a dedicated `INTERNAL_GOD_KEY` to bypass billing.
 
 ## 1. Installation Environment
-The built SDK is currently sitting in a local workspace directory on this machine. You need to install it directly via the filesystem rather than the public NPM registry.
+You must install the Snell package from the public NPM registry.
 
 **Command to execute:**
 ```bash
-npm install "/Users/linus/Library/Mobile Documents/com~apple~CloudDocs/projects/Dream Validator/Prototrying.com/Prototryers/antigravity/OR-rates/openrate-nextjs/packages/sdk"
+npm install model-delights-snell
 ```
-*(Note: adjust the relative path if necessary based on Snell's Next.js root folder location).*
 
 ## 2. Environment Variables
 You must inject the God Key into Snell's `.env.local` to securely authenticate against the API Gateway.
@@ -117,7 +116,15 @@ export async function executeAutonomousQuery(messages: any[], openRouterKey: str
           intent: 'reasoning',
           policy: 'balanced', 
           cached_payload: true // VERY IMPORTANT: If true, drastically discounts models like Claude 3.5 Sonnet
-      } 
+      },
+      // Native Structured JSON Support
+      response_format: { type: 'json_object' },
+      // Strict Vercel Serverless Timeout Preemption
+      timeout_ms_max_per_model: 8000,
+      // OpenRouter Native Property Overrides (max_tokens safely capped at 8192 internally)
+      openrouter_overrides: {
+          temperature: 0.2
+      }
     });
     
     // Result payload matches standard OpenAI syntax
