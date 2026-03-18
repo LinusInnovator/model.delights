@@ -211,6 +211,8 @@ export class IntelligenceRouter {
             });
         }
         let lastError;
+        // Vison modality auto-detection
+        const hasVision = options.messages.some(m => Array.isArray(m.content) && m.content.some(part => part.type === 'image_url'));
         // 2. Cascade down the mathematically ranked models (Primary -> Smart Value -> Fallback 1 -> Fallback 2)
         for (const modelId of modelsToTry) {
             try {
@@ -222,17 +224,47 @@ export class IntelligenceRouter {
                     payload.tools = options.tools;
                 if (options.response_format)
                     payload.response_format = options.response_format;
+                if (options.openrouter_overrides) {
+                    const safeOverrides = options.openrouter_overrides;
+                    if (safeOverrides.temperature !== undefined)
+                        payload.temperature = safeOverrides.temperature;
+                    if (safeOverrides.presence_penalty !== undefined)
+                        payload.presence_penalty = safeOverrides.presence_penalty;
+                    if (safeOverrides.frequency_penalty !== undefined)
+                        payload.frequency_penalty = safeOverrides.frequency_penalty;
+                    if (safeOverrides.top_p !== undefined)
+                        payload.top_p = safeOverrides.top_p;
+                    if (safeOverrides.seed !== undefined)
+                        payload.seed = safeOverrides.seed;
+                    // Financial Safety Ceiling (Hard cap max_tokens at 8192 to block budget burn bugs)
+                    if (safeOverrides.max_tokens !== undefined) {
+                        payload.max_tokens = Math.min(safeOverrides.max_tokens, 8192);
+                    }
+                }
+                if (hasVision) {
+                    payload.provider = { extra_parameters: { modalities: ["image"] } };
+                }
                 const tsStart = Date.now();
-                const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${options.openrouterKey}`,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': options.httpReferer || 'https://model.delights.pro',
-                        'X-Title': options.xTitle || 'Model Delights Snell Engine'
-                    },
-                    body: JSON.stringify(payload)
-                });
+                const controller = new AbortController();
+                const timeout = options.timeout_ms_max_per_model || 15000;
+                const timeoutId = setTimeout(() => controller.abort(), timeout);
+                let res;
+                try {
+                    res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${options.openrouterKey}`,
+                            'Content-Type': 'application/json',
+                            'HTTP-Referer': options.httpReferer || 'https://model.delights.pro',
+                            'X-Title': options.xTitle || 'Model Delights Snell Engine'
+                        },
+                        body: JSON.stringify(payload),
+                        signal: controller.signal
+                    });
+                }
+                finally {
+                    clearTimeout(timeoutId);
+                }
                 const tsEnd = Date.now();
                 const latency = tsEnd - tsStart;
                 if (!res.ok) {

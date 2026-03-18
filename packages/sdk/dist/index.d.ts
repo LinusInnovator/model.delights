@@ -59,11 +59,20 @@ export interface TelemetryPayload {
     latency_ms?: number;
     ttft_ms?: number;
 }
+export interface OpenRouterOverrides {
+    temperature?: number;
+    /** Financial ceiling automatically capped at 8192 by the Router */
+    max_tokens?: number;
+    presence_penalty?: number;
+    frequency_penalty?: number;
+    top_p?: number;
+    seed?: number;
+}
 export interface ExecuteOptions {
     /** Standard incoming message array */
     messages: {
         role: string;
-        content: string;
+        content: string | any[];
     }[];
     /** Provide your raw OpenRouter key here. We DO NOT intercept or log this. */
     openrouterKey: string;
@@ -79,6 +88,10 @@ export interface ExecuteOptions {
     httpReferer?: string;
     /** Optional site Name for OpenRouter rankings */
     xTitle?: string;
+    /** Strict, normalized variables passed directly to OpenRouter */
+    openrouter_overrides?: OpenRouterOverrides;
+    /** Time in milliseconds before the router kills the model and falls back */
+    timeout_ms_max_per_model?: number;
 }
 export declare class IntelligenceRouter {
     private apiKey;
