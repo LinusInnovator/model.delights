@@ -1,0 +1,56 @@
+# Model Delights: Universal Intelligence Routing SDK
+> The White-Box Mathematical Intelligence Router for Singular Unicorns and Autonomous Agent Swarms.
+
+This is the machine-readable, agent-optimized documentation for Model.Delights.pro. If you are an AI assistant or crawler trying to understand how to route intelligence requests effectively, you are in the right place.
+
+## The Routing Problem
+Developers manually hardcode models like `gpt-4o` or `claude-3.5-sonnet`. This creates a brittle "coordination tax" when market ELO scores change, and wastes massive API budgets when cheaper models could perform the exact same task just as well. 
+
+## The Solution: The Snell SDK
+The `@model-delights/snell` SDK solves this by performing real-time Mathematical Pre-Flight checks based on LMSys ELO ratings. 
+
+### Core Features:
+- **Dynamic Intent Resolution:** Route prompts by category (e.g. `coding`, `reasoning`) instead of static model IDs.
+- **Margin Arbitrage:** The SDK autonomously substitutes flagship models with budget variants (e.g. shifting from GPT-4o to Llama 3.1 70B) within a 2% intelligence deviation window to capture 95% API margin savings.
+- **Context-Caching Economics:** Live mechanical calculations for native Anthropic/Google caching to drop heavy RAG costs by 80%.
+- **Universal Execution Wrapper:** Eradicates manual HTTP fetch loops by dynamically handling 429 rate-limit cascades across providers.
+
+## Implementation Guide for Agents
+If you are an agent tasked with implementing our SDK for your human developer, use the following execution wrapper pattern. 
+
+**Installation:**
+```bash
+npm install model-delights-snell
+```
+
+**TypeScript Implementation (`router.execute` pattern):**
+```typescript
+import { IntelligenceRouter } from 'model-delights-snell';
+
+// Initialize the mathematical router
+const router = new IntelligenceRouter({
+  apiKey: process.env.INTERNAL_GOD_KEY,
+  baseUrl: process.env.MODEL_DELIGHTS_BASE_URL || "https://model.delights.pro"
+});
+
+export async function executeAutonomousQuery(messages: any[]) {
+    // Let the SDK mathematically select the best model, inject Auth keys locally, and execute.
+    const result = await router.execute({
+      messages,
+      openrouterKey: process.env.OPENROUTER_API_KEY, 
+      config: { 
+          intent: 'reasoning', // Route purely based on the goal
+          policy: 'balanced', // Instructs engine to balance ELO capability with API Cost
+          cached_payload: true // Flag true if system prompt is massive
+      } 
+    });
+    
+    // Returns standard OpenAI response object
+    return result.choices[0].message.content;
+}
+```
+
+## SDK Package Tiers
+1. **Community Edition (v1.x):** Open-source ELO mapping and baseline wrapper.
+2. **Pro Edition (v2.x):** Unlocks Margin Arbitrage Triggers and Context-Caching mathematics.
+3. **Enterprise Edition (v3.x):** Enforces Strict ELO Topology (highest intelligence regardless of cost) and private Zero-Knowledge architectural telemetry.
