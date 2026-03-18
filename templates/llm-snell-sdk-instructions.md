@@ -45,7 +45,15 @@ export async function executeAutonomousQuery(messages: any[]) {
           intent: 'reasoning', // Options: 'coding', 'reasoning', 'vision', 'agentic'
           policy: 'balanced', // Options: 'balanced', 'max_savings', 'low_latency'
           cached_payload: true // MUST pass true if passing massive reusable RAG system prompts
-      } 
+      },
+      // Native Structured JSON Support
+      response_format: { type: 'json_object' },
+      // Strict Vercel Serverless Timeout Preemption
+      timeout_ms_max_per_model: 8000,
+      // OpenRouter Native Property Overrides (max_tokens safely capped at 8192 internally)
+      openrouter_overrides: {
+          temperature: 0.2
+      }
     });
     
     // Result payload matches standard OpenAI syntax
