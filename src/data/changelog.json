@@ -3,6 +3,14 @@
     "date": "2026-03-18",
     "items": [
       {
+        "hash": "e34609b",
+        "type": "fix",
+        "scope": "ui",
+        "message": "use e.code for Option+Cmd+P hotkey to bypass macOS pi typography override",
+        "date": "2026-03-18",
+        "isPublic": true
+      },
+      {
         "hash": "de0a2d2",
         "type": "feat",
         "scope": "ui",
