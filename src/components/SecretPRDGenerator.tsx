@@ -22,8 +22,8 @@ export default function SecretPRDGenerator() {
   // Listen for Option + Command + P
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Listen for Cmd+P (Mac) or Ctrl+P (Windows)
-      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey && (e.key.toLowerCase() === 'p' || e.code === 'KeyP')) {
+      // Listen for Ctrl+` (Backquote) - The universal developer shortcut for opening a terminal UI
+      if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey && (e.key === '`' || e.code === 'Backquote')) {
         e.preventDefault();
         setIsOpen(prev => !prev);
       }
@@ -97,7 +97,7 @@ export default function SecretPRDGenerator() {
           <div className="flex items-center gap-3">
              <Terminal className="text-emerald-500 w-5 h-5" />
              <h2 className="text-white font-bold tracking-tight font-[family-name:var(--font-jetbrains)] uppercase text-sm">Autonomous Architecture Planner</h2>
-             <span className="px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400 text-[10px] font-mono border border-zinc-700">CMD_P</span>
+             <span className="px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400 text-[10px] font-mono border border-zinc-700">CTRL_`</span>
           </div>
           <button onClick={closeModal} className="text-zinc-500 hover:text-white transition-colors">
             <X className="w-5 h-5" />
