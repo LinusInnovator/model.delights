@@ -2035,8 +2035,8 @@
     {
       "entity_id": "ent_19a0ceec",
       "model_id": "qwen/qwen3-30b-a3b-thinking-2507",
-      "pricing_prompt": 5.1e-08,
-      "pricing_completion": 3.4e-07,
+      "pricing_prompt": 8e-08,
+      "pricing_completion": 4e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -29674,8 +29674,8 @@
     {
       "entity_id": "ent_c056b113",
       "model_id": "nvidia/nemotron-3-super-120b-a12b",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 9e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -29683,6 +29683,36 @@
           "source_id": "openrouter_models_api",
           "alias": "nvidia/nemotron-3-super-120b-a12b",
           "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_15d5e852",
+      "model_id": "xiaomi/mimo-v2-omni",
+      "pricing_prompt": 4e-07,
+      "pricing_completion": 2e-06,
+      "modalities_in": "text,audio,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "xiaomi/mimo-v2-omni",
+          "provider": "xiaomi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b6ad98f3",
+      "model_id": "xiaomi/mimo-v2-pro",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "xiaomi/mimo-v2-pro",
+          "provider": "xiaomi"
         }
       ]
     }
