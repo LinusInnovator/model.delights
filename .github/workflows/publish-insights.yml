@@ -1,0 +1,40 @@
+name: Publish Insights Ecosystem
+
+on:
+  schedule:
+    # Autonomous SEO Pacing: Run at 09:00 UTC every Monday and Thursday
+    - cron: '0 9 * * 1,4'
+  workflow_dispatch: # Allow manual bypass
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Execute Autonomous Publisher (Pacing Layer)
+        run: npm run insights:publish
+        
+      - name: Validate Changes and Push
+        run: |
+          git config --global user.name "Model Delights Compiler"
+          git config --global user.email "insights@model.delights.pro"
+          git add packages/insights-engine/.queue src/data/insights
+          if git diff --staged --quiet; then
+            echo "Queue is empty. No new clusters deployed."
+          else
+            git commit -m "chore(insights): autonomous publication of queued AIEO ecosystem"
+            git push
+          fi

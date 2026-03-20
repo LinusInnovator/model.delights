@@ -10,7 +10,8 @@
     "lint": "eslint",
     "insights:cluster": "npx tsx packages/insights-engine/scripts/cluster.ts",
     "insights:draft": "npx tsx packages/insights-engine/scripts/draft.ts",
-    "insights:batch": "npx tsx packages/insights-engine/scripts/batch.ts"
+    "insights:batch": "npx tsx packages/insights-engine/scripts/batch.ts",
+    "insights:publish": "npx tsx packages/insights-engine/scripts/publish.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.41",

@@ -1,0 +1,6 @@
+{
+  "queueDir": "./packages/insights-engine/.queue",
+  "publishDir": "./src/data/insights",
+  "clustersDir": "./src/data/insights/clusters",
+  "maxClustersPerPublish": 1
+}

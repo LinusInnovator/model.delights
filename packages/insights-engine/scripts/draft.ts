@@ -6,7 +6,13 @@ dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 
 const rootPath = process.cwd();
 const contextPath = path.join(rootPath, 'business_context.json');
-const insightsDataDir = path.join(rootPath, 'src/data/insights');
+const configPath = path.join(rootPath, 'insights.config.json');
+
+let baseOutDir = path.join(rootPath, 'src/data/insights');
+if (fs.existsSync(configPath)) {
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    if (config.queueDir) baseOutDir = path.join(rootPath, config.queueDir);
+}
 
 if (!fs.existsSync(contextPath)) {
     console.error("[Insights Drafter] Fatal Error: business_context.json not found in root.");
@@ -196,17 +202,23 @@ async function main() {
             `export const article_${targetSlug.replace(/-/g, '_')} : ContentObject = ${JSON.stringify(jsonObject, null, 2)};`
         ].join("\n");
 
-        if (!fs.existsSync(insightsDataDir)) {
-             fs.mkdirSync(insightsDataDir, { recursive: true });
+        let outDir = baseOutDir;
+        if (clusterFile && fs.existsSync(clusterFile)) {
+             const clusterMap = JSON.parse(fs.readFileSync(clusterFile, 'utf8'));
+             outDir = path.join(outDir, clusterMap.clusterName);
         }
 
-        const outPath = path.join(insightsDataDir, `${targetSlug}.ts`);
+        if (!fs.existsSync(outDir)) {
+             fs.mkdirSync(outDir, { recursive: true });
+        }
+
+        const outPath = path.join(outDir, `${targetSlug}.ts`);
         fs.writeFileSync(outPath, fileContent, 'utf-8');
 
         console.log(`\n=========================================================\n`);
         console.log(`[SUCCESS] Autonomous Drafter completed successfully!`);
-        console.log(`Article written to: src/data/insights/${targetSlug}.ts`);
-        console.log(`The Next.js framework will now instantly render this live on the Insights hub.`);
+        console.log(`Article safely buffered into the Offline Queue: ${outPath}`);
+        console.log(`The 'insights:publish' pacemaker script handles ultimate deployment syncing.`);
         console.log(`=========================================================\n`);
 
     } catch(err) {
