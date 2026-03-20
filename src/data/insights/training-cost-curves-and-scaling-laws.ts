@@ -3,99 +3,122 @@ import { ContentObject } from '@model-delights/insights-engine';
 export const article_training_cost_curves_and_scaling_laws : ContentObject = {
   "id": "training-cost-curves-and-scaling-laws-for-open-source-models",
   "slug": "training-cost-curves-and-scaling-laws-for-open-source-models",
-  "topicEntity": "Scaling laws and training cost curves for open-source LLMs",
+  "topicEntity": "Training cost curves and scaling laws for open-source large language models",
   "lastVerifiedDate": "March 2026",
   "datePublished": "March 2026",
-  "readTimeMin": 18,
+  "readTimeMin": 12,
   "author": {
     "name": "Platform Team",
-    "credentials": "Model Delights — AI compute economics & scaling-law engineering"
+    "credentials": "Snell SDK research & systems engineering (economics + inference routing)"
   },
   "primaryAnswer": {
-    "question": "How do training cost curves and scaling laws predict the compute required to scale open-source LLMs, and how should you use them to plan budgets?",
-    "summary": "Training cost curves map total training compute (and time-to-train) to achieved loss or capability. Scaling laws convert those curves into budgeting decisions: for a target loss, they estimate the optimal allocation of compute across model size, dataset size, and training tokens. Use the predicted loss-vs-compute slope to choose whether additional compute should increase parameters, increase data, or both—while including real-world overheads (throughput limits, optimizer stability, and evaluation cadence)."
+    "question": "How do you estimate and compare training cost curves for open-source models using scaling laws—while keeping the economics fact-driven?",
+    "summary": "Training compute cost typically scales with model size, dataset size, and training steps via power-law relationships; the total cost curve is then shaped by how loss improves per additional FLOP. Use scaling laws to predict the compute needed to reach a target loss, then convert compute into dollars and add data/engineering overhead. For open-source deployments, the resulting economics should be paired with inference-time routing (to reduce effective cost per useful token) and safety throttles to prevent “agentic bankruptcy” from multiplying spend."
   },
   "extractableAssets": {
     "comparisonTable": {
-      "title": "Scaling-law budgeting: which knob should you turn?",
+      "title": "Training vs. Inference economics: what scaling laws predict (and what they don’t)",
       "columns": [
-        "If your curve is steep (marginal loss drops fast)",
-        "Best lever to increase",
-        "Operational implication"
+        "Layer",
+        "Scaling-law lever",
+        "Typical cost driver",
+        "What you can estimate",
+        "What you must measure"
       ],
       "rows": [
         [
-          "Model-limited regime (more data won’t help as much)",
-          "Increase parameters (P) or training length per parameter",
-          "Expect higher VRAM / activation memory; plan for model parallel or quantized training"
+          "Training",
+          "FLOPs for target loss",
+          "GPU-hours and utilization",
+          "Compute to reach loss via power-law fits",
+          "Real throughput, batch/sequence efficiency, optimizer overhead"
         ],
         [
-          "Data-limited regime (more data reduces loss reliably)",
-          "Increase dataset size (D) / tokens (T)",
-          "Expect data pipeline and filtering costs; validate contamination and dedup rigor"
+          "Training data",
+          "Effective dataset size & quality",
+          "Data curation and token counts",
+          "Token budget vs. loss trajectory (qualitatively)",
+          "Dedup rate, domain mixing, and quality shifts over time"
         ],
         [
-          "Optimization-limited regime (loss plateaus due to training instability)",
-          "Tune optimizer, LR schedule, batch/sequence shape",
-          "Invest in numerics and stability checks before spending more compute"
+          "Inference",
+          "Tokens to solve vs. tokens generated",
+          "Serving cost per token + latency constraints",
+          "Upper bounds using token-count models",
+          "Actual prompt/response lengths and tool-call loops"
         ],
         [
-          "Latency/serving economics dominate your strategy (you care about $/use-case)",
-          "Use routing/caching to reduce effective inference cost (not training)",
-          "Plan inference cost curves separately; Snell SDK can cut per-query cost via local selection and prompt caching"
+          "Safety & control",
+          "Pre-flight blocking rate",
+          "Blocked attempts and retries",
+          "Expected overhead from firewall rules",
+          "Attack distribution and false-positive rate"
+        ],
+        [
+          "Routing",
+          "Provider/variant selection per query",
+          "Cost-per-token and latency per model",
+          "Expected savings if selection is correct",
+          "ELO/quality calibration drift across domains"
         ]
       ]
     },
     "expertQuote": {
-      "text": "If you cannot plot loss versus effective compute for your exact training stack, you are budgeting on vibes. Scaling laws only become actionable after you correct for throughput limits, sequence length effects, and real data throughput—then the slope tells you which lever buys the next unit of quality.",
-      "author": "Model Delights (training-economics engineering)"
+      "text": "A training loss scaling law tells you how many FLOPs you paid for improvement; it does not automatically tell you how many useful tokens you’ll get at inference. The economics only closes when training compute curves are paired with inference-time cost control and safety throttles that prevent runaway token generation.",
+      "author": "Snell SDK systems economics (fact-driven synthesis)"
     }
   },
   "evidenceLog": {
     "evidence-1": {
       "id": "evidence-1",
-      "type": "benchmark",
-      "content": "Cumulative budget planning example: using a fitted empirical loss law (loss = a·C^b + c, where C is effective training compute) to choose a compute multiplier that achieves a target loss reduction; marginal benefit is proportional to the local derivative b·a·C^(b-1).",
-      "sourceLabel": "Internal method note: loss-vs-compute derivative budgeting"
+      "type": "scaling-laws",
+      "content": "Power-law scaling is the standard empirical form used in published compute-optimal analyses: loss (or error) decreases as a function of model size and training compute, enabling estimation of FLOPs required to reach a target loss. Exact exponents depend on dataset and training recipe; therefore, practitioners should fit or adopt context-matched parameters and then validate with pilot runs.",
+      "sourceLabel": "Compute-optimal scaling-law literature (general principle; validate exponents per context)"
     },
     "evidence-2": {
       "id": "evidence-2",
-      "type": "theory",
-      "content": "Scaling-law decomposition: loss improvements follow power laws in compute, and often separate across model size and dataset/token scale with regime changes (model-limited vs data-limited), enabling piecewise optimal strategies.",
-      "sourceLabel": "Common scaling-law form (power-law regimes)"
+      "type": "economics",
+      "content": "Total cost curves are compute cost plus non-compute overheads. Even with the same theoretical FLOPs, realized cost depends on hardware utilization, sequence packing efficiency, distributed training communication, experiment churn, and engineering time. Converting FLOPs to $ requires measured $/FLOP effective rates.",
+      "sourceLabel": "Applied ML cost modeling practice (utilization-aware FLOPs-to-$ conversion)"
     },
     "evidence-3": {
       "id": "evidence-3",
-      "type": "systems-math",
-      "content": "Throughput correction: effective compute C_eff = (FLOPs per token) · (tokens trained) adjusted by achieved tokens/sec from your hardware and training kernel efficiency; if utilization is below peak, the realized cost-to-loss curve steepens.",
-      "sourceLabel": "Systems correction for training cost curves"
+      "type": "inference-control",
+      "content": "Agentic workflows can create unbounded execution loops (retries, tool calls, re-planning), which multiply token usage and therefore inference spend. Pre-flight blocking and local routing decisions can reduce expected wasted tokens and thus the realized cost per successful task.",
+      "sourceLabel": "Operational risk economics for agentic systems (runaway-loop spend)"
+    },
+    "evidence-4": {
+      "id": "evidence-4",
+      "type": "routing-latency",
+      "content": "Double-hop routing adds latency and can increase downstream tool-call timeouts, indirectly increasing token waste. Local decision logic can reduce both latency and cost by selecting lower-cost models per query without round-trips.",
+      "sourceLabel": "Systems engineering principle for router-induced latency taxes (validate in your stack)"
     }
   },
   "limitations": [
-    "Scaling laws are probabilistic fits; they can fail under major distribution shifts, non-stationary data quality, or atypical tokenization/sequence-length choices.",
-    "Empirical slopes depend on your optimizer, batch/sequence geometry, and regularization; power-law exponents are not universal constants for every stack.",
-    "Data deduplication, contamination control, and filtering thresholds can change the data-limited boundary—so regime identification requires ablations or pilot runs.",
-    "Training cost curves do not directly model evaluation, safety tuning, or alignment stages; those stages may dominate total budget depending on your target behavior.",
-    "Inference cost planning is separate from training scaling; optimizing training without addressing serving economics can still yield a high $/use-case."
+    "Scaling-law exponents and constants are not universal; they shift with data mixture, tokenizer, context length, and optimization recipe. Use pilot runs to calibrate.",
+    "Loss is not always identical to downstream task quality. For economic planning, translate target loss into task-level metrics (accuracy, pass@k, rubric scores) via evaluation.",
+    "Compute-optimal training may not be cost-optimal under your hardware pricing, utilization constraints, or engineering overhead.",
+    "Inference-time savings from routing depend on correct per-query quality calibration; misrouting can increase retries and therefore total token spend.",
+    "Safety throttles change success rates and latency; you must measure false-positive impact and user-perceived failures."
   ],
   "title": {
-    "beginner": "Training Cost Curves for Open-Source LLMs (and How Scaling Laws Turn Them into Budgets)",
-    "technical": "Training Cost Curves and Scaling-Law Optimization for Open-Source Model Planning",
-    "executive": "Predict Training Budget: Use Scaling-Law Slopes to Decide Size vs Data vs Compute"
+    "beginner": "Training Cost Curves for Open-Source Models: Scaling Laws in Plain Economics",
+    "technical": "Fact-Driven Training Cost Curves for Open-Source LLMs via Compute-Optimal Scaling + Utilization-Aware FLOPs-to-$",
+    "executive": "Know What You’ll Spend: Build Training Cost Curves, Then Close the Inference Economics Gap"
   },
   "subtitle": {
-    "beginner": "A practical way to estimate compute, pick the right scaling lever, and avoid overspending.",
-    "technical": "Map effective training compute to loss, fit regime-aware scaling laws, and allocate budget across parameters, tokens, and optimization constraints.",
-    "executive": "Convert loss-vs-compute predictions into concrete budget decisions with system-aware corrections."
+    "beginner": "Estimate the FLOPs to hit a target loss, convert FLOPs to dollars realistically, and keep inference costs from spiraling.",
+    "technical": "Derive training compute requirements from scaling laws, map to utilization-aware costs, and integrate inference routing + semantic pre-flight controls to prevent runaway token spend.",
+    "executive": "Scaling laws estimate training compute for target loss; economics only works when inference routing and safety controls prevent “agentic bankruptcy.”"
   },
   "narrativeBlocks": [
     {
       "id": "p1",
       "type": "p",
       "content": {
-        "beginner": "Training cost curves tell you how much compute (and money) you spend to reach better model quality. Scaling laws then let you choose the cheapest way to improve: add parameters, add training tokens, or fix optimization—based on which part of the curve is currently “active.”",
-        "technical": "Let loss L be a function of effective training compute C_eff. A fitted scaling law yields a compute multiplier ΔC for a target ΔL, while regime boundaries (model-limited vs data-limited) indicate whether you should increase parameters P, training tokens T, or optimization stability. Correct C_eff for achieved throughput and system efficiency, otherwise the slope used for budgeting is biased.",
-        "executive": "Use a loss-vs-effective-compute curve to read off marginal value per dollar. Then apply regime-aware scaling to decide whether next spend buys parameter growth, data growth, or training stability."
+        "beginner": "Training cost curves let you forecast the $ needed to reach a target model capability. Scaling laws give you a power-law link between loss improvement and training compute. Convert the predicted FLOPs to real dollars using measured GPU utilization and overheads, then validate with small pilot runs.",
+        "technical": "Model training cost curves can be approximated by a compute-optimal scaling relation: loss decreases as a power law in effective training compute (FLOPs). For a target loss (or task quality proxy), invert the relation to estimate required FLOPs, then map FLOPs→$ using utilization-aware effective throughput and include non-compute overhead. Exponents must be calibrated per dataset/recipe.",
+        "executive": "Use scaling laws to forecast training compute for a target loss, then translate compute into a utilization-aware budget. Don’t stop there: inference-time routing and pre-flight safety control determine whether your per-task cost stays bounded or collapses into runaway token usage."
       },
       "evidenceId": "evidence-1"
     },
@@ -103,160 +126,75 @@ export const article_training_cost_curves_and_scaling_laws : ContentObject = {
       "id": "h2-1",
       "type": "h2",
       "content": {
-        "beginner": "1) What a training cost curve really is",
-        "technical": "Define cost as realized training compute: C_eff = FLOPs/token · tokens_trained, adjusted by achieved tokens/sec and utilization. Plot L (validation loss or proxy metrics) versus C_eff. The curve’s local slope is the marginal loss reduction per unit compute.",
-        "executive": "Your curve must use realized compute, not marketing FLOPs. Fit the slope on your stack so budget decisions reflect throughput and efficiency."
+        "beginner": "Step 1: Turn “target quality” into a target loss (or proxy)",
+        "technical": "Pick a measurable proxy that correlates with downstream quality. Common choices: validation loss, held-out perplexity, or task-specific metrics tightly linked to loss. Scaling laws apply most directly to loss-like quantities; if your business cares about task quality, fit a mapping from loss → task score using an evaluation suite.",
+        "executive": "Scaling laws don’t know your business KPI. Choose a target metric that scaling laws can reach (loss or a strong proxy), then map it to the KPI with evaluation."
       }
-    },
-    {
-      "id": "p2",
-      "type": "p",
-      "content": {
-        "beginner": "A good curve isn’t just “how much you train.” It includes the reality of your hardware, batching, and throughput—because slow training means you pay more time for the same progress.",
-        "technical": "Many teams compute C_nominal from peak hardware. Replace it with C_eff from instrumentation: measure tokens/sec, kernel efficiency, and actual sequence lengths (including padding/packing overhead). This changes the slope of L(C_eff), which directly impacts predicted budget needs.",
-        "executive": "Throughput turns theory into cost. Measure your effective tokens/sec and rebuild the curve; otherwise scaling-law predictions systematically under/over-estimate spend."
-      },
-      "evidenceId": "evidence-3"
     },
     {
       "id": "h2-2",
       "type": "h2",
       "content": {
-        "beginner": "2) How scaling laws convert curves into decisions",
-        "technical": "A common working form is L(C) = a·C^b + c with b<0 in the scaling regime. For a small change, dL ≈ a·b·C^(b-1) dC, so the marginal benefit declines as C grows. For joint scaling, you can use regime-aware laws L(P,T) to determine whether adding P or T yields higher dL/d(cost).",
-        "executive": "Scaling laws tell you the marginal return on the next dollar of compute, and the regime tells you what lever produces that return."
-      }
-    },
-    {
-      "id": "p3",
-      "type": "p",
-      "content": {
-        "beginner": "If your model is still “learning the basics,” extra data often helps a lot. If it already has enough data but not enough parameters, the opposite can be true.",
-        "technical": "Interpret regimes: (i) data-limited: increasing T reduces loss faster; (ii) model-limited: increasing P dominates; (iii) optimization-limited: loss plateaus due to numerical/optimization constraints. Identify regimes via controlled pilot runs and by observing which axis reduces loss more efficiently at fixed C_eff.",
-        "executive": "Don’t guess: run short pilots, fit local slopes, and classify the regime before committing to a huge training run."
+        "beginner": "Step 2: Use scaling laws to forecast compute needed for that target",
+        "technical": "Adopt a compute-optimal form where loss/error decreases with effective training compute. In practice: (a) choose which regime you’re in (data-limited vs. compute-limited), (b) use published exponents as a starting prior, then (c) calibrate constants using pilot runs at 1–2 nearby compute points. Invert the fitted relation to estimate FLOPs for the target.",
+        "executive": "Predict required training FLOPs for your target loss by fitting (or calibrating) a power-law. Validate the fit quickly with a small compute sweep before committing to full runs."
       },
-      "evidenceId": "evidence-2"
+      "evidenceId": "evidence-1"
     },
     {
       "id": "h2-3",
       "type": "h2",
       "content": {
-        "beginner": "3) Budget allocation framework (parameters vs data vs optimization)",
-        "technical": "For each candidate spend plan, estimate expected loss reduction using fitted scaling laws and compute cost with C_eff. Then choose the plan that maximizes loss reduction per dollar subject to constraints (VRAM, wall-clock, stability).",
-        "executive": "Pick the next training move by maximizing expected loss improvement per dollar under your hardware and stability constraints."
-      }
-    },
-    {
-      "id": "table-1",
-      "type": "callout",
-      "content": {
-        "beginner": "Use the active regime to decide what to scale next.",
-        "technical": "Run a pilot, fit local slopes, then map the observed regime to the lever: increase P, increase T, or tune optimization. The table below is a decision shortcut.",
-        "executive": "A steep curve means the next lever is worth it; a flat curve means you’re wasting spend unless you change regimes."
-      }
-    },
-    {
-      "id": "p4",
-      "type": "p",
-      "content": {
-        "beginner": "Practical rule: if your validation loss isn’t dropping at your expected rate, don’t immediately spend more. First diagnose throughput, data issues, and optimizer stability.",
-        "technical": "Before scaling compute, verify (1) tokenization and sequence-length correctness, (2) data pipeline stability and dedup quality, (3) training throughput utilization, and (4) optimizer dynamics (LR warmup, gradient norm distributions, loss spikes). Otherwise your effective loss slope is distorted.",
-        "executive": "Scaling spend without diagnosing plateaus is how budgets die. Validate system efficiency and training dynamics first."
+        "beginner": "Step 3: Convert FLOPs into real cost (the part people skip)",
+        "technical": "Theoretical FLOPs do not equal realized GPU-hours. Build a FLOPs-to-$ conversion using measured effective throughput: effective_FLOPs/sec = (global batch efficiency) × (sequence utilization) × (communication efficiency). Then cost($) = FLOPs / effective_FLOPs_per_$ + overhead (data pipeline, checkpoints, experiment churn, cluster idle time). This is how you get a training cost curve that matches reality.",
+        "executive": "Your cost curve must use your utilization, not paper FLOPs. Measure effective throughput and add overhead—otherwise your budget will drift."
       },
-      "evidenceId": "evidence-1"
+      "evidenceId": "evidence-2"
     },
     {
       "id": "h2-4",
       "type": "h2",
       "content": {
-        "beginner": "4) When “training scaling” isn’t the bottleneck: inference economics",
-        "technical": "If your product economics are dominated by inference $/query, training scaling alone won’t fix unit economics. Separate training cost curves (capability acquisition) from inference cost curves (capability usage). Route and cache can reduce effective inference cost without retraining.",
-        "executive": "Keep training and serving budgets separate. You can often reduce $/use-case faster with routing/caching than with another training run."
-      }
-    },
-    {
-      "id": "p5",
-      "type": "p",
-      "content": {
-        "beginner": "After training, you still pay per request. Routing and caching decisions can reduce that cost dramatically, even if you never retrain.",
-        "technical": "A practical lever is to reduce wasted tokens and double-hops in routing. For teams building enterprise LLM apps, use local, per-query selection and forced prompt caching to shrink effective inference cost. Snell SDK is designed for this: it performs a white-box local selection via a Mathematical Matrix, blocks malicious agentic payloads pre-flight with a Semantic Firewall, and forces prompt caching—reducing both cost and tail latency.",
-        "executive": "If you’re optimizing ROI, treat inference routing as part of your cost curve. Snell SDK can reduce per-query cost and latency without new training."
+        "beginner": "Step 4: Add non-training economics—especially inference control",
+        "technical": "Training curves predict the cost to reach a model, but the deployed economics is dominated by inference token dynamics. Agentic systems can create runaway loops: tool calls + retries + re-planning increase tokens superlinearly with failure probability. Add (1) semantic pre-flight blocking to stop malicious or malformed payloads before they trigger tool chains, and (2) prompt caching to force repeated-system prompts through cache hits. Finally, route each query to the lowest cost model that still meets quality constraints.",
+        "executive": "Even perfect training curves fail if inference spend isn’t bounded. Use pre-flight semantic controls and cost-aware routing so a single bad agent loop can’t bankrupt your budget."
       },
       "evidenceId": "evidence-3"
     },
     {
-      "id": "p6",
-      "type": "p",
+      "id": "callout-1",
+      "type": "callout",
       "content": {
-        "beginner": "If you’re mapping budgets to product milestones, connect the compute story to pricing and incentives—then you can justify which training step actually moves revenue.",
-        "technical": "Tie training scaling decisions to downstream unit economics: link training compute → expected model quality → achievable price/performance → incentive compatibility for sustainable compute spend. This is the same reasoning behind ",
-        "executive": "Use a unified model: quality acquisition (training) plus quality consumption (serving) plus incentives (pricing)."
-      },
-      "evidenceId": "evidence-2"
+        "beginner": "Practical rule: budget in two curves",
+        "technical": "Maintain two linked curves: (A) training $ vs. target loss (compute-optimal scaling + utilization-aware FLOPs-to-$), and (B) inference $/successful-task vs. quality requirement (token-count model + routing + caching + safety throttles). The realized unit economics is the product of these two planning layers, not just the training curve.",
+        "executive": "Plan training cost curves for loss, then close the loop with inference cost-per-success using routing, caching, and safety controls."
+      }
     },
     {
       "id": "h2-5",
       "type": "h2",
       "content": {
-        "beginner": "5) Evidence you should collect (so your curve is real)",
-        "technical": "Collect at least: (i) tokens/sec and achieved utilization to compute C_eff, (ii) validation loss at consistent checkpoints, (iii) stability metrics (grad norms, loss spikes), (iv) data quality indicators (dedup ratio, contamination checks). Fit scaling laws on the compute window where the model is actually scaling; then extrapolate with uncertainty bounds.",
-        "executive": "Don’t extrapolate blindly. Measure throughput, stability, and validation loss so your fitted slopes match reality."
+        "beginner": "Where open-source economics get tricky: calibration and reproducibility",
+        "technical": "Open-source efforts vary widely in data curation, optimizer settings, and evaluation protocols. For fact-driven planning: (a) record dataset tokenization, (b) track effective tokens after dedup and filtering, (c) log optimizer hyperparameters that affect compute efficiency, and (d) store evaluation harness versions. Scaling-law forecasts without calibration can be worse than a naive baseline.",
+        "executive": "If you can’t reproduce the loss curve, you can’t trust the cost curve. Calibrate on your data, log your training recipe, and validate the loss→quality mapping."
       }
-    },
-    {
-      "id": "p7",
-      "type": "p",
-      "content": {
-        "beginner": "A quick pilot run can save months later. You’re not trying to beat a leaderboard—you’re trying to learn your curve’s slope.",
-        "technical": "Pilot design: run 2–4 short trainings spanning the suspected regime boundary, keep optimization consistent, and vary either P or T. Fit local power-law exponents on L vs C_eff. Then compute the predicted cost to hit your next quality threshold.",
-        "executive": "Use small pilots to estimate the slope; then you can forecast the next spend with measurable confidence."
-      },
-      "evidenceId": "evidence-1"
     },
     {
       "id": "h2-6",
       "type": "h2",
       "content": {
-        "beginner": "6) FAQs and edge cases",
-        "technical": "Common failure modes and how to handle them.",
-        "executive": "Quick answers to the most common budgeting traps."
+        "beginner": "Decision: when is “bigger” actually worth it?",
+        "technical": "Compare marginal cost per marginal quality gain using the derivative of the fitted loss-vs-FLOPs curve. If the slope flattens faster than your inference savings potential (e.g., from better routing accuracy or fewer retries), you may be compute-suboptimal. Sometimes you get a better total ROI by investing in inference control (routing/caching/safety) rather than further training.",
+        "executive": "Don’t assume bigger is always better. Compute where diminishing returns start, then compare that against inference savings you can unlock with routing and control."
       }
     },
     {
-      "id": "faq-1",
-      "type": "p",
+      "id": "h2-7",
+      "type": "h2",
       "content": {
-        "beginner": "Do scaling laws apply to every open-source model?",
-        "technical": "Not directly. Exponents and regime boundaries are stack-dependent. Treat them as a hypothesis, fit them using your own C_eff and validation signals, and use pilots to detect regime shifts.",
-        "executive": "Assume scaling laws are a starting prior, not a universal constant—fit your curve."
-      }
-    },
-    {
-      "id": "faq-2",
-      "type": "p",
-      "content": {
-        "beginner": "What if my validation loss improves but product metrics don’t?",
-        "technical": "Loss is a training proxy. Your product may depend on instruction-following, tool use, or safety. Plan separate budgets for post-training/alignment and for evaluation metrics that track the actual deployment objective.",
-        "executive": "Loss ≠ business. Budget for the training stages and evaluations that match the deployed task."
-      }
-    },
-    {
-      "id": "faq-3",
-      "type": "p",
-      "content": {
-        "beginner": "Should I scale training if inference costs are too high?",
-        "technical": "First confirm whether inference $/query is the bottleneck. If yes, you may get more ROI from routing/caching and prompt minimization than from further training. Use training scaling for capability; use serving optimization for unit economics.",
-        "executive": "When $/query is the issue, serving economics often deliver faster ROI than another training run."
-      },
-      "evidenceId": "evidence-3"
-    },
-    {
-      "id": "callout-next",
-      "type": "callout",
-      "content": {
-        "beginner": "Next decision: fit your curve, then pick the lever.",
-        "technical": "1) Measure C_eff (tokens/sec · FLOPs/token · actual sequences). 2) Run a pilot across suspected regimes. 3) Fit L vs C_eff and identify whether you’re data-, model-, or optimization-limited. 4) Choose the next budget move (increase P, increase T, or tune stability). 5) Separately, model inference economics and apply routing/caching strategies where they move $/use-case. 6) Tie everything back to pricing and incentives via link budget-to-roadmap economic reasoning in Open-Source LLM Economics.",
-        "executive": "Fit slopes on your stack, identify the active regime, then allocate the next spend to the lever with the highest marginal ROI—while aligning unit economics to your roadmap."
+        "beginner": "Action step: build a pilot-backed cost curve template",
+        "technical": "1) Choose loss/task proxy and target. 2) Run 1–2 pilot points to calibrate scaling constants/exponents. 3) Fit loss = a·FLOPs^b + c (or the appropriate regime form) and invert for FLOPs. 4) Measure effective FLOPs/$ using your utilization logs. 5) Add overheads and produce $ vs. target loss. 6) Pair with an inference unit-economics model (token dynamics, caching hit rate, routing accuracy, and pre-flight block rates).",
+        "executive": "Pilot first, fit second, budget third. Produce a training cost curve and then connect it to inference unit economics so spend stays bounded per successful task."
       }
     }
   ],
