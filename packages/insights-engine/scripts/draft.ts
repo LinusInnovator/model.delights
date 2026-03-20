@@ -136,6 +136,7 @@ const systemPrompt = [
   '  "limitations": [ "Limitation 1", "Limitation 2" ],',
   '  "title": { "beginner": "...", "technical": "...", "executive": "..." },',
   '  "subtitle": { "beginner": "...", "technical": "...", "executive": "..." },',
+  '  "heroImagePrompt": "A highly detailed, cinematic abstract vector illustration prompt for Flux...",',
   '  "narrativeBlocks": [',
   '     { "id": "p1", "type": "p", "content": { "beginner": "...", "technical": "...", "executive": "..." }, "evidenceId": "evidence-1" },',
   '     { "id": "h2-1", "type": "h2", "content": { "beginner": "...", "technical": "...", "executive": "..." } }',
@@ -146,6 +147,7 @@ const systemPrompt = [
   "}",
   '2. Ensure you have proper type ("p", "h2", "callout") for narrativeBlocks.',
   "3. Keep the content deeply structured. Focus heavily on 'technical' and 'executive' depth.",
+  "4. You MUST include 'heroImagePrompt' in the JSON. This is an explicit prompt for a FLUX image generator representing the topic. It MUST explicitly end with the brand mandate: 'Dark-mode UX/UI style with vibrant emerald green and zinc accents. Corporate tech style. NO TEXT. NO WORDS. NO LETTERS.'",
   "",
   "Respond with ONLY valid JSON. No markdown syntax, no markdown codeblocks, just the JSON string starting with { and ending with }."
 ].join("\n");
@@ -196,7 +198,7 @@ async function main() {
         
         // --- PHASE 6: ON-BRAND AUTO-IMAGE GENERATION (FLUX) ---
         console.log(`[5] Engineering Brand Guidelines into Flux-Schnell Payload...`);
-        const abstractPrompt = `A minimalist, highly cinematic 8k abstract vector illustration of ${jsonObject.topicEntity || topic}. Dark-mode UX/UI style with vibrant emerald green and zinc accents. Corporate tech style. NO TEXT. NO WORDS. NO LETTERS.`;
+        const abstractPrompt = jsonObject.heroImagePrompt || `A minimalist, highly cinematic 8k abstract vector illustration of ${jsonObject.topicEntity || topic}. Dark-mode UX/UI style with vibrant emerald green and zinc accents. Corporate tech style. NO TEXT. NO WORDS. NO LETTERS.`;
         
         try {
             const heroData = await router.generateImage({ prompt: abstractPrompt });

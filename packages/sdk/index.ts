@@ -487,8 +487,8 @@ export class IntelligenceRouter {
       const togetherKey = typeof process !== 'undefined' ? process.env.TOGETHER_API_KEY : undefined;
 
       if (falKey) {
-          console.log(`[IntelligenceRouter] Routing High-Fidelity Flux matrix via Fal.ai.`);
-          const res = await fetch("https://fal.run/fal-ai/flux/dev", {
+          console.log(`[IntelligenceRouter] Routing High-Speed Flux matrix via Fal.ai Schnell.`);
+          const res = await fetch("https://fal.run/fal-ai/flux/schnell", {
               method: 'POST',
               headers: {
                   'Authorization': `Key ${falKey}`,
@@ -497,6 +497,7 @@ export class IntelligenceRouter {
               body: JSON.stringify({
                   prompt: prompt,
                   image_size: { width: width, height: height },
+                  num_inference_steps: 4,
                   sync_mode: true
               })
           });
