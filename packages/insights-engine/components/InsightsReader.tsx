@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { ContentObject, IntentLevel, EvidenceBlock } from "@/types/insights";
+import { ContentObject, IntentLevel, EvidenceBlock } from "../types";
 import { Sun, Moon, ArrowRight, ArrowLeft, Sparkle, X, ChartBar, Info } from "@phosphor-icons/react";
 import Link from "next/link";
 import Image from "next/image";

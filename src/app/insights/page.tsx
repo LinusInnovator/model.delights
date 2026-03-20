@@ -1,17 +1,32 @@
-import InsightsReader from "@/components/InsightsReader";
-import { articleSnellTimeout } from "@/data/insights/snell-timeout-prevention";
-import { articleOpenClawIntegration } from "@/data/insights/openclaw-snell-integration";
+import { InsightsReader, ContentObject } from "@model-delights/insights-engine";
 import { Metadata, ResolvingMetadata } from "next";
+import fs from "fs";
+import path from "path";
 
-const articles = [articleSnellTimeout, articleOpenClawIntegration];
+// Helper to dynamically load all TS content objects from the directory
+async function getArticles(): Promise<ContentObject[]> {
+  const directoryPath = path.join(process.cwd(), "src/data/insights");
+  if (!fs.existsSync(directoryPath)) return [];
+  const files = fs.readdirSync(directoryPath).filter((f) => f.endsWith(".ts"));
+  
+  const articles: ContentObject[] = [];
+  for (const file of files) {
+    // Dynamic import to load the statically generated TS files from the agent
+    const module = await import(`@/data/insights/${file}`);
+    const obj = Object.values(module)[0] as ContentObject;
+    if (obj && obj.slug) articles.push(obj);
+  }
+  return articles;
+}
 
 export async function generateMetadata(
   { searchParams }: { searchParams: Promise<{ article?: string }> }
 ): Promise<Metadata> {
+  const articles = await getArticles();
   const resolvedParams = await searchParams;
   const targetSlug = resolvedParams.article || "snell-timeout-prevention";
-  const activeArticle = articles.find((a) => a.slug === targetSlug) || articleSnellTimeout;
-  const canonicalUrl = `https://model.delights.pro/insights?article=${activeArticle.slug}`;
+  const activeArticle = articles.find((a) => a.slug === targetSlug) || articles[0];
+  const canonicalUrl = `https://model.delights.pro/insights?article=${activeArticle?.slug || 'snell-timeout-prevention'}`;
 
   return {
     title: `${activeArticle.title.technical} | Model Delights Insights`,
@@ -54,9 +69,14 @@ export default async function InsightsPage({
 }: {
   searchParams: Promise<{ article?: string }>;
 }) {
+  const articles = await getArticles();
   const resolvedParams = await searchParams;
   const targetSlug = resolvedParams.article || "snell-timeout-prevention";
-  const activeArticle = articles.find((a) => a.slug === targetSlug) || articleSnellTimeout;
+  const activeArticle = articles.find((a) => a.slug === targetSlug) || articles[0];
+
+  if (!activeArticle) {
+    return <div className="p-8 text-white">No insights generated yet. Run the Autonomous Drafter.</div>;
+  }
 
   // AIEO (AI Engine Optimization) & SEO structured data
   const jsonLd = {

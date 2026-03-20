@@ -1,4 +1,4 @@
-import { ContentObject } from "@/types/insights";
+import { ContentObject } from "@model-delights/insights-engine";
 
 export const articleOpenClawIntegration: ContentObject = {
   id: "openclaw-integration",

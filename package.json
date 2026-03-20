@@ -7,12 +7,14 @@
     "prebuild": "node scripts/generate-changelog.js",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "insights:draft": "npx tsx packages/insights-engine/scripts/draft.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.41",
     "@ai-sdk/react": "^3.0.118",
     "@clerk/nextjs": "^7.0.2",
+    "@model-delights/insights-engine": "file:packages/insights-engine",
     "@openrouter/ai-sdk-provider": "^2.3.3",
     "@phosphor-icons/react": "^2.1.10",
     "@stripe/stripe-js": "^8.9.0",
