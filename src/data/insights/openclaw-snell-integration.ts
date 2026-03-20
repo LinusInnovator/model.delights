@@ -59,7 +59,7 @@ export const articleOpenClawIntegration: ContentObject = {
     executive: "Maximizing the ROI and security posture of deployed autonomous AI agents."
   },
   heroImage: {
-    url: "/images/manifesto/part-2.png", 
+    url: "/images/insights/openclaw_firewall_hero.png", 
     alt: "A visual representation of an autonomous agent operating within a secure, cost-controlled ring."
   },
   narrativeBlocks: [
