@@ -2,7 +2,7 @@ export type IntentLevel = 'technical' | 'executive' | 'beginner';
 
 export interface EvidenceBlock {
   id: string;
-  type: 'benchmark' | 'screenshot' | 'quote' | 'methodology' | 'definition' | 'security';
+  type: string;
   content: string;
   sourceLabel: string;
 }
@@ -29,6 +29,13 @@ export interface NarrativeBlock {
   // Allow multiple intents for dynamic tone shifting
   content: Record<IntentLevel, string | string[]>;
   evidenceId?: string; // Links this paragraph directly to an evidence block required by E-E-A-T
+}
+
+export interface InternalLink {
+  targetSlug: string;
+  targetTitle: string;
+  anchorText: string;
+  relationship: 'parent-hub' | 'child-spoke' | 'sibling' | 'contextual';
 }
 
 export interface ContentObject {
@@ -68,4 +75,6 @@ export interface ContentObject {
   };
 
   narrativeBlocks: NarrativeBlock[]; 
+  
+  internalLinks?: InternalLink[];
 }

@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "insights:cluster": "npx tsx packages/insights-engine/scripts/cluster.ts",
     "insights:draft": "npx tsx packages/insights-engine/scripts/draft.ts"
   },
   "dependencies": {

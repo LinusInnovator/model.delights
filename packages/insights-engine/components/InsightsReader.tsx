@@ -478,6 +478,30 @@ export default function InsightsReader({ article, allArticles }: InsightsReaderP
             </>
           )}
 
+          {article.internalLinks && article.internalLinks.length > 0 && (
+             <div className="mt-16 pt-10 border-t border-emerald-500/20 animate-fade-in-up">
+                <h3 className="font-mono text-xs uppercase tracking-widest text-emerald-500 mb-6 flex items-center gap-2">
+                   <Sparkle weight="fill" className="text-emerald-500" /> Explore Topic Cluster
+                </h3>
+                <div className="flex flex-col gap-4">
+                   {article.internalLinks.map((link, idx) => (
+                      <Link 
+                         key={idx} 
+                         href={`/insights?article=${link.targetSlug}`}
+                         className={`p-4 xl:p-6 rounded-2xl border flex items-center justify-between group transition-all duration-300 ${theme === 'dark' ? 'bg-zinc-900/40 border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900/80 shadow-[0_8px_32px_rgba(0,0,0,0.2)]' : 'bg-white/40 border-zinc-200 hover:border-emerald-500/50 hover:bg-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.05)]'}`}
+                      >
+                         <div className="flex flex-col">
+                            <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-500 opacity-80 mb-1">{link.relationship.replace('-', ' ')}</span>
+                            <span className={`font-bold text-lg md:text-xl group-hover:text-emerald-500 transition-colors ${headerClass}`}>{link.targetTitle}</span>
+                            <span className={`text-sm opacity-60 mt-1 italic font-serif`}>"{link.anchorText}"</span>
+                         </div>
+                         <ArrowRight className="w-5 h-5 text-emerald-500 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0 ml-4" />
+                      </Link>
+                   ))}
+                </div>
+             </div>
+          )}
+
         </article>
 
         {/* Desktop Evidence Log (Margin Notes) */}

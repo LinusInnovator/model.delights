@@ -1,0 +1,39 @@
+{
+  "clusterName": "open-source-llm-economics",
+  "hub": {
+    "slug": "open-source-llm-economics",
+    "title": "Open-Source LLM Economics: Pricing, Incentives, and Sustainable Compute",
+    "topicEntity": "Open-source large language model economics",
+    "intent": "Thought Leadership / Pillar Page",
+    "summary": "A macro-level framework for understanding who pays for open-source LLM development and deployment, how costs scale with training and inference, which incentive models sustain maintainers, and how license and deployment choices affect pricing, moat dynamics, and ecosystem growth."
+  },
+  "spokes": [
+    {
+      "slug": "training-cost-curves-and-scaling-laws",
+      "title": "Training Cost Curves and Scaling Laws for Open-Source Models",
+      "topicEntity": "Training cost modeling and scaling economics",
+      "intent": "Answer / Method",
+      "summary": "Practical methods to estimate training budgets using token compute assumptions, hardware utilization, and scaling-law-informed projections—plus how to translate these into roadmap decisions for open-source teams.",
+      "anchorToHub": "link budget-to-roadmap economic reasoning in Open-Source LLM Economics",
+      "hubAnchorToSpoke": "training cost curves and scaling-law-based budgeting for open-source model roadmaps"
+    },
+    {
+      "slug": "inference-pricing-models-and-unit-economics",
+      "title": "Inference Pricing Models and Unit Economics (Per-Token, Per-Request, and SLA)",
+      "topicEntity": "Inference unit economics and pricing strategy",
+      "intent": "Answer / Method",
+      "summary": "A guide to calculate real unit costs for serving LLMs (GPU time, batching, networking, caching, and concurrency) and map them to pricing approaches such as per-token, per-request, and SLA-based tiers for open-source deployments.",
+      "anchorToHub": "unit economics for serving open-source LLMs within the Open-Source LLM Economics framework",
+      "hubAnchorToSpoke": "inference pricing models and unit economics for running open-source LLMs"
+    },
+    {
+      "slug": "licensing-incentives-and-ecosystem-moats",
+      "title": "Licensing Incentives, Ecosystem Moats, and Contributor Sustainability",
+      "topicEntity": "Licensing, incentives, and competitive dynamics",
+      "intent": "Answer / Glossary / Method",
+      "summary": "How open-source licenses and governance choices influence adoption, commercial extraction, and contributor motivation—covering incentives for maintainers, funding paths, and where durable differentiation comes from beyond weights.",
+      "anchorToHub": "licensing and incentive economics in Open-Source LLM Economics",
+      "hubAnchorToSpoke": "licensing incentives, ecosystem moats, and contributor sustainability"
+    }
+  ]
+}

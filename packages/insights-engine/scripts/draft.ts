@@ -14,11 +14,59 @@ if (!fs.existsSync(contextPath)) {
 }
 
 const businessContext = JSON.parse(fs.readFileSync(contextPath, 'utf8'));
-const topic = process.argv[2];
 
-if (!topic) {
-    console.error(`[Insights Drafter] Please provide a topic.`);
+let topic = "";
+let clusterFile = "";
+let nodeSlug = "";
+
+for (let i = 2; i < process.argv.length; i++) {
+    if (process.argv[i] === '--cluster') clusterFile = process.argv[i+1];
+    if (process.argv[i] === '--slug') nodeSlug = process.argv[i+1];
+}
+
+if (!clusterFile && process.argv.length > 2 && !process.argv[2].startsWith('--')) {
+    topic = process.argv[2];
+}
+
+if (!topic && (!clusterFile || !nodeSlug)) {
+    console.error(`[Insights Drafter] Usage: npm run insights:draft "Your Topic"`);
+    console.error(`                   OR npm run insights:draft --cluster [file] --slug [slug]`);
     process.exit(1);
+}
+
+let clusterContextStr = "";
+let isHub = false;
+
+if (clusterFile && nodeSlug) {
+    if (!fs.existsSync(clusterFile)) {
+        console.error(`[Insights Drafter] Fatal Error: Cluster file not found: ${clusterFile}`);
+        process.exit(1);
+    }
+    const clusterMap = JSON.parse(fs.readFileSync(clusterFile, 'utf8'));
+    
+    const hub = clusterMap.hub;
+    const spokes = clusterMap.spokes || [];
+    
+    if (hub.slug === nodeSlug) {
+        isHub = true;
+        topic = hub.title;
+        clusterContextStr = `You are writing the HUB PAGE for the SEO cluster '${clusterMap.clusterName}'.\n` +
+            `You MUST weave exact-match contextual internal links downward to your Supporting Spokes. ` +
+            `Map these into the 'internalLinks' JSON array natively.\n` + 
+            `Target Spokes:\n` +
+            spokes.map((s:any) => `- Slug: ${s.slug} | Title: ${s.title} | Required Anchor Text to use organically in body: "${s.hubAnchorToSpoke}" | Relationship: child-spoke`).join("\n");
+    } else {
+        const spoke = spokes.find((s:any) => s.slug === nodeSlug);
+        if (!spoke) {
+            console.error(`[Insights Drafter] Fatal: Node slug '${nodeSlug}' not found in cluster map.`);
+            process.exit(1);
+        }
+        topic = spoke.title;
+        clusterContextStr = `You are writing a SUPPORTING SPOKE PAGE for the SEO cluster '${clusterMap.clusterName}'.\n` +
+            `You MUST weave an exact-match contextual internal link UPWARD to your Parent Hub. ` +
+            `Map this into the 'internalLinks' JSON array natively.\n` +
+            `- Parent Hub Slug: ${hub.slug} | Title: ${hub.title} | Required Anchor Text to use organically in body: "${spoke.anchorToHub}" | Relationship: parent-hub\n`;
+    }
 }
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
@@ -38,7 +86,7 @@ const systemPrompt = [
   "You are the Autonomous Content Architect for " + businessContext.companyName + ".",
   "Your objective is to draft a heavily structured JSON payload for an article about '" + topic + "'.",
   "The article must strictly align with the 2026 AI Search Principles (Extractability, Fact-Driven, E-E-A-T).",
-  "",
+  clusterContextStr ? `\n--- CLUSTER CONTEXT ---\n${clusterContextStr}\n-----------------------\n` : "",
   "Context provided by the business:",
   "Product: " + businessContext.productName,
   "Audience: " + businessContext.primaryAudience,
@@ -85,6 +133,9 @@ const systemPrompt = [
   '  "narrativeBlocks": [',
   '     { "id": "p1", "type": "p", "content": { "beginner": "...", "technical": "...", "executive": "..." }, "evidenceId": "evidence-1" },',
   '     { "id": "h2-1", "type": "h2", "content": { "beginner": "...", "technical": "...", "executive": "..." } }',
+  '  ],',
+  '  "internalLinks": [',
+  '     { "targetSlug": "slug", "targetTitle": "Title", "anchorText": "anchor", "relationship": "parent-hub" }',
   '  ]',
   "}",
   '2. Ensure you have proper type ("p", "h2", "callout") for narrativeBlocks.',
@@ -92,7 +143,6 @@ const systemPrompt = [
   "",
   "Respond with ONLY valid JSON. No markdown syntax, no markdown codeblocks, just the JSON string starting with { and ending with }."
 ].join("\n");
-
 
 async function main() {
     console.log(`\n============== MODEL DELIGHTS INSIGHTS ==============\n`);
@@ -136,7 +186,7 @@ async function main() {
             process.exit(1);
         }
 
-        const targetSlug = jsonObject.slug || `generated-article-${Date.now()}`;
+        const targetSlug = nodeSlug || jsonObject.slug || `generated-article-${Date.now()}`;
         
         console.log(`[5] Writing perfectly formatted TypeScript file into architecture...`);
 
