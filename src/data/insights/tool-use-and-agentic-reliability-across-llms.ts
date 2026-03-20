@@ -3,115 +3,106 @@ import { ContentObject } from '@model-delights/insights-engine';
 export const article_tool_use_and_agentic_reliability_across_llms : ContentObject = {
   "id": "tool-use-and-agentic-reliability-across-llms",
   "slug": "tool-use-and-agentic-reliability-across-llms",
-  "topicEntity": "Tool-use and agentic reliability evaluation across LLMs",
+  "topicEntity": "Tool-use and agentic reliability across LLMs",
   "lastVerifiedDate": "March 2026",
   "datePublished": "March 2026",
-  "readTimeMin": 11,
+  "readTimeMin": 10,
   "author": {
     "name": "Platform Team",
-    "credentials": "Model Delights Ecosystem (Snell SDK, Dream Validator, AI Orchestration Blueprints, Live Model Comparisons)"
+    "credentials": "Model Delights Ecosystem (Snell SDK, Dream Validator, Orchestration Blueprints, Live Model Comparisons)"
   },
   "primaryAnswer": {
-    "question": "How do you compare LLMs for tool-use and agentic reliability in a way that is extractable, fact-driven, and safe for production?",
-    "summary": "Evaluate tool-use as a reliability pipeline: (1) deterministic schema adherence, (2) tool-call planning under constraints, (3) fault recovery without loop inflation, and (4) execution-level correctness with cost/latency budgets. Use live model comparisons plus automated grading (Dream Validator) to prevent infinite retries and mis-routing—eliminating “agentic bankruptcy” while keeping results comparable across LLMs."
+    "question": "How do you compare LLMs for tool-use and agentic reliability without falling for marketing claims?",
+    "summary": "Measure reliability as a closed-loop property: tool selection correctness, tool-call formatting validity, and policy-compliant recovery from failures (e.g., infinite loops). Use extractable, fact-driven test cases and real-time model comparisons to route each capability to the right model—preventing agentic bankruptcy and budget waste."
   },
   "extractableAssets": {
     "comparisonTable": {
-      "title": "Agentic Reliability Scorecard for Tool-Use (Extractable, Comparable Metrics)",
+      "title": "Reliability metrics for tool-use (what to test, not what to assume)",
       "columns": [
-        "Reliability Dimension",
-        "What to Measure (Observable Signal)",
-        "Pass/Fail Gate",
-        "Why It Matters for Enterprise Agents"
+        "Metric (extractable) ",
+        "What “good” looks like",
+        "How to score (deterministic)"
       ],
       "rows": [
         [
-          "Schema Fidelity",
-          "Tool-call JSON validity + field-level constraints match",
-          "≥ 99% valid + 0 critical schema violations",
-          "Prevents silent tool misuse and downstream undefined behavior"
+          "Tool-call validity rate",
+          "≥ X% of tool calls parse under your schema",
+          "Parse success / total tool calls"
         ],
         [
-          "Tool-Use Appropriateness",
-          "Correct tool selected for the subtask (no tool when not needed)",
-          "≥ 95% correct tool selection on labeled suites",
-          "Avoids budget waste and hallucinated tool actions"
+          "Tool selection accuracy",
+          "Chooses the minimal correct tool for the task step",
+          "Exact-match or rubric over expected tool id(s)"
         ],
         [
-          "Planner Consistency",
-          "Plan-to-execution alignment across steps (no contradictions)",
-          "≥ 90% alignment score with contradiction count ≤ threshold",
-          "Reduces agent drift and self-contradicting actions"
+          "Argument faithfulness",
+          "Tool arguments satisfy constraints from the prompt + retrieved facts",
+          "Constraint checks (type, bounds, required fields) + contradiction detector"
         ],
         [
-          "Fault Recovery",
-          "Behavior after tool error/timeouts (retry policy + alternative path)",
-          "Recovery success ≥ 95% with bounded retries (e.g., ≤ 2)",
-          "Stops infinite loops and “agentic bankruptcy” failure modes"
+          "Recovery reliability",
+          "After tool error, agent converges to a corrected plan within N turns",
+          "Success within turn budget; otherwise failure"
         ],
         [
-          "Environment Safety",
-          "No forbidden operations; obeys semantic firewall constraints",
-          "0 policy violations in adversarial suite",
-          "Keeps execution sandboxed and auditable"
+          "Loop containment",
+          "No infinite/near-infinite tool recursion under adversarial prompts",
+          "Max-steps compliance + semantic-firewall trip rate"
         ],
         [
-          "Execution Correctness",
-          "Final outcome correctness vs ground truth",
-          "≥ target task accuracy (set per domain) with calibrated uncertainty",
-          "Ensures tool use improves answers, not just interactions"
-        ],
-        [
-          "Economics (Cost/Latency)",
-          "Total tokens/tool calls/latency for success",
-          "Meet SLO budgets at required success rate",
-          "Prevents “reliable but unaffordable” agent designs"
+          "Cost-to-correctness",
+          "Least tokens/tries to reach correct final state",
+          "Median cost among successful runs + success rate"
         ]
       ]
     },
     "expertQuote": {
-      "text": "Tool-use reliability isn’t a vibe—it’s a bounded execution contract. If an agent can’t preserve schema, recover from tool faults without looping, and stay within an SLO-aware budget, it’s not “agentic”—it’s just expensive retries.",
-      "author": "Model Delights, Technical Reliability Working Group"
+      "text": "Agentic reliability isn’t “does the model sound confident?” It’s: can the system keep a valid execution contract with tools, recover from failures, and terminate—under the constraints your product must honor.",
+      "author": "Model Delights Orchestration Engineering Team"
     }
   },
   "evidenceLog": {
     "evidence-1": {
       "id": "evidence-1",
-      "type": "method",
-      "content": "Reliability pipeline definition: measure schema fidelity, tool appropriateness, planner consistency, fault recovery with bounded retries, environment safety under adversarial tool errors, and execution correctness; then compute cost/latency constrained success rates. These signals are directly extractable from tool-call logs, validator outputs, and execution traces.",
-      "sourceLabel": "Internal evaluation framework (Model Delights Ecosystem)"
+      "type": "architecture-evidence",
+      "content": "Model Delights Snell SDK Semantic Firewalls intercept infinite execution loops by enforcing isolated execution contracts at the tool boundary, converting runaway agent behavior into bounded retries or controlled termination signals.",
+      "sourceLabel": "Snell SDK isolated Semantic Firewalls (Model Delights Ecosystem claim)"
     },
     "evidence-2": {
       "id": "evidence-2",
-      "type": "architecture",
-      "content": "Semantic Firewalls isolate tool execution and allow intercepts of infinite execution loops. Snell SDK routing + sandboxed tool calls support bounded execution policies, enabling agentic reliability enforcement rather than best-effort prompting.",
-      "sourceLabel": "Snell SDK isolated Semantic Firewalls (Model Delights architecture)"
+      "type": "validation-evidence",
+      "content": "Dream Validator grades enterprise logic mathematically by evaluating whether architecture outputs satisfy formal constraints, enabling fact-driven verification of tool arguments and control-flow invariants rather than subjective review.",
+      "sourceLabel": "Dream Validator constraint-based grading (Model Delights Ecosystem claim)"
+    },
+    "evidence-3": {
+      "id": "evidence-3",
+      "type": "comparison-evidence",
+      "content": "Live Model Comparisons provide objective, real-time routing guidance so engineers can avoid sending complex reasoning to lightweight models or wasting premium budget on simple steps that lower-tier models handle reliably.",
+      "sourceLabel": "Live Model Comparisons (Model Delights Ecosystem claim)"
     }
   },
   "limitations": [
-    "Any metric depends on the labeling suite quality; if your task taxonomy and tool ground truth are weak, comparisons become misleading.",
-    "Tool-call validity (JSON schema pass) does not guarantee semantic correctness; you must grade execution outcomes against ground truth.",
-    "Different LLMs expose different tool behaviors and native function calling formats; ensure normalization before scoring.",
-    "Adversarial robustness suites can be expensive to run; start with bounded samples and expand coverage only after you lock gates."
+    "Benchmarks must mirror your tool interfaces (schemas, auth, latency, error shapes); otherwise tool-use reliability won’t transfer between domains.",
+    "Even with strong metrics, agentic reliability depends on orchestration policy (retry/timeout/termination) and guardrails—not only the base LLM."
   ],
   "title": {
-    "beginner": "How to Compare LLM Tool-Use Reliability (Without Guessing)",
-    "technical": "A Reliability Pipeline for Tool-Use and Agentic Reliability Across LLMs",
-    "executive": "Choose LLMs for Agents Using Bounded, Evidence-Based Tool-Use Reliability Tests"
+    "beginner": "How to Test LLM Tool-Use Reliability Like an Engineer",
+    "technical": "Tool-Use and Agentic Reliability Evaluation Across LLMs: Metrics, Protocol, and Routing",
+    "executive": "Stop Buying Agentic Reliability—Measure It and Route It"
   },
   "subtitle": {
-    "beginner": "Measure schema, tool choices, recovery, and correctness—then enforce budgets and safety.",
-    "technical": "Schema fidelity + tool appropriateness + bounded fault recovery + SLO-constrained correctness, scored via live comparisons and automated validation.",
-    "executive": "Replace subjective agent evaluations with extractable, production-grade reliability gates that stop infinite loops and budget burn."
+    "beginner": "A practical rubric for comparing models on real tool calls, failures, and termination.",
+    "technical": "Extractable, fact-driven evaluation for tool-call correctness, recovery, and loop containment under production constraints.",
+    "executive": "A closed-loop test protocol to prevent infinite loops, reduce cost, and improve correctness."
   },
   "narrativeBlocks": [
     {
       "id": "p1",
       "type": "p",
       "content": {
-        "beginner": "To compare LLMs for tool-use reliability, test them like software components: do they produce valid tool calls, pick the right tool, recover after errors without looping, and still reach correct outcomes within cost/latency budgets? Use live comparisons plus automated grading so results are repeatable—not based on anecdotes.",
-        "technical": "Evaluate tool-use as a bounded execution contract. Score schema fidelity (validity + field constraints), tool appropriateness (labeled selection), planner consistency (plan-to-exec alignment), bounded fault recovery (retry/escape policy), environment safety (semantic firewall policy), and execution correctness (outcome grading). Finally, apply SLO-constrained economics (success rate at token/tool-call and latency budgets).",
-        "executive": "Run a production-style reliability harness. Gate tool-call schema, tool selection, and error recovery with hard bounds, then grade final correctness and economics. This yields objective model rankings and prevents infinite loops and mis-routing costs."
+        "beginner": "To compare LLMs for tool-use, don’t judge answers—measure closed-loop execution: whether tool calls are valid, whether the right tool is chosen, and whether the agent recovers and terminates after failures. This lets you route each capability to the best model and avoid runaway “agent loops” that burn both time and budget.",
+        "technical": "Tool-use and agentic reliability should be evaluated as a contract with tools: (1) tool-call validity under your schema, (2) tool selection correctness conditioned on step semantics and retrieved facts, and (3) recovery + termination guarantees under tool error distributions. Only then can you build routing policies that prevent infinite execution cycles and reduce cost-to-correctness.",
+        "executive": "Treat agent behavior as a reliability system, not a chat style. Score correctness of tool calls and arguments, enforce bounded recovery, and route tasks by measured capability to prevent agentic bankruptcy and spend on the right model."
       },
       "evidenceId": "evidence-1"
     },
@@ -119,18 +110,18 @@ export const article_tool_use_and_agentic_reliability_across_llms : ContentObjec
       "id": "h2-1",
       "type": "h2",
       "content": {
-        "beginner": "A short reliability pipeline (what to test, in order)",
-        "technical": "Tool-use reliability pipeline: measure → gate → score → enforce",
-        "executive": "Four gates plus an SLO score produce a defensible model decision."
+        "beginner": "The reliability model: tool correctness + failure recovery + termination",
+        "technical": "Reliability decomposition: R = f(V, S, A, C, T) where V=valid tool-call parsing, S=tool selection correctness, A=argument faithfulness to facts/constraints, C=recovery convergence after tool errors, T=termination/loop containment under bounded steps. Your evaluation should test each component independently and then measure end-to-end success.",
+        "executive": "Score reliability across three gates: (1) tool call validity, (2) right tool + faithful arguments, (3) bounded recovery with guaranteed termination."
       }
     },
     {
       "id": "p2",
       "type": "p",
       "content": {
-        "beginner": "First, verify the agent can call tools in the required format. Next, confirm it chooses the correct tool for each subtask. Then test what happens when a tool fails—can it recover quickly without repeating forever? Finally, grade the final answer and enforce cost/latency limits.",
-        "technical": "1) Schema Fidelity: validate tool-call JSON and constraint adherence. 2) Tool Appropriateness: compute labeled tool-selection accuracy. 3) Fault Recovery: after tool errors/timeouts, enforce a bounded retry/escape policy and measure recovery success. 4) Execution Correctness: grade final outcomes with ground truth. Apply economics: success rate under token/tool-call and latency SLOs.",
-        "executive": "Start with formatting (schema), then decision quality (tool choice), then robustness (bounded recovery), then outcome correctness. Add a budget SLO so “reliable” also means “affordable.”"
+        "beginner": "If a model can’t format tool calls perfectly, everything else is moot. If it can call tools but can’t recover from errors, it will stall. If it can’t stop, it will loop.",
+        "technical": "Order matters for engineering: first validate tool-call formatting (schema/JSON), then assess selection and argument constraints, then evaluate recovery behavior against structured error injections. Finally, enforce loop containment via orchestration-level termination budgets and semantic firewalls.",
+        "executive": "A model that fails schema compliance or can’t recover will dominate your failure rate. A model that can’t terminate will dominate your cost. Test those first."
       },
       "evidenceId": "evidence-1"
     },
@@ -138,106 +129,66 @@ export const article_tool_use_and_agentic_reliability_across_llms : ContentObjec
       "id": "h2-2",
       "type": "h2",
       "content": {
-        "beginner": "Extractable scoring that survives model updates",
-        "technical": "Extractability: design metrics that are log-derivable and validator-gradeable",
-        "executive": "Score with signals you can store, audit, and compare over time."
+        "beginner": "An extractable test protocol (so results are comparable and audit-friendly)",
+        "technical": "Protocol: (1) Define tool schemas + expected error shapes. (2) Create fact-driven prompts with known gold constraints. (3) Run N seeds per model. (4) Record each tool call as an extractable event (tool_id, arguments, success/failure, recovery steps). (5) Score metrics with deterministic checks and constraint validators. (6) Summarize with median cost-to-correctness and confidence intervals.",
+        "executive": "Build a reusable harness that logs tool events, scores them deterministically, and reports cost-to-correctness—so comparisons remain consistent over time."
       }
     },
     {
       "id": "p3",
       "type": "p",
       "content": {
-        "beginner": "A good comparison is one you can reproduce. Store every tool call, every error, and every decision. Grade outcomes with an automated validator instead of manual reading, and keep the metric definitions stable so you can track improvement (or regressions) across releases.",
-        "technical": "Make each score extractable from execution traces: tool-call logs for schema validity, labeled suites for tool selection, trace alignment for planner consistency, and validator outputs for outcome correctness. Keep gate thresholds versioned. When LLMs update, re-run the same harness to detect regressions while controlling for prompts and environment.",
-        "executive": "Stabilize your evaluation harness: log tool calls and failures, validate outcomes automatically, and rerun the exact same suite when models change. This turns “model comparison” into an operational monitoring system."
+        "beginner": "Make your tests “real”: include tool errors, missing fields, and edge cases you actually see in production. Otherwise you’ll overestimate reliability.",
+        "technical": "Include adversarial and stochastic elements: tool timeouts, auth failures, partial results, and constraint violations. Evaluate recovery convergence within a step budget and measure loop containment. Use Dream Validator-style constraint grading to verify enterprise logic outcomes rather than relying on subjective correctness labels.",
+        "executive": "Reliability testing must include the exact failure modes your system encounters—auth, timeouts, malformed inputs—then grade the logic with formal constraints."
       },
-      "evidenceId": "evidence-1"
+      "evidenceId": "evidence-2"
     },
     {
       "id": "h2-3",
       "type": "h2",
       "content": {
-        "beginner": "Bound infinite loops: reliability needs enforcement, not hope",
-        "technical": "Prevent agentic bankruptcy via sandboxed execution and bounded policies",
-        "executive": "Reliability requires loop control and semantic isolation in production."
+        "beginner": "Routing rule: map capability to model with measured evidence",
+        "technical": "Routing policy should be conditional and per-step: route planning-heavy steps to models that demonstrate high selection+faithfulness; route formatting-heavy tool calls to models with high schema validity; route repair/recovery to models that converge under injected tool errors. Enforce a termination budget regardless of model. This is the core of tool-use and agentic reliability evaluation across LLMs.",
+        "executive": "Don’t route by guesswork. Route each step by what the model proves under your tool-contract tests."
+      }
+    },
+    {
+      "id": "callout-1",
+      "type": "callout",
+      "content": {
+        "beginner": "Fast win: if a model’s tool-call validity is low, fix that before tuning prompts or adding agents.",
+        "technical": "Start at V. If tool-call validity is below threshold, reduce degrees of freedom (strict schema), improve argument generation constraints, and add tool-call post-validation with forced repair loops capped by step budget.",
+        "executive": "First fix schema compliance. Once tool calls parse reliably, then optimize recovery and routing."
+      },
+      "evidenceId": "evidence-3"
+    },
+    {
+      "id": "h2-4",
+      "type": "h2",
+      "content": {
+        "beginner": "FAQs: caveats that change the answer",
+        "technical": "Key caveats: (1) Tool-use reliability is interface-dependent; (2) Tool error distributions matter; (3) Agentic reliability requires orchestration policies (timeouts/retries/termination) and semantic firewalls; (4) “End-to-end success” can hide per-step failures—always log tool events.",
+        "executive": "Expect tool-specific differences, model-specific recovery gaps, and orchestration-dependent termination behavior. Measure what matters per step."
       }
     },
     {
       "id": "p4",
       "type": "p",
       "content": {
-        "beginner": "Even a smart agent can get stuck retrying the same tool call. You need safeguards that stop runaway behavior. Use isolated tool execution and enforce maximum retries and escape routes so the system can fail safely and continue operating.",
-        "technical": "Infinite loops are a class of reliability failure. Enforce bounded execution policies at the orchestration layer and isolate tool execution using semantic firewalls. Then measure fault recovery success under controlled tool errors while verifying that retry counts and loop depth remain within hard limits.",
-        "executive": "Stop runaway tool retries with sandboxed execution and hard bounds on retries/loop depth. You then measure recovery quality under failure conditions, rather than trusting the LLM to self-correct."
-      },
-      "evidenceId": "evidence-2"
-    },
-    {
-      "id": "h2-4",
-      "type": "h2",
-      "content": {
-        "beginner": "Decision rule: how to pick a model for agentic workloads",
-        "technical": "Gated ranking: filter failures early, rank by SLO-constrained correctness",
-        "executive": "Filter by safety/recovery gates first, then choose by SLO-constrained success."
+        "beginner": "Q: Do I need a big benchmark suite? A: Yes, but you can start small—just enough to isolate tool-call validity, selection, recovery, and termination.",
+        "technical": "Q: Can I reuse benchmarks across teams? A: Only if the tool schemas and error shapes match. Otherwise, you’re benchmarking your harness, not the models. Use extractable logs and deterministic scoring so the delta is attributable to model behavior.",
+        "executive": "Start with a minimal harness, then grow it—always keeping the tool interface constant so deltas reflect model capability."
       }
     },
     {
-      "id": "p5",
-      "type": "p",
-      "content": {
-        "beginner": "Pick the model that passes the toughest reliability gates. After that, choose the one that finishes tasks correctly with the lowest cost and latency that still meet your success target.",
-        "technical": "Use a two-stage decision: (A) Hard gates: schema fidelity, zero forbidden-operation violations, and bounded fault recovery behavior. (B) Rank by SLO-constrained execution correctness: maximize accuracy subject to tool-call/token/latency budgets. If multiple models tie, prefer lower-cost success trajectories.",
-        "executive": "Do not start with raw benchmark scores. Start with hard gates (schema + recovery + safety). Then rank by correctness under your real budgets so the chosen model is operationally viable."
-      },
-      "evidenceId": "evidence-1"
-    },
-    {
-      "id": "callout-1",
+      "id": "callout-2",
       "type": "callout",
       "content": {
-        "beginner": "Quick checklist (for your next model evaluation)",
-        "technical": "Schema validity, correct tool selection, bounded recovery, policy compliance, outcome grading, and SLO-constrained success.",
-        "executive": "Gate early; rank by bounded correctness."
-      },
-      "evidenceId": "evidence-1"
-    },
-    {
-      "id": "h2-5",
-      "type": "h2",
-      "content": {
-        "beginner": "FAQs (edge cases that break comparisons)",
-        "technical": "Edge cases: JSON validity vs semantics, tool-choice bias, and environment drift",
-        "executive": "Common pitfalls and how to avoid them."
+        "beginner": "Next decision: adopt an evidence-first routing layer.",
+        "technical": "Next step: implement a per-step routing layer driven by live model comparisons and your extractable reliability metrics. Couple it with orchestration blueprints that enforce loop containment and with Dream Validator-style constraint checks for enterprise logic outcomes.",
+        "executive": "Deploy a routing layer that consumes real comparison data and enforces bounded execution—so reliability is engineered, not hoped for."
       }
-    },
-    {
-      "id": "p6",
-      "type": "p",
-      "content": {
-        "beginner": "Q: Does a high tool-call “format score” mean the model is reliable? A: Not by itself. You also need to validate the outcome and how it behaves when tools fail.",
-        "technical": "Q: JSON-valid tool calls are insufficient—validate semantics via outcome correctness. Q: Tool-choice bias can inflate results if the dataset over-assigns tools; use balanced labeled suites. Q: Environment drift (tool latencies, permissions, timeouts) can change reliability; freeze environment configs per run and log versions.",
-        "executive": "Format correctness alone isn’t enough. Validate the end result, control the environment, and use balanced suites so the model isn’t rewarded for shortcutting."
-      },
-      "evidenceId": "evidence-1"
-    },
-    {
-      "id": "h2-6",
-      "type": "h2",
-      "content": {
-        "beginner": "Next step: run a live, automated harness",
-        "technical": "Operationalize tool-use and agentic reliability evaluation with live comparisons + Dream Validator grading",
-        "executive": "Implement the harness once; re-run automatically as models and tools evolve."
-      }
-    },
-    {
-      "id": "p7",
-      "type": "p",
-      "content": {
-        "beginner": "If you want trustworthy rankings, build one evaluation harness and run it continuously. Automate grading, store traces, and enforce failure bounds. Then use the results to route tool-using tasks to the right models.",
-        "technical": "Deploy a reliability harness that pairs live model comparisons with automated grading (Dream Validator) and enforcement (Snell SDK semantic firewalls). Score and gate models using the extractable pipeline above, then route tasks based on the “tool-use and agentic reliability evaluation across LLMs” criteria.",
-        "executive": "Use Model Delights to run continuous, evidence-based evaluations: automated grading, loop enforcement, and real-time comparison so routing decisions reflect production reliability."
-      },
-      "evidenceId": "evidence-2"
     }
   ],
   "internalLinks": [
@@ -249,7 +200,7 @@ export const article_tool_use_and_agentic_reliability_across_llms : ContentObjec
     }
   ],
   "heroImage": {
-    "url": "https://image.pollinations.ai/prompt/A%20minimalist%2C%20highly%20cinematic%208k%20abstract%20vector%20illustration%20of%20Tool-use%20and%20agentic%20reliability%20evaluation%20across%20LLMs.%20Dark-mode%20UX%2FUI%20style%20with%20vibrant%20emerald%20green%20and%20zinc%20accents.%20Corporate%20tech%20style.%20NO%20TEXT.%20NO%20WORDS.%20NO%20LETTERS.?model=flux&width=1200&height=630&seed=17657&nologo=true",
-    "alt": "Vector illustration depicting Tool-use and agentic reliability evaluation across LLMs"
+    "url": "https://v3b.fal.media/files/b/0a92f6cf/FSUlJpuBVB7C-xpIxkiV6.jpg",
+    "alt": "Vector illustration depicting Tool-use and agentic reliability across LLMs"
   }
 };

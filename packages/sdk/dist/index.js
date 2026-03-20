@@ -342,7 +342,35 @@ export class IntelligenceRouter {
     async generateImage(options) {
         const { prompt, width = 1024, height = 768 } = options; // Together Flux Free tier favors 1024x768
         // @ts-ignore
+        const falKey = typeof process !== 'undefined' ? process.env.FAL_KEY : undefined;
+        // @ts-ignore
         const togetherKey = typeof process !== 'undefined' ? process.env.TOGETHER_API_KEY : undefined;
+        if (falKey) {
+            console.log(`[IntelligenceRouter] Routing High-Fidelity Flux matrix via Fal.ai.`);
+            const res = await fetch("https://fal.run/fal-ai/flux/dev", {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Key ${falKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    prompt: prompt,
+                    image_size: { width: width, height: height },
+                    num_inference_steps: 4
+                })
+            });
+            if (!res.ok) {
+                const err = await res.text();
+                console.warn(`[IntelligenceRouter] Fal.ai Gateway Error: ${err}`);
+                throw new Error(`Flux Integration Exception`);
+            }
+            const data = await res.json();
+            const extractedUrl = data?.images?.[0]?.url;
+            if (!extractedUrl) {
+                throw new Error(`Invalid response structure from Fal.ai: ${JSON.stringify(data)}`);
+            }
+            return { url: extractedUrl, alt: prompt };
+        }
         if (togetherKey) {
             console.log(`[IntelligenceRouter] Routing secure Flux matrix via Together AI.`);
             const res = await fetch("https://api.together.xyz/v1/images/generations", {

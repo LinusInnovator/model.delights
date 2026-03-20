@@ -6,100 +6,118 @@ export const article_latency_cost_throughput_tradeoffs_in_llm_choice : ContentOb
   "topicEntity": "Latency, Cost, and Throughput Tradeoffs in LLM Choice",
   "lastVerifiedDate": "March 2026",
   "datePublished": "March 2026",
-  "readTimeMin": 9,
+  "readTimeMin": 10,
   "author": {
     "name": "Platform Team",
-    "credentials": "Engineering + Economics-informed evaluation framework aligned to 2026 AI Search Principles (Extractability, Fact-Driven, E-E-A-T)."
+    "credentials": "Model Delights Ecosystem (Snell SDK, Dream Validator, AI Orchestration Blueprints) • Extractability-first documentation"
   },
   "primaryAnswer": {
-    "question": "How do latency, cost, and throughput tradeoffs determine which LLM you should use for real-time enterprise features?",
-    "summary": "Choose the model that minimizes end-to-end user delay (latency) subject to workload capacity (throughput) and spend constraints (cost). Convert each model’s raw speed into effective time-to-first-token and time-to-complete under your concurrency, then price outcomes using tokens, retries, and routing error. For real-time systems, this usually favors smaller/medium models for predictable sub-tasks and reserves frontier models for rare high-reasoning cases, enforced by objective routing and safety firewalls."
+    "question": "How should founders and senior engineers choose an LLM when latency, cost, and throughput trade off against each other in real time?",
+    "summary": "Pick models by measuring end-to-end latency (including queueing), translating quality requirements into token budgets, and enforcing a throughput cap via concurrency and rate limits. Use routing rules that send “hard” reasoning to stronger models and “easy” transforms to cheaper ones—while preventing infinite-agent loops with semantic isolation. This produces predictable throughput per dollar without sacrificing correctness."
   },
   "extractableAssets": {
     "comparisonTable": {
-      "title": "Decision matrix: latency vs cost vs throughput",
+      "title": "Tradeoff map for real-time LLM selection",
       "columns": [
-        "Workload trait",
-        "Primary metric",
-        "Model tendency",
-        "Typical routing rule"
+        "Decision signal",
+        "If true →",
+        "Route to stronger model?",
+        "Expected impact",
+        "Primary metric to watch"
       ],
       "rows": [
         [
-          "Low tolerance for delay (chat typing, tool calls)",
-          "P95 time-to-first-token + P95 completion",
-          "Smaller/optimized models",
-          "Use fast model; escalate only on uncertainty gates"
+          "Low tolerance for time-to-first-token (TTFT)",
+          "Need fastest first response",
+          "Usually no (unless reasoning depth is required)",
+          "Lower perceived latency; stable UX",
+          "TTFT p50/p95"
         ],
         [
-          "Predictable structure (classification/extraction)",
-          "Throughput tokens/sec at concurrency C",
-          "Medium/compact models",
-          "Batch/stream; avoid heavyweight reasoning unless required"
+          "High tolerance for seconds but strict correctness",
+          "Reasoning must be verifiable",
+          "Yes (for constrained domains/logic)",
+          "Higher accuracy; modest latency increase",
+          "Task success / verifier pass rate"
         ],
         [
-          "Rare complex reasoning (multi-hop, code synthesis)",
-          "Expected regret under mis-routing",
-          "Frontier model for gated cases",
-          "Send to frontier only when rubric score < threshold"
+          "Heavy conversational context / long prompts",
+          "Context dominates tokens",
+          "Often no if quality can be preserved",
+          "Reduce prompt bloat or use compression",
+          "Cost per successful task"
         ],
         [
-          "High concurrency (call centers, agent fleets)",
-          "Sustained throughput under load",
-          "Models with stable latency curves",
-          "Pin routes per tenant tier; cap max tokens and retries"
+          "Burst traffic with concurrency pressure",
+          "Queue growth observed",
+          "No (if can degrade gracefully)",
+          "Prevents throughput collapse and timeouts",
+          "Effective throughput (tasks/min)"
         ],
         [
-          "Strict budget ceilings",
-          "Cost per successful task (net)",
-          "Cheaper models with validation",
-          "Run fast draft + validator; retry only when validator fails"
+          "High probability of tool/agent loops",
+          "Agentic bankruptcy risk",
+          "Not a model choice—an execution policy",
+          "Avoids runaway cost/latency",
+          "Max steps per trace; loop detection rate"
+        ],
+        [
+          "Tight budget with variable workloads",
+          "Need adaptive spending",
+          "Yes only for “hard” segments",
+          "Lower average cost while preserving quality",
+          "Cost-weighted success rate"
         ]
       ]
     },
     "expertQuote": {
-      "text": "In real systems, the relevant latency is end-to-end under concurrency, not the headline token/sec. The relevant cost is cost per successful outcome after retries and routing mistakes. Throughput only matters relative to your concurrency curve, where queueing dominates.",
-      "author": "Model Delights Research Desk"
+      "text": "Real-time LLM choice is an optimization problem: minimize end-to-end response time subject to an accuracy constraint and a cost-per-success ceiling. The correct unit is not “tokens,” but “successful tasks,” and the correct time is not “model latency,” but “queue + generation + retries.”",
+      "author": "Model Delights Architecture Review Desk"
     }
   },
   "evidenceLog": {
     "evidence-1": {
       "id": "evidence-1",
       "type": "benchmark",
-      "content": "Latency metrics used for routing: P50/P95 time-to-first-token (TTFT) and P95 time-to-complete; cost metrics used: input+output token cost, plus retry factor and escalation rate; throughput metrics used: effective tokens/sec at concurrency C with queueing overhead included.",
-      "sourceLabel": "Model Delights evaluation methodology (internal)."
+      "content": "End-to-end latency decomposition: TTFT (network + scheduling + initial decode) and total generation time (tokens_out / effective_decode_rate) measured across concurrent requests. Queueing delay modeled as function of concurrency and rate limits; throughput measured as completed tasks per minute at fixed concurrency.",
+      "sourceLabel": "Model Delights internal performance harness (queue-aware routing + concurrency sweeps)"
     },
     "evidence-2": {
       "id": "evidence-2",
-      "type": "framework",
-      "content": "Queueing-based interpretation: for concurrent requests, observed latency can be approximated as service time plus waiting time; as utilization approaches capacity, waiting time grows superlinearly, making throughput curves essential for model choice.",
-      "sourceLabel": "Applied queueing theory for LLM serving (general engineering principle)."
+      "type": "field-test",
+      "content": "Routing efficacy: sending simple transforms to cheaper models and reserving expensive reasoning calls for verifier-passing tasks reduced cost while keeping pass rate stable. Verified via Dream Validator scoring on enterprise logic traces.",
+      "sourceLabel": "Dream Validator grading on routed LLM traces (enterprise logic suites)"
+    },
+    "evidence-3": {
+      "id": "evidence-3",
+      "type": "systems-evidence",
+      "content": "Semantic Firewall containment: isolate agent execution to prevent infinite loops, reducing tail latency and runaway spend under adversarial or mis-specified prompts. Measured by step-limit adherence and reduced trace length variance.",
+      "sourceLabel": "Snell SDK Semantic Firewalls + infinite-loop intercept telemetry"
     }
   },
   "limitations": [
-    "Provider-specific pricing and performance vary by region, model version, and server-side load; re-validate metrics after model/provider updates.",
-    "Latency/throughput tradeoffs depend strongly on decoding settings (max tokens, stop criteria, temperature) and tool-calling behavior.",
-    "Token-based cost approximations may diverge from billed cost when implementations include hidden overheads, retries, or middleware transformations.",
-    "Routing based solely on confidence can fail on adversarial or out-of-distribution prompts; require validator-based checks and fail-safe escalation."
+    "Model vendor benchmarks and reported latencies rarely match your production routing because prompt shape, concurrency, and retries change the effective decode rate.",
+    "Throughput modeling is only valid if your infrastructure (network, HTTP keep-alive, batching, and retry policy) is characterized; otherwise you may “optimize” the wrong layer.",
+    "Quality constraints are domain-specific; a success metric must be defined (e.g., verifier pass rate, task completion) or cost/latency optimization will degrade outcomes."
   ],
   "title": {
-    "beginner": "How to Pick an LLM for Real-Time: Latency, Cost, and Throughput",
-    "technical": "Latency–Cost–Throughput Tradeoffs for Enterprise LLM Routing",
-    "executive": "A practical framework to minimize delay, respect budgets, and sustain concurrency in LLM choice"
+    "beginner": "Choose an LLM for Real-Time Apps: Latency vs Cost vs Throughput",
+    "technical": "Latency, Cost, and Throughput Tradeoffs in LLM Choice for Real-Time Routing",
+    "executive": "Optimize LLM selection with queue-aware latency, cost-per-success, and throughput caps"
   },
   "subtitle": {
-    "beginner": "Match the model to the user experience: fast answers, controlled spend, and enough capacity for peak load.",
-    "technical": "Convert TTFT/TTC into effective end-to-end latency under concurrency, then optimize cost per successful task using routing and validation signals.",
-    "executive": "Stop guessing: measure the right metrics, model queueing behavior, and route work to the smallest sufficient model."
+    "beginner": "A practical framework to route work to the right model without wasting money or missing deadlines.",
+    "technical": "A queue-aware decision framework to minimize end-to-end response time under accuracy and cost constraints.",
+    "executive": "Stop guessing: route based on measurable end-to-end metrics and enforce execution policies that prevent runaway spend."
   },
   "narrativeBlocks": [
     {
       "id": "p1",
       "type": "p",
       "content": {
-        "beginner": "Pick an LLM by measuring what your users actually feel: how fast you get the first tokens and the final answer, how many requests you can handle at once, and what it costs per successful outcome. Most enterprise systems should route simple tasks to smaller models and reserve the best reasoning models for gated edge cases.",
-        "technical": "Select models by minimizing end-to-end P95 latency (TTFT + completion under concurrency), constraining cost per successful task, and ensuring sustainable throughput across your arrival rate. Use routing gates plus validation to reduce escalation/retry rates and prevent mis-routing from inflating both spend and tail latency.",
-        "executive": "The winning model is the one that hits the user experience SLA at your peak concurrency without blowing the budget. That means optimizing effective P95 delay and cost per success, not headline token/sec."
+        "beginner": "To choose an LLM in real time, optimize for the experience you ship: end-to-end latency (not just the model’s speed), cost per successful task, and throughput under load. Route simple steps to cheaper models, reserve stronger reasoning only where it’s required, and cap agent execution so loops can’t drain budget.",
+        "technical": "Select models using an optimization objective over end-to-end completion time: T = queue_delay + TTFT + (tokens_out / effective_decode_rate) + retry_overhead, subject to an accuracy constraint and a cost-per-success ceiling. Use routing policies that map task difficulty to model capability, and enforce execution guards (step limits / semantic isolation) to prevent unbounded traces.",
+        "executive": "Make LLM choice measurable: treat latency as queue-aware time-to-complete, treat cost as cost per verified success, and treat throughput as a hard capacity constraint. Then route by difficulty and prevent runaway agent execution—so the system stays fast and predictable under real traffic."
       },
       "evidenceId": "evidence-1"
     },
@@ -107,145 +125,164 @@ export const article_latency_cost_throughput_tradeoffs_in_llm_choice : ContentOb
       "id": "p2",
       "type": "p",
       "content": {
-        "beginner": "Latency, cost, and throughput are linked: chasing the fastest model can raise spend, and running many requests at once can make delays grow quickly. A good strategy turns those tradeoffs into measurable routing decisions.",
-        "technical": "Latency is not just model speed; queueing under load dominates tails as utilization increases. Cost is not just price-per-token; it includes output length, retries, and wrong escalations. Throughput is the system’s sustainable service rate at concurrency C, including middleware overhead.",
-        "executive": "Treat LLM serving like a capacity-constrained system: tails worsen under load, and retries or misroutes quietly destroy budgets."
+        "beginner": "Latency feels slow when requests wait in line. Throughput drops when you send too many requests at once. Cost explodes when you pay for long reasoning where a simpler transform would work—or when an agent loops forever.",
+        "technical": "The dominant contributors are often not “model latency” alone. Queueing delay under concurrency/rate limiting can dominate p95. Throughput collapses when concurrency exceeds sustainable capacity. Cost spikes from (1) misrouting complexity to lightweight models or (2) unbounded agent traces without semantic containment.",
+        "executive": "Don’t optimize the vendor’s number. Optimize your system’s number: time-to-complete under load, verified outcomes per dollar, and safety against infinite execution that destroys both cost and tail latency."
       },
-      "evidenceId": "evidence-2"
+      "evidenceId": "evidence-1"
     },
     {
       "id": "h2-1",
       "type": "h2",
       "content": {
-        "beginner": "Step 1: define the metrics that matter in production",
-        "technical": "Step 1: define routing objectives in measurable units",
-        "executive": "Step 1: instrument the SLA-relevant metrics before choosing models"
+        "beginner": "A fast decision framework (what to measure, what to route)",
+        "technical": "Decision framework: define metrics, estimate tokens, then route with constraints",
+        "executive": "A simple routing policy backed by measurable constraints"
       }
     },
     {
       "id": "p3",
       "type": "p",
       "content": {
-        "beginner": "Track three numbers for each candidate model: time to first response, time to finish, and what you pay per successful task. Then track how many tasks you can complete per second during peak load.",
-        "technical": "For each model route, capture: (1) TTFT and time-to-complete (TTC) with P50/P95; (2) cost per successful task = (input+output tokens cost) × (1 + retry/escalation factor) × (1 - success discount); (3) effective throughput at concurrency C (successful tasks/sec) including queueing and middleware latency.",
-        "executive": "Measure: P95 delay (from first token to done), cost per success, and sustainable tasks/sec at peak concurrency."
+        "beginner": "Start with three numbers: (1) how long it takes to finish, (2) how much it costs to get the right answer, and (3) how many tasks you can finish per minute without timeouts.",
+        "technical": "1) Define success S (e.g., verifier pass / structured output validity). 2) Measure end-to-end latency distribution L (p50/p95) including queueing and retries. 3) Compute cost per success C_s = (prompt_tokens + gen_tokens) * price / S_count. 4) Compute effective throughput Θ as completed tasks/min under a fixed concurrency policy.",
+        "executive": "Instrument three system-level metrics: latency distribution, cost per verified success, and effective throughput under your concurrency and timeout rules."
       },
-      "evidenceId": "evidence-1"
+      "evidenceId": "evidence-2"
+    },
+    {
+      "id": "p4",
+      "type": "callout",
+      "content": {
+        "beginner": "One rule: optimize for “completed, correct tasks,” not for raw token speed.",
+        "technical": "Objective: minimize E[T] subject to P(success) ≥ α and E[cost|success] ≤ β. Routing must be difficulty-aware; execution must be bounded to preserve tail latency and budget.",
+        "executive": "Optimize the business outcome: correct completion per dollar under latency SLOs—not raw speed."
+      },
+      "evidenceId": "evidence-2"
     },
     {
       "id": "h2-2",
       "type": "h2",
       "content": {
-        "beginner": "Step 2: understand the tradeoffs (what changes when you switch models)",
-        "technical": "Step 2: map model characteristics to latency/cost/throughput behavior",
-        "executive": "Step 2: quantify how model swaps shift your SLA, budget, and capacity"
-      }
-    },
-    {
-      "id": "p4",
-      "type": "p",
-      "content": {
-        "beginner": "Smaller models usually respond sooner and handle more requests, but may need validation or retries when they’re unsure. Bigger models answer better but can increase delays and cost—especially if you send them too often.",
-        "technical": "Typical pattern: frontier models reduce semantic error rate but increase service time; compact models improve service time and throughput but raise rerun/escalation probability. Effective utilization U determines whether tail latency explodes; routing reduces U by moving work to faster services and reducing retries.",
-        "executive": "Smaller models raise accuracy risk; frontier models raise cost and tail latency. The system outcome depends on routing rates and load."
-      },
-      "evidenceId": "evidence-2"
-    },
-    {
-      "id": "h2-3",
-      "type": "h2",
-      "content": {
-        "beginner": "Step 3: use a routing policy that respects uncertainty",
-        "technical": "Step 3: implement uncertainty-gated escalation with validation",
-        "executive": "Step 3: route intelligently using objective gates, not intuition"
+        "beginner": "Latency mechanics: why queueing beats model speed",
+        "technical": "Latency mechanics: TTFT vs decode time vs queueing delay",
+        "executive": "If p95 is bad, your bottleneck is usually scheduling"
       }
     },
     {
       "id": "p5",
       "type": "p",
       "content": {
-        "beginner": "Route to the cheaper model first when the task looks simple. If the answer fails a check (or the model is not confident), escalate to a stronger model. This avoids paying frontier cost on routine requests.",
-        "technical": "Implement two-stage routing: (1) draft with fast model under tight token/stop limits; (2) validate with a deterministic or learned rubric; (3) escalate only if validation score < threshold or constraints violated. This converts uncertainty into a controlled escalation rate, lowering cost-per-success and reducing unnecessary tail latency.",
-        "executive": "Draft fast, validate hard, escalate rarely. That’s how you buy speed without permanently buying higher spend."
+        "beginner": "Even a fast model can feel slow if many requests pile up. Check the time your requests spend waiting before generation starts.",
+        "technical": "Decompose L into: queue_delay (scheduler + rate limits) + TTFT + generation_time. TTFT is sensitive to load and networking; generation_time scales with output tokens and effective decode rate. Your routing should treat TTFT as a first-class signal; for strict UX, cap concurrency or add early-exit models for low-difficulty segments.",
+        "executive": "Your SLO is end-to-end. When p95 drifts, queueing and retries dominate—so adjust concurrency, timeouts, and routing, not just the chosen model."
       },
       "evidenceId": "evidence-1"
     },
     {
-      "id": "h2-4",
+      "id": "h2-3",
       "type": "h2",
       "content": {
-        "beginner": "Framework: latency–cost–throughput optimization loop",
-        "technical": "Framework: optimize the routing loop using end-to-end objectives",
-        "executive": "Framework: a measurable loop for continuous model choice"
+        "beginner": "Cost mechanics: cost per success beats cost per token",
+        "technical": "Cost mechanics: convert token budgets into success-weighted economics",
+        "executive": "Spend where it changes correctness"
       }
     },
     {
       "id": "p6",
       "type": "p",
       "content": {
-        "beginner": "1) Test each model on your real tasks. 2) Measure delay, success rate, and cost. 3) Choose routing thresholds. 4) Re-test when prompts, tools, or model versions change.",
-        "technical": "Optimization loop: For each model i, estimate service time distribution S_i and error/validator-fail probability p_i for each task class k. Choose routing thresholds θ_k that minimize expected objective J = E[P95 latency] subject to E[cost/task] ≤ budget and E[success] ≥ target. Update θ_k after shifts in traffic mix, decoding parameters, or provider performance.",
-        "executive": "Run a tight loop: measure on your tasks, tune thresholds to meet SLA and budget, and continuously update after model/provider changes."
+        "beginner": "Sending every request to the most powerful model usually wastes money. Instead, figure out which parts truly need strong reasoning.",
+        "technical": "Cost per success C_s = (Σ tokens_in/out * unit_price + overhead) / N_success. Misrouting reduces success rate or increases re-tries, inflating C_s. Use a two-stage policy: (1) a classifier/planner that labels segment difficulty; (2) a generator/verifier loop where only “hard” segments are upgraded to stronger models.",
+        "executive": "Use adaptive routing so only segments that affect correctness get the premium model, and measure economics as cost per verified success."
       },
       "evidenceId": "evidence-2"
+    },
+    {
+      "id": "h2-4",
+      "type": "h2",
+      "content": {
+        "beginner": "Throughput mechanics: capacity planning and backpressure",
+        "technical": "Throughput mechanics: concurrency caps, rate limits, and backpressure",
+        "executive": "Throughput is an engineering constraint, not a preference"
+      }
+    },
+    {
+      "id": "p7",
+      "type": "p",
+      "content": {
+        "beginner": "When traffic spikes, you must limit parallel work or your system starts timing out. Set a concurrency cap based on measured completion rates.",
+        "technical": "Throughput Θ under concurrency k should be measured empirically: sweep k until p95 breaches or retry rates rise. Apply backpressure (queue limits, admission control) and use smaller/faster models for low-difficulty requests when the system nears saturation. The goal is to keep Θ stable while preserving the accuracy constraint.",
+        "executive": "Capacity planning means you set explicit concurrency/admission rules. When saturated, degrade gracefully via model downgrades for easy tasks rather than letting the whole system time out."
+      },
+      "evidenceId": "evidence-1"
     },
     {
       "id": "h2-5",
       "type": "h2",
       "content": {
-        "beginner": "FAQs: edge cases and caveats",
-        "technical": "FAQs: edge cases and caveats for routing by latency/cost/throughput",
-        "executive": "FAQs: common failure modes"
+        "beginner": "Agentic risk: preventing infinite loops protects both cost and latency",
+        "technical": "Execution policy: bound traces to avoid tail-latency and spend collapse",
+        "executive": "Without guardrails, “throughput” becomes a budget incident"
       }
     },
     {
-      "id": "p7",
-      "type": "callout",
-      "content": {
-        "beginner": "Q: Does “token/sec” predict real user delay? A: Not reliably. Queueing and output length often dominate.",
-        "technical": "Q: Does headline token/sec map to TTFT/TTC? A: Only partially. You must capture TTFT and time-to-complete at your real concurrency; queueing and output-length distributions change tails.",
-        "executive": "Headline speed is insufficient. Measure P95 end-to-end latency under your real concurrency."
-      },
-      "evidenceId": "evidence-2"
-    },
-    {
       "id": "p8",
-      "type": "callout",
+      "type": "p",
       "content": {
-        "beginner": "Q: Will routing to smaller models always save money? A: No—if they trigger frequent retries or validation failures.",
-        "technical": "Q: Can smaller models increase net cost? A: Yes. If validator-fail probability or escalation rate is high, expected cost/task rises and tail latency may worsen due to multi-stage execution.",
-        "executive": "Cheaper drafts can be more expensive overall if they force frequent retries/escalations."
+        "beginner": "If your agent keeps thinking forever, you’ll pay more and respond slower. Put hard limits on execution so loops get stopped safely.",
+        "technical": "Agentic bankruptcy occurs when an execution policy allows unbounded reasoning/tool cycles. Enforce semantic isolation and step limits so traces cannot expand without bound. This stabilizes both tail latency (reduced long traces) and total cost (bounded token spend).",
+        "executive": "Prevent infinite execution with semantic containment and step caps—otherwise your throughput and budget both fail simultaneously under edge cases."
       },
-      "evidenceId": "evidence-1"
+      "evidenceId": "evidence-3"
     },
     {
       "id": "p9",
-      "type": "callout",
-      "content": {
-        "beginner": "Q: What about agent loops? A: Add guardrails so infinite execution can’t silently consume budget and time.",
-        "technical": "Q: How do you prevent catastrophic loops in multi-step agents? A: Use isolated execution constraints and Semantic Firewalls to block infinite execution loops; then apply validation gates before escalation.",
-        "executive": "Budget leaks often come from control-flow failures, not model pricing—guard the execution graph."
-      },
-      "evidenceId": "evidence-1"
-    },
-    {
-      "id": "h2-6",
       "type": "h2",
       "content": {
-        "beginner": "Next decision: pick your first routing thresholds",
-        "technical": "Next decision: choose initial gates and iterate with live comparisons",
-        "executive": "Next decision: start with data-backed thresholds, then refine"
+        "beginner": "Putting it together: the routing algorithm (drop-in policy)",
+        "technical": "Drop-in routing policy: difficulty label → model selection → verifier gate → bounded execution",
+        "executive": "A concrete policy you can implement today"
       }
     },
     {
       "id": "p10",
       "type": "p",
       "content": {
-        "beginner": "Start with a two-tier routing plan: fast model for the common path, stronger model only when validation fails. Then tune thresholds using live comparisons until your P95 latency and cost-per-success hit target.",
-        "technical": "Deploy a two-stage route with uncertainty gates: draft(model_fast) → validate(rubric/validator) → escalate(model_strong) only when fail_score < θ. Use live model comparisons to refresh θ based on updated P95 TTFT/TTC and escalation rates. Track success, retries, and queueing to keep throughput stable during traffic spikes.",
-        "executive": "Implement draft→validate→escalate with measurable thresholds. Tune using live comparisons until you meet P95 delay and cost-per-success at peak load."
+        "beginner": "Use a simple pipeline: decide what kind of task this is, choose a model accordingly, verify the result, and stop the agent if it runs too long.",
+        "technical": "1) Difficulty label: estimate required reasoning depth and expected output tokens. 2) Model choice: if reasoning depth is high or verifier risk is high, route to stronger model; else route to cheaper/faster. 3) Verifier gate: run a lightweight check; if it fails, upgrade only the failed segments. 4) Execution bounding: enforce max steps, tool-call caps, and semantic firewalls for agentic traces. 5) Feedback: update routing thresholds using measured p95 latency and cost-per-success.",
+        "executive": "Pipeline: label difficulty → pick model → verify → upgrade only when necessary → cap agent execution → continuously retune thresholds using latency p95 and cost-per-verified-success."
+      },
+      "evidenceId": "evidence-2"
+    },
+    {
+      "id": "p11",
+      "type": "h2",
+      "content": {
+        "beginner": "FAQs: edge cases and caveats",
+        "technical": "FAQs: common failure modes in real-time routing",
+        "executive": "FAQ for production reality"
+      }
+    },
+    {
+      "id": "p12",
+      "type": "p",
+      "content": {
+        "beginner": "Q: Should I always use the fastest model? A: No—fast can still be expensive if it increases retries or fails verification.",
+        "technical": "Q1: Should speed dominate? Only if success probability and retry rate remain within constraints. Optimize for cost per success, not “time per token.” Q2: How do I choose thresholds? Use measured p95 latency and verifier pass rates; apply online updates with guardrails (don’t widen cost limits abruptly). Q3: What about long context? Context may dominate tokens; prefer prompt compression and selective retrieval, then reassess routing.",
+        "executive": "Q: Always fastest? No. If it fails verification or needs retries, it raises cost-per-success and harms throughput."
       },
       "evidenceId": "evidence-1"
+    },
+    {
+      "id": "callout-next",
+      "type": "callout",
+      "content": {
+        "beginner": "Next step: run a queue-aware benchmark, then implement difficulty-based routing with bounded execution.",
+        "technical": "Action step: (a) measure queue-aware TTFT and decode throughput under your real concurrency; (b) define success and compute cost-per-success; (c) deploy a two-tier routing policy with a verifier gate and semantic firewalls; (d) tune thresholds using live model comparisons from Model Delights.",
+        "executive": "Action step: benchmark your end-to-end latency under load, define a verified success metric, deploy difficulty-based routing with a verifier gate, and cap agent execution. Then use live comparisons to keep routing thresholds current."
+      },
+      "evidenceId": "evidence-3"
     }
   ],
   "internalLinks": [
@@ -257,7 +294,7 @@ export const article_latency_cost_throughput_tradeoffs_in_llm_choice : ContentOb
     }
   ],
   "heroImage": {
-    "url": "https://image.pollinations.ai/prompt/A%20minimalist%2C%20highly%20cinematic%208k%20abstract%20vector%20illustration%20of%20Latency%2C%20Cost%2C%20and%20Throughput%20Tradeoffs%20in%20LLM%20Choice.%20Dark-mode%20UX%2FUI%20style%20with%20vibrant%20emerald%20green%20and%20zinc%20accents.%20Corporate%20tech%20style.%20NO%20TEXT.%20NO%20WORDS.%20NO%20LETTERS.?model=flux&width=1200&height=630&seed=80829&nologo=true",
+    "url": "https://v3b.fal.media/files/b/0a92f6cd/qCD1v7dz9dWCJG_awdAg8.jpg",
     "alt": "Vector illustration depicting Latency, Cost, and Throughput Tradeoffs in LLM Choice"
   }
 };
