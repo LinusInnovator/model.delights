@@ -1,0 +1,39 @@
+{
+  "clusterName": "enterprise-ai-agent-orchestration-blueprints",
+  "hub": {
+    "slug": "enterprise-ai-agent-orchestration-blueprints",
+    "title": "Enterprise AI Agent Orchestration Blueprints",
+    "topicEntity": "AI agent orchestration architecture for enterprises",
+    "intent": "Thought Leadership / Pillar Page",
+    "summary": "A comprehensive blueprint for designing, governing, and scaling enterprise-grade AI agent orchestration—from reference architectures and component patterns to security, evaluation, and operational runbooks—so teams can build reliable multi-agent systems that integrate with existing data, tools, and workflows."
+  },
+  "spokes": [
+    {
+      "slug": "orchestration-reference-architecture-workflows",
+      "title": "Reference Architecture for Agent Orchestration Workflows",
+      "topicEntity": "Blueprint-level orchestration patterns and workflow design",
+      "intent": "Answer / Glossary / Method",
+      "summary": "Defines a practical reference architecture for orchestrating enterprise AI agents, including routing, planning/execution loops, tool invocation, memory boundaries, and workflow orchestration patterns that teams can implement across business functions.",
+      "anchorToHub": "back to enterprise AI agent orchestration blueprints and the end-to-end orchestration architecture",
+      "hubAnchorToSpoke": "reference architecture for agent orchestration workflows"
+    },
+    {
+      "slug": "governance-security-evaluation-agent-orchestration",
+      "title": "Governance, Security, and Evaluation for Orchestrated Agents",
+      "topicEntity": "Controls, risk management, and evaluation strategy",
+      "intent": "Answer / Glossary / Method",
+      "summary": "Details governance and security guardrails for agent orchestration in enterprise settings—identity and access, data handling, auditability, policy enforcement, red-teaming—and introduces evaluation methods for reliability, safety, and compliance at the workflow level.",
+      "anchorToHub": "returning to governance, security, and evaluation within the enterprise AI agent orchestration blueprints hub",
+      "hubAnchorToSpoke": "governance, security, and evaluation for orchestrated agents"
+    },
+    {
+      "slug": "deployment-observability-scaling-operations-agent-orchestration",
+      "title": "Deployment, Observability, and Scaling Operations",
+      "topicEntity": "Production operations for AI agent orchestration",
+      "intent": "Answer / Glossary / Method",
+      "summary": "Covers production deployment patterns and operational excellence for orchestrated agents, including telemetry and tracing, SLOs/SLAs, incident response, cost and latency optimization, and scaling strategies for multi-agent workloads across environments.",
+      "anchorToHub": "connecting back to the operational and scaling blueprint in enterprise AI agent orchestration blueprints",
+      "hubAnchorToSpoke": "deployment, observability, and scaling operations"
+    }
+  ]
+}

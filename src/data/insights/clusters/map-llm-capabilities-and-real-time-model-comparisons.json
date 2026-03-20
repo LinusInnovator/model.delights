@@ -1,0 +1,39 @@
+{
+  "clusterName": "llm-capabilities-and-real-time-model-comparisons",
+  "hub": {
+    "slug": "llm-capabilities-real-time-model-comparisons",
+    "title": "LLM Capabilities and Real-Time Model Comparisons: A Framework for Choosing the Right Model",
+    "topicEntity": "Real-time large language model capability evaluation",
+    "intent": "Thought Leadership / Pillar Page",
+    "summary": "Defines a practical, repeatable framework to compare LLMs in real time across quality, latency, cost, tool-use, reasoning reliability, safety behavior, and domain fit—then maps those evaluation dimensions to structured decision criteria and reporting standards."
+  },
+  "spokes": [
+    {
+      "slug": "benchmarking-llm-capabilities-with-real-time-evaluation",
+      "title": "Benchmarking LLM Capabilities with Real-Time Evaluation",
+      "topicEntity": "Real-time benchmarking methodology",
+      "intent": "Method",
+      "summary": "Covers how to design real-time evaluation runs (prompt sets, test harnesses, success metrics, confidence estimation, and change tracking) to compare model performance fairly under production-like conditions.",
+      "anchorToHub": "real-time benchmarking methodology for comparing LLM capabilities fairly",
+      "hubAnchorToSpoke": "benchmarking LLM capabilities with real-time evaluation"
+    },
+    {
+      "slug": "latency-cost-throughput-tradeoffs-in-llm-choice",
+      "title": "Latency, Cost, and Throughput Tradeoffs in LLM Choice",
+      "topicEntity": "Performance economics of LLM deployments",
+      "intent": "Answer",
+      "summary": "Explains how to measure and compare latency distributions, tokens per second, throughput, and unit cost—then translate those findings into model selection for interactive, batch, and high-concurrency workflows.",
+      "anchorToHub": "latency, cost, and throughput tradeoffs that drive real-time model choice",
+      "hubAnchorToSpoke": "latency, cost, and throughput tradeoffs in LLM choice"
+    },
+    {
+      "slug": "tool-use-and-agentic-reliability-across-llms",
+      "title": "Tool-Use and Agentic Reliability Across LLMs",
+      "topicEntity": "Tool invocation and multi-step agent reliability",
+      "intent": "Answer / Glossary",
+      "summary": "Details how to evaluate tool calling accuracy, planning-to-execution consistency, multi-step success rates, error recovery, and hallucination risk when models are integrated with functions, search, or retrieval systems.",
+      "anchorToHub": "tool-use and agentic reliability evaluation across LLMs",
+      "hubAnchorToSpoke": "tool-use and agentic reliability across LLMs"
+    }
+  ]
+}
