@@ -70,6 +70,11 @@ export interface OpenRouterOverrides {
     seed?: number;
 }
 
+export interface FirewallConfig {
+    preset?: 'strict-agentic' | 'warn-only' | 'off';
+    custom_blocklist?: RegExp[];
+}
+
 export interface ExecuteOptions {
     /** Standard incoming message array */
     messages: { role: string; content: string | any[] }[];
@@ -89,6 +94,8 @@ export interface ExecuteOptions {
     openrouter_overrides?: OpenRouterOverrides;
     /** Time in milliseconds before the router kills the model and falls back */
     timeout_ms_max_per_model?: number;
+    /** Semantic Firewall configurations to proactively block malicious agentic payloads */
+    firewall?: FirewallConfig;
 }
 
 export class IntelligenceRouter {
@@ -318,21 +325,33 @@ export class IntelligenceRouter {
           throw new Error("[IntelligenceRouter] execute() requires an 'openrouterKey' to process the fetch securely on your hardware.");
       }
 
-      // 1. SEMANTIC FIREWALL: Pre-flight heuristic check
-      const maliciousPatterns = [
-          /rm\s+-rf/i,
-          /DROP\s+TABLE/i,
-          /INTERNAL_GOD_KEY/i,
-          /chmod\s+-R\s+777/i,
-          /mkfs\./i,
-          /wget.*\|.*bash/i
-      ];
+      // 1. SEMANTIC FIREWALL: Configurable heuristic check
+      const firewall = options.firewall || { preset: 'off' };
+      if (firewall.preset !== 'off') {
+          const defaultAgenticPatterns = [
+              /rm\s+-rf/i,
+              /DROP\s+TABLE/i,
+              /INTERNAL_GOD_KEY/i,
+              /chmod\s+-R\s+777/i,
+              /mkfs\./i,
+              /wget.*\|.*bash/i
+          ];
 
-      for (const msg of options.messages) {
-          if (typeof msg.content === 'string') {
-              for (const pattern of maliciousPatterns) {
-                  if (pattern.test(msg.content)) {
-                      throw new Error(`[SemanticFirewallError] Execution neutralized pre-flight. Malicious pattern detected: ${pattern.source}`);
+          const activePatterns = [
+              ...(firewall.preset === 'strict-agentic' || firewall.preset === 'warn-only' ? defaultAgenticPatterns : []),
+              ...(firewall.custom_blocklist || [])
+           ];
+
+          for (const msg of options.messages) {
+              if (typeof msg.content === 'string') {
+                  for (const pattern of activePatterns) {
+                      if (pattern.test(msg.content)) {
+                          if (firewall.preset === 'warn-only') {
+                              console.warn(`[SemanticFirewall - WARN] Malicious pattern detected: ${pattern.source}`);
+                          } else {
+                              throw new Error(`[SemanticFirewallError] Execution neutralized pre-flight. Malicious pattern detected: ${pattern.source}`);
+                          }
+                      }
                   }
               }
           }
