@@ -474,19 +474,58 @@ export class IntelligenceRouter {
   }
 
   /**
-   * ZERO-CONFIG IMAGE GENERATION (Phase 6 SDK Extension).
-   * Generates a structural hero image natively bypassing complex API setups by routing
-   * to frictionless open endpoints (Pollinations) passing Flux requests.
+   * ENTERPRISE IMAGE GENERATION (Phase 6 SDK Extension).
+   * Maps image routing to robust enterprise providers (Together AI) with graceful
+   * degradation to SVGs/Placeholders if API keys are missing to prevent runtime failures.
    */
   async generateImage(options: GenerateImageOptions): Promise<{ url: string; alt: string }> {
-      const { prompt, width = 1200, height = 630 } = options;
+      const { prompt, width = 1024, height = 768 } = options; // Together Flux Free tier favors 1024x768
       
-      const seed = Math.floor(Math.random() * 100000);
-      const encodedPrompt = encodeURIComponent(prompt.trim());
-      // Pollinations.ai provides frictionless programmatic access to Flux for rapid prototyping
-      const hotlinkUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&width=${width}&height=${height}&seed=${seed}&nologo=true`;
+      // @ts-ignore
+      const togetherKey = typeof process !== 'undefined' ? process.env.TOGETHER_API_KEY : undefined;
 
-      console.log(`[IntelligenceRouter] Auto-mapped Flux image generation to frictionless gateway.`);
+      if (togetherKey) {
+          console.log(`[IntelligenceRouter] Routing secure Flux matrix via Together AI.`);
+          const res = await fetch("https://api.together.xyz/v1/images/generations", {
+              method: 'POST',
+              headers: {
+                  'Authorization': `Bearer ${togetherKey}`,
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  model: "black-forest-labs/FLUX.1-schnell-Free",
+                  prompt: prompt,
+                  width: width,
+                  height: height,
+                  steps: 4,
+                  n: 1,
+                  response_format: "url"
+              })
+          });
+
+          if (!res.ok) {
+              const err = await res.text();
+              console.warn(`[IntelligenceRouter] Together AI Gateway Error: ${err}`);
+              throw new Error(`Flux Integration Exception`);
+          }
+
+          const data = await res.json() as any;
+          const extractedUrl = data?.data?.[0]?.url;
+          
+          if (!extractedUrl) {
+              throw new Error(`Invalid response structure from Together AI: ${JSON.stringify(data)}`);
+          }
+          
+          return { url: extractedUrl, alt: prompt };
+      }
+
+      console.warn(`[IntelligenceRouter] WARNING: No TOGETHER_API_KEY found in environment.`);
+      console.warn(`[IntelligenceRouter] Falling back to structural placeholders to prevent rendering pipeline collapse.`);
+
+      // Graceful degradation to a structural placeholder highlighting the semantic entity
+      const firstSentence = (prompt || '').split('.')[0] || 'Image prompt';
+      const shortPrompt = encodeURIComponent(firstSentence.substring(0, 50));
+      const hotlinkUrl = `https://placehold.co/1200x630/111827/059669.png?text=Flux+Routing+Blocked%5CnMissing+Together+Key`;
       
       return {
           url: hotlinkUrl,

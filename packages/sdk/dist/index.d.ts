@@ -150,9 +150,9 @@ export declare class IntelligenceRouter {
      */
     execute(options: ExecuteOptions): Promise<Record<string, unknown>>;
     /**
-     * ZERO-CONFIG IMAGE GENERATION (Phase 6 SDK Extension).
-     * Generates a structural hero image natively bypassing complex API setups by routing
-     * to frictionless open endpoints (Pollinations) passing Flux requests.
+     * ENTERPRISE IMAGE GENERATION (Phase 6 SDK Extension).
+     * Maps image routing to robust enterprise providers (Together AI) with graceful
+     * degradation to SVGs/Placeholders if API keys are missing to prevent runtime failures.
      */
     generateImage(options: GenerateImageOptions): Promise<{
         url: string;
