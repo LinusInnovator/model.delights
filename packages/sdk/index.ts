@@ -497,7 +497,7 @@ export class IntelligenceRouter {
               body: JSON.stringify({
                   prompt: prompt,
                   image_size: { width: width, height: height },
-                  num_inference_steps: 4
+                  sync_mode: true
               })
           });
 
