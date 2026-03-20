@@ -198,7 +198,7 @@ export class IntelligenceRouter {
         config = configOrIntent;
     }
 
-    const { intent = 'all', estimatedInputTokens, capabilities = [], policy = 'balanced' } = config;
+    const { intent = 'all', estimatedInputTokens, capabilities = [], policy = 'balanced', cached_payload } = config;
 
     const now = Date.now();
     
@@ -207,7 +207,8 @@ export class IntelligenceRouter {
         intent.toLowerCase(), 
         estimatedInputTokens?.toString() || '', 
         capabilities.join(','), 
-        policy
+        policy,
+        cached_payload ? 'cached' : 'nocache'
     ].join('_');
     
     const cached = this._routeCache.get(cacheKey);
@@ -225,6 +226,9 @@ export class IntelligenceRouter {
       }
       if (capabilities.length > 0) {
           params.capabilities = capabilities.join(',');
+      }
+      if (cached_payload !== undefined) {
+          params.cached_payload = cached_payload.toString();
       }
       const data = await this.fetchApi<RouteResponse>("/api/v1/route", params);
       if (data) {
@@ -314,7 +318,27 @@ export class IntelligenceRouter {
           throw new Error("[IntelligenceRouter] execute() requires an 'openrouterKey' to process the fetch securely on your hardware.");
       }
 
-      // 1. Let the Mathematical Engine pick the best route
+      // 1. SEMANTIC FIREWALL: Pre-flight heuristic check
+      const maliciousPatterns = [
+          /rm\s+-rf/i,
+          /DROP\s+TABLE/i,
+          /INTERNAL_GOD_KEY/i,
+          /chmod\s+-R\s+777/i,
+          /mkfs\./i,
+          /wget.*\|.*bash/i
+      ];
+
+      for (const msg of options.messages) {
+          if (typeof msg.content === 'string') {
+              for (const pattern of maliciousPatterns) {
+                  if (pattern.test(msg.content)) {
+                      throw new Error(`[SemanticFirewallError] Execution neutralized pre-flight. Malicious pattern detected: ${pattern.source}`);
+                  }
+              }
+          }
+      }
+
+      // 2. Let the Mathematical Engine pick the best route
       const route = await this.getTopModel(options.config || {});
       const modelsToTry = [route.flagship.model];
 
@@ -337,7 +361,7 @@ export class IntelligenceRouter {
           Array.isArray(m.content) && m.content.some(part => part.type === 'image_url')
       );
 
-      // 2. Cascade down the mathematically ranked models (Primary -> Smart Value -> Fallback 1 -> Fallback 2)
+      // 3. Cascade down the mathematically ranked models (Primary -> Smart Value -> Fallback 1 -> Fallback 2)
       for (const modelId of modelsToTry) {
           try {
               const payload: Record<string, unknown> = {
