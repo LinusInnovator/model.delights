@@ -194,7 +194,23 @@ async function main() {
 
         const targetSlug = nodeSlug || jsonObject.slug || `generated-article-${Date.now()}`;
         
-        console.log(`[5] Writing perfectly formatted TypeScript file into architecture...`);
+        // --- PHASE 6: ON-BRAND AUTO-IMAGE GENERATION (FLUX) ---
+        console.log(`[5] Engineering Brand Guidelines into Flux-Schnell Payload...`);
+        const abstractPrompt = `A minimalist, highly cinematic 8k abstract vector illustration of ${jsonObject.topicEntity || topic}. Dark-mode UX/UI style with vibrant emerald green and zinc accents. Corporate tech style. NO TEXT. NO WORDS. NO LETTERS.`;
+        
+        try {
+            const heroData = await router.generateImage({ prompt: abstractPrompt });
+            jsonObject.heroImage = {
+                url: heroData.url,
+                alt: `Vector illustration depicting ${jsonObject.topicEntity || topic}`
+            };
+            console.log(` - Extracted Flux Snapshot URL: ${heroData.url}`);
+        } catch (imgErr) {
+            console.warn(` - [Image Warning] Failed to reach image gateway. Attempting text-only node fallback.`);
+        }
+        // ------------------------------------------------------
+
+        console.log(`[6] Writing perfectly formatted TypeScript file into architecture...`);
 
         const fileContent = [
             "import { ContentObject } from '@model-delights/insights-engine';",

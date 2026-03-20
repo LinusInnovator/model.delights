@@ -103,14 +103,15 @@ export class IntelligenceRouter {
         else {
             config = configOrIntent;
         }
-        const { intent = 'all', estimatedInputTokens, capabilities = [], policy = 'balanced' } = config;
+        const { intent = 'all', estimatedInputTokens, capabilities = [], policy = 'balanced', cached_payload } = config;
         const now = Date.now();
         // Construct robust cache key including new policy parameters
         const cacheKey = [
             intent.toLowerCase(),
             estimatedInputTokens?.toString() || '',
             capabilities.join(','),
-            policy
+            policy,
+            cached_payload ? 'cached' : 'nocache'
         ].join('_');
         const cached = this._routeCache.get(cacheKey);
         // 1. Check local in-memory TTL cache (0ms latency target)
@@ -125,6 +126,9 @@ export class IntelligenceRouter {
             }
             if (capabilities.length > 0) {
                 params.capabilities = capabilities.join(',');
+            }
+            if (cached_payload !== undefined) {
+                params.cached_payload = cached_payload.toString();
             }
             const data = await this.fetchApi("/api/v1/route", params);
             if (data) {
@@ -206,7 +210,37 @@ export class IntelligenceRouter {
         if (!options.openrouterKey) {
             throw new Error("[IntelligenceRouter] execute() requires an 'openrouterKey' to process the fetch securely on your hardware.");
         }
-        // 1. Let the Mathematical Engine pick the best route
+        // 1. SEMANTIC FIREWALL: Configurable heuristic check
+        const firewall = options.firewall || { preset: 'off' };
+        if (firewall.preset !== 'off') {
+            const defaultAgenticPatterns = [
+                /rm\s+-rf/i,
+                /DROP\s+TABLE/i,
+                /INTERNAL_GOD_KEY/i,
+                /chmod\s+-R\s+777/i,
+                /mkfs\./i,
+                /wget.*\|.*bash/i
+            ];
+            const activePatterns = [
+                ...(firewall.preset === 'strict-agentic' || firewall.preset === 'warn-only' ? defaultAgenticPatterns : []),
+                ...(firewall.custom_blocklist || [])
+            ];
+            for (const msg of options.messages) {
+                if (typeof msg.content === 'string') {
+                    for (const pattern of activePatterns) {
+                        if (pattern.test(msg.content)) {
+                            if (firewall.preset === 'warn-only') {
+                                console.warn(`[SemanticFirewall - WARN] Malicious pattern detected: ${pattern.source}`);
+                            }
+                            else {
+                                throw new Error(`[SemanticFirewallError] Execution neutralized pre-flight. Malicious pattern detected: ${pattern.source}`);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // 2. Let the Mathematical Engine pick the best route
         const route = await this.getTopModel(options.config || {});
         const modelsToTry = [route.flagship.model];
         if (route.smart_value) {
@@ -223,7 +257,7 @@ export class IntelligenceRouter {
         let lastError;
         // Vison modality auto-detection
         const hasVision = options.messages.some(m => Array.isArray(m.content) && m.content.some(part => part.type === 'image_url'));
-        // 2. Cascade down the mathematically ranked models (Primary -> Smart Value -> Fallback 1 -> Fallback 2)
+        // 3. Cascade down the mathematically ranked models (Primary -> Smart Value -> Fallback 1 -> Fallback 2)
         for (const modelId of modelsToTry) {
             try {
                 const payload = {
@@ -299,6 +333,23 @@ export class IntelligenceRouter {
             }
         }
         throw new Error(`[IntelligenceRouter] All models in the cascade failed. Last error: ${lastError?.message || String(lastError)}`);
+    }
+    /**
+     * ZERO-CONFIG IMAGE GENERATION (Phase 6 SDK Extension).
+     * Generates a structural hero image natively bypassing complex API setups by routing
+     * to frictionless open endpoints (Pollinations) passing Flux requests.
+     */
+    async generateImage(options) {
+        const { prompt, width = 1200, height = 630 } = options;
+        const seed = Math.floor(Math.random() * 100000);
+        const encodedPrompt = encodeURIComponent(prompt.trim());
+        // Pollinations.ai provides frictionless programmatic access to Flux for rapid prototyping
+        const hotlinkUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&width=${width}&height=${height}&seed=${seed}&nologo=true`;
+        console.log(`[IntelligenceRouter] Auto-mapped Flux image generation to frictionless gateway.`);
+        return {
+            url: hotlinkUrl,
+            alt: prompt
+        };
     }
 }
 //# sourceMappingURL=index.js.map

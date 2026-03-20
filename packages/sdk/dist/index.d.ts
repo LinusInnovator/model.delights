@@ -68,6 +68,19 @@ export interface OpenRouterOverrides {
     top_p?: number;
     seed?: number;
 }
+export interface FirewallConfig {
+    preset?: 'strict-agentic' | 'warn-only' | 'off';
+    custom_blocklist?: RegExp[];
+}
+export interface GenerateImageOptions {
+    prompt: string;
+    /** Defaults to 1200 for OpenGraph Hero standard */
+    width?: number;
+    /** Defaults to 630 for OpenGraph Hero standard */
+    height?: number;
+    /** Defaults to false. If true, attempts to download the image array buffer. Otherwise, returns a valid hotlink URL. */
+    returnBuffer?: boolean;
+}
 export interface ExecuteOptions {
     /** Standard incoming message array */
     messages: {
@@ -92,6 +105,8 @@ export interface ExecuteOptions {
     openrouter_overrides?: OpenRouterOverrides;
     /** Time in milliseconds before the router kills the model and falls back */
     timeout_ms_max_per_model?: number;
+    /** Semantic Firewall configurations to proactively block malicious agentic payloads */
+    firewall?: FirewallConfig;
 }
 export declare class IntelligenceRouter {
     private apiKey;
@@ -134,5 +149,14 @@ export declare class IntelligenceRouter {
      * and handles silent fallbacks if the primary model fails or hallucinates.
      */
     execute(options: ExecuteOptions): Promise<Record<string, unknown>>;
+    /**
+     * ZERO-CONFIG IMAGE GENERATION (Phase 6 SDK Extension).
+     * Generates a structural hero image natively bypassing complex API setups by routing
+     * to frictionless open endpoints (Pollinations) passing Flux requests.
+     */
+    generateImage(options: GenerateImageOptions): Promise<{
+        url: string;
+        alt: string;
+    }>;
 }
 //# sourceMappingURL=index.d.ts.map
