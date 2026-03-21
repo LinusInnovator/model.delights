@@ -5,7 +5,6 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 
 const rootPath = process.cwd();
-const contextPath = path.join(rootPath, 'business_context.json');
 const configPath = path.join(rootPath, 'insights.config.json');
 
 let baseOutDir = path.join(rootPath, 'src/data/insights');
@@ -14,16 +13,30 @@ if (fs.existsSync(configPath)) {
     if (config.queueDir) baseOutDir = path.join(rootPath, config.queueDir);
 }
 
-if (!fs.existsSync(contextPath)) {
-    console.error("[Insights Drafter] Fatal Error: business_context.json not found in root.");
-    process.exit(1);
-}
-
-const businessContext = JSON.parse(fs.readFileSync(contextPath, 'utf8'));
-
 let topic = "";
 let clusterFile = "";
 let nodeSlug = "";
+let tenantId = "model-delights";
+
+for (let i = 2; i < process.argv.length; i++) {
+    if (process.argv[i] === '--cluster') clusterFile = process.argv[i+1];
+    if (process.argv[i] === '--slug') nodeSlug = process.argv[i+1];
+    if (process.argv[i] === '--tenant') tenantId = process.argv[i+1];
+}
+
+const contextPath = path.join(rootPath, '../seo-delights/tenants', `${tenantId}.json`);
+const fallbackContextPath = path.join(rootPath, 'business_context.json');
+
+let businessContext;
+if (fs.existsSync(contextPath)) {
+    businessContext = JSON.parse(fs.readFileSync(contextPath, 'utf8'));
+} else if (fs.existsSync(fallbackContextPath)) {
+    console.warn(`[Insights Drafter Warning] Tenant '${tenantId}' not found. Reverting to legacy business_context.json.`);
+    businessContext = JSON.parse(fs.readFileSync(fallbackContextPath, 'utf8'));
+} else {
+    console.error(`[Insights Drafter] Fatal Error: No contextual config mapped for tenant '${tenantId}'.`);
+    process.exit(1);
+}
 
 for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === '--cluster') clusterFile = process.argv[i+1];
@@ -36,7 +49,7 @@ if (!clusterFile && process.argv.length > 2 && !process.argv[2].startsWith('--')
 
 if (!topic && (!clusterFile || !nodeSlug)) {
     console.error(`[Insights Drafter] Usage: npm run insights:draft "Your Topic"`);
-    console.error(`                   OR npm run insights:draft --cluster [file] --slug [slug]`);
+    console.error(`                   OR npm run insights:draft --tenant [tenant] --cluster [file] --slug [slug]`);
     process.exit(1);
 }
 

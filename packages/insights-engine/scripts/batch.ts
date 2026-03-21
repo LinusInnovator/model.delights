@@ -4,11 +4,21 @@ import { execSync } from 'child_process';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 
-const clusterFile = process.argv[2];
+let clusterFile = "";
+let tenantId = "model-delights";
+
+for (let i = 2; i < process.argv.length; i++) {
+    if (process.argv[i] === '--tenant') {
+        tenantId = process.argv[i+1];
+        i++;
+    } else if (!process.argv[i].startsWith('--')) {
+        clusterFile = process.argv[i];
+    }
+}
 
 if (!clusterFile || !fs.existsSync(clusterFile)) {
     console.error(`[Batch Orchestrator] Fatal Error: Cluster file not provided or not found.`);
-    console.error(`Usage: npm run insights:batch "src/data/insights/clusters/map-slug.json"`);
+    console.error(`Usage: npm run insights:batch --tenant [prefix] "src/data/insights/clusters/map-slug.json"`);
     process.exit(1);
 }
 
@@ -36,7 +46,7 @@ async function main() {
         
         try {
             // We use execSync with stdio: 'inherit' to perfectly pipe the drafter output back to the terminal.
-            execSync(`npx tsx packages/insights-engine/scripts/draft.ts --cluster ${clusterFile} --slug ${node.slug}`, {
+            execSync(`npx tsx packages/insights-engine/scripts/draft.ts --tenant ${tenantId} --cluster ${clusterFile} --slug ${node.slug}`, {
                 stdio: 'inherit',
                 env: process.env
             });
