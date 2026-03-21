@@ -33630,6 +33630,36 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_f2a9db07",
+      "model_id": "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 1.8e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+          "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8789c613",
+      "model_id": "mistralai/pixtral-12b",
+      "pricing_prompt": 1.0000000000000001e-07,
+      "pricing_completion": 1.0000000000000001e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "mistralai/pixtral-12b",
+          "provider": "mistralai"
+        }
+      ]
     }
   ]
 }
