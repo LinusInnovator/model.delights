@@ -33615,6 +33615,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_72ebe324",
+      "model_id": "fal-ai/ideogram/v3",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/ideogram/v3",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
