@@ -67,7 +67,7 @@ export async function fetchModels(): Promise<FetchResult> {
         }
 
         const res = await fetch("https://openrouter.ai/api/v1/models", {
-            cache: 'no-store'
+            next: { revalidate: 300 }
         });
 
         if (!res.ok) {

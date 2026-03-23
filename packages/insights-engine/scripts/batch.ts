@@ -46,7 +46,7 @@ async function main() {
         
         try {
             // We use execSync with stdio: 'inherit' to perfectly pipe the drafter output back to the terminal.
-            execSync(`npx tsx packages/insights-engine/scripts/draft.ts --tenant ${tenantId} --cluster ${clusterFile} --slug ${node.slug}`, {
+            execSync(`npx tsx packages/insights-engine/scripts/draft.ts --tenant ${tenantId} --cluster "${clusterFile}" --slug "${node.slug}"`, {
                 stdio: 'inherit',
                 env: process.env
             });

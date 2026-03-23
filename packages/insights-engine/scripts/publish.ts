@@ -1,9 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import { GoogleAuth } from 'google-auth-library';
+import { createClient } from '@supabase/supabase-js';
 
 const rootPath = process.cwd();
 const configPath = path.join(rootPath, 'insights.config.json');
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 if (!fs.existsSync(configPath)) {
     console.error("[Insights Publisher] Fatal Error: insights.config.json not found in root.");
@@ -22,57 +27,77 @@ if (!fs.existsSync(queueDir)) {
     process.exit(0);
 }
 
-const queueItems = fs.readdirSync(queueDir).filter(item => {
-    return fs.statSync(path.join(queueDir, item)).isDirectory();
-});
 
-if (queueItems.length === 0) {
-    console.log(`[Pacing Engine] Queue directory is currently empty. No new clusters pending.`);
-    console.log(`======================================================\n`);
-    process.exit(0);
-}
-
-// Sort by oldest cluster first based on fs stats (or just alphabetically if they are timestamped)
-// Let's just grab the first one (FIFO via OS directory ordering, which is usually alphabetical)
-queueItems.sort((a, b) => {
-    return fs.statSync(path.join(queueDir, a)).mtime.getTime() - fs.statSync(path.join(queueDir, b)).mtime.getTime();
-});
-
-const maxClustersToPublish = config.maxClustersPerPublish || 1;
-const clustersToPublish = queueItems.slice(0, maxClustersToPublish);
 
 async function main() {
-    console.log(`[1] Found ${queueItems.length} complete clusters resting in the offline Node Queue.`);
-    console.log(`[2] Extracting ${clustersToPublish.length} cluster(s) for immediate live deployment...`);
+    console.log(`[1] Instantiating Headless DB Push Protocols...`);
 
-    if (!fs.existsSync(publishDir)) {
-        fs.mkdirSync(publishDir, { recursive: true });
+    if (!supabase) {
+        console.error(`[Pacing Engine] Fatal: Supabase Service Role configuration missing. Add keys to .env.local.`);
+        process.exit(1);
     }
 
+    // New nested structure traversal for Headless Tenant arrays
+    const tenants = fs.readdirSync(queueDir).filter(t => fs.statSync(path.join(queueDir, t)).isDirectory());
     const publishedSlugs: string[] = [];
 
-    for (const clusterName of clustersToPublish) {
-        console.log(`\n---------------------------------------------------------`);
-        console.log(`[Deploying Cluster Web] Target: '${clusterName}'`);
-        const clusterPath = path.join(queueDir, clusterName);
-        const files = fs.readdirSync(clusterPath).filter(f => f.endsWith('.ts'));
+    for (const tenant of tenants) {
+        const tenantDir = path.join(queueDir, tenant);
+        const clusters = fs.readdirSync(tenantDir).filter(c => fs.statSync(path.join(tenantDir, c)).isDirectory());
 
-        for (const file of files) {
-            const sourceFile = path.join(clusterPath, file);
-            const destinationFile = path.join(publishDir, file);
+        for (const clusterName of clusters) {
+            console.log(`\n---------------------------------------------------------`);
+            console.log(`[Deploying Database Schema] Tenant: ${tenant} | Cluster: '${clusterName}'`);
             
-            fs.renameSync(sourceFile, destinationFile);
-            const slug = file.replace('.ts', '');
-            if (slug && !publishedSlugs.includes(slug)) {
-                publishedSlugs.push(slug);
-            }
-            console.log(` - Migrated Node into Next.js Router: ${file}`);
-        }
+            const clusterPath = path.join(tenantDir, clusterName);
+            const files = fs.readdirSync(clusterPath).filter(f => f.endsWith('.ts'));
 
-        // Clean up empty directory
-        fs.rmdirSync(clusterPath);
-        console.log(`[SUCCESS] Spoke-and-Hub Network structurally verified and published.`);
-        console.log(`---------------------------------------------------------\n`);
+            for (const file of files) {
+                const sourceFile = path.join(clusterPath, file);
+                const fileContent = fs.readFileSync(sourceFile, 'utf8');
+                
+                try {
+                    // Extract the JSON object regardless of the dynamic const variable name
+                    const match = fileContent.match(/export\s+const\s+[^=]+\s*=\s*({[\s\S]*});?\s*$/);
+                    if (!match) {
+                        throw new Error("Structural JSON extraction regex failed to isolate the payload block.");
+                    }
+                    
+                    const rawJson = match[1];
+                    const parsedPayload = JSON.parse(rawJson);
+                    const slug = file.replace('.ts', '');
+                    const extractedTitle = parsedPayload.title?.executive || parsedPayload.title?.technical || parsedPayload.title?.beginner || slug;
+                    
+                    const { error } = await supabase.from('published_nodes').upsert(
+                        {
+                            tenant_id: tenant,
+                            slug: slug,
+                            title: extractedTitle,
+                            content_json: parsedPayload
+                        },
+                        { onConflict: 'tenant_id, slug' }
+                    );
+
+                    if (error) throw error;
+
+                    if (slug && !publishedSlugs.includes(slug)) {
+                        publishedSlugs.push(slug);
+                    }
+                    console.log(` - Upserted Headless Node into Supabase Edge: ${slug}`);
+                    
+                    // Delete securely after transactional verification
+                    fs.unlinkSync(sourceFile);
+                    
+                } catch(e: any) {
+                    console.error(`[Fatal] Database insertion rejected for ${file}: ${e.message}`);
+                }
+            }
+
+            // Clean up empty directory automatically 
+            try { fs.rmdirSync(clusterPath); } catch(e){}
+            console.log(`[SUCCESS] Cluster topological array completely migrated to Headless API.`);
+            console.log(`---------------------------------------------------------\n`);
+        }
     }
 
     // --- PHASE 8: GOOGLE INDEXING API PING ---

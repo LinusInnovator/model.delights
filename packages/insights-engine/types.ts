@@ -69,6 +69,7 @@ export interface ContentObject {
   
   title: Record<IntentLevel, string>;
   subtitle: Record<IntentLevel, string>;
+  heroImagePrompt?: string;
   heroImage?: {
     url: string;
     alt: string;

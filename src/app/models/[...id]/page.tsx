@@ -7,9 +7,9 @@ import Script from "next/script";
 // ISR config: cache these pages for 5 mins
 export const revalidate = 300;
 
-export async function generateMetadata(props: { params: Promise<{ provider: string; model: string }> }) {
+export async function generateMetadata(props: { params: Promise<{ id: string[] }> }) {
     const params = await props.params;
-    const modelId = `${params.provider}/${params.model}`;
+    const modelId = params.id.join('/');
 
     const { models } = await fetchModels();
     const model = models.find((m) => m.id === modelId);
@@ -22,9 +22,9 @@ export async function generateMetadata(props: { params: Promise<{ provider: stri
     };
 }
 
-export default async function ModelProfilePage(props: { params: Promise<{ provider: string; model: string }> }) {
+export default async function ModelProfilePage(props: { params: Promise<{ id: string[] }> }) {
     const params = await props.params;
-    const modelId = `${params.provider}/${params.model}`;
+    const modelId = params.id.join('/');
 
     const { models, last_updated } = await fetchModels();
     const model = models.find((m) => m.id === modelId);
@@ -49,7 +49,7 @@ export default async function ModelProfilePage(props: { params: Promise<{ provid
         "@type": "SoftwareApplication",
         "name": model.name,
         "applicationCategory": "DeveloperApplication",
-        "description": model.description || `Language model by ${params.provider}`,
+        "description": model.description || `Language model by ${params.id[0]}`,
         "offers": {
             "@type": "Offer",
             "price": costMillion.toFixed(4),
@@ -86,7 +86,7 @@ export default async function ModelProfilePage(props: { params: Promise<{ provid
                             </h1>
                         </div>
                         <p className="text-zinc-400 text-lg md:text-xl font-medium max-w-2xl">
-                            {params.provider.toUpperCase()} Developer Architecture Profile
+                            {params.id[0].toUpperCase()} Developer Architecture Profile
                         </p>
                     </div>
 

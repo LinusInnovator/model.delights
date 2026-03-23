@@ -3,20 +3,26 @@ import { Metadata, ResolvingMetadata } from "next";
 import fs from "fs";
 import path from "path";
 
-// Helper to dynamically load all TS content objects from the directory
+import { supabase } from "@/lib/supabase";
+
+// Helper to dynamically load all TS content objects natively from the Headless CMS Database
 async function getArticles(): Promise<ContentObject[]> {
-  const directoryPath = path.join(process.cwd(), "src/data/insights");
-  if (!fs.existsSync(directoryPath)) return [];
-  const files = fs.readdirSync(directoryPath).filter((f) => f.endsWith(".ts"));
+  const tenantId = process.env.NEXT_PUBLIC_TENANT_ID || "model-delights";
   
-  const articles: ContentObject[] = [];
-  for (const file of files) {
-    // Dynamic import to load the statically generated TS files from the agent
-    const module = await import(`@/data/insights/${file}`);
-    const obj = Object.values(module)[0] as ContentObject;
-    if (obj && obj.slug) articles.push(obj);
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("published_nodes")
+    .select("*")
+    .eq("tenant_id", tenantId);
+
+  if (error || !data) {
+    console.error("[Headless Router] Failed to sync topological sequence from Supabase:", error);
+    return [];
   }
-  return articles;
+
+  // Cast the Postgres JSONB column structurally back into the strict UI framework
+  return data.map(row => row.content_json as ContentObject);
 }
 
 export async function generateMetadata(

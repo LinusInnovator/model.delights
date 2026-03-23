@@ -7,16 +7,10 @@ dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 const rootPath = process.cwd();
 const configPath = path.join(rootPath, 'insights.config.json');
 
-let baseOutDir = path.join(rootPath, 'src/data/insights');
-if (fs.existsSync(configPath)) {
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-    if (config.queueDir) baseOutDir = path.join(rootPath, config.queueDir);
-}
-
-let topic = "";
-let clusterFile = "";
-let nodeSlug = "";
 let tenantId = "model-delights";
+let topic = "";
+let nodeSlug = "";
+let clusterFile = "";
 
 for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === '--cluster') clusterFile = process.argv[i+1];
@@ -24,10 +18,16 @@ for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === '--tenant') tenantId = process.argv[i+1];
 }
 
+let baseOutDir = path.join(rootPath, 'src/data/insights', tenantId);
+if (fs.existsSync(configPath)) {
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    if (config.queueDir) baseOutDir = path.join(rootPath, config.queueDir, tenantId);
+}
+
 const contextPath = path.join(rootPath, '../seo-delights/tenants', `${tenantId}.json`);
 const fallbackContextPath = path.join(rootPath, 'business_context.json');
 
-let businessContext;
+let businessContext: any;
 if (fs.existsSync(contextPath)) {
     businessContext = JSON.parse(fs.readFileSync(contextPath, 'utf8'));
 } else if (fs.existsSync(fallbackContextPath)) {
