@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 export async function generateMetadata(props: { params: Promise<{ id: string[] }> }) {
     const params = await props.params;
-    const modelId = params.id.join('/');
+    const modelId = decodeURIComponent(params.id.join('/'));
 
     const { models } = await fetchModels();
     const model = models.find((m) => m.id === modelId);
@@ -24,7 +24,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string[] }
 
 export default async function ModelProfilePage(props: { params: Promise<{ id: string[] }> }) {
     const params = await props.params;
-    const modelId = params.id.join('/');
+    const modelId = decodeURIComponent(params.id.join('/'));
 
     const { models, last_updated } = await fetchModels();
     const model = models.find((m) => m.id === modelId);
