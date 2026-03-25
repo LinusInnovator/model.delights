@@ -2,5 +2,7 @@
   "name": "@model-delights/insights-engine",
   "version": "0.1.0",
   "main": "index.ts",
-  "dependencies": {}
+  "dependencies": {
+    "googleapis": "^171.4.0"
+  }
 }

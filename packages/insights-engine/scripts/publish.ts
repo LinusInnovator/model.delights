@@ -117,7 +117,7 @@ async function main() {
                 const baseUrl = process.env.MODEL_DELIGHTS_BASE_URL || 'https://model.delights.pro';
                 
                 for (const slug of publishedSlugs) {
-                    const articleUrl = `${baseUrl}/insights/${slug}`;
+                    const articleUrl = `${baseUrl}/insights?article=${slug}`;
                     console.log(`[SEO Ping] Dispatching URL_UPDATED payload for: ${articleUrl}`);
                     
                     await client.request({

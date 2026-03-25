@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { fetchModels } from '@/lib/api';
 import fs from 'fs/promises';
 import path from 'path';
+import { supabase } from '@/lib/supabase';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const data = await fetchModels();
@@ -66,6 +67,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9,
         });
     });
+
+    // Add Programmatic Headless Articles from Supabase
+    if (supabase) {
+        try {
+            const tenantId = process.env.NEXT_PUBLIC_TENANT_ID || "model-delights";
+            const { data } = await supabase
+                .from("published_nodes")
+                .select("slug")
+                .eq("tenant_id", tenantId);
+                
+            if (data) {
+                data.forEach(article => {
+                    routes.push({
+                        url: `${baseUrl}/insights?article=${article.slug}`,
+                        lastModified: new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.8,
+                    });
+                });
+            }
+        } catch (e) {
+            console.error("Supabase failed during sitemap generation:", e);
+        }
+    }
 
     // Add Industry Validator SEO Pages
     try {

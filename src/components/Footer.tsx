@@ -12,6 +12,7 @@ export default function Footer() {
         { name: 'VS Engine (Compare)', path: '/vs/openai__gpt-4o/anthropic__claude-3.5-sonnet' },
         { name: 'Enterprise API', path: '/enterprise' },
         { name: 'Live Changelog', path: '/changelog' },
+        { name: 'AI Insights Hub', path: '/insights' },
         { name: 'Admin Dashboard', path: '/admin' },
     ];
 

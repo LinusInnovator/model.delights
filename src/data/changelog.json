@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-03-23",
+    "items": [
+      {
+        "hash": "911bbdf",
+        "type": "fix",
+        "scope": "",
+        "message": "decodeURIComponent in catch-all model route to natively resolve OpenRouter colon IDs",
+        "date": "2026-03-23",
+        "isPublic": true
+      },
+      {
+        "hash": "21c9829",
+        "type": "feat",
+        "scope": "",
+        "message": "resolve Vercel build errors, implement model catch-all routing, and fix batch pathing",
+        "date": "2026-03-23",
+        "isPublic": true
+      }
+    ]
+  },
+  {
     "date": "2026-03-21",
     "items": [
       {
@@ -16,232 +37,6 @@
         "scope": "seo",
         "message": "engineered automated JWT negotiation to ping google indexing payload upon deploy",
         "date": "2026-03-21",
-        "isPublic": true
-      }
-    ]
-  },
-  {
-    "date": "2026-03-20",
-    "items": [
-      {
-        "hash": "b611499",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "optimized pipeline economics by routing to flux-schnell with dynamic prompt abstractions",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "7113bb2",
-        "type": "fix",
-        "scope": "sdk",
-        "message": "resolved diffusion gradient blur by unlocking fal inference steps",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "7b77a83",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "wired scalable Fal.ai FLUX matrix and published high-fidelity model-comparisons cluster",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "b946309",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "implemented frictionless flux-schnell image integration with secure graceful fallback",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "40c1b88",
-        "type": "feat",
-        "scope": "insights",
-        "message": "deployed Model Comparisons cluster including programmatic flux illustrations",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "aa4350a",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "implemented frictionless flux-schnell image generation",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "2c1c6a5",
-        "type": "feat",
-        "scope": "insights",
-        "message": "implement offline queuing, batch pacing, and github actions cron framework",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "c27309b",
-        "type": "feat",
-        "scope": "insights",
-        "message": "batch orchestrated open source LLM economics cluster",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "57c7763",
-        "type": "feat",
-        "scope": "insights",
-        "message": "implement multi-node contextual AIEO cluster orchestrator",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "d1e86bd",
-        "type": "feat",
-        "scope": "insights",
-        "message": "inject AIEO and structural SEO constraints into autonomous drafter system prompt",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "23df08d",
-        "type": "feat",
-        "scope": "insights",
-        "message": "autonomous agent drafted latency tax article",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "ff38195",
-        "type": "feat",
-        "scope": "insights",
-        "message": "extract insights engine to local package and build autonomous drafting script",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "4886c83",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "refactor Semantic Firewall to be opt-in via FirewallConfig presets",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "dee15b3",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "Add Semantic Firewall and explicit Prompt Caching parameters",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "ab248a8",
-        "type": "fix",
-        "scope": "",
-        "message": "update hero image URL to point to new image",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "b2a7df5",
-        "type": "feat",
-        "scope": "",
-        "message": "Add custom AI generated hero image for OpenClaw article",
-        "date": "2026-03-20",
-        "isPublic": true
-      },
-      {
-        "hash": "08db559",
-        "type": "feat",
-        "scope": "",
-        "message": "deploy Autonomous Content Engine and Snell SDK Insights",
-        "date": "2026-03-20",
-        "isPublic": true
-      }
-    ]
-  },
-  {
-    "date": "2026-03-18",
-    "items": [
-      {
-        "hash": "74a5d79",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "inject autonomous stale cache rescue protocol during api gateway downtime",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "cf26e58",
-        "type": "docs",
-        "scope": "sdk",
-        "message": "sync secondary agent guide with new npm registry and protection parameters",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "f5568bc",
-        "type": "docs",
-        "scope": "sdk",
-        "message": "update agent code template to include new response_format and timeout_ms properties",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "c3c181f",
-        "type": "feat",
-        "scope": "sdk",
-        "message": "inject strict openrouter parameter overrides, vision fallbacks, and internal abort timeouts",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "1b71e2c",
-        "type": "fix",
-        "scope": "docs",
-        "message": "update snell agent template to use published npm package instead of localized macintosh path",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "4757320",
-        "type": "fix",
-        "scope": "api",
-        "message": "dynamically resolve model routing for PRD generator so the client doesn't hit missing modelId",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "bfff658",
-        "type": "fix",
-        "scope": "api",
-        "message": "drastically reduce triangulation JSON schema complexity and enforce low_latency routing to resolve browser timeouts",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "eb7ce91",
-        "type": "feat",
-        "scope": "seo",
-        "message": "implement llms.txt standard in public root to inject SDK architecture directly into AI web crawlers",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "d9c1073",
-        "type": "feat",
-        "scope": "ui",
-        "message": "implement 3-tier SDK Package matrix on /sdk landing page to formalize Community, Pro, and Enterprise editions",
-        "date": "2026-03-18",
-        "isPublic": true
-      },
-      {
-        "hash": "d569f40",
-        "type": "fix",
-        "scope": "ui",
-        "message": "elevate footer z-index to 50 to prevent landing page background overlays from blocking link clicks",
-        "date": "2026-03-18",
         "isPublic": true
       }
     ]
