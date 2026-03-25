@@ -40005,6 +40005,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_cfd162e9",
+      "model_id": "reka/reka-edge",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "reka/reka-edge",
+          "provider": "reka"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_af24563c-f854-4282-9b04-9a845e89c6bf",
+      "model_id": "Scout Signal: Build with Lyria 3, our newest music generation model",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/lyria-3-developers/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
