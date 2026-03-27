@@ -126,18 +126,19 @@ export async function POST(req: NextRequest) {
         // Check if we have API keys. If not, bypass the actual LLM call and return a demo response 
         // to prevent local Next.js crashes while still demonstrating the pipeline.
         if (process.env.OPENAI_API_KEY || process.env.OPENROUTER_API_KEY) {
-            let optimalModelId = "openai/gpt-4o-mini"; // safety net
+            let optimalModelId = "openai/gpt-4o"; // Super Architect default safety net
 
-            // --- INTERNAL DOGFOODING for PREMIUM TIER ---
-            if (tier === 'premium') {
-                const route = await getOptimalRoute({ intent: 'agentic' });
+            // --- THE SUPER ARCHITECT BRAIN ---
+            // The JSON Topology routing requires the absolute highest cognitive capability available.
+            // We bypass 'smart_value' constraints and enforce flagship ELO across all tiers.
+            try {
+                const route = await getOptimalRoute({ intent: 'agentic', policy: 'max_quality' });
                 if (route) {
-                    // Because this requires strict JSON orchestration, we prioritize agentic competence and cost
-                    optimalModelId = route.smart_value?.model || route.flagship.model;
-                    console.log(`[Dogfood Premium] Architect Blueprint generating via: ${optimalModelId}`);
+                    optimalModelId = route.flagship.model;
+                    console.log(`[Architect Brain] Mathematical Topology Routing engaged: Locked to Flagship ${optimalModelId}`);
                 }
-            } else {
-                console.log(`[Dogfood Standard] Architect Blueprint generating via: ${optimalModelId}`);
+            } catch (routeErr) {
+                console.warn("[Architect Brain] Failed to fetch route, falling back to openai/gpt-4o", routeErr);
             }
 
             const model = createModel(optimalModelId);
@@ -175,6 +176,7 @@ export async function POST(req: NextRequest) {
                     Rule 1 (MVP Default): Evaluate the depth of the <intent>. If it is brief, vague, or under 3 sentences, you MUST force a SIMPLE or MEDIUM tier MVP (1-3 nodes).
                     Rule 2 (No Hallucination): You are explicitly FORBIDDEN from generating massive MEGA architectures (5-7 nodes) or extrapolating unrequested media generation components UNLESS the intent explicitly details a highly complex, multi-step distributed workflow.
                     Rule 3 (Strict Tier Caps): SIMPLE = 1-2 nodes. MEDIUM = 3-4 nodes. MEGA = 5-7 nodes. DO NOT overflow these caps. It is better to compress simple architectures into a single 'core_engine' than to hallucinate unused components.
+                    Rule 4 (Cognitive Nodes, NOT CRUD): You are designing a multi-agent system, NOT a generic web app. Do not output nodes like "database_manager" or "auth_service". Output nodes like "semantic_router", "llm_evaluator_judge", or "vector_embedding_worker".
                     
                     If the intent DOES overtly imply enterprise scale, break it down clearly (separate extraction models, reasoning engines, background workers, etc).
                     HOWEVER, if the intent requires GENERATING specific media (e.g. generating images, generating speech/audio, generating video), you MUST explicitly output a discrete downstream component dedicated to that task with the correct 'required_modalities_out'.

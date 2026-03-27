@@ -23,6 +23,7 @@ export interface ModelIntelligence {
     coding: number;
     chat: number;
     document: number;
+    agentic?: number;
 }
 
 export interface Model {
@@ -52,15 +53,42 @@ export interface FetchResult {
 export async function fetchModels(): Promise<FetchResult> {
     try {
         let lmsysEloMap: Record<string, number> = {};
+        let intelligenceMatrix: Record<string, { lmsys_elo?: number, aider_pass_1?: number, bfcl_score?: number }> = {};
+        let telemetryStats: Record<string, { total: number, failures: number, successRate: number }> = {};
         let dumpData: any = null;
         try {
             const dataPath = path.join(process.cwd(), 'src/data/lmsys_elo.json');
             if (fs.existsSync(dataPath)) {
                 lmsysEloMap = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
             }
+            const matrixPath = path.join(process.cwd(), 'src/data/intelligence_matrix.json');
+            if (fs.existsSync(matrixPath)) {
+                intelligenceMatrix = JSON.parse(fs.readFileSync(matrixPath, 'utf-8'));
+            }
             const dumpPath = path.join(process.cwd(), 'src/data/intelligence_dump.json');
             if (fs.existsSync(dumpPath)) {
                 dumpData = JSON.parse(fs.readFileSync(dumpPath, 'utf-8'));
+            }
+            const telemetryPath = path.join(process.cwd(), 'src/data/telemetry_db.jsonl');
+            if (fs.existsSync(telemetryPath)) {
+                const logs = fs.readFileSync(telemetryPath, 'utf-8').split('\n').filter(Boolean);
+                for (const line of logs) {
+                    try {
+                        const log = JSON.parse(line);
+                        const m_id = log.model;
+                        if (!telemetryStats[m_id]) telemetryStats[m_id] = { total: 0, failures: 0, successRate: 1.0 };
+                        telemetryStats[m_id].total++;
+                        if (log.outcome !== 'success') {
+                            telemetryStats[m_id].failures++;
+                        }
+                    } catch (e) {}
+                }
+                for (const m_id in telemetryStats) {
+                    const stats = telemetryStats[m_id];
+                    if (stats.total > 0) {
+                        stats.successRate = (stats.total - stats.failures) / stats.total;
+                    }
+                }
             }
         } catch (e) {
             console.error("Failed to load local data files", e);
@@ -185,28 +213,41 @@ export async function fetchModels(): Promise<FetchResult> {
             else if (use_cases.includes('Vision')) modality_type = 'text';
 
             // Assign LMSYS score. If missing, assign a conservative baseline so it sorts below proven gems
-            let elo = lmsysEloMap[m.id];
+            const triForce = intelligenceMatrix[m.id] || {};
+            let elo = triForce.lmsys_elo || lmsysEloMap[m.id];
+            
+            const aider_pass = triForce.aider_pass_1;
+            const bfcl_score = triForce.bfcl_score;
 
             if (!elo) {
                 // Zero-Maintenance Dynamic ELO Engine powered by The Floating Baseline
+                
+                // Create deterministic jitter from the model ID to organically disperse unranked models on the UI Matrix
+                const hashStr = m.id || "unknown";
+                let hash = 0;
+                for (let i = 0; i < hashStr.length; i++) {
+                    hash = ((hash << 5) - hash) + hashStr.charCodeAt(i);
+                    hash |= 0;
+                }
+                const jitter = (Math.abs(hash) % 31) - 15; // -15 to +15
 
                 // Phase 1: String Taxonomy Matcher (Flagship Keywords)
                 if (nameAndId.match(/opus|gpt-?5|gpt-?4|gemini-?3|gemini-?2|o1|o3|405b|72b/)) {
-                    elo = dynamicFlagshipBaseline; 
+                    elo = dynamicFlagshipBaseline + jitter; 
                 } else if (nameAndId.match(/pro|sonnet|70b|command-r/)) {
-                    elo = dynamicHighTierBaseline; 
+                    elo = dynamicHighTierBaseline + jitter; 
                 } else if (nameAndId.match(/flash|haiku|mini|8b|3b|1b|8x7b|lite/)) {
-                    elo = dynamicFastBaseline; 
+                    elo = dynamicFastBaseline + jitter; 
                 } else {
                     // Phase 2: Free Market Pricing Curve (Price vs Intelligence Correlation)
                     if (total_price_1m >= 15.0) {
-                        elo = dynamicFlagshipBaseline; 
+                        elo = dynamicFlagshipBaseline + jitter; 
                     } else if (total_price_1m >= 5.0) {
-                        elo = dynamicHighTierBaseline; 
+                        elo = dynamicHighTierBaseline + jitter; 
                     } else if (total_price_1m >= 0.5) {
-                        elo = dynamicFastBaseline; 
+                        elo = dynamicFastBaseline + jitter; 
                     } else {
-                        elo = 1050; // Free/Loss-leader baseline
+                        elo = 1050 + jitter; // Free/Loss-leader baseline
                     }
                 }
             }
@@ -218,14 +259,35 @@ export async function fetchModels(): Promise<FetchResult> {
                 global: globalElo,
                 coding: globalElo,
                 chat: globalElo,
-                document: globalElo
+                document: globalElo,
+                agentic: globalElo
             };
 
-            // Apply Taxonomy Modifiers for Task-Specific Fitness
-            if (use_cases.includes('Coding & Logic')) {
+            // Apply Telemetry Self-Healing Penalty (Idea B)
+            const tStats = telemetryStats[m.id];
+            if (tStats && tStats.total >= 5) {
+                // If success drops below 90%, severely penalize the Agentic routing ELO
+                if (tStats.successRate < 0.90) {
+                    const penalty = (0.90 - tStats.successRate) * 1500; 
+                    intelligence.agentic! -= penalty; 
+                    intelligence.global -= (penalty * 0.2); // Light penalty to global prestige
+                }
+            }
+
+            // Apply Aider Coding Multiplier (Empirical Override)
+            if (aider_pass) {
+                // Normalizes extremely high passing rates (e.g. 75%+) to +75 ELO edge, and penalizes bad logic
+                intelligence.coding += (aider_pass - 50) * 3;
+            } else if (use_cases.includes('Coding & Logic')) {
                 intelligence.coding += 50;
             } else if (nameAndId.match(/flash|haiku|mini|8b/)) {
                 intelligence.coding -= 50; // Small models drop off hard in complex logic
+            }
+
+            // Apply BFCL Agentic Multiplier
+            if (bfcl_score) {
+                // Normalizes BFCL 80%+ scores
+                intelligence.agentic! += (bfcl_score - 70) * 4;
             }
 
             if (use_cases.includes('Conversational') || use_cases.includes('Roleplay')) {

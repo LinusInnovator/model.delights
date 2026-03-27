@@ -15,42 +15,42 @@ export async function POST(req: Request) {
 
     let optimalModelId = modelId;
     if (!optimalModelId) {
-        // Dynamically route the PRD generation if the client defers to the backend
+        // The Super Architect MUST use world-class reasoning for generation, regardless of user tier. 
+        // We explicitly bypass 'smart_value' budget routes and demand the absolute highest ELO 'flagship'.
         try {
             const route = await getOptimalRoute({ 
                 intent: 'agentic', 
-                policy: tier === 'premium' ? 'max_quality' : 'balanced' 
+                policy: 'max_quality' 
             });
             if (route) {
-                optimalModelId = tier === 'premium' ? route.flagship.model : (route.smart_value?.model || route.flagship.model);
+                optimalModelId = route.flagship.model;
+                console.log(`[Architect Brain] Dynamic PRD Routing engaged: Locked to Flagship ${optimalModelId}`);
             } else {
-                optimalModelId = 'openai/gpt-4o-mini';
+                optimalModelId = 'openai/gpt-4o';
             }
         } catch (e) {
             console.error("Failed to dynamically route PRD request:", e);
-            optimalModelId = 'openai/gpt-4o-mini';
+            optimalModelId = 'openai/gpt-4o';
         }
     }
 
-    const systemPrompt = `You are the ultimate Super Architect. Your job is to translate this founder's raw startup idea into a mercilessly precise, human-readable Product Requirements Document (PRD).
+    const systemPrompt = `You are the ultimate Principal AI Engineer and Systems Architect. Your job is to translate this founder's raw startup idea into a mercilessly precise, human-readable Product Requirements Document (PRD).
 
 STRICT CONSTRAINTS:
-1. You are designing this PRD for a Singular Unicorn (a lone architect with an AI swarm), NOT a bloated Agile team. 
-2. DO NOT include timelines, sprint planning, Jira stories, or agile management fluff. Agents do not care about time. They care about SEQUENCE.
-3. Organize the technical roadmap strictly by "Sequences" (e.g., Sequence 1: Data Primitives, Sequence 2: Intelligence Routing, Sequence 3: Autonomous Deployment).
-4. Outline the exact data models (Postgres schema/JSON).
-5. Specify the exact AI capabilities required (e.g., Reasoning, Embeddings, Edge Functions) and how context caching will keep API margins high.
-6. The tone must be brutally concise, ultra-technical, unapologetic, and highly structured (Markdown).
+1. Eradicate all generic CRUD web-app thinking! DO NOT give me basic "Users", "Interactions", and "Settings" SQL tables. This is an LLM-First application. You must think in terms of Embeddings, Vector Stores, Event Sourcing, and RAG architectures.
+2. DO NOT use generic buzzwords ("Use NLU", "Train a neural network"). State the exact mechanistic reality: "Deploy an LLM-as-a-judge prompt to detect user satisfaction from interaction transcripts."
+3. You are designing this PRD for a Singular Unicorn (a lone architect with an AI swarm). Do not mention teams, sprints, or agile.
+4. The tone must be brutally concise, ultra-technical, unapologetic, and highly structured (Markdown).
 
 OUTPUT FORMAT:
 - Title: [Aggressive, 3-word codename]
 - The Extraction Summary: 2 brutal sentences stripping away marketing jargon to state the raw technical reality.
-- The Primitives: The exact tables, columns, and relationships required to store state.
-- The Intelligence Layer: Which AI components are needed and how latency will be mitigated.
+- The AI Primitives (Database Schema): The exact PostgreSQL/pgvector tables or KV-stores required. (e.g. embeddings columns, LLM evals logs, user telemetry).
+- The Cognitive Architecture: Define the exact AI loops. What is the semantic routing mechanism? Where are you using fast, cheap models (Drafting/Classification) versus expensive reasoning models (o1/opus)?
 - The Autonomous Sequences: 
-    - Sequence 1: ...
-    - Sequence 2: ...
-    - Sequence 3: ...`;
+    - Sequence 1: The Core Ingestion (How does data enter the system without user friction?)
+    - Sequence 2: The Agentic Loop (How does the AI process the data autonomously?)
+    - Sequence 3: The Output Generation (How is the final value delivered?)`;
 
     const result = await streamText({
       model: openrouter(optimalModelId),
