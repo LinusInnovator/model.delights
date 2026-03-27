@@ -135,6 +135,10 @@ export async function POST(req: NextRequest) {
                 const route = await getOptimalRoute({ intent: 'agentic', policy: 'max_quality' });
                 if (route) {
                     optimalModelId = route.flagship.model;
+                    // FAILSAFE: Ensure we don't block on o1 since generateObject is synchronous but Edge bound
+                    if (optimalModelId.includes('o1') || optimalModelId.includes('o3')) {
+                        optimalModelId = 'anthropic/claude-3.5-sonnet';
+                    }
                     console.log(`[Architect Brain] Mathematical Topology Routing engaged: Locked to Flagship ${optimalModelId}`);
                 }
             } catch (routeErr) {

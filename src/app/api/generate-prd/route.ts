@@ -24,6 +24,12 @@ export async function POST(req: Request) {
             });
             if (route) {
                 optimalModelId = route.flagship.model;
+                // FAILSAFE: Next.js Edge UI requires streaming. o1 models do not support streaming 
+                // and will timeout Vercel's 25s TTFB limit. We must intercept and downgrade to the best streaming model.
+                if (optimalModelId.includes('o1') || optimalModelId.includes('o3')) {
+                    console.warn(`[Architect Brain] Intercepted non-streaming model ${optimalModelId}. Forcing Sonnet 3.5 for streaming UI.`);
+                    optimalModelId = 'anthropic/claude-3.5-sonnet';
+                }
                 console.log(`[Architect Brain] Dynamic PRD Routing engaged: Locked to Flagship ${optimalModelId}`);
             } else {
                 optimalModelId = 'openai/gpt-4o';
