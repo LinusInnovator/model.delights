@@ -3,7 +3,7 @@ import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 
 import { getOptimalRoute } from '@/lib/routingEngine';
 
-export const runtime = 'edge';
+export const maxDuration = 60;
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY || '',
