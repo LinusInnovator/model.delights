@@ -41475,6 +41475,21 @@
           "provider": "kwaipilot"
         }
       ]
+    },
+    {
+      "entity_id": "ent_2c8541a9",
+      "model_id": "fal-ai/kling-video/v3/pro/text-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kling-video/v3/pro/text-to-video",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
