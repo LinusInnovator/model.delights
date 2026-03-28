@@ -41460,6 +41460,21 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_5ce5d862",
+      "model_id": "kwaipilot/kat-coder-pro-v2",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "kwaipilot/kat-coder-pro-v2",
+          "provider": "kwaipilot"
+        }
+      ]
     }
   ]
 }
