@@ -42705,6 +42705,636 @@
           "provider": "qwen"
         }
       ]
+    },
+    {
+      "entity_id": "ent_7047a2a1",
+      "model_id": "google/lyria-3-pro-preview",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text,audio",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/lyria-3-pro-preview",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5406c332",
+      "model_id": "google/lyria-3-clip-preview",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text,audio",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/lyria-3-clip-preview",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_da7d49d7",
+      "model_id": "fal-ai/sam-3-1/video-rle",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/sam-3-1/video-rle",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_721c3edc",
+      "model_id": "fal-ai/sam-3-1/video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/sam-3-1/video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_bf2e5e35",
+      "model_id": "fal-ai/sam-3-1/image-rle",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/sam-3-1/image-rle",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ff0218c4",
+      "model_id": "fal-ai/sam-3-1/image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/sam-3-1/image",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a760b4a6",
+      "model_id": "fal-ai/pixverse/v6/transition",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/pixverse/v6/transition",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_9fcac720",
+      "model_id": "fal-ai/pixverse/v6/extend",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/pixverse/v6/extend",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_aad58953",
+      "model_id": "fal-ai/pixverse/v6/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/pixverse/v6/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a364ecd2",
+      "model_id": "fal-ai/pixverse/v6/text-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/pixverse/v6/text-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_11292142",
+      "model_id": "fal-ai/phota/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/phota/edit",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_82a2be01",
+      "model_id": "fal-ai/phota/enhance",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/phota/enhance",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5eeb9ae9",
+      "model_id": "fal-ai/phota",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/phota",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b4e3b55c",
+      "model_id": "fal-ai/phota/create-profile",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/phota/create-profile",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_32f727b4",
+      "model_id": "fal-ai/hy-wu-edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/hy-wu-edit",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_63681d3b",
+      "model_id": "xai/grok-imagine-video/reference-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/grok-imagine-video/reference-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f0e416d7",
+      "model_id": "xai/grok-imagine-video/extend-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/grok-imagine-video/extend-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a4a6364f",
+      "model_id": "fal-ai/seedvr/upscale/image/seamless",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/seedvr/upscale/image/seamless",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d150867d",
+      "model_id": "fal-ai/gemini-tts",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/gemini-tts",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d1260ab8",
+      "model_id": "fal-ai/flux-2/klein/9b/edit/lora",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/flux-2/klein/9b/edit/lora",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ca986204",
+      "model_id": "fal-ai/flux-2/klein/9b/lora",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/flux-2/klein/9b/lora",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8fff9e35",
+      "model_id": "fal-ai/flux-2/klein/4b/edit/lora",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/flux-2/klein/4b/edit/lora",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_92342615",
+      "model_id": "fal-ai/flux-2/klein/4b/lora",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/flux-2/klein/4b/lora",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c1dc21ec",
+      "model_id": "fal-ai/goal-force",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/goal-force",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_54f19788",
+      "model_id": "fal-ai/bytedance/seed/v2/mini",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/bytedance/seed/v2/mini",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ae8fea0b",
+      "model_id": "fal-ai/z-image/turbo/tiling/lora",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/z-image/turbo/tiling/lora",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c5d62eeb",
+      "model_id": "fal-ai/z-image/turbo/tiling",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/z-image/turbo/tiling",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_63d0e81b",
+      "model_id": "xai/tts/v1",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/tts/v1",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_7a68a55b",
+      "model_id": "fal-ai/inworld-tts",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/inworld-tts",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_9a9589c6",
+      "model_id": "fal-ai/sora-2/characters",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/sora-2/characters",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_735b6fb0",
+      "model_id": "fal-ai/lux-tts",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/lux-tts",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_df86ce44",
+      "model_id": "fal-ai/tada/3b/text-to-speech",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/tada/3b/text-to-speech",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c63eca00",
+      "model_id": "fal-ai/tada/1b/text-to-speech",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/tada/1b/text-to-speech",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_40da6c4a",
+      "model_id": "fal-ai/physic-edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/physic-edit",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3256b2ea",
+      "model_id": "fal-ai/omnilottie/video-to-lottie",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/omnilottie/video-to-lottie",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_602ec6e7",
+      "model_id": "fal-ai/omnilottie",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/omnilottie",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5495cc81",
+      "model_id": "fal-ai/omnilottie/image-to-lottie",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/omnilottie/image-to-lottie",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_489e1966",
+      "model_id": "fal-ai/vecglypher/image-to-svg",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/vecglypher/image-to-svg",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5099f67c",
+      "model_id": "fal-ai/vecglypher",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/vecglypher",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1e770ee2",
+      "model_id": "fal-ai/onereward",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/onereward",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3f4d8dcb",
+      "model_id": "fal-ai/ltx-2.3/image-to-video/fast",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/ltx-2.3/image-to-video/fast",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3e0b1f41",
+      "model_id": "fal-ai/ltx-2.3/text-to-video/fast",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/ltx-2.3/text-to-video/fast",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
