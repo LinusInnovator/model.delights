@@ -43335,6 +43335,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_434a4be5",
+      "model_id": "rekaai/reka-flash-3",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "rekaai/reka-flash-3",
+          "provider": "rekaai"
+        }
+      ]
     }
   ]
 }
