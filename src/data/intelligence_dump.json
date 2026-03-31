@@ -1137,7 +1137,7 @@
       "model_id": "x-ai/grok-4.1-fast",
       "pricing_prompt": 2e-07,
       "pricing_completion": 5e-07,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -1842,7 +1842,7 @@
       "model_id": "x-ai/grok-4-fast",
       "pricing_prompt": 2e-07,
       "pricing_completion": 5e-07,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -2637,7 +2637,7 @@
       "model_id": "x-ai/grok-4",
       "pricing_prompt": 3e-06,
       "pricing_completion": 1.5e-05,
-      "modalities_in": "image,text",
+      "modalities_in": "image,text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -22311,7 +22311,7 @@
       "model_id": "x-ai/grok-4.20-multi-agent-beta",
       "pricing_prompt": 2e-06,
       "pricing_completion": 6e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -45868,6 +45868,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2603.25716",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_db6f0975-169b-47a8-aaf3-a2b41540e28f",
+      "model_id": "Scout Signal: Build with Veo 3.1 Lite, our most cost-effective video generation model",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/ai/veo-3-1-lite/",
+          "provider": "Google"
         }
       ]
     }
