@@ -47640,6 +47640,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_22eab7bc",
+      "model_id": "rekaai/reka-edge",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 1e-07,
+      "modalities_in": "image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "rekaai/reka-edge",
+          "provider": "rekaai"
+        }
+      ]
     }
   ]
 }
