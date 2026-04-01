@@ -47670,6 +47670,66 @@
           "provider": "arcee-ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d3b9cfce",
+      "model_id": "z-ai/glm-5v-turbo",
+      "pricing_prompt": 1.2e-06,
+      "pricing_completion": 4e-06,
+      "modalities_in": "image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "z-ai/glm-5v-turbo",
+          "provider": "z-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fc3d20d5",
+      "model_id": "xai/grok-imagine-image/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/grok-imagine-image/edit",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_babb4682",
+      "model_id": "xai/grok-imagine-video/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/grok-imagine-video/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_05e9c6ab",
+      "model_id": "xai/grok-imagine-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/grok-imagine-image",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
