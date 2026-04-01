@@ -47655,6 +47655,21 @@
           "provider": "rekaai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_b7da26a2",
+      "model_id": "arcee-ai/trinity-large-thinking",
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 9e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "arcee-ai/trinity-large-thinking",
+          "provider": "arcee-ai"
+        }
+      ]
     }
   ]
 }
