@@ -49245,6 +49245,21 @@
           "provider": "qwen"
         }
       ]
+    },
+    {
+      "entity_id": "ent_bc58643d-36bf-45b6-9313-936e575c59ea",
+      "model_id": "Scout Signal: Create, edit and share videos at no cost in Google Vids",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/products/workspace/google-vids-updates-lyria-veo/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
