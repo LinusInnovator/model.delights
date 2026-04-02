@@ -296,7 +296,7 @@
       "entity_id": "ent_9041e324",
       "model_id": "minimax/minimax-m2.5",
       "pricing_prompt": 1.18e-07,
-      "pricing_completion": 1.25e-06,
+      "pricing_completion": 1e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -49258,6 +49258,21 @@
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/products-and-platforms/products/workspace/google-vids-updates-lyria-veo/",
           "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c29d8367",
+      "model_id": "google/gemma-4-31b-it",
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 4e-07,
+      "modalities_in": "image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemma-4-31b-it",
+          "provider": "google"
         }
       ]
     }
