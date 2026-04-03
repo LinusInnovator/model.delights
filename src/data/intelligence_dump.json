@@ -49290,6 +49290,21 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_1696e0b6",
+      "model_id": "google/gemma-4-26b-a4b-it",
+      "pricing_prompt": 1.3e-07,
+      "pricing_completion": 4e-07,
+      "modalities_in": "image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemma-4-26b-a4b-it",
+          "provider": "google"
+        }
+      ]
     }
   ]
 }
