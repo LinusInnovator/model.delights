@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 60;
 
 import { generateObject } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { z } from "zod";
 import { resolveCustomBlueprint } from "@/lib/architectResolver";
 import eloDataRaw from '@/data/lmsys_elo.json';
@@ -19,21 +19,16 @@ const top10PercentIndex = Math.floor(eloScores.length * 0.9);
 const frontierElo = eloScores[top10PercentIndex];
 const maxElo = eloScores[eloScores.length - 1];
 
-// Assuming OPENAI_API_KEY is available OR we are using OpenRouter
-// We will instantiate the provider dynamically based on available env keys
+const openrouter = createOpenRouter({
+    apiKey: process.env.OPENROUTER_API_KEY || ''
+});
+
 const createModel = (modelId: string) => {
-    if (process.env.OPENAI_API_KEY) {
-        const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
-        return openai(modelId.includes('/') ? modelId.split('/')[1] : modelId);
-    } else if (process.env.OPENROUTER_API_KEY) {
-        const openrouter = createOpenAI({
-            baseURL: "https://openrouter.ai/api/v1",
-            apiKey: process.env.OPENROUTER_API_KEY,
-        });
-        return openrouter(modelId); // guaranteed JSON schema structured output compatibility
-    } else {
-        throw new Error("No OPENAI_API_KEY or OPENROUTER_API_KEY found to power the Generative Architect.");
+    // Unlike legacy code that forced OpenAI, we ensure we use OpenRouter optimally for architectural synthesis.
+    if (!process.env.OPENROUTER_API_KEY) {
+        throw new Error("No OPENROUTER_API_KEY found to power the Generative Architect.");
     }
+    return openrouter(modelId);
 };
 
 const blueprintSchema = z.object({
@@ -132,7 +127,11 @@ export async function POST(req: NextRequest) {
             // The JSON Topology routing requires the absolute highest cognitive capability available.
             // We bypass 'smart_value' constraints and enforce flagship ELO across all tiers.
             try {
-                const route = await getOptimalRoute({ intent: 'agentic', policy: 'max_quality' });
+                const route = await getOptimalRoute({ 
+                    intent: 'agentic', 
+                    policy: 'max_quality',
+                    capabilities: ['text']
+                });
                 if (route) {
                     optimalModelId = route.flagship.model;
                     // FAILSAFE: Ensure we don't block on o1 since generateObject is synchronous but Edge bound
