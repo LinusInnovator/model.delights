@@ -16,11 +16,13 @@ export async function POST(req: Request) {
     let optimalModelId = modelId;
     if (!optimalModelId) {
         // The Super Architect MUST use world-class reasoning for generation, regardless of user tier. 
-        // We explicitly bypass 'smart_value' budget routes and demand the absolute highest ELO 'flagship'.
+        // We use capabilities: ['text'] to ensure it matches what the data entry is supposed to support 
+        // and doesn't get tricked into using a high ELO audio model.
         try {
             const route = await getOptimalRoute({ 
                 intent: 'agentic', 
-                policy: 'max_quality' 
+                policy: 'max_quality',
+                capabilities: ['text']
             });
             if (route) {
                 optimalModelId = route.flagship.model;
@@ -64,7 +66,12 @@ OUTPUT FORMAT:
       prompt: prompt,
     });
 
-    return result.toTextStreamResponse();
+    return result.toTextStreamResponse({
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+        }
+    });
   } catch (error) {
     console.error('[GENERATE PRD ERROR]', error);
     return new Response('Internal Server Error', { status: 500 });

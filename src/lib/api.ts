@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { supabase } from './supabase';
 
 export interface ModelHealth {
     status: string;
@@ -56,19 +57,39 @@ export async function fetchModels(): Promise<FetchResult> {
         let intelligenceMatrix: Record<string, { lmsys_elo?: number, aider_pass_1?: number, bfcl_score?: number }> = {};
         let telemetryStats: Record<string, { total: number, failures: number, successRate: number }> = {};
         let dumpData: any = null;
+        
         try {
+            // Priority 1: Fetch Real-Time Live Intelligence Cache from Supabase
+            if (supabase) {
+                const { data, error } = await supabase.from('intelligence_cache').select('key, value');
+                if (!error && data) {
+                    const dumpRow = data.find(d => d.key === 'intelligence_dump');
+                    if (dumpRow) dumpData = dumpRow.value;
+                    
+                    const eloRow = data.find(d => d.key === 'lmsys_elo');
+                    if (eloRow) lmsysEloMap = eloRow.value;
+                    
+                    const matrixRow = data.find(d => d.key === 'intelligence_matrix');
+                    if (matrixRow) intelligenceMatrix = matrixRow.value;
+                }
+            }
+
+            // Priority 2: Fallbacks for static deployment bundles if Supabase keys are missing
             const dataPath = path.join(process.cwd(), 'src/data/lmsys_elo.json');
-            if (fs.existsSync(dataPath)) {
+            if (!Object.keys(lmsysEloMap).length && fs.existsSync(dataPath)) {
                 lmsysEloMap = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
             }
+            
             const matrixPath = path.join(process.cwd(), 'src/data/intelligence_matrix.json');
-            if (fs.existsSync(matrixPath)) {
+            if (!Object.keys(intelligenceMatrix).length && fs.existsSync(matrixPath)) {
                 intelligenceMatrix = JSON.parse(fs.readFileSync(matrixPath, 'utf-8'));
             }
+            
             const dumpPath = path.join(process.cwd(), 'src/data/intelligence_dump.json');
-            if (fs.existsSync(dumpPath)) {
+            if (!dumpData && fs.existsSync(dumpPath)) {
                 dumpData = JSON.parse(fs.readFileSync(dumpPath, 'utf-8'));
             }
+            
             const telemetryPath = path.join(process.cwd(), 'src/data/telemetry_db.jsonl');
             if (fs.existsSync(telemetryPath)) {
                 const logs = fs.readFileSync(telemetryPath, 'utf-8').split('\n').filter(Boolean);
@@ -91,7 +112,7 @@ export async function fetchModels(): Promise<FetchResult> {
                 }
             }
         } catch (e) {
-            console.error("Failed to load local data files", e);
+            console.error("Failed to load local data files or connect to Supabase cache", e);
         }
 
         const res = await fetch("https://openrouter.ai/api/v1/models", {
@@ -184,6 +205,11 @@ export async function fetchModels(): Promise<FetchResult> {
                 use_cases.push('Image Gen');
             }
 
+            // Audio Gen
+            if (m_id.includes('-audio') || desc.includes('audio') || modalities.includes('->audio') || modalities.includes('audio->')) {
+                use_cases.push('Audio Gen');
+            }
+
             // Calculate 1M pricing
             const pricing_per_1m: ModelPricing = { prompt: 0.0, completion: 0.0 };
             if (m.pricing) {
@@ -210,6 +236,7 @@ export async function fetchModels(): Promise<FetchResult> {
             // Determine modality primarily for OR models
             let modality_type = 'text';
             if (use_cases.includes('Image Gen')) modality_type = 'image';
+            else if (use_cases.includes('Audio Gen')) modality_type = 'audio';
             else if (use_cases.includes('Vision')) modality_type = 'text';
 
             // Assign LMSYS score. If missing, assign a conservative baseline so it sorts below proven gems
@@ -309,8 +336,8 @@ export async function fetchModels(): Promise<FetchResult> {
             if (m.context_length >= 128000) {
                 capabilities.push('long_context');
             }
-            if (modality_type !== 'text') {
-                capabilities.push(modality_type);
+            if (modality_type) {
+                capabilities.push(modality_type); // Explicitly push 'text', 'audio', 'image' so it can match data entry requirements
             }
 
             let value_score = 0;
