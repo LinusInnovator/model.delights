@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
         
         const parseResult = simulateSchema.safeParse(body);
         if (!parseResult.success) {
-             return NextResponse.json({ error: parseResult.error.errors[0].message }, { status: 400 });
+             return NextResponse.json({ error: "Invalid routing constraints provided. Verify your node settings." }, { status: 400 });
         }
         
         // Map frontend JSON into RouteConfig for the engine
