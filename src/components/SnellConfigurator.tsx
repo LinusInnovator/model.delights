@@ -118,8 +118,10 @@ function LiveSimulationCard({ node }: { node: SnellNodeConfig }) {
                                 </div>
                             </div>
                         ) : (
-                            <div className="text-xs text-white/40 text-center py-2">
-                                No budget alternative found within acceptable intelligence drop.
+                            <div className="text-xs text-white/40 text-center py-2 px-2 bg-[#111] rounded border border-white/5">
+                                {node.policy === 'max_savings'
+                                    ? "✓ Flagship is already the absolute lowest-cost capable model market-wide."
+                                    : "No budget alternative found within an acceptable intelligence drop."}
                             </div>
                         )}
                         
