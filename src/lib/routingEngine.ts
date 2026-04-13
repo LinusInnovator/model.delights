@@ -145,7 +145,10 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         const flagshipCost1M = flagship_active_prompt + flagship.pricing_per_1m.completion;
 
         const isExtremeEnterprise = flagshipCost1M >= 10.0;
-        const eloRadius = isExtremeEnterprise ? 250 : 100;
+        // Future-proof ELO math: Tolerable intelligence drop scales percentage-wise as absolute ELO inflates to 2000+.
+        // Tolerates a 15% intelligence drop for hyper-expensive models, and 8% for standard flagships.
+        const acceptableDropPercentage = isExtremeEnterprise ? 0.15 : 0.08;
+        const eloRadius = Math.max(100, Math.floor((flagship.elo || 1200) * acceptableDropPercentage));
 
         let highCapabilitySubset = models.filter(m =>
             m.id !== flagship.id &&
