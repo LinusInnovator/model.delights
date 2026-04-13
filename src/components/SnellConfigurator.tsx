@@ -212,10 +212,10 @@ function NodeEditor({ node, updateNode, removeNode }: { node: SnellNodeConfig, u
                                 <button 
                                     key={cap}
                                     onClick={() => toggleCapability(cap)}
-                                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 ${
+                                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 border ${
                                         node.capabilities.includes(cap) 
-                                            ? 'bg-primary text-black' 
-                                            : 'bg-[#111] text-white/60 border border-white/10 hover:border-white/30'
+                                            ? 'bg-white text-black border-white' 
+                                            : 'bg-[#111] text-white/60 border-white/10 hover:border-white/30'
                                     }`}
                                 >
                                     {node.capabilities.includes(cap) && <span className="block w-1.5 h-1.5 rounded-full bg-black"></span>}
