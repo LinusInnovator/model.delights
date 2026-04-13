@@ -178,6 +178,26 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
             const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
             const eloDropPercent = (((flagship.elo as number) - (sv.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
             financialTradeoff = `${costMultiplier}x cheaper for -${eloDropPercent}% intelligence drop`;
+        } else {
+            // Fallback: If no model matched the strict radius, just find the absolute cheapest capable model
+            const absoluteCheapest = [...models]
+                .filter(m => m.id !== flagship.id && (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) < flagshipCost1M)
+                .sort((a, b) => (a.pricing_per_1m.prompt + a.pricing_per_1m.completion) - (b.pricing_per_1m.prompt + b.pricing_per_1m.completion))[0];
+
+            if (absoluteCheapest) {
+                smartValue = absoluteCheapest;
+                let sv_active_prompt = smartValue.pricing_per_1m.prompt;
+                if (cached_payload && smartValue.pricing_per_1m.prompt_cached !== undefined) sv_active_prompt = smartValue.pricing_per_1m.prompt_cached;
+                const valueCost1M = sv_active_prompt + smartValue.pricing_per_1m.completion;
+
+                const costMultiplier = (flagshipCost1M / (valueCost1M || 0.0001)).toFixed(1);
+                let eloDropPercent = "Unknown";
+                if (flagship.elo && smartValue.elo) {
+                    eloDropPercent = (((flagship.elo as number) - (smartValue.elo as number)) / (flagship.elo as number) * 100).toFixed(1);
+                }
+                
+                financialTradeoff = `Extreme Budget: ${costMultiplier}x cheaper but accepts a -${eloDropPercent}% intelligence drop`;
+            }
         }
 
         const closestPeers = data.models.filter(m =>
