@@ -200,7 +200,7 @@ export async function POST(req: NextRequest) {
                         estimated_cost_per_interaction: "$0.00000",
                         stack: existingBp.stack
                     };
-                    return NextResponse.json({ blueprint: formattedBlueprint, tier: object.tier || "MEDIUM", cached: true });
+                    return NextResponse.json({ blueprint: formattedBlueprint, raw_components: existingBp.components, tier: object.tier || "MEDIUM", cached: true });
                 }
             }
 
@@ -253,7 +253,7 @@ export async function POST(req: NextRequest) {
             }
 
             // 3. Presentation Layer: Return the mathematically pure response + tier
-            return NextResponse.json({ blueprint, tier: object.tier, cached: false });
+            return NextResponse.json({ blueprint, raw_components: componentsDict, tier: object.tier, cached: false });
         } else {
             // Simulated Translation for Local Development
             console.log("[Generative Architect] No API Keys found. Using simulated constraint extraction for local demo.");

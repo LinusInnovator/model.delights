@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SnellNodeConfig, ExportModal } from './ExportModal';
 import { RoutingResponse } from '@/lib/routingEngine';
+import { Terminal, Activity } from 'lucide-react';
 
 const DUMMY_MODELS = [
     'openai/gpt-4o', 'google/gemini-1.5-pro', 'anthropic/claude-3-haiku', 
@@ -255,6 +256,10 @@ export function SnellConfigurator() {
     const [nodes, setNodes] = useState<SnellNodeConfig[]>([]);
     const [isExportOpen, setIsExportOpen] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    
+    // Architect Engine State
+    const [prompt, setPrompt] = useState('');
+    const [isGeneratingBlueprint, setIsGeneratingBlueprint] = useState(false);
 
     useEffect(() => {
         const saved = localStorage.getItem('snell_nodes_config');
@@ -311,6 +316,48 @@ export function SnellConfigurator() {
         setNodes(newNodes);
     };
 
+    const handleGenerateBlueprint = async () => {
+        if (!prompt.trim()) return;
+        setIsGeneratingBlueprint(true);
+        try {
+            const res = await fetch('/api/generate-blueprint', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: prompt })
+            });
+            const data = await res.json();
+            if (data.raw_components) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const mappedNodes: SnellNodeConfig[] = Object.entries(data.raw_components).map(([name, config]: [string, any], index) => {
+                    let deducedPolicy: 'max_quality' | 'balanced' | 'max_savings' = 'balanced';
+                    if (config.domain === 'reasoning' || (config.min_elo && config.min_elo >= 1200)) {
+                        deducedPolicy = 'max_quality';
+                    } else if (config.max_budget_per_1m && config.max_budget_per_1m <= 1.0) {
+                        deducedPolicy = 'max_savings';
+                    }
+                    
+                    return {
+                        id: `node_gen_${index}`,
+                        intent: name,
+                        description: config.description || '',
+                        policy: deducedPolicy,
+                        estimatedInputTokens: 50000,
+                        capabilities: config.required_modalities_out || ['text'],
+                        cached_payload: false
+                    };
+                });
+                
+                if (mappedNodes.length > 0) {
+                    setNodes(mappedNodes);
+                    setPrompt('');
+                }
+            }
+        } catch(e) { 
+            console.error(e);
+        }
+        setIsGeneratingBlueprint(false);
+    };
+
     if (!isLoaded) return null;
 
     return (
@@ -333,6 +380,39 @@ export function SnellConfigurator() {
                     >
                         Export Configs <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                     </button>
+                </div>
+            </div>
+            
+            {/* AI Architect Bridge */}
+            <div className="mb-12 bg-[#111] border border-white/10 rounded-2xl p-6 relative overflow-hidden group focus-within:border-primary/50 transition-colors">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none" />
+                <div className="relative z-10">
+                    <label className="flex items-center gap-2 text-sm font-bold text-white mb-2 uppercase tracking-wide">
+                        <Terminal className="w-4 h-4 text-primary" /> Autonomous Architect
+                    </label>
+                    <p className="text-xs text-white/50 mb-4 font-mono">Describe your use case in natural language. The Architect will mathematically deduce and auto-populate your entire routing configuration.</p>
+                    
+                    <div className="flex flex-col md:flex-row gap-3">
+                        <input 
+                            value={prompt}
+                            onChange={e => setPrompt(e.target.value)}
+                            onKeyDown={e => e.key === 'Enter' && handleGenerateBlueprint()}
+                            disabled={isGeneratingBlueprint}
+                            placeholder="e.g. A fast invoice parser with a slow reasoning fallback..."
+                            className="flex-1 bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
+                        />
+                        <button 
+                            onClick={handleGenerateBlueprint}
+                            disabled={isGeneratingBlueprint || !prompt.trim()}
+                            className="shrink-0 bg-white text-black px-6 py-3 rounded-lg font-bold text-sm tracking-wide disabled:opacity-50 flex items-center justify-center min-w-[140px]"
+                        >
+                            {isGeneratingBlueprint ? (
+                                <Activity className="w-5 h-5 animate-pulse text-black" />
+                            ) : (
+                                "Generate Matrix"
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
 
