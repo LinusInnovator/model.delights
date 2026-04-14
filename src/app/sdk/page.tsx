@@ -119,9 +119,13 @@ export default function SDKPage() {
                        <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
                        <div><strong className="text-white">Hyper-Velocity Routing.</strong> Eradicates agile coordination tax, shrinking 11-day sub-platform builds down to 2-day pivots.</div>
                     </li>
+                    <li className="flex items-start gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                       <div><strong className="text-white">Visual Autonomous Architect.</strong> Prototype your microservice matrix visually translating natural language into an exact `snell.config.json` export.</div>
+                    </li>
                  </ul>
-                 <a href="/architect" className="w-full text-center mt-8 py-3 rounded-xl bg-purple-600 text-white font-bold shadow-lg hover:bg-purple-500 transition-colors">
-                    Access Pro Package
+                 <a href="/configurator" className="w-full text-center mt-8 py-3 rounded-xl bg-purple-600 text-white font-bold shadow-lg hover:bg-purple-500 transition-colors">
+                    Access Pro Configurator
                  </a>
               </div>
 
@@ -141,7 +145,7 @@ export default function SDKPage() {
                     </li>
                     <li className="flex items-start gap-3">
                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                       <div><strong className="text-white">Zero-Knowledge Architecture.</strong> Strict multi-tenant compliance with isolated control planes. System prompts never traverse the routing payload.</div>
+                       <div><strong className="text-white">Zero-Knowledge Dual-Key Architecture.</strong> Strict multi-tenant compliance. Ping us for the math using your `apiKey`, but execute the raw prompts purely locally using your `openrouterKey`. We never see your payloads.</div>
                     </li>
                     <li className="flex items-start gap-3">
                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />

@@ -123,7 +123,7 @@ export default async function EnterprisePage() {
                             </p>
                             <ul className="text-sm text-zinc-400 space-y-2 mt-4 font-medium">
                                 <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Mathematical Pre-Flight</li>
-                                <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Deterministic ELO scaling</li>
+                                <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Adaptive Percentage-based ELO</li>
                                 <li className="flex items-center"><span className="text-blue-500 mr-2 text-lg">✓</span> Predictable Fallback Arrays</li>
                             </ul>
                         </div>
@@ -175,7 +175,7 @@ export default async function EnterprisePage() {
                 </div>
 
                 {/* Feature Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-24 text-left">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-24 text-left">
 
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/[0.07] transition-colors relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full blur-3xl group-hover:bg-yellow-500/10 transition-colors"></div>
@@ -186,7 +186,7 @@ export default async function EnterprisePage() {
                         </div>
                         <h3 className="text-xl font-bold mb-3">Zero-Maintenance SOTA</h3>
                         <p className="text-zinc-400 leading-relaxed relative z-10 text-sm">
-                            When an Anthropic flagship drops, the engine instantly mathematically scores it. Your agents upgrade automatically, ensuring you always ship the world&apos;s smartest AI without writing a single line of code.
+                            When an Anthropic flagship drops, the engine instantly mathematically scores it. Powered by our percentage-based capability scaling, the matrix automatically dampens ELO inflation so your architecture never breaks, even as models exceed 1400 points.
                         </p>
                     </div>
 
@@ -198,7 +198,7 @@ export default async function EnterprisePage() {
                         </div>
                         <h3 className="text-xl font-bold mb-3">B2B Value Router</h3>
                         <p className="text-zinc-400 leading-relaxed text-sm">
-                            Extreme costs require extreme precision. The B2B router uses variable Elastic Band filtering to guarantee budget tier models achieve massive savings (-60%) for only fractional Intelligence drops (-4%).
+                            Extreme costs require extreme precision. The Elastic Band router guarantees budget models achieve massive savings (-60%) for fractional Intelligence drops (-4%), while the strict `max_savings` fallback guarantees the absolute cheapest capable model globally.
                         </p>
                     </div>
 
@@ -211,6 +211,18 @@ export default async function EnterprisePage() {
                         <h3 className="text-xl font-bold mb-3">Wide Safety Nets</h3>
                         <p className="text-zinc-400 leading-relaxed text-sm">
                             Never crash in production. If the engine&apos;s primary flagship model goes offline, the API natively returns an array of peer-level models spanning up to 100 ELO points of variance for instant failover.
+                        </p>
+                    </div>
+
+                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/[0.07] transition-colors">
+                        <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6 border border-emerald-500/30">
+                            <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-bold mb-3">CI/CD Generative Bridge</h3>
+                        <p className="text-zinc-400 leading-relaxed text-sm">
+                            Use the Visual Architect GUI to map out routing logic using pure natural language. Play with the elasticity sliders, instantly drop the generated `snell.config.json` into your local IDE, and deploy exactly what you verified visually.
                         </p>
                     </div>
                 </div>

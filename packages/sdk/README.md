@@ -12,6 +12,10 @@ Snell is a **White-Box** routing engine. We do not execute prompts. Instead, you
 
 We return the **Global Flagship** *and* the **Smart Budget Alternative**, allowing you to protect your profit margins dynamically.
 
+### Visual Architecture Configurator
+Hate writing code? Design your entire microservice routing topology visually via the [Snell Configurator](https://model.delights.pro/configurator). 
+Use the **Autonomous Architect** prompt to describe your use case in natural language, visually review the LIVE routing math, and instantly export a `snell.config.json` directly into your repo.
+
 ---
 
 ## Installation
@@ -31,24 +35,46 @@ const router = new IntelligenceRouter({
 });
 
 async function main() {
-    // 1. Ask Snell for the best math on a specific task
+    // 1. Ask Snell for the best math based natively on capabilities and intent
     // Valid intents: 'reasoning', 'coding', 'drafting', 'vision', 'agentic'
-    const routing = await router.getOptimalRouting('reasoning');
+    const route = await router.getTopModel({
+        intent: 'agentic',            
+        estimatedInputTokens: 85000, 
+        capabilities: ['text'],       
+        // Options: 'max_quality', 'balanced', 'max_savings'
+        // NOTE: 'max_savings' GUARANTEES the absolute cheapest capable model globally!
+        policy: 'max_savings'        
+    });
 
-    console.log(`Global Flagship: ${routing.flagship.model}`);
-    // Output: anthropic/claude-3.5-sonnet
+    console.log(`Global Flagship: ${route.flagship.model}`);
+    // Output: openai/gpt-4o-2024-08-06
 
-    if (routing.smart_value) {
-        console.log(`Budget Alternative: ${routing.smart_value.model}`);
-        // Output: google/gemini-flash-1.5
+    if (route.smart_value) {
+        console.log(`Budget Alternative: ${route.smart_value.model}`);
+        // Output: openai/gpt-4o-mini-search-preview
         
-        console.log(`The Math: ${routing.smart_value.financial_tradeoff}`);
-        // Output: "12.5x cheaper for a -4.2% intelligence drop"
+        console.log(`The Math: ${route.smart_value.financial_tradeoff}`);
+        // Output: "16.7x cheaper for a -0.2% intelligence drop"
     }
 
-    console.log(`Safe Fallback Chain: ${routing.fallback_array.join(', ')}`);
-    // Output: anthropic/claude-3.5-sonnet, google/gemini-flash-1.5, openai/gpt-4o-mini
+    console.log(`Safe Fallback Chain: ${route.fallback_array.join(', ')}`);
 }
+```
+
+## Autonomous Execution Wrapper
+Snell also provides an `execute()` method that autonomously calculates the optimal route, natively constructs the payload, runs it securely via OpenRouter using *your* keys, and cascades down through fallbacks silently on error:
+
+```typescript
+const response = await router.execute({
+    openrouterKey: process.env.OPENROUTER_API_KEY,  // Executes locally for Control Plane Privacy
+    messages: [ { role: 'user', content: 'Extract the entities...' } ],
+    config: {
+        intent: 'reasoning',
+        policy: 'max_quality',
+        capabilities: ['text'] // Prevents non-structured models from hanging execution
+    },
+    timeout_ms_max_per_model: 15000,
+});
 ```
 
 ## Margin Protection Tactics
@@ -56,11 +82,11 @@ Because Snell is a pre-flight check, you can use the math to build dynamic busin
 
 ### Example: Tiered Execution
 ```typescript
-let modelId = routing.smart_value.model; // Default to the 12.5x cheaper model
+let modelId = route.smart_value.model; // Default to the 16x cheaper model
 
 // If the user paid for a Premium subscription, upgrade them to the Flagship
 if (user.subscription === 'PRO') {
-    modelId = routing.flagship.model;
+    modelId = route.flagship.model;
 }
 
 // Now securely execute the request on your own OpenRouter instance
@@ -74,5 +100,11 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 });
 ```
 
-## Security & Privacy
-Because Snell is a pre-flight routing calculator, **we never see your user's prompts or data.** You only send us the *intent category* (e.g., 'coding'), and we return the model names. You handle the actual AI execution directly with OpenRouter on your own servers.
+## Security & Privacy: The Dual-Key Architecture
+Because Snell is a pre-flight routing calculator, **we operate a Zero-Knowledge Control Plane.** 
+
+Why do we require two separate API Keys?
+1. **The Snell `apiKey`**: Used exclusively to ping `model.delights.pro` for the mathematical routing logic.
+2. **Your `openrouterKey`**: Used natively on *your machinery* to execute the LLM inference. 
+
+We never see your user's prompts, we never view your vector data, and we do not charge your credit card for inferences. You handle the actual AI execution directly with OpenRouter on your own servers. We are just the air traffic control math engine.
