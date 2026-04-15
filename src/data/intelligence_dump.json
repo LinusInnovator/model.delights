@@ -64980,6 +64980,21 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d19ed588",
+      "model_id": "meta-llama/llama-guard-4-12b:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta-llama/llama-guard-4-12b:free",
+          "provider": "meta-llama"
+        }
+      ]
     }
   ]
 }
