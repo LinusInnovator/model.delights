@@ -65010,6 +65010,21 @@
           "provider": "anthropic"
         }
       ]
+    },
+    {
+      "entity_id": "ent_405b4922-c0ee-4305-999c-aa44bcd8d659",
+      "model_id": "Scout Signal: New ways to create personalized images in the Gemini app",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/products/gemini-app/personal-intelligence-nano-banana/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
