@@ -73440,6 +73440,21 @@
           "provider": "openrouter"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d6c1ea94",
+      "model_id": "~anthropic/claude-opus-latest",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 2.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~anthropic/claude-opus-latest",
+          "provider": "~anthropic"
+        }
+      ]
     }
   ]
 }
