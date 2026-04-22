@@ -75240,6 +75240,51 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_a2dc6c18",
+      "model_id": "xiaomi/mimo-v2.5-pro",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "xiaomi/mimo-v2.5-pro",
+          "provider": "xiaomi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_896bc625",
+      "model_id": "xiaomi/mimo-v2.5",
+      "pricing_prompt": 4e-07,
+      "pricing_completion": 2e-06,
+      "modalities_in": "text,audio,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "xiaomi/mimo-v2.5",
+          "provider": "xiaomi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_7f5508f7",
+      "model_id": "arcee-ai/trinity-large-preview",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 4.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "arcee-ai/trinity-large-preview",
+          "provider": "arcee-ai"
+        }
+      ]
     }
   ]
 }
