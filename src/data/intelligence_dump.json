@@ -75225,6 +75225,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_209d02a4-91ac-491a-887e-204167a269a8",
+      "model_id": "Scout Signal: We're launching two specialized TPUs for the agentic era.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/tpus-8t-8i-cloud-next/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
