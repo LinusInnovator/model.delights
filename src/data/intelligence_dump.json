@@ -77115,6 +77115,21 @@
           "provider": "inclusionai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_81cb89ca-327e-4664-9144-44ee165211a1",
+      "model_id": "Scout Signal: Here\u2019s how our TPUs power increasingly demanding AI workloads.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/what-is-a-tpu/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
