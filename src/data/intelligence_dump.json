@@ -2440,8 +2440,8 @@
     {
       "entity_id": "ent_7ff45eaf",
       "model_id": "qwen/qwen3-235b-a22b-thinking-2507",
-      "pricing_prompt": 1.3e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1.495e-07,
+      "pricing_completion": 1.495e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -75283,6 +75283,21 @@
           "source_id": "openrouter_models_api",
           "alias": "arcee-ai/trinity-large-preview",
           "provider": "arcee-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_00e10ad6",
+      "model_id": "baidu/qianfan-ocr-fast:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "baidu/qianfan-ocr-fast:free",
+          "provider": "baidu"
         }
       ]
     }
