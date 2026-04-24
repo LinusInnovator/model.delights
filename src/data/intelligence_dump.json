@@ -78750,6 +78750,51 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_b890d9df",
+      "model_id": "openai/gpt-5.5-pro",
+      "pricing_prompt": 3e-05,
+      "pricing_completion": 0.00018,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-5.5-pro",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e48edab2",
+      "model_id": "openai/gpt-5.5",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 3e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-5.5",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1f591fe0-d087-4b21-8971-c7e9d56ed84e",
+      "model_id": "Scout Signal: 8 Gemini tips for organizing your space (and life)",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/products/gemini/gemini-spring-cleaning-tips/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
