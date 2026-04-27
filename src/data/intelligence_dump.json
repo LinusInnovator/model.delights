@@ -79770,6 +79770,111 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_bdd8876b",
+      "model_id": "~anthropic/claude-haiku-latest",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 5e-06,
+      "modalities_in": "image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~anthropic/claude-haiku-latest",
+          "provider": "~anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_231c866d",
+      "model_id": "~openai/gpt-mini-latest",
+      "pricing_prompt": 7.5e-07,
+      "pricing_completion": 4.5e-06,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~openai/gpt-mini-latest",
+          "provider": "~openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_41f0e18e",
+      "model_id": "~google/gemini-pro-latest",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1.2e-05,
+      "modalities_in": "audio,file,image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~google/gemini-pro-latest",
+          "provider": "~google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8bdf10cc",
+      "model_id": "~moonshotai/kimi-latest",
+      "pricing_prompt": 7.448e-07,
+      "pricing_completion": 4.655e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~moonshotai/kimi-latest",
+          "provider": "~moonshotai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_9232d3e6",
+      "model_id": "~google/gemini-flash-latest",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text,image,file,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~google/gemini-flash-latest",
+          "provider": "~google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_40529f41",
+      "model_id": "~anthropic/claude-sonnet-latest",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~anthropic/claude-sonnet-latest",
+          "provider": "~anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_77aee1f3",
+      "model_id": "~openai/gpt-latest",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 3e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~openai/gpt-latest",
+          "provider": "~openai"
+        }
+      ]
     }
   ]
 }
