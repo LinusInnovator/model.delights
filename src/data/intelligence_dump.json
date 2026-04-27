@@ -78795,6 +78795,21 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_07f8e452",
+      "model_id": "qwen/qwen3.6-27b",
+      "pricing_prompt": 1.95e-07,
+      "pricing_completion": 1.56e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.6-27b",
+          "provider": "qwen"
+        }
+      ]
     }
   ]
 }
