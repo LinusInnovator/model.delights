@@ -83505,6 +83505,21 @@
           "provider": "poolside"
         }
       ]
+    },
+    {
+      "entity_id": "ent_612fa7da",
+      "model_id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,audio,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "provider": "nvidia"
+        }
+      ]
     }
   ]
 }
