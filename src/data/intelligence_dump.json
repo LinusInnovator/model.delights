@@ -84600,6 +84600,21 @@
           "provider": "openrouter"
         }
       ]
+    },
+    {
+      "entity_id": "ent_22e425a4",
+      "model_id": "ibm-granite/granite-4.1-8b",
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 1e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "ibm-granite/granite-4.1-8b",
+          "provider": "ibm-granite"
+        }
+      ]
     }
   ]
 }
