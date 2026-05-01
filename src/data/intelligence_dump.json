@@ -84615,6 +84615,21 @@
           "provider": "ibm-granite"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d7d66a4e",
+      "model_id": "x-ai/grok-4.3",
+      "pricing_prompt": 1.25e-06,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "x-ai/grok-4.3",
+          "provider": "x-ai"
+        }
+      ]
     }
   ]
 }
