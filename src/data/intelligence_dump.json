@@ -86205,6 +86205,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_8b13d640",
+      "model_id": "mistralai/mistral-medium-3-5",
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "mistralai/mistral-medium-3-5",
+          "provider": "mistralai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ff79cd2f-c650-44ef-b290-970638f951a6",
+      "model_id": "Scout Signal: Reduce friction and latency for long-running jobs with Webhooks in Gemini API",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/event-driven-webhooks/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
