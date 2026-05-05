@@ -87330,6 +87330,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_e954bf9f",
+      "model_id": "openai/gpt-chat-latest",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 3e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-chat-latest",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b1d84761",
+      "model_id": "microsoft/phi-4-mini-instruct",
+      "pricing_prompt": 8e-08,
+      "pricing_completion": 3.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "microsoft/phi-4-mini-instruct",
+          "provider": "microsoft"
+        }
+      ]
     }
   ]
 }
