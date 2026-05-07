@@ -91695,6 +91695,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_90597f8c",
+      "model_id": "google/gemini-3.1-flash-lite",
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 1.5e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.1-flash-lite",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0c7ddd5a",
+      "model_id": "inclusionai/ling-2.6-1t",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "inclusionai/ling-2.6-1t",
+          "provider": "inclusionai"
+        }
+      ]
     }
   ]
 }
