@@ -95010,6 +95010,21 @@
           "provider": "inclusionai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_3f2843fa",
+      "model_id": "tencent/hy3-preview",
+      "pricing_prompt": 6.6e-08,
+      "pricing_completion": 2.6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "tencent/hy3-preview",
+          "provider": "tencent"
+        }
+      ]
     }
   ]
 }
