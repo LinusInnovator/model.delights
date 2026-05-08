@@ -94995,6 +94995,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d66996f6",
+      "model_id": "inclusionai/ring-2.6-1t:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "inclusionai/ring-2.6-1t:free",
+          "provider": "inclusionai"
+        }
+      ]
     }
   ]
 }
