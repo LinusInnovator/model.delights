@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.05e-06,
-      "pricing_completion": 3.5e-06,
+      "pricing_prompt": 9.8e-07,
+      "pricing_completion": 3.08e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -68074,7 +68074,7 @@
     {
       "entity_id": "ent_b2e6a583",
       "model_id": "moonshotai/kimi-k2.6",
-      "pricing_prompt": 7.5e-07,
+      "pricing_prompt": 7.4e-07,
       "pricing_completion": 3.5e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
@@ -79819,7 +79819,7 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 7.5e-07,
+      "pricing_prompt": 7.4e-07,
       "pricing_completion": 3.5e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
@@ -97363,6 +97363,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2605.04615",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0a25b2a6",
+      "model_id": "arcee-ai/trinity-large-thinking:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "arcee-ai/trinity-large-thinking:free",
+          "provider": "arcee-ai"
         }
       ]
     }
