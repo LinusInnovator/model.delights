@@ -102555,6 +102555,21 @@
           "provider": "perceptron"
         }
       ]
+    },
+    {
+      "entity_id": "ent_47aa6998",
+      "model_id": "anthropic/claude-opus-4.7-fast",
+      "pricing_prompt": 3e-05,
+      "pricing_completion": 0.00015,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-4.7-fast",
+          "provider": "anthropic"
+        }
+      ]
     }
   ]
 }
