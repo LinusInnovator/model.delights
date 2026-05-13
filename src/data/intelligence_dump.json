@@ -102570,6 +102570,21 @@
           "provider": "anthropic"
         }
       ]
+    },
+    {
+      "entity_id": "ent_8cb01b71",
+      "model_id": "deepseek/deepseek-v4-flash:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4-flash:free",
+          "provider": "deepseek"
+        }
+      ]
     }
   ]
 }
