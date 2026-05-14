@@ -807,7 +807,7 @@
       "model_id": "mistralai/devstral-2512",
       "pricing_prompt": 4e-07,
       "pricing_completion": 2e-06,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -972,7 +972,7 @@
       "model_id": "mistralai/mistral-large-2512",
       "pricing_prompt": 5e-07,
       "pricing_completion": 1.5e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -1302,7 +1302,7 @@
       "model_id": "mistralai/voxtral-small-24b-2507",
       "pricing_prompt": 1e-07,
       "pricing_completion": 3e-07,
-      "modalities_in": "text,audio",
+      "modalities_in": "text,audio,file",
       "modalities_out": "text",
       "events": [
         {
@@ -2127,7 +2127,7 @@
       "model_id": "mistralai/mistral-medium-3.1",
       "pricing_prompt": 4e-07,
       "pricing_completion": 2e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -2352,7 +2352,7 @@
       "model_id": "mistralai/codestral-2508",
       "pricing_prompt": 3e-07,
       "pricing_completion": 9e-07,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -2592,7 +2592,7 @@
       "model_id": "mistralai/devstral-medium",
       "pricing_prompt": 4e-07,
       "pricing_completion": 2e-06,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -2607,7 +2607,7 @@
       "model_id": "mistralai/devstral-small",
       "pricing_prompt": 1e-07,
       "pricing_completion": 3e-07,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -2967,7 +2967,7 @@
       "model_id": "mistralai/mistral-medium-3",
       "pricing_prompt": 4e-07,
       "pricing_completion": 2e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -3717,7 +3717,7 @@
       "model_id": "mistralai/mistral-saba",
       "pricing_prompt": 2e-07,
       "pricing_completion": 6e-07,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -4197,7 +4197,7 @@
       "model_id": "mistralai/mistral-large-2411",
       "pricing_prompt": 2e-06,
       "pricing_completion": 6e-06,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -4212,7 +4212,7 @@
       "model_id": "mistralai/mistral-large-2407",
       "pricing_prompt": 2e-06,
       "pricing_completion": 6e-06,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -4227,7 +4227,7 @@
       "model_id": "mistralai/pixtral-large-2411",
       "pricing_prompt": 2e-06,
       "pricing_completion": 6e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
@@ -4887,7 +4887,7 @@
       "model_id": "mistralai/mixtral-8x22b-instruct",
       "pricing_prompt": 2e-06,
       "pricing_completion": 6e-06,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -4947,7 +4947,7 @@
       "model_id": "mistralai/mistral-large",
       "pricing_prompt": 2e-06,
       "pricing_completion": 6e-06,
-      "modalities_in": "text",
+      "modalities_in": "text,file",
       "modalities_out": "text",
       "events": [
         {
@@ -86211,7 +86211,7 @@
       "model_id": "mistralai/mistral-medium-3-5",
       "pricing_prompt": 1.5e-06,
       "pricing_completion": 7.5e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
