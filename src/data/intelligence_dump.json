@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.05e-06,
-      "pricing_completion": 3.5e-06,
+      "pricing_prompt": 9.8e-07,
+      "pricing_completion": 3.08e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -104728,6 +104728,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2605.11347",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4ca9c3b1",
+      "model_id": "baidu/qianfan-ocr-fast",
+      "pricing_prompt": 6.8e-07,
+      "pricing_completion": 2.81e-06,
+      "modalities_in": "image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "baidu/qianfan-ocr-fast",
+          "provider": "baidu"
         }
       ]
     }
