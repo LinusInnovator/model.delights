@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 import fs from 'fs';
 import path from 'path';
 
@@ -8,6 +9,11 @@ const DB_PATH = path.join(process.cwd(), 'promo_db.json');
 
 export async function GET() {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         if (!fs.existsSync(DB_PATH)) {
             return NextResponse.json({ stats: [] });
         }

@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import { fetchModels } from '@/lib/api';
 
 export async function GET(request: Request) {
+    const expectedKey = process.env.INTERNAL_GOD_KEY;
+    if (!expectedKey) {
+        return NextResponse.json({ error: "Server Configuration Error: INTERNAL_GOD_KEY not set" }, { status: 500 });
+    }
+    const authHeader = request.headers.get("Authorization");
+    if (!authHeader || authHeader !== `Bearer ${expectedKey}`) {
+        return NextResponse.json({ error: "Unauthorized. Invalid or missing SDK God Key." }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q');
 

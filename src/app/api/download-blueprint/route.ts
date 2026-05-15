@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from '@clerk/nextjs/server';
 import archiver from "archiver";
 import fs from "fs";
 import path from "path";
@@ -8,6 +9,11 @@ const templateDir = path.join(process.cwd(), "src/templates/nextjs-ai-router");
 
 export async function POST(req: NextRequest) {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const blueprint = await req.json();
 
         if (!blueprint || !blueprint.name) {

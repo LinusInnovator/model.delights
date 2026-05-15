@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from '@clerk/nextjs/server';
 import archiver from "archiver";
 import fs from "fs";
 import path from "path";
@@ -7,6 +8,11 @@ import { Readable } from "stream";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
         const resolvedParams = await params;
         const blueprintId = resolvedParams.id;
 
