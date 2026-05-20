@@ -115245,6 +115245,21 @@
           "provider": "x-ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_1debde52-bf4b-4d76-9b3e-110134dc0e2d",
+      "model_id": "Scout Signal: 100 things we announced at I/O 2026",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/ai/google-io-2026-all-our-announcements/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
