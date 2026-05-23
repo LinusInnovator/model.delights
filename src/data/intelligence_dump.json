@@ -117135,6 +117135,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_glm-5p1",
+      "model_id": "fireworks_ai/accounts/fireworks/models/glm-5p1",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/glm-5p1",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_glm-5p1",
+      "model_id": "fireworks_ai/glm-5p1",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/glm-5p1",
+          "provider": "fireworks_ai"
+        }
+      ]
     }
   ]
 }
