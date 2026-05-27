@@ -124425,6 +124425,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_6e8833c5",
+      "model_id": "moonshotai/kimi-k2.6:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "moonshotai/kimi-k2.6:free",
+          "provider": "moonshotai"
+        }
+      ]
     }
   ]
 }
