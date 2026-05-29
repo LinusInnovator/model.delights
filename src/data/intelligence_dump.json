@@ -127695,6 +127695,21 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_c0093db2",
+      "model_id": "stepfun/step-3.7-flash",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 1.15e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "stepfun/step-3.7-flash",
+          "provider": "stepfun"
+        }
+      ]
     }
   ]
 }
