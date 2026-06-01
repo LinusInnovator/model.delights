@@ -2380,8 +2380,8 @@
     {
       "entity_id": "ent_7b74bc41",
       "model_id": "qwen/qwen3-30b-a3b-instruct-2507",
-      "pricing_prompt": 9e-08,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 4.28e-08,
+      "pricing_completion": 1.716e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -4045,8 +4045,8 @@
     {
       "entity_id": "ent_84b6d1bc",
       "model_id": "deepseek/deepseek-chat",
-      "pricing_prompt": 2.288e-07,
-      "pricing_completion": 9.144e-07,
+      "pricing_prompt": 2.002e-07,
+      "pricing_completion": 8.001e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -132958,6 +132958,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2604.01985",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_48f9c7e2-a488-46e1-8ca6-36030da8fe0d",
+      "model_id": "Scout Signal: How we used Gemini to build Google I/O 2026",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/ai/io-2026-google-ai/",
+          "provider": "Google"
         }
       ]
     }
