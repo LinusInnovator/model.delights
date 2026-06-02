@@ -137670,6 +137670,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_ec3bf4a0",
+      "model_id": "xai/grok-imagine-video/v1.5/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "xai/grok-imagine-video/v1.5/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
