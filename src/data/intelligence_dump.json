@@ -137685,6 +137685,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_25f37d49",
+      "model_id": "openrouter/fusion",
+      "pricing_prompt": -1.0,
+      "pricing_completion": -1.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openrouter/fusion",
+          "provider": "openrouter"
+        }
+      ]
     }
   ]
 }
