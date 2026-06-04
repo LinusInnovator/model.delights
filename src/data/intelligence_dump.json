@@ -141615,6 +141615,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_b6a4bc76",
+      "model_id": "nvidia/nemotron-3.5-content-safety:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3.5-content-safety:free",
+          "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1f701927",
+      "model_id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "provider": "nvidia"
+        }
+      ]
     }
   ]
 }
