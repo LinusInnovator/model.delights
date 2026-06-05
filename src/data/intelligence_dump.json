@@ -141660,6 +141660,21 @@
           "provider": "nvidia"
         }
       ]
+    },
+    {
+      "entity_id": "ent_02145bf7",
+      "model_id": "ideogram/v4",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "ideogram/v4",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
