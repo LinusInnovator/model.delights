@@ -145290,6 +145290,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_d7ea8513",
+      "model_id": "nex-agi/nex-n2-pro:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nex-agi/nex-n2-pro:free",
+          "provider": "nex-agi"
+        }
+      ]
     }
   ]
 }
