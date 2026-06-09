@@ -149295,6 +149295,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_004f0388",
+      "model_id": "~anthropic/claude-fable-latest",
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~anthropic/claude-fable-latest",
+          "provider": "~anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b41d28cf",
+      "model_id": "anthropic/claude-fable-5",
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-fable-5",
+          "provider": "anthropic"
+        }
+      ]
     }
   ]
 }
