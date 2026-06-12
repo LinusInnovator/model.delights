@@ -78799,8 +78799,8 @@
     {
       "entity_id": "ent_07f8e452",
       "model_id": "qwen/qwen3.6-27b",
-      "pricing_prompt": 2.89e-07,
-      "pricing_completion": 2.4e-06,
+      "pricing_prompt": 2.87e-07,
+      "pricing_completion": 3.1e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -154348,6 +154348,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2604.07590",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_81ad7a58",
+      "model_id": "bytedance/seedance-2.0/fast/reference-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "bytedance/seedance-2.0/fast/reference-to-video",
+          "provider": "fal.ai"
         }
       ]
     }
