@@ -161685,6 +161685,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_a2bd41fd",
+      "model_id": "poolside/laguna-xs.2",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "poolside/laguna-xs.2",
+          "provider": "poolside"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5e79f9ba",
+      "model_id": "poolside/laguna-m.1",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 4e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "poolside/laguna-m.1",
+          "provider": "poolside"
+        }
+      ]
     }
   ]
 }
