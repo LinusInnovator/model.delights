@@ -163350,6 +163350,366 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_deepseek-v4-flash",
+      "model_id": "fireworks_ai/accounts/fireworks/models/deepseek-v4-flash",
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 2.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/deepseek-v4-flash",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_deepseek-v4-pro",
+      "model_id": "fireworks_ai/accounts/fireworks/models/deepseek-v4-pro",
+      "pricing_prompt": 1.74e-06,
+      "pricing_completion": 3.48e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/deepseek-v4-pro",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_glm-5p2",
+      "model_id": "fireworks_ai/accounts/fireworks/models/glm-5p2",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/glm-5p2",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_kimi-k2p6",
+      "model_id": "fireworks_ai/accounts/fireworks/models/kimi-k2p6",
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/kimi-k2p6",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_kimi-k2p7-code",
+      "model_id": "fireworks_ai/accounts/fireworks/models/kimi-k2p7-code",
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/kimi-k2p7-code",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_minimax-m2p7",
+      "model_id": "fireworks_ai/accounts/fireworks/models/minimax-m2p7",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/minimax-m2p7",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_minimax-m3",
+      "model_id": "fireworks_ai/accounts/fireworks/models/minimax-m3",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/minimax-m3",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_deepseek-v4-flash",
+      "model_id": "fireworks_ai/deepseek-v4-flash",
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 2.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/deepseek-v4-flash",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_deepseek-v4-pro",
+      "model_id": "fireworks_ai/deepseek-v4-pro",
+      "pricing_prompt": 1.74e-06,
+      "pricing_completion": 3.48e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/deepseek-v4-pro",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_glm-5p1-fast",
+      "model_id": "fireworks_ai/glm-5p1-fast",
+      "pricing_prompt": 2.8e-06,
+      "pricing_completion": 8.8e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/glm-5p1-fast",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_glm-5p2",
+      "model_id": "fireworks_ai/glm-5p2",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/glm-5p2",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_gpt-oss-120b",
+      "model_id": "fireworks_ai/gpt-oss-120b",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/gpt-oss-120b",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_gpt-oss-20b",
+      "model_id": "fireworks_ai/gpt-oss-20b",
+      "pricing_prompt": 7e-08,
+      "pricing_completion": 3e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/gpt-oss-20b",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_kimi-k2p6",
+      "model_id": "fireworks_ai/kimi-k2p6",
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/kimi-k2p6",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_kimi-k2p6-fast",
+      "model_id": "fireworks_ai/kimi-k2p6-fast",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 8e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/kimi-k2p6-fast",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_kimi-k2p7-code",
+      "model_id": "fireworks_ai/kimi-k2p7-code",
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/kimi-k2p7-code",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_kimi-k2p7-code-fast",
+      "model_id": "fireworks_ai/kimi-k2p7-code-fast",
+      "pricing_prompt": 1.9e-06,
+      "pricing_completion": 8e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/kimi-k2p7-code-fast",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_minimax-m2p7",
+      "model_id": "fireworks_ai/minimax-m2p7",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/minimax-m2p7",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_minimax-m3",
+      "model_id": "fireworks_ai/minimax-m3",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/minimax-m3",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_qwen3p7-plus",
+      "model_id": "fireworks_ai/qwen3p7-plus",
+      "pricing_prompt": 4e-07,
+      "pricing_completion": 1.6e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/qwen3p7-plus",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_qwen3p7-plus",
+      "model_id": "fireworks_ai/accounts/fireworks/models/qwen3p7-plus",
+      "pricing_prompt": 4e-07,
+      "pricing_completion": 1.6e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/qwen3p7-plus",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_glm-5p1-fast",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/glm-5p1-fast",
+      "pricing_prompt": 2.8e-06,
+      "pricing_completion": 8.8e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/glm-5p1-fast",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_kimi-k2p6-fast",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/kimi-k2p6-fast",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 8e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/kimi-k2p6-fast",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_kimi-k2p7-code-fast",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/kimi-k2p7-code-fast",
+      "pricing_prompt": 1.9e-06,
+      "pricing_completion": 8e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/kimi-k2p7-code-fast",
+          "provider": "fireworks_ai"
+        }
+      ]
     }
   ]
 }
