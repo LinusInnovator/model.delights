@@ -84621,7 +84621,7 @@
       "model_id": "x-ai/grok-4.3",
       "pricing_prompt": 1.25e-06,
       "pricing_completion": 2.5e-06,
-      "modalities_in": "text,image",
+      "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
         {
