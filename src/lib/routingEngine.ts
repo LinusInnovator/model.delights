@@ -117,7 +117,9 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
                 }
             }
 
-            const activeElo = task_score - reliability_penalty - latency_penalty - cost_penalty;
+            // Thompson-style dynamic ELO exploration jitter to discover new/unstable node performance
+            const explorationJitter = (Math.random() - 0.5) * 10; // -5 to +5 ELO points
+            const activeElo = task_score - reliability_penalty - latency_penalty - cost_penalty + explorationJitter;
 
             return {
                 ...m,

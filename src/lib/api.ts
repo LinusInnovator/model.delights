@@ -57,19 +57,20 @@ export async function fetchModels(): Promise<FetchResult> {
         let intelligenceMatrix: Record<string, { lmsys_elo?: number, aider_pass_1?: number, bfcl_score?: number }> = {};
         let telemetryStats: Record<string, { total: number, failures: number, successRate: number }> = {};
         let dumpData: any = null;
+        let telemetryEloDeltas: Record<string, { global: number; coding: number; chat: number; document: number; agentic: number }> = {};
         
         try {
             // Priority 1: Fetch Real-Time Live Intelligence Cache from Supabase
             if (supabase) {
                 const { data, error } = await supabase.from('intelligence_cache').select('key, value');
                 if (!error && data) {
-                    const dumpRow = data.find(d => d.key === 'intelligence_dump');
+                    const dumpRow = data.find((d: any) => d.key === 'intelligence_dump');
                     if (dumpRow) dumpData = dumpRow.value;
                     
-                    const eloRow = data.find(d => d.key === 'lmsys_elo');
+                    const eloRow = data.find((d: any) => d.key === 'lmsys_elo');
                     if (eloRow) lmsysEloMap = eloRow.value;
                     
-                    const matrixRow = data.find(d => d.key === 'intelligence_matrix');
+                    const matrixRow = data.find((d: any) => d.key === 'intelligence_matrix');
                     if (matrixRow) intelligenceMatrix = matrixRow.value;
                 }
             }
@@ -91,6 +92,7 @@ export async function fetchModels(): Promise<FetchResult> {
             }
             
             const telemetryPath = path.join(process.cwd(), 'src/data/telemetry_db.jsonl');
+            
             if (fs.existsSync(telemetryPath)) {
                 const logs = fs.readFileSync(telemetryPath, 'utf-8').split('\n').filter(Boolean);
                 for (const line of logs) {
@@ -101,6 +103,57 @@ export async function fetchModels(): Promise<FetchResult> {
                         telemetryStats[m_id].total++;
                         if (log.outcome !== 'success') {
                             telemetryStats[m_id].failures++;
+                        }
+                        
+                        // Bayesian ELO Chess update implementation
+                        if (!telemetryEloDeltas[m_id]) {
+                            telemetryEloDeltas[m_id] = { global: 0, coding: 0, chat: 0, document: 0, agentic: 0 };
+                        }
+                        
+                        const intent = (log.intent || "global").toLowerCase();
+                        const outcome = log.outcome;
+                        const S = (outcome === 'success') ? 1.0 : 0.0;
+                        
+                        let D = 1100;
+                        let axis: 'global' | 'coding' | 'chat' | 'document' | 'agentic' = 'global';
+                        
+                        if (intent.includes('cod') || intent.includes('logic')) {
+                            D = 1200;
+                            axis = 'coding';
+                        } else if (intent.includes('agent') || intent.includes('tool') || intent.includes('schema') || intent.includes('extract') || intent.includes('json')) {
+                            D = 1200;
+                            axis = 'agentic';
+                        } else if (intent.includes('reason') || intent.includes('think') || intent.includes('doc')) {
+                            D = 1250;
+                            axis = 'document';
+                        } else if (intent.includes('chat') || intent.includes('convers')) {
+                            D = 1150;
+                            axis = 'chat';
+                        }
+                        
+                        // Estimate base model ELO for expectation calculation
+                        const baseEloMapVal = lmsysEloMap[m_id];
+                        let baseElo = baseEloMapVal || 1100;
+                        if (!baseEloMapVal) {
+                            const nameLower = m_id.toLowerCase();
+                            if (nameLower.match(/opus|gpt-?5|gpt-?4|o1|o3|405b|72b/)) baseElo = 1250;
+                            else if (nameLower.match(/pro|sonnet|70b/)) baseElo = 1180;
+                            else if (nameLower.match(/flash|haiku|mini|8b/)) baseElo = 1100;
+                        }
+                        
+                        const currentElo = baseElo + telemetryEloDeltas[m_id][axis];
+                        const E = 1.0 / (1.0 + Math.pow(10, (D - currentElo) / 400.0));
+                        const K = 16.0;
+                        const delta = K * (S - E);
+                        
+                        telemetryEloDeltas[m_id][axis] += delta;
+                        // Cap dynamic delta bounds to prevent scaling exploits or bad logs
+                        telemetryEloDeltas[m_id][axis] = Math.max(-250, Math.min(250, telemetryEloDeltas[m_id][axis]));
+                        
+                        // General prestige diffusion
+                        if (axis !== 'global') {
+                            telemetryEloDeltas[m_id].global += (delta * 0.25);
+                            telemetryEloDeltas[m_id].global = Math.max(-150, Math.min(150, telemetryEloDeltas[m_id].global));
                         }
                     } catch (e) {}
                 }
@@ -290,31 +343,48 @@ export async function fetchModels(): Promise<FetchResult> {
                 agentic: globalElo
             };
 
-            // Apply Telemetry Self-Healing Penalty (Idea B)
-            const tStats = telemetryStats[m.id];
-            if (tStats && tStats.total >= 5) {
-                // If success drops below 90%, severely penalize the Agentic routing ELO
-                if (tStats.successRate < 0.90) {
-                    const penalty = (0.90 - tStats.successRate) * 1500; 
-                    intelligence.agentic! -= penalty; 
-                    intelligence.global -= (penalty * 0.2); // Light penalty to global prestige
+            // Apply Bayesian Telemetry ELO updates
+            const deltas = telemetryEloDeltas[m.id];
+            if (deltas) {
+                intelligence.global += Math.round(deltas.global);
+                intelligence.coding += Math.round(deltas.coding);
+                intelligence.chat += Math.round(deltas.chat);
+                intelligence.document += Math.round(deltas.document);
+                if (intelligence.agentic !== undefined) {
+                    intelligence.agentic += Math.round(deltas.agentic);
+                }
+            } else {
+                // Apply fallback Telemetry Self-Healing Penalty (Idea B)
+                const tStats = telemetryStats[m.id];
+                if (tStats && tStats.total >= 5) {
+                    // If success drops below 90%, severely penalize the Agentic routing ELO
+                    if (tStats.successRate < 0.90) {
+                        const penalty = (0.90 - tStats.successRate) * 1500; 
+                        intelligence.agentic! -= penalty; 
+                        intelligence.global -= (penalty * 0.2); // Light penalty to global prestige
+                    }
                 }
             }
 
-            // Apply Aider Coding Multiplier (Empirical Override)
+            // Apply Aider Coding Multiplier (Empirical Override with Benchmark Decay)
             if (aider_pass) {
-                // Normalizes extremely high passing rates (e.g. 75%+) to +75 ELO edge, and penalizes bad logic
-                intelligence.coding += (aider_pass - 50) * 3;
+                // Decay passing rates slightly if they are older releases (prevent historical inflation)
+                const ageDays = (Date.now() / 1000 - (m.created || Date.now() / 1000)) / (24 * 3600);
+                const decayFactor = Math.max(0.7, 1.0 - (ageDays / 365) * 0.1); // max 30% decay per year
+                const activeAider = (aider_pass - 50) * 3 * decayFactor;
+                intelligence.coding += Math.round(activeAider);
             } else if (use_cases.includes('Coding & Logic')) {
                 intelligence.coding += 50;
             } else if (nameAndId.match(/flash|haiku|mini|8b/)) {
                 intelligence.coding -= 50; // Small models drop off hard in complex logic
             }
 
-            // Apply BFCL Agentic Multiplier
+            // Apply BFCL Agentic Multiplier with Benchmark Decay
             if (bfcl_score) {
-                // Normalizes BFCL 80%+ scores
-                intelligence.agentic! += (bfcl_score - 70) * 4;
+                const ageDays = (Date.now() / 1000 - (m.created || Date.now() / 1000)) / (24 * 3600);
+                const decayFactor = Math.max(0.7, 1.0 - (ageDays / 365) * 0.1);
+                const activeBfcl = (bfcl_score - 70) * 4 * decayFactor;
+                intelligence.agentic! += Math.round(activeBfcl);
             }
 
             if (use_cases.includes('Conversational') || use_cases.includes('Roleplay')) {
