@@ -79849,8 +79849,8 @@
     {
       "entity_id": "ent_40529f41",
       "model_id": "~anthropic/claude-sonnet-latest",
-      "pricing_prompt": 3e-06,
-      "pricing_completion": 1.5e-05,
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
@@ -172243,6 +172243,21 @@
           "source_id": "openrouter_models_api",
           "alias": "google/gemini-3.1-flash-lite-image",
           "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5a4e1f79",
+      "model_id": "anthropic/claude-sonnet-5",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-sonnet-5",
+          "provider": "anthropic"
         }
       ]
     }
