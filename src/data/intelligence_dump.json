@@ -149299,8 +149299,8 @@
     {
       "entity_id": "ent_004f0388",
       "model_id": "~anthropic/claude-fable-latest",
-      "pricing_prompt": 1e-05,
-      "pricing_completion": 5e-05,
+      "pricing_prompt": -1.0,
+      "pricing_completion": -1.0,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
