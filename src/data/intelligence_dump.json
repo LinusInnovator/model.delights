@@ -3385,8 +3385,8 @@
     {
       "entity_id": "ent_ee464b98",
       "model_id": "deepseek/deepseek-chat-v3-0324",
-      "pricing_prompt": 2e-07,
-      "pricing_completion": 7.7e-07,
+      "pricing_prompt": 2.4e-07,
+      "pricing_completion": 9e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -149299,8 +149299,8 @@
     {
       "entity_id": "ent_004f0388",
       "model_id": "~anthropic/claude-fable-latest",
-      "pricing_prompt": -1.0,
-      "pricing_completion": -1.0,
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
