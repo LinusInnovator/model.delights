@@ -175200,6 +175200,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_ccd59bd7",
+      "model_id": "google/nano-banana-lite/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "google/nano-banana-lite/edit",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
