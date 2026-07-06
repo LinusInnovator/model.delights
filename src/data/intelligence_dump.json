@@ -176970,6 +176970,21 @@
           "provider": "tencent"
         }
       ]
+    },
+    {
+      "entity_id": "ent_e1ef5ed4",
+      "model_id": "nex-agi/nex-n2-mini",
+      "pricing_prompt": 2.5e-08,
+      "pricing_completion": 1e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nex-agi/nex-n2-mini",
+          "provider": "nex-agi"
+        }
+      ]
     }
   ]
 }
