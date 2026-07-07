@@ -4390,8 +4390,8 @@
     {
       "entity_id": "ent_363c5a2d",
       "model_id": "thedrummer/rocinante-12b",
-      "pricing_prompt": 1.7e-07,
-      "pricing_completion": 4.3e-07,
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -180598,6 +180598,36 @@
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
           "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a127a313",
+      "model_id": "aion-labs/aion-3.0-mini",
+      "pricing_prompt": 7e-07,
+      "pricing_completion": 1.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "aion-labs/aion-3.0-mini",
+          "provider": "aion-labs"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_eb62e26d",
+      "model_id": "aion-labs/aion-3.0",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 6e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "aion-labs/aion-3.0",
+          "provider": "aion-labs"
         }
       ]
     }
