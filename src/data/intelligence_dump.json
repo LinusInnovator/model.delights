@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 9.086e-07,
-      "pricing_completion": 2.8556e-06,
+      "pricing_prompt": 9.3e-07,
+      "pricing_completion": 3e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -180583,6 +180583,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2606.23327",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3faa1bb4-f063-4a10-bfbc-ff7f9a3489b1",
+      "model_id": "Scout Signal: Expanding Managed Agents in Gemini API:  background tasks, remote MCP and more",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+          "provider": "Google"
         }
       ]
     }
