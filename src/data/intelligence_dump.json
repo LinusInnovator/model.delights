@@ -181815,6 +181815,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_78f33494",
+      "model_id": "fal-ai/clarity-upscaler",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/clarity-upscaler",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
