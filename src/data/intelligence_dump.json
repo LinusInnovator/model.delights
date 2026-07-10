@@ -182865,6 +182865,21 @@
           "provider": "openai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_c11bf04a",
+      "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 9e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+          "provider": "cognitivecomputations"
+        }
+      ]
     }
   ]
 }
