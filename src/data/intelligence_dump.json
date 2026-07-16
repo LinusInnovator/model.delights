@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 6.6e-07,
-      "pricing_completion": 3.41e-06,
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -189358,6 +189358,51 @@
           "source_id": "fal_models_api",
           "alias": "fal-ai/elevenlabs/tts/eleven-v3",
           "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_daffe27b",
+      "model_id": "moonshotai/kimi-k3",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "moonshotai/kimi-k3",
+          "provider": "moonshotai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e0de845b",
+      "model_id": "meta/muse-spark-1.1",
+      "pricing_prompt": 1.25e-06,
+      "pricing_completion": 4.25e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-spark-1.1",
+          "provider": "meta"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_cf30219b-adbb-4e48-a38e-f7322a8bf1dd",
+      "model_id": "Scout Signal: Create, edit and star in videos with two Google Vids updates",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
+          "provider": "Google"
         }
       ]
     }
