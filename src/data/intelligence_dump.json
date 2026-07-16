@@ -68074,8 +68074,8 @@
     {
       "entity_id": "ent_b2e6a583",
       "model_id": "moonshotai/kimi-k2.6",
-      "pricing_prompt": 6.6e-07,
-      "pricing_completion": 3.41e-06,
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -189343,6 +189343,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2606.20799",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2d22b54d",
+      "model_id": "fal-ai/elevenlabs/tts/eleven-v3",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/elevenlabs/tts/eleven-v3",
+          "provider": "fal.ai"
         }
       ]
     }
