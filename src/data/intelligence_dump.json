@@ -280,8 +280,8 @@
     {
       "entity_id": "ent_42b4d07f",
       "model_id": "qwen/qwen3.5-397b-a17b",
-      "pricing_prompt": 4.5e-07,
-      "pricing_completion": 3e-06,
+      "pricing_prompt": 3.9e-07,
+      "pricing_completion": 2.34e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -550,7 +550,7 @@
     {
       "entity_id": "ent_27b52b6d",
       "model_id": "z-ai/glm-4.7-flash",
-      "pricing_prompt": 6.05e-08,
+      "pricing_prompt": 6e-08,
       "pricing_completion": 4e-07,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -3580,8 +3580,8 @@
     {
       "entity_id": "ent_33f4b7bc",
       "model_id": "google/gemma-3-27b-it",
-      "pricing_prompt": 8e-08,
-      "pricing_completion": 4.5e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -29659,8 +29659,8 @@
     {
       "entity_id": "ent_8fc0eab1",
       "model_id": "minimax/minimax-m2.7",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 1e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
