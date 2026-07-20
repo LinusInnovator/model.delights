@@ -191490,6 +191490,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_c56961d4",
+      "model_id": "meituan/longcat-2.0",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meituan/longcat-2.0",
+          "provider": "meituan"
+        }
+      ]
     }
   ]
 }
