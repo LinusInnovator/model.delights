@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 8.358e-07,
-      "pricing_completion": 2.6268e-06,
+      "pricing_prompt": 8.008e-07,
+      "pricing_completion": 2.5168e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -193873,6 +193873,36 @@
           "source_id": "openrouter_models_api",
           "alias": "google/gemini-3.5-flash-lite",
           "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_09e878e6",
+      "model_id": "poolside/laguna-s-2.1",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "poolside/laguna-s-2.1",
+          "provider": "poolside"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1730e09e",
+      "model_id": "poolside/laguna-s-2.1:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "poolside/laguna-s-2.1:free",
+          "provider": "poolside"
         }
       ]
     }
