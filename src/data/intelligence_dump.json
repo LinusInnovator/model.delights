@@ -79835,7 +79835,7 @@
       "entity_id": "ent_9232d3e6",
       "model_id": "~google/gemini-flash-latest",
       "pricing_prompt": 1.5e-06,
-      "pricing_completion": 9e-06,
+      "pricing_completion": 7.5e-06,
       "modalities_in": "text,image,video,file,audio",
       "modalities_out": "text",
       "events": [
@@ -193843,6 +193843,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2602.21492",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_56f95377",
+      "model_id": "google/gemini-3.6-flash",
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.6-flash",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fb81f31c",
+      "model_id": "google/gemini-3.5-flash-lite",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.5-flash-lite",
+          "provider": "google"
         }
       ]
     }
