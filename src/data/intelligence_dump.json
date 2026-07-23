@@ -1360,8 +1360,8 @@
     {
       "entity_id": "ent_43d1ef6b",
       "model_id": "minimax/minimax-m2",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 2.55e-07,
+      "pricing_completion": 1.02e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -196512,6 +196512,21 @@
         {
           "source_id": "openrouter_models_api",
           "alias": "inclusionai/ling-3.0-flash",
+          "provider": "inclusionai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_85836a2d",
+      "model_id": "inclusionai/ling-3.0-flash:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "inclusionai/ling-3.0-flash:free",
           "provider": "inclusionai"
         }
       ]
