@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 7.672e-07,
-      "pricing_completion": 2.4112e-06,
+      "pricing_prompt": 8.246e-07,
+      "pricing_completion": 2.5916e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -195523,6 +195523,981 @@
           "source_id": "openrouter_models_api",
           "alias": "openai/gpt-3.5-turbo:batch",
           "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f131200a-eebe-4865-83b4-cdb281dba48a",
+      "model_id": "Emerging Research: FineServe: A Fine-Grained Dataset and Characterization of Global LLM Serving Workloads",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19349",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_795d24e6-b48b-4d8b-8842-6232c5c5352b",
+      "model_id": "Emerging Research: FormulaSPIN: Self-Play Fine-Tuning for Natural Language to Spreadsheet Formula Generation",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19354",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_01106e51-a8c5-4a2c-91e0-38836c27679e",
+      "model_id": "Emerging Research: Information Discernment in Large Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19355",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_18b7fd8c-b409-4402-a6ea-b0cbfdf9ad78",
+      "model_id": "Emerging Research: NEXUS: Structured Runtime Safety for Tool-Using LLM Agents",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19356",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c0e79760-f688-414e-aaaa-047247016981",
+      "model_id": "Emerging Research: Profile-Graph Memory for LLM Agents: Implicit Cross-Entity Traversal through Narrative Profiles",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19359",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_404f3f0a-a31d-4f15-9920-356c889344fe",
+      "model_id": "Emerging Research: Lifted Representation Hypothesis in Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19360",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a948822d-5fed-4c70-91e2-3d489f0e95f6",
+      "model_id": "Emerging Research: Statistically Grounded Sparse-Feature Interventions for Activation-Space Control in Large Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19364",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_81e0b688-ca87-4ee4-a35b-a88e39d2d8e8",
+      "model_id": "Emerging Research: Logic-Guided Data Extraction with Answer Set Programming and Large Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19365",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2c501da2-35bc-4af9-8553-a9e1a52e161f",
+      "model_id": "Emerging Research: Geometry-Guided Constraint Learning for LLM Safety Classification",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19366",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6aff968e-9dec-4d27-b7da-b676ce8aece0",
+      "model_id": "Emerging Research: Rethinking Uncertainty Evaluation in Large Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19367",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_91c14735-d46a-4131-a44f-d81663c09436",
+      "model_id": "Emerging Research: Beyond Tracking or Shortcut: Composition-Bounded Predictive States in Poker Autoregressive Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19369",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8b3213fd-90c8-4f5f-89d1-24395c2bf6eb",
+      "model_id": "Emerging Research: Symbol and Footprint Database for Electronic Components by Agentic Recognition and Generation",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19767",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8d825679-5f85-4bb0-a867-855f94822884",
+      "model_id": "Emerging Research: Rewarding Better Thinking for LLM Preference Alignment",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19824",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_32b2dc00-6155-4d0e-9a75-538065d78747",
+      "model_id": "Emerging Research: EvoThink: Evolving Thinking in Large Reasoning Models via Self-Pruning and Aha-Moment Preference Optimization",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19962",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_81cdd770-efe3-4d00-aed9-1fb8f06a34e3",
+      "model_id": "Emerging Research: Reading and Steering Representations of Materials-Science Mechanisms in an Open-Weight Language Model",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20058",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_af1a4019-b3ae-495a-b039-2f49e312e72f",
+      "model_id": "Emerging Research: CUSUM-Shaped Inference-Time Monitoring and Targeted Re-Decoding for Quantized Small Language Model Reasoning",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20129",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_61888909-3abb-468f-8850-21be1dfdb7a9",
+      "model_id": "Emerging Research: Train the Model, Not the Reader: Decodability Supervision for Verifiable Activation Explanations",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20379",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_45f61574-01dd-46aa-a9d6-80b66f9a3dd2",
+      "model_id": "Emerging Research: SoftReason: A Fully Differentiable Neuro-Soft-Symbolic Deductive Reasoning Architecture over High-Dimensional Perceptual Data",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20402",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f87fd5a4-1758-4235-a2f4-c6ad12d83854",
+      "model_id": "Emerging Research: Stateful Guardrails for Multi-Turn LLM Systems: A Conversational Risk Accumulation Framework",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19361",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8d08d94e-9cd6-48bb-bad5-9775488c901d",
+      "model_id": "Emerging Research: Economic Evaluations of Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19375",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4e634dd2-b2f1-487e-b533-927ca2e61710",
+      "model_id": "Emerging Research: LAARA: Layer-Aware Adaptive Rank Allocation for Parameter-Efficient Fine-Tuning",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19391",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_36ceee10-11b2-4074-984a-1077e3d6f78c",
+      "model_id": "Emerging Research: Leveraging Offline Supervision for Efficient and Generalizable Reinforcement Learning in Large-Scale Vision-Language-Action Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19399",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_dec33a2e-28ea-4073-88be-96407842d57c",
+      "model_id": "Emerging Research: Structured Latent Space Modeling over Multi-Scale Temporal Patches for Multivariate Time Series Forecasting",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19404",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_9a8b6d79-3493-42bc-a502-39d738caa0a8",
+      "model_id": "Emerging Research: Auditing Retrieval-Augmented LLM Hypotheses for Longitudinal Cell Painting Morphology",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19415",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_69e37f18-cddb-48dd-be76-855b6102d066",
+      "model_id": "Emerging Research: JailMeter: An Evidence-Based Evaluation Framework for Jailbreak Attacks on Large Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19424",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_917f5db0-488f-4324-8026-dd55cab8e79a",
+      "model_id": "Emerging Research: ChannelGuard: Safe Models Do Not Compose into Safe Multi-Agent Systems",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19430",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0e0e5630-dac3-4a8a-b3fc-264719e0244f",
+      "model_id": "Emerging Research: BaseRT: Advancing Best-in-Class LLM Inference with Apple M5 Neural Accelerators",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19438",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_92f438b0-b105-4593-9b89-90a636aaf7a5",
+      "model_id": "Emerging Research: Guardrails as Scapegoats: Auditing Unfaithful Safety Refusals in Tool-Augmented LLM Agents",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19449",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_acb6b072-738c-4b0f-b8b8-f851f94a66a5",
+      "model_id": "Emerging Research: Predictive Extrema, Unprofitable Policies: An AI-Assisted Audit of Candle-Based Binance Spot Timing Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19453",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_292bdb2e-b5c7-4b09-85be-114a741d6eed",
+      "model_id": "Emerging Research: Integrity of peer-to-peer distributed LLM inference under malicious nodes",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19490",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_af514d15-19ff-4181-a930-550bb4df9ec5",
+      "model_id": "Emerging Research: Hybrid LLM-Guided Search for Quantum Reservoir Architecture Design",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19506",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f3ce6223-4966-4b11-9e2b-b8e322b13094",
+      "model_id": "Emerging Research: D3VL: Understanding Driving Scenes from 3D Time Series Data and Video with Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19528",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_77deccc0-7049-4836-9922-aee8ceb0041e",
+      "model_id": "Emerging Research: Causal dictionary learning reveals and validates transcription-factor binding features in genomic language models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19618",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c16f8bb4-c599-4d24-84d1-48db7e1ea9f4",
+      "model_id": "Emerging Research: Adaptive Capitulation: A Structural Failure Mode of LLM Responses in Vulnerability Contexts",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19629",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_33bc4592-be23-43c3-b3a1-c129dd38e45c",
+      "model_id": "Emerging Research: FedLSG: LLM-Enhanced Semantic Calibration for Federated Graph Backdoor Defense",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19674",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6ea19227-6f97-4ec0-8211-5c6abb8e69a8",
+      "model_id": "Emerging Research: The World Model Remembers, the Actor Forgets: Dream Rehearsal for Continual Model-Based RL",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19749",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_42b53e0e-84d2-4e53-b349-25c816cea224",
+      "model_id": "Emerging Research: RPPNet: Perceptually-Grouped Rhythm-Pitch Primitives for Long-Term Structure Melody Generation via Boundary-Aware Modeling",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19776",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8c338d33-b1f2-4615-9856-5481062da338",
+      "model_id": "Emerging Research: Physics-Aware Complex-Valued State Space Model with Scattering-Prior Feature Modulation for PolSAR Image Classification",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19787",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a66f709a-8f27-4ea4-b0ab-21b940f551c2",
+      "model_id": "Emerging Research: Auto-Fill: Learning to Predict Missing Values Accurately with Specialist Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19847",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5a34a37d-f67a-44f3-91e0-f8bf4367a2a3",
+      "model_id": "Emerging Research: Memory-Augmented Multimodal Large Language Models for Small Object Understanding in Streaming Aerial Videos",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19857",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e2eb5bfd-dd83-423f-833a-5d21292f15ee",
+      "model_id": "Emerging Research: PRISM-DR: Per-lesion Retinal Inference with Specialist Models for Diabetic Retinopathy",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19864",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4a239bd3-35f2-47b6-a9d7-bcc68f672c0b",
+      "model_id": "Emerging Research: Defense Against LLM Backdoors using Critical Neuron Isolation Pruning",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19894",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c472926f-4d36-431e-b887-77882561602a",
+      "model_id": "Emerging Research: OSVE: One Step Video Editing with One Step Diffusion Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19895",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_64851182-5cbf-40a1-8fbd-43c970def438",
+      "model_id": "Emerging Research: G-MAD: A Game-Based Data Generation Framework for Multi-View RGB-T Aerial Object Detection",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19942",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_db29ea9e-6cbd-4253-b058-198d5db9b62c",
+      "model_id": "Emerging Research: When Shippers Become Algorithms: Candidate Exposure, Information Design, and the Concentration of LLM-Mediated Freight Markets",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19967",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4118ea05-ca48-40e0-9b82-4834147b4a02",
+      "model_id": "Emerging Research: Time Series Network Utilization KPI Forecasting Using Advanced AI/ML Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19974",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8efe96a8-d86f-43c8-82ed-0d6f55eef912",
+      "model_id": "Emerging Research: TINY_SCHILLER: A Drop-In German Drama Corpus for Small Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.19992",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2ffc46f5-e362-4d9c-b4ba-121bd0f06248",
+      "model_id": "Emerging Research: Post-Training in Time Series Foundation Models: A Unifying Framework",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20002",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f79a9da1-2563-4302-b978-3150da30bbcb",
+      "model_id": "Emerging Research: Co-Evolving LLM Evaluators and Policies via DynamicRubric",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20083",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_495cb8f3-9547-4c9d-b683-0c679c6b2a4a",
+      "model_id": "Emerging Research: Reinforcement Learning for Large Language Model Selective Evidence Adoption from Contaminated Retrieval Results",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20090",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e85bc935-b954-40bd-8d96-f92690b0afca",
+      "model_id": "Emerging Research: ENTRAP-VL: A Taxonomic Probe for Dual Contextual Entrainment in Vision-Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20092",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_54956d05-8fd9-4e68-b644-a9309057e406",
+      "model_id": "Emerging Research: SLAI T-Rex: Full-Parameter Post-training of the DeepSeek-V4 Family on Ascend SuperPOD",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20145",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_bc3a7c60-109c-4dac-8d70-c357cb1f8bdd",
+      "model_id": "Emerging Research: Audio-Zero: Label-Free Self-Evolution for Fine-Grained Audio Reasoning",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20166",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1473bb68-a8f3-43ba-8d03-ab38a370342a",
+      "model_id": "Emerging Research: StreamHOI: Interaction-aware Temporal Memory Adaptation for Streaming HOI Video Generation",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20174",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a4206196-01e3-4b60-b166-90cc7364ddc6",
+      "model_id": "Emerging Research: Small, Free, and Effective: Orchestrating Open-Weight Small Language Models to Outperform Single LLM for Malware Analysis",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20216",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5c910467-2f1e-4032-beb1-e80feb7559bc",
+      "model_id": "Emerging Research: Pushing the Frontier of Full-Song Generation: Hierarchical Autoregressive Planning Meets Flow-Matching Rendering",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20253",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_121c2d9d-9862-477b-958a-0f81dec7fd29",
+      "model_id": "Emerging Research: The Maskability Index: Predicting Task-Objective Alignment in Pretrained Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20265",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_22d1055f-d76e-47ce-9c27-1b4e48703847",
+      "model_id": "Emerging Research: Self-supervision drives representational convergence in medical foundation models more than clinical supervision",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20274",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_62b771d5-8729-4abf-94db-e036aefa117c",
+      "model_id": "Emerging Research: Sound Probabilistic Safety Bounds for Large Language Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20286",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d7c37536-19ac-432c-9112-366514634cb1",
+      "model_id": "Emerging Research: FMRP-LEAN: A HIPAA-Compliant AI-Augmented LIMS Architecture for End-to-End Clinical Assay Workflow Optimization",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2607.20382",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e75b3c8e-af7c-4165-b93c-e493eafaebd5",
+      "model_id": "Emerging Research: Statistical Early Stopping for Reasoning Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2602.13935",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_abd2db6e-f8cf-46ac-82bb-e3ff4e28f989",
+      "model_id": "Emerging Research: On the Separability of Information in Diffusion Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2509.23937",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a6e09e6e-205a-41b2-a67f-6a040c300cb7",
+      "model_id": "Emerging Research: CGCE: Classifier-Guided Concept Erasure in Generative Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2511.05865",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5545982b-cecb-4828-ae1d-a8433c5519a6",
+      "model_id": "Emerging Research: Dominant vs. Dominated: Concept-Level Generative Collapse in Diffusion Models",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2512.20666",
+          "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_800dee93-d0db-4c93-afe1-877e4b1deb8b",
+      "model_id": "Emerging Research: Internal Knowledge Without External Expression: Probing the Generalization Boundary of a Classical Chinese Language Model",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "arxiv_cs_ai",
+          "alias": "https://arxiv.org/abs/2604.14180",
+          "provider": "arXiv"
         }
       ]
     }
