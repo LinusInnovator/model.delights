@@ -198375,6 +198375,36 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_f52c2901",
+      "model_id": "anthropic/claude-opus-5-fast",
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-5-fast",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_df243098",
+      "model_id": "anthropic/claude-opus-5",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 2.5e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-5",
+          "provider": "anthropic"
+        }
+      ]
     }
   ]
 }
