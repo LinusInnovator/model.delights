@@ -201465,6 +201465,141 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_6aeccc85",
+      "model_id": "google/gemini-3.6-flash:batch",
+      "pricing_prompt": 7.5e-07,
+      "pricing_completion": 3.75e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.6-flash:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ea6a7da6",
+      "model_id": "google/gemini-3.5-flash-lite:batch",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 1.25e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.5-flash-lite:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_9f3e9f5e",
+      "model_id": "google/gemini-3.5-flash:batch",
+      "pricing_prompt": 7.5e-07,
+      "pricing_completion": 4.5e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.5-flash:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f67e508c",
+      "model_id": "google/gemini-3.1-flash-lite:batch",
+      "pricing_prompt": 1.25e-07,
+      "pricing_completion": 7.5e-07,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.1-flash-lite:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b6b9b0c5",
+      "model_id": "google/gemini-3.1-pro-preview:batch",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 6e-06,
+      "modalities_in": "audio,file,image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.1-pro-preview:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_140ef6a0",
+      "model_id": "google/gemini-3-flash-preview:batch",
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 1.5e-06,
+      "modalities_in": "text,image,file,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3-flash-preview:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0d5ee9eb",
+      "model_id": "google/gemini-2.5-flash-lite:batch",
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text,image,file,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-2.5-flash-lite:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0fe9d990",
+      "model_id": "google/gemini-2.5-flash:batch",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 1.25e-06,
+      "modalities_in": "file,image,text,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-2.5-flash:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_262de6bd",
+      "model_id": "google/gemini-2.5-pro:batch",
+      "pricing_prompt": 6.25e-07,
+      "pricing_completion": 5e-06,
+      "modalities_in": "text,image,file,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-2.5-pro:batch",
+          "provider": "google"
+        }
+      ]
     }
   ]
 }
