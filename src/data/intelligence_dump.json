@@ -201300,6 +201300,171 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_3d865cdd",
+      "model_id": "anthropic/claude-opus-5:batch",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.25e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-5:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_bf30589a",
+      "model_id": "anthropic/claude-sonnet-5:batch",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 5e-06,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-sonnet-5:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fe1fe731",
+      "model_id": "anthropic/claude-fable-5:batch",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 2.5e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-fable-5:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_db953fcc",
+      "model_id": "anthropic/claude-opus-4.8:batch",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.25e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-4.8:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ee10e79f",
+      "model_id": "anthropic/claude-opus-4.7:batch",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.25e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-4.7:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_41a2e454",
+      "model_id": "anthropic/claude-opus-4.6:batch",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.25e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-4.6:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_97d74785",
+      "model_id": "anthropic/claude-opus-4.5:batch",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.25e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-4.5:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_acce666e",
+      "model_id": "anthropic/claude-haiku-4.5:batch",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-haiku-4.5:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_06483771",
+      "model_id": "anthropic/claude-sonnet-4.5:batch",
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-sonnet-4.5:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4c3e64de",
+      "model_id": "anthropic/claude-opus-4.1:batch",
+      "pricing_prompt": 7.5e-06,
+      "pricing_completion": 3.75e-05,
+      "modalities_in": "image,text,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-opus-4.1:batch",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e23eeb46-d7f1-4cbc-8cae-b6d88743e71a",
+      "model_id": "Scout Signal: Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
