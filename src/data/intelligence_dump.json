@@ -201600,6 +201600,21 @@
           "provider": "google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_75a49548",
+      "model_id": "minimax/minimax-m3:batch",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "minimax/minimax-m3:batch",
+          "provider": "minimax"
+        }
+      ]
     }
   ]
 }
