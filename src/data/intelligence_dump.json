@@ -204465,6 +204465,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_03b4897a",
+      "model_id": "thinkingmachines/inkling-small",
+      "pricing_prompt": 5.8e-07,
+      "pricing_completion": 1.44e-06,
+      "modalities_in": "text,image,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "thinkingmachines/inkling-small",
+          "provider": "thinkingmachines"
+        }
+      ]
     }
   ]
 }
