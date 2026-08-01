@@ -204480,6 +204480,21 @@
           "provider": "thinkingmachines"
         }
       ]
+    },
+    {
+      "entity_id": "ent_19ed6886",
+      "model_id": "~deepseek/deepseek-v4-flash-latest",
+      "pricing_prompt": 9e-08,
+      "pricing_completion": 1.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~deepseek/deepseek-v4-flash-latest",
+          "provider": "~deepseek"
+        }
+      ]
     }
   ]
 }
