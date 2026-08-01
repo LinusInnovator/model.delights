@@ -3865,8 +3865,8 @@
     {
       "entity_id": "ent_ed401301",
       "model_id": "qwen/qwen2.5-vl-72b-instruct",
-      "pricing_prompt": 2.5e-07,
-      "pricing_completion": 7.5e-07,
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 1e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -68074,8 +68074,8 @@
     {
       "entity_id": "ent_b2e6a583",
       "model_id": "moonshotai/kimi-k2.6",
-      "pricing_prompt": 5.89e-07,
-      "pricing_completion": 2.48e-06,
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3.41e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 1.12e-06,
-      "pricing_completion": 3.52e-06,
+      "pricing_prompt": 7.6006e-07,
+      "pricing_completion": 2.38876e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
