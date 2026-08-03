@@ -145,8 +145,8 @@
     {
       "entity_id": "ent_12ad207c",
       "model_id": "qwen/qwen3.5-122b-a10b",
-      "pricing_prompt": 2.6e-07,
-      "pricing_completion": 2.08e-06,
+      "pricing_prompt": 4e-07,
+      "pricing_completion": 3.2e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -1735,8 +1735,8 @@
     {
       "entity_id": "ent_aabcadb2",
       "model_id": "qwen/qwen3-vl-235b-a22b-thinking",
-      "pricing_prompt": 4e-07,
-      "pricing_completion": 4e-06,
+      "pricing_prompt": 9.8e-07,
+      "pricing_completion": 3.95e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 2.842e-07,
-      "pricing_completion": 8.932e-07,
+      "pricing_prompt": 1.19e-06,
+      "pricing_completion": 3.74e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
