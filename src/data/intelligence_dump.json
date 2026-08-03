@@ -145,8 +145,8 @@
     {
       "entity_id": "ent_12ad207c",
       "model_id": "qwen/qwen3.5-122b-a10b",
-      "pricing_prompt": 4e-07,
-      "pricing_completion": 3.2e-06,
+      "pricing_prompt": 2.6e-07,
+      "pricing_completion": 2.08e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 7.014e-07,
-      "pricing_completion": 2.2044e-06,
+      "pricing_prompt": 6.146e-07,
+      "pricing_completion": 1.9316e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -205558,6 +205558,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2607.27431",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_7e919102",
+      "model_id": "qwen/qwen3.8-max",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 6e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.8-max",
+          "provider": "qwen"
         }
       ]
     }
