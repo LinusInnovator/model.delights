@@ -205575,6 +205575,21 @@
           "provider": "qwen"
         }
       ]
+    },
+    {
+      "entity_id": "ent_3f49640a-7b1e-4a26-ac9f-6bd3b9960074",
+      "model_id": "Scout Signal: Inside our 353,000-person vibe coding course",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
