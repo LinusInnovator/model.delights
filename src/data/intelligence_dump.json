@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 9.52e-07,
+      "pricing_completion": 2.992e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -68074,8 +68074,8 @@
     {
       "entity_id": "ent_b2e6a583",
       "model_id": "moonshotai/kimi-k2.6",
-      "pricing_prompt": 9.5e-07,
-      "pricing_completion": 4e-06,
+      "pricing_prompt": 5.795e-07,
+      "pricing_completion": 2.44e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -212473,6 +212473,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2607.22251",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f9c93b72-5857-4ca4-b128-8a4f25a7a656",
+      "model_id": "Scout Signal: Evolve your marketing with new AI tools",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products/ads-commerce/google-ads-analytics-ai-updates/",
+          "provider": "Google"
         }
       ]
     }
