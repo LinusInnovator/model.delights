@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 5.446e-07,
-      "pricing_completion": 1.7116e-06,
+      "pricing_prompt": 5.026e-07,
+      "pricing_completion": 1.5796e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -212488,6 +212488,21 @@
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/products/ads-commerce/google-ads-analytics-ai-updates/",
           "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_54fc865f",
+      "model_id": "meta/muse-glimmer-30b",
+      "pricing_prompt": 3.5e-07,
+      "pricing_completion": 1.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-glimmer-30b",
+          "provider": "meta"
         }
       ]
     }
