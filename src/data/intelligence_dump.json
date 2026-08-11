@@ -216240,6 +216240,51 @@
           "provider": "nvidia"
         }
       ]
+    },
+    {
+      "entity_id": "ent_fc4c2219",
+      "model_id": "nvidia/nemotron-3.5-lightning",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 2.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3.5-lightning",
+          "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8c6cbf9c",
+      "model_id": "bytedance-seed/seed-2.0-code",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "bytedance-seed/seed-2.0-code",
+          "provider": "bytedance-seed"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_9fcf66c0-b4eb-4400-bd55-69fc6e5d469b",
+      "model_id": "Scout Signal: AMIE, our research medical AI system, demonstrates real-time clinical video consultation capabilities in a first-of-its-kind study.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
+          "provider": "Google"
+        }
+      ]
     }
   ]
 }
