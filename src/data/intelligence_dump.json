@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 4.886e-07,
-      "pricing_completion": 1.5356e-06,
+      "pricing_prompt": 4.046e-07,
+      "pricing_completion": 1.2716e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -216283,6 +216283,21 @@
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
           "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_bd9c5995",
+      "model_id": "liquid/lfm-2.5-2.6b:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "liquid/lfm-2.5-2.6b:free",
+          "provider": "liquid"
         }
       ]
     }
