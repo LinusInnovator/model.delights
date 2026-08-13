@@ -79834,8 +79834,8 @@
     {
       "entity_id": "ent_9232d3e6",
       "model_id": "~google/gemini-flash-latest",
-      "pricing_prompt": 1.5e-06,
-      "pricing_completion": 7.5e-06,
+      "pricing_prompt": 3.75e-07,
+      "pricing_completion": 1.875e-06,
       "modalities_in": "text,image,video,file,audio",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 6.3e-07,
-      "pricing_completion": 1.98e-06,
+      "pricing_prompt": 4.9e-07,
+      "pricing_completion": 1.54e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -219208,6 +219208,126 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2605.04495",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e4445fcd",
+      "model_id": "google/gemini-3.7-flash",
+      "pricing_prompt": 3.75e-07,
+      "pricing_completion": 1.875e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.7-flash",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_393419f0",
+      "model_id": "google/gemini-3.7-flash:batch",
+      "pricing_prompt": 3.75e-07,
+      "pricing_completion": 1.875e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-3.7-flash:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_deepinfra_deepinfra_nvidia_NVIDIA-Nemotron-3.5-Lightning",
+      "model_id": "deepinfra/nvidia/NVIDIA-Nemotron-3.5-Lightning",
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "deepinfra/nvidia/NVIDIA-Nemotron-3.5-Lightning",
+          "provider": "deepinfra"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_meta-llama_llama-prompt-guard-2-22m",
+      "model_id": "groq/meta-llama/llama-prompt-guard-2-22m",
+      "pricing_prompt": 3e-08,
+      "pricing_completion": 3e-08,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/meta-llama/llama-prompt-guard-2-22m",
+          "provider": "groq"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_meta-llama_llama-prompt-guard-2-86m",
+      "model_id": "groq/meta-llama/llama-prompt-guard-2-86m",
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 4e-08,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/meta-llama/llama-prompt-guard-2-86m",
+          "provider": "groq"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_canopylabs_orpheus-v1-english",
+      "model_id": "groq/canopylabs/orpheus-v1-english",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/canopylabs/orpheus-v1-english",
+          "provider": "groq"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_canopylabs_orpheus-arabic-saudi",
+      "model_id": "groq/canopylabs/orpheus-arabic-saudi",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/canopylabs/orpheus-arabic-saudi",
+          "provider": "groq"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_qwen_qwen3.6-27b",
+      "model_id": "groq/qwen/qwen3.6-27b",
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/qwen/qwen3.6-27b",
+          "provider": "groq"
         }
       ]
     }
