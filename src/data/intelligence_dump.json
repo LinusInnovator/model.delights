@@ -115,8 +115,8 @@
     {
       "entity_id": "ent_a1716e5a",
       "model_id": "qwen/qwen3.5-35b-a3b",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 1e-06,
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 1.25e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -280,8 +280,8 @@
     {
       "entity_id": "ent_42b4d07f",
       "model_id": "qwen/qwen3.5-397b-a17b",
-      "pricing_prompt": 5e-07,
-      "pricing_completion": 3.6e-06,
+      "pricing_prompt": 4.5e-07,
+      "pricing_completion": 3e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 4.35e-07,
-      "pricing_completion": 8.7e-07,
+      "pricing_prompt": 1.168e-06,
+      "pricing_completion": 2.336e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
