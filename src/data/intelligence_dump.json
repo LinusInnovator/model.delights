@@ -220860,6 +220860,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_74823239",
+      "model_id": "qwen/qwen3.8-27b",
+      "pricing_prompt": 4.5e-07,
+      "pricing_completion": 3.2e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.8-27b",
+          "provider": "qwen"
+        }
+      ]
     }
   ]
 }
