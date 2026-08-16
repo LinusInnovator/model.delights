@@ -3865,8 +3865,8 @@
     {
       "entity_id": "ent_ed401301",
       "model_id": "qwen/qwen2.5-vl-72b-instruct",
-      "pricing_prompt": 2.5e-07,
-      "pricing_completion": 7.5e-07,
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 1e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -220873,6 +220873,21 @@
           "source_id": "openrouter_models_api",
           "alias": "qwen/qwen3.8-27b",
           "provider": "qwen"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1778b580",
+      "model_id": "z-ai/glm-5.2:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "z-ai/glm-5.2:free",
+          "provider": "z-ai"
         }
       ]
     }
