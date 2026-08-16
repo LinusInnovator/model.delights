@@ -2785,7 +2785,7 @@
     {
       "entity_id": "ent_ad77b881",
       "model_id": "minimax/minimax-m1",
-      "pricing_prompt": 5.5e-07,
+      "pricing_prompt": 4e-07,
       "pricing_completion": 2.2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -78799,8 +78799,8 @@
     {
       "entity_id": "ent_07f8e452",
       "model_id": "qwen/qwen3.6-27b",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 2e-06,
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3.6e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 4.9e-07,
-      "pricing_completion": 1.54e-06,
+      "pricing_prompt": 3.248e-07,
+      "pricing_completion": 1.0208e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
