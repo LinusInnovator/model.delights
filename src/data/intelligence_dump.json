@@ -226695,6 +226695,21 @@
           "provider": "fal.ai"
         }
       ]
+    },
+    {
+      "entity_id": "ent_929ab6bd",
+      "model_id": "~z-ai/glm-latest",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~z-ai/glm-latest",
+          "provider": "~z-ai"
+        }
+      ]
     }
   ]
 }
