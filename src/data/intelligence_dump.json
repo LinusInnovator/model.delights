@@ -226680,6 +226680,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_b4f43add",
+      "model_id": "openrouter/router/vision",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "openrouter/router/vision",
+          "provider": "fal.ai"
+        }
+      ]
     }
   ]
 }
