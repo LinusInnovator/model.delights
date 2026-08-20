@@ -227715,6 +227715,21 @@
           "provider": "tencent"
         }
       ]
+    },
+    {
+      "entity_id": "ent_3e7efc8d",
+      "model_id": "stealth/ox-alpha",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "stealth/ox-alpha",
+          "provider": "stealth"
+        }
+      ]
     }
   ]
 }
