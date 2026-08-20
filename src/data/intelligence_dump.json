@@ -216244,8 +216244,8 @@
     {
       "entity_id": "ent_fc4c2219",
       "model_id": "nvidia/nemotron-3.5-lightning",
-      "pricing_prompt": 1e-07,
-      "pricing_completion": 2.5e-07,
+      "pricing_prompt": 8e-08,
+      "pricing_completion": 2e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -227683,6 +227683,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2602.19816",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b08fa2fc",
+      "model_id": "tencent/hy-mt2-1.8b",
+      "pricing_prompt": 4.4e-08,
+      "pricing_completion": 1.77e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "tencent/hy-mt2-1.8b",
+          "provider": "tencent"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e3da11b2",
+      "model_id": "tencent/hy-mt2-30b-a3b",
+      "pricing_prompt": 7.4e-08,
+      "pricing_completion": 2.95e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "tencent/hy-mt2-30b-a3b",
+          "provider": "tencent"
         }
       ]
     }
