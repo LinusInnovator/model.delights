@@ -229035,6 +229035,21 @@
           "provider": "arXiv"
         }
       ]
+    },
+    {
+      "entity_id": "ent_e3713713",
+      "model_id": "deepseek/deepseek-v4-flash-vision-exp",
+      "pricing_prompt": 2.2e-07,
+      "pricing_completion": 6.6e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4-flash-vision-exp",
+          "provider": "deepseek"
+        }
+      ]
     }
   ]
 }
