@@ -229095,6 +229095,21 @@
           "provider": "meta"
         }
       ]
+    },
+    {
+      "entity_id": "ent_a86edf87",
+      "model_id": "tencent/hy-mt2-7b",
+      "pricing_prompt": 7.4e-08,
+      "pricing_completion": 2.95e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "tencent/hy-mt2-7b",
+          "provider": "tencent"
+        }
+      ]
     }
   ]
 }
