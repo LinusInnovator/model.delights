@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 7.90308e-07,
-      "pricing_completion": 1.580616e-06,
+      "pricing_prompt": 8.7e-07,
+      "pricing_completion": 1.74e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -229039,8 +229039,8 @@
     {
       "entity_id": "ent_e3713713",
       "model_id": "deepseek/deepseek-v4-flash-vision-exp",
-      "pricing_prompt": 4.4e-07,
-      "pricing_completion": 1.32e-06,
+      "pricing_prompt": 2.2e-07,
+      "pricing_completion": 6.6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -234778,6 +234778,426 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2603.25507",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-fable-5",
+      "model_id": "databricks/databricks-claude-fable-5",
+      "pricing_prompt": 1.000006e-05,
+      "pricing_completion": 5.000002e-05,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-fable-5",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-opus-4-7",
+      "model_id": "databricks/databricks-claude-opus-4-7",
+      "pricing_prompt": 5.00003e-06,
+      "pricing_completion": 2.500001e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-opus-4-7",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-opus-4-8",
+      "model_id": "databricks/databricks-claude-opus-4-8",
+      "pricing_prompt": 5.00003e-06,
+      "pricing_completion": 2.500001e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-opus-4-8",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-opus-5",
+      "model_id": "databricks/databricks-claude-opus-5",
+      "pricing_prompt": 5.00003e-06,
+      "pricing_completion": 2.500001e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-opus-5",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-sonnet-5",
+      "model_id": "databricks/databricks-claude-sonnet-5",
+      "pricing_prompt": 2.99999e-06,
+      "pricing_completion": 1.500002e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-sonnet-5",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_MiniMaxAI_MiniMax-M3",
+      "model_id": "together_ai/MiniMaxAI/MiniMax-M3",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/MiniMaxAI/MiniMax-M3",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Prism-ML_Ternary-Bonsai-27B",
+      "model_id": "together_ai/Prism-ML/Ternary-Bonsai-27B",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Prism-ML/Ternary-Bonsai-27B",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3.5-9B",
+      "model_id": "together_ai/Qwen/Qwen3.5-9B",
+      "pricing_prompt": 1.7e-07,
+      "pricing_completion": 2.5e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3.5-9B",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3.6-Plus",
+      "model_id": "together_ai/Qwen/Qwen3.6-Plus",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3.6-Plus",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3.7-Max",
+      "model_id": "together_ai/Qwen/Qwen3.7-Max",
+      "pricing_prompt": 1.25e-06,
+      "pricing_completion": 3.75e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3.7-Max",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3.7-Plus",
+      "model_id": "together_ai/Qwen/Qwen3.7-Plus",
+      "pricing_prompt": 3.2e-07,
+      "pricing_completion": 1.28e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3.7-Plus",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3.8-2.4T-A95B",
+      "model_id": "together_ai/Qwen/Qwen3.8-2.4T-A95B",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 6.25e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3.8-2.4T-A95B",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_arize-ai_qwen-2-1.5b-instruct",
+      "model_id": "together_ai/arize-ai/qwen-2-1.5b-instruct",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 1e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/arize-ai/qwen-2-1.5b-instruct",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_deepseek-ai_DeepSeek-V4-Flash-0731",
+      "model_id": "together_ai/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 2.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/deepseek-ai/DeepSeek-V4-Flash-0731",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_deepseek-ai_DeepSeek-V4-Pro",
+      "model_id": "together_ai/deepseek-ai/DeepSeek-V4-Pro",
+      "pricing_prompt": 1.74e-06,
+      "pricing_completion": 3.48e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/deepseek-ai/DeepSeek-V4-Pro",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_deepseek-ai_DeepSeek-V4-Pro-0813",
+      "model_id": "together_ai/deepseek-ai/DeepSeek-V4-Pro-0813",
+      "pricing_prompt": 1.32e-06,
+      "pricing_completion": 3.96e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/deepseek-ai/DeepSeek-V4-Pro-0813",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_google_gemma-3n-E4B-it",
+      "model_id": "together_ai/google/gemma-3n-E4B-it",
+      "pricing_prompt": 6e-08,
+      "pricing_completion": 1.2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/google/gemma-3n-E4B-it",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_google_gemma-4-31B-it",
+      "model_id": "together_ai/google/gemma-4-31B-it",
+      "pricing_prompt": 3.9e-07,
+      "pricing_completion": 9.7e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/google/gemma-4-31B-it",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_intfloat_multilingual-e5-large-instruct",
+      "model_id": "together_ai/intfloat/multilingual-e5-large-instruct",
+      "pricing_prompt": 2e-08,
+      "pricing_completion": 2e-08,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/intfloat/multilingual-e5-large-instruct",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_meta-llama_Llama-Guard-4-12B",
+      "model_id": "together_ai/meta-llama/Llama-Guard-4-12B",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/meta-llama/Llama-Guard-4-12B",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_meta-models_Muse-Glimmer-30B",
+      "model_id": "together_ai/meta-models/Muse-Glimmer-30B",
+      "pricing_prompt": 3.5e-07,
+      "pricing_completion": 1.5e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/meta-models/Muse-Glimmer-30B",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_moonshotai_Kimi-K2.7-Code",
+      "model_id": "together_ai/moonshotai/Kimi-K2.7-Code",
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/moonshotai/Kimi-K2.7-Code",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_moonshotai_Kimi-K3",
+      "model_id": "together_ai/moonshotai/Kimi-K3",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/moonshotai/Kimi-K3",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_nvidia_nemotron-3-ultra-550b-a55b",
+      "model_id": "together_ai/nvidia/nemotron-3-ultra-550b-a55b",
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3.6e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/nvidia/nemotron-3-ultra-550b-a55b",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_pearl-ai_gemma-4-31b-it",
+      "model_id": "together_ai/pearl-ai/gemma-4-31b-it",
+      "pricing_prompt": 2.8e-07,
+      "pricing_completion": 8.6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/pearl-ai/gemma-4-31b-it",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_thinkingmachines_Inkling",
+      "model_id": "together_ai/thinkingmachines/Inkling",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 4.05e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/thinkingmachines/Inkling",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_thinkingmachines_Inkling-Small",
+      "model_id": "together_ai/thinkingmachines/Inkling-Small",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/thinkingmachines/Inkling-Small",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_zai-org_GLM-5.2",
+      "model_id": "together_ai/zai-org/GLM-5.2",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/zai-org/GLM-5.2",
+          "provider": "together_ai"
         }
       ]
     }
