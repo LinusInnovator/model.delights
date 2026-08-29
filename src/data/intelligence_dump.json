@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 8.25e-08,
-      "pricing_completion": 3.3e-07,
+      "pricing_prompt": 1.32e-07,
+      "pricing_completion": 5.28e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -212494,8 +212494,8 @@
     {
       "entity_id": "ent_54fc865f",
       "model_id": "meta/muse-glimmer-30b",
-      "pricing_prompt": 3.5e-07,
-      "pricing_completion": 1.5e-06,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 1.25e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 1.2e-06,
+      "pricing_completion": 4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -237964,8 +237964,8 @@
     {
       "entity_id": "ent_22b7e2d2",
       "model_id": "qwen/qwen3.8-2.4t-a95b:batch",
-      "pricing_prompt": 2e-06,
-      "pricing_completion": 6e-06,
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 6.25e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238093,6 +238093,156 @@
           "source_id": "fal_models_api",
           "alias": "minimax/h3-max/text-to-video",
           "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8ba2334a",
+      "model_id": "z-ai/glm-5.3-flash:batch",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "z-ai/glm-5.3-flash:batch",
+          "provider": "z-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4cd5a9a6",
+      "model_id": "deepseek/deepseek-v4-pro-0813:batch",
+      "pricing_prompt": 1.32e-06,
+      "pricing_completion": 3.96e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4-pro-0813:batch",
+          "provider": "deepseek"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5e57143c",
+      "model_id": "meta/muse-glimmer-30b:batch",
+      "pricing_prompt": 3.5e-07,
+      "pricing_completion": 1.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-glimmer-30b:batch",
+          "provider": "meta"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_897f3e22",
+      "model_id": "deepseek/deepseek-v4-flash-0731:batch",
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 2.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4-flash-0731:batch",
+          "provider": "deepseek"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_15c4c63a",
+      "model_id": "thinkingmachines/inkling-small:batch",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text,image,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "thinkingmachines/inkling-small:batch",
+          "provider": "thinkingmachines"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_845ccb4b",
+      "model_id": "moonshotai/kimi-k3:batch",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "moonshotai/kimi-k3:batch",
+          "provider": "moonshotai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6a10b10c",
+      "model_id": "google/gemma-4-31b-it:batch",
+      "pricing_prompt": 3.9e-07,
+      "pricing_completion": 9.7e-07,
+      "modalities_in": "image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemma-4-31b-it:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a05eea4e",
+      "model_id": "qwen/qwen3.5-9b:batch",
+      "pricing_prompt": 1.7e-07,
+      "pricing_completion": 2.5e-07,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.5-9b:batch",
+          "provider": "qwen"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e8b5d381",
+      "model_id": "openai/gpt-oss-120b:batch",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-oss-120b:batch",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_983919d6",
+      "model_id": "openai/gpt-oss-20b:batch",
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-oss-20b:batch",
+          "provider": "openai"
         }
       ]
     }
