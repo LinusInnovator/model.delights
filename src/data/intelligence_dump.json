@@ -3341,7 +3341,7 @@
       "entity_id": "ent_92335962",
       "model_id": "meta-llama/llama-4-maverick",
       "pricing_prompt": 2e-07,
-      "pricing_completion": 6.96e-07,
+      "pricing_completion": 8e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 5.4897e-07,
-      "pricing_completion": 1.09794e-06,
+      "pricing_prompt": 4.88244e-07,
+      "pricing_completion": 9.76488e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238243,6 +238243,81 @@
           "source_id": "openrouter_models_api",
           "alias": "openai/gpt-oss-20b:batch",
           "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-glm-5-3-flash",
+      "model_id": "databricks/databricks-glm-5-3-flash",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-glm-5-3-flash",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_zai-org_GLM-5.3",
+      "model_id": "together_ai/zai-org/GLM-5.3",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/zai-org/GLM-5.3",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_qwen_qwen3.8-27b",
+      "model_id": "groq/qwen/qwen3.8-27b",
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 4e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/qwen/qwen3.8-27b",
+          "provider": "groq"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_glm-5p3",
+      "model_id": "fireworks_ai/accounts/fireworks/models/glm-5p3",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/glm-5p3",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_qwen3-embedding-8b",
+      "model_id": "fireworks_ai/accounts/fireworks/models/qwen3-embedding-8b",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/qwen3-embedding-8b",
+          "provider": "fireworks_ai"
         }
       ]
     }
