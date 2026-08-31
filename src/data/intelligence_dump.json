@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 1.1875e-06,
-      "pricing_completion": 4.18e-06,
+      "pricing_prompt": 1.17e-06,
+      "pricing_completion": 3.96e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -237964,8 +237964,8 @@
     {
       "entity_id": "ent_22b7e2d2",
       "model_id": "qwen/qwen3.8-2.4t-a95b:batch",
-      "pricing_prompt": 2e-06,
-      "pricing_completion": 6e-06,
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 6.25e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238318,6 +238318,21 @@
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/models/qwen3-embedding-8b",
           "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_daaf2ce6",
+      "model_id": "ibm-granite/granite-4.2-8b",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 1.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "ibm-granite/granite-4.2-8b",
+          "provider": "ibm-granite"
         }
       ]
     }
