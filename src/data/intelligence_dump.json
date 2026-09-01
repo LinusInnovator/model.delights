@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241573,6 +241573,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2608.28308",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b5c6daef",
+      "model_id": "inception/mercury-2.5-preview",
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 1.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "inception/mercury-2.5-preview",
+          "provider": "inception"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0951fffd-caef-4035-a1e9-bea0d7172040",
+      "model_id": "Scout Signal: Try Google Pics: Easy image creation and editing in Google Workspace",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/products/workspace/google-pics/",
+          "provider": "Google"
         }
       ]
     }
