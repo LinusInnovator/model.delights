@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 1.6e-06,
-      "pricing_completion": 3.2e-06,
+      "pricing_prompt": 1.024164e-06,
+      "pricing_completion": 2.048328e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241618,6 +241618,51 @@
           "source_id": "openrouter_models_api",
           "alias": "anthropic/claude-fable-5.1",
           "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-deepseek-v4-flash-0731",
+      "model_id": "databricks/databricks-deepseek-v4-flash-0731",
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 2.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-deepseek-v4-flash-0731",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-deepseek-v4-pro-0813",
+      "model_id": "databricks/databricks-deepseek-v4-pro-0813",
+      "pricing_prompt": 1.31999e-06,
+      "pricing_completion": 3.95997e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-deepseek-v4-pro-0813",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3.8-Flash",
+      "model_id": "together_ai/Qwen/Qwen3.8-Flash",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 4.7e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3.8-Flash",
+          "provider": "together_ai"
         }
       ]
     }
