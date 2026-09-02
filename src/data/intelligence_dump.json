@@ -243840,6 +243840,36 @@
           "provider": "Google"
         }
       ]
+    },
+    {
+      "entity_id": "ent_5113ae6f",
+      "model_id": "meta/muse-spark-1.3-contributor",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-spark-1.3-contributor",
+          "provider": "meta"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a40492d5",
+      "model_id": "meta/muse-spark-1.3",
+      "pricing_prompt": 1.25e-06,
+      "pricing_completion": 4.25e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-spark-1.3",
+          "provider": "meta"
+        }
+      ]
     }
   ]
 }
