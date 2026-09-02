@@ -229039,8 +229039,8 @@
     {
       "entity_id": "ent_e3713713",
       "model_id": "deepseek/deepseek-v4-flash-vision-exp",
-      "pricing_prompt": 2.2e-07,
-      "pricing_completion": 6.6e-07,
+      "pricing_prompt": 4.4e-07,
+      "pricing_completion": 1.32e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -243763,6 +243763,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2606.21811",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e1411a40",
+      "model_id": "anthropic/claude-fable-5.1:batch",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 2.5e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-fable-5.1:batch",
+          "provider": "anthropic"
         }
       ]
     }
