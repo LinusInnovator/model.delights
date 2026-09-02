@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 1.17e-06,
-      "pricing_completion": 3.96e-06,
+      "pricing_prompt": 1.15e-06,
+      "pricing_completion": 3.5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -229039,8 +229039,8 @@
     {
       "entity_id": "ent_e3713713",
       "model_id": "deepseek/deepseek-v4-flash-vision-exp",
-      "pricing_prompt": 4.4e-07,
-      "pricing_completion": 1.32e-06,
+      "pricing_prompt": 2.2e-07,
+      "pricing_completion": 6.6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -243778,6 +243778,21 @@
           "source_id": "openrouter_models_api",
           "alias": "anthropic/claude-fable-5.1:batch",
           "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2df1c125",
+      "model_id": "minimax/h3-max/reference-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "minimax/h3-max/reference-to-video",
+          "provider": "fal.ai"
         }
       ]
     }
