@@ -78844,8 +78844,8 @@
     {
       "entity_id": "ent_fbbee847",
       "model_id": "qwen/qwen3.6-35b-a3b",
-      "pricing_prompt": 5e-08,
-      "pricing_completion": 7e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 9e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 2.55e-06,
-      "pricing_completion": 1.275e-05,
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.4e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.1154e-06,
-      "pricing_completion": 3.3462e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -220864,8 +220864,8 @@
     {
       "entity_id": "ent_74823239",
       "model_id": "qwen/qwen3.8-27b",
-      "pricing_prompt": 4.25e-07,
-      "pricing_completion": 2.55e-06,
+      "pricing_prompt": 4.2e-07,
+      "pricing_completion": 3e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -245068,6 +245068,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2605.22344",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3b8f4370",
+      "model_id": "inclusionai/ling-3.0-flash-fin",
+      "pricing_prompt": 6e-08,
+      "pricing_completion": 1.8e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "inclusionai/ling-3.0-flash-fin",
+          "provider": "inclusionai"
         }
       ]
     }
