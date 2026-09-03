@@ -22,10 +22,13 @@ jobs:
           node-version: 20
           
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
         
       - name: Execute Autonomous Publisher (Pacing Layer)
         run: npm run insights:publish
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         
       - name: Validate Changes and Push
         run: |

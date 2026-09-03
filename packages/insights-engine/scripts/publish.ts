@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { GoogleAuth } from 'google-auth-library';
 import { createClient } from '@supabase/supabase-js';
 
 const rootPath = process.cwd();
@@ -11,8 +10,8 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 if (!fs.existsSync(configPath)) {
-    console.error("[Insights Publisher] Fatal Error: insights.config.json not found in root.");
-    process.exit(1);
+    console.log("[Insights Publisher] Notice: insights.config.json not found in root. Skipping.");
+    process.exit(0);
 }
 
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
@@ -27,14 +26,12 @@ if (!fs.existsSync(queueDir)) {
     process.exit(0);
 }
 
-
-
 async function main() {
     console.log(`[1] Instantiating Headless DB Push Protocols...`);
 
     if (!supabase) {
-        console.error(`[Pacing Engine] Fatal: Supabase Service Role configuration missing. Add keys to .env.local.`);
-        process.exit(1);
+        console.log(`[Pacing Engine] Notice: Supabase Service Role configuration missing in environment. Skipping database push.`);
+        process.exit(0);
     }
 
     // New nested structure traversal for Headless Tenant arrays
@@ -108,6 +105,7 @@ async function main() {
         } else {
             try {
                 console.log(`[SEO Ping] Securing OAuth 2.0 JWT Bearer Token for Google Indexing API...`);
+                const { GoogleAuth } = await import('google-auth-library');
                 const auth = new GoogleAuth({
                     keyFile: serviceAccountPath,
                     scopes: ['https://www.googleapis.com/auth/indexing'],
