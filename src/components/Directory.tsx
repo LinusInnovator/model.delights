@@ -557,6 +557,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             <StackAuditModal 
                 isOpen={isAuditModalOpen} 
                 onClose={() => setIsAuditModalOpen(false)} 
+                models={initialData.models}
             />
         </div>
     );

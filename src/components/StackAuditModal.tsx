@@ -1,23 +1,27 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Sparkles, TrendingDown, ShieldCheck, ArrowRight, X, Copy, Check } from 'lucide-react';
+import { Sparkles, TrendingDown, ShieldCheck, ArrowRight, X, Copy, Check, Search } from 'lucide-react';
+import { Model } from '@/lib/api';
 
-interface ModelProfile {
+export interface ModelProfile {
     id: string;
     name: string;
     promptPrice: number;     // per 1M
     completionPrice: number; // per 1M
     typicalRole: string;
+    provider?: string;
 }
 
-const BENCHMARK_MODELS: ModelProfile[] = [
-    { id: 'openai/gpt-4o', name: 'OpenAI GPT-4o', promptPrice: 2.50, completionPrice: 10.00, typicalRole: 'General Flagship' },
-    { id: 'anthropic/claude-3.5-sonnet', name: 'Claude 3.5 Sonnet', promptPrice: 3.00, completionPrice: 15.00, typicalRole: 'Agentic & Coding' },
-    { id: 'openai/o1', name: 'OpenAI o1 (Full Reasoning)', promptPrice: 15.00, completionPrice: 60.00, typicalRole: 'Deep Reasoning' },
-    { id: 'anthropic/claude-3-opus', name: 'Claude 3 Opus', promptPrice: 15.00, completionPrice: 75.00, typicalRole: 'Heavy Analytical' },
-    { id: 'google/gemini-pro-1.5', name: 'Gemini 1.5 Pro', promptPrice: 1.25, completionPrice: 5.00, typicalRole: 'Large Context' },
+// 2026 Modern Frontier Benchmarks (Fallback if live models are loading)
+const DEFAULT_BENCHMARK_MODELS: ModelProfile[] = [
+    { id: 'openai/gpt-5.6-luna-pro', name: 'OpenAI GPT-5.6 Luna Pro', promptPrice: 2.00, completionPrice: 12.00, typicalRole: 'Frontier Flagship', provider: 'openai' },
+    { id: 'anthropic/claude-fable-5.1', name: 'Claude Fable 5.1', promptPrice: 10.00, completionPrice: 50.00, typicalRole: 'Frontier Reasoning', provider: 'anthropic' },
+    { id: 'anthropic/claude-3.5-sonnet', name: 'Claude 3.5 Sonnet', promptPrice: 3.00, completionPrice: 15.00, typicalRole: 'Coding & Agentic', provider: 'anthropic' },
+    { id: 'deepseek/deepseek-r1', name: 'DeepSeek R1', promptPrice: 0.55, completionPrice: 2.19, typicalRole: 'Deep Reasoning', provider: 'deepseek' },
+    { id: 'openai/gpt-4o', name: 'OpenAI GPT-4o', promptPrice: 2.50, completionPrice: 10.00, typicalRole: 'General Flagship', provider: 'openai' },
+    { id: 'google/gemini-3.8-flash', name: 'Gemini 3.8 Flash', promptPrice: 0.75, completionPrice: 3.75, typicalRole: 'Fast Multimodal', provider: 'google' },
 ];
 
 const VOLUME_PRESETS = [
@@ -30,17 +34,109 @@ const VOLUME_PRESETS = [
 interface StackAuditModalProps {
     isOpen: boolean;
     onClose: () => void;
+    models?: Model[];
 }
 
-export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
-    const [selectedModelId, setSelectedModelId] = useState<string>('openai/gpt-4o');
+export function StackAuditModal({ isOpen, onClose, models = [] }: StackAuditModalProps) {
+    const [selectedModelId, setSelectedModelId] = useState<string>('');
     const [monthlyTokens, setMonthlyTokens] = useState<number>(50_000_000);
     const [cacheRate, setCacheRate] = useState<number>(50); // 50% cache hit rate
     const [copied, setCopied] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+    // Dynamically derive top frontier & popular models from the live matrix
+    const dynamicBenchmarkModels = useMemo(() => {
+        if (!models || models.length === 0) return DEFAULT_BENCHMARK_MODELS;
+
+        // Filter out batch endpoints & free tiers
+        const validModels = models.filter(m => !m.id.includes(':batch') && !m.id.includes('-batch'));
+
+        // Target modern flagship identifiers
+        const priorityPatterns = [
+            /claude-fable-5/i,
+            /claude-3\.7-sonnet/i,
+            /claude-3\.5-sonnet/i,
+            /gpt-5\.6-luna/i,
+            /gpt-5\.5/i,
+            /gpt-4o$/i,
+            /deepseek-r1/i,
+            /gemini-3\.8-flash/i,
+            /gemini-2\.5-pro/i,
+            /o3-mini/i,
+            /o1$/i
+        ];
+
+        const matched: ModelProfile[] = [];
+        for (const pattern of priorityPatterns) {
+            const found = validModels.find(m => pattern.test(m.id) || pattern.test(m.name));
+            if (found && !matched.some(x => x.id === found.id)) {
+                matched.push({
+                    id: found.id,
+                    name: found.name || found.id,
+                    promptPrice: found.pricing_per_1m?.prompt ?? 2.5,
+                    completionPrice: found.pricing_per_1m?.completion ?? 10.0,
+                    typicalRole: found.id.includes('r1') || found.id.includes('o1') || found.id.includes('o3') ? 'Deep Reasoning' : (found.id.includes('claude') ? 'Coding & Agentic' : 'Frontier Flagship'),
+                    provider: found.id.split('/')[0]
+                });
+            }
+        }
+
+        if (matched.length >= 4) {
+            return matched.slice(0, 6);
+        }
+
+        // Fallback: top models by ELO that have non-zero pricing
+        const topByElo = [...validModels]
+            .filter(m => (m.pricing_per_1m?.prompt || 0) + (m.pricing_per_1m?.completion || 0) > 1.0)
+            .sort((a, b) => (b.elo || 0) - (a.elo || 0))
+            .slice(0, 6)
+            .map(m => ({
+                id: m.id,
+                name: m.name || m.id,
+                promptPrice: m.pricing_per_1m.prompt,
+                completionPrice: m.pricing_per_1m.completion,
+                typicalRole: m.use_cases?.[0] || 'Frontier Flagship',
+                provider: m.id.split('/')[0]
+            }));
+
+        return topByElo.length > 0 ? topByElo : DEFAULT_BENCHMARK_MODELS;
+    }, [models]);
+
+    // Active selected model
+    const currentModel: ModelProfile = useMemo(() => {
+        const activeId = selectedModelId || dynamicBenchmarkModels[0]?.id;
+        
+        // 1. Check in dynamic benchmarks
+        const inBenchmarks = dynamicBenchmarkModels.find(m => m.id === activeId);
+        if (inBenchmarks) return inBenchmarks;
+
+        // 2. Check in all live models
+        const inLive = (models || []).find(m => m.id === activeId);
+        if (inLive) {
+            return {
+                id: inLive.id,
+                name: inLive.name || inLive.id,
+                promptPrice: inLive.pricing_per_1m?.prompt ?? 2.0,
+                completionPrice: inLive.pricing_per_1m?.completion ?? 8.0,
+                typicalRole: inLive.use_cases?.[0] || 'Custom Model',
+                provider: inLive.id.split('/')[0]
+            };
+        }
+
+        return dynamicBenchmarkModels[0] || DEFAULT_BENCHMARK_MODELS[0];
+    }, [dynamicBenchmarkModels, models, selectedModelId]);
+
+    // Filtered search results for searching 400+ models
+    const searchResults = useMemo(() => {
+        if (!searchQuery.trim() || !models.length) return [];
+        const q = searchQuery.toLowerCase().trim();
+        return models
+            .filter(m => !m.id.includes(':batch') && (m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q)))
+            .slice(0, 8);
+    }, [models, searchQuery]);
 
     if (!isOpen) return null;
-
-    const currentModel = BENCHMARK_MODELS.find(m => m.id === selectedModelId) || BENCHMARK_MODELS[0];
 
     // Workload breakdown: 75% input, 25% output
     const inputTokens = monthlyTokens * 0.75;
@@ -51,7 +147,7 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                                 ((outputTokens / 1_000_000) * currentModel.completionPrice);
 
     // Snell Dynamic Routing:
-    // Routes ~70% of standard tasks to smart-value models with 75% prompt cache discount (e.g. Gemini 2.5 Flash @ $0.075 input, $0.30 output)
+    // Routes ~70% of standard tasks to smart-value models with prompt cache discount
     // Routes ~30% hard reasoning to flagship with caching
     const smartValueInputPrice = 0.075 * (1 - (cacheRate / 100) * 0.8);
     const smartValueOutputPrice = 0.30;
@@ -62,10 +158,8 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
     const flagshipPortion = 0.30;
 
     const snellMonthlySpend = (
-        // Smart value 70%
         (((inputTokens * smartValuePortion) / 1_000_000) * smartValueInputPrice) +
         (((outputTokens * smartValuePortion) / 1_000_000) * smartValueOutputPrice) +
-        // Flagship hard reasoning 30%
         (((inputTokens * flagshipPortion) / 1_000_000) * flagshipInputPrice) +
         (((outputTokens * flagshipPortion) / 1_000_000) * flagshipOutputPrice)
     );
@@ -75,7 +169,7 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
     const savingsPercent = currentMonthlySpend > 0 ? Math.round((monthlySavings / currentMonthlySpend) * 100) : 0;
 
     const copyQuickSnippet = () => {
-        const snippet = `import { IntelligenceRouter } from 'model-delights-snell';\n\nconst router = new IntelligenceRouter({ apiKey: process.env.SNELL_API_KEY });\n\n// Autonomous dynamic routing with zero quality drop\nconst res = await router.execute({\n    openrouterKey: process.env.OPENROUTER_API_KEY,\n    messages: [{ role: 'user', content: prompt }],\n    config: { intent: 'agentic', policy: 'max_savings' }\n});`;
+        const snippet = `from openai import OpenAI\n\nclient = OpenAI(\n    base_url="https://model.delights.pro/api/v1",\n    api_key=os.environ.get("SNELL_API_KEY")\n)\n\n# Autonomous dynamic routing with zero quality drop\nresponse = client.chat.completions.create(\n    model="snell/auto",\n    messages=[{"role": "user", "content": "Analyze system..."}]\n)`;
         navigator.clipboard.writeText(snippet);
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);
@@ -103,30 +197,93 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                         Calculate Your Model Overpayment
                     </h2>
                     <p className="text-sm text-[#8a8f98] mt-1.5">
-                        Find out how much your startup or team is burning by sending un-routed requests to generic flagship models.
+                        Find out how much your startup or engineering team burns by sending un-routed prompts to static flagship models.
                     </p>
                 </div>
 
-                {/* Step 1: Model Selection */}
+                {/* Step 1: Dynamic Model Selection */}
                 <div className="mb-6">
-                    <label className="text-xs font-medium uppercase tracking-wider text-[#8a8f98] block mb-2">
-                        1. What is your primary model today?
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {BENCHMARK_MODELS.map(m => (
-                            <button
-                                key={m.id}
-                                onClick={() => setSelectedModelId(m.id)}
-                                className={`p-3 rounded-lg border text-left transition-all ${
-                                    selectedModelId === m.id
-                                        ? 'bg-[#18191a] border-[#5e6ad2] text-[#f7f8f8]'
-                                        : 'bg-[#141516] border-[#23252a] text-[#8a8f98] hover:border-[#34343a] hover:text-[#d0d6e0]'
-                                }`}
-                            >
-                                <div className="text-xs font-medium leading-tight">{m.name}</div>
-                                <div className="text-[10px] text-[#8a8f98] mt-1 font-mono">${m.promptPrice}/${m.completionPrice} per 1M</div>
-                            </button>
-                        ))}
+                    <div className="flex justify-between items-center mb-2">
+                        <label className="text-xs font-medium uppercase tracking-wider text-[#8a8f98]">
+                            1. What is your primary model today?
+                        </label>
+                        <span className="text-[11px] text-[#27a644] font-mono">
+                            Live 2026 Matrix
+                        </span>
+                    </div>
+
+                    {/* Quick-select chips */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+                        {dynamicBenchmarkModels.map(m => {
+                            const isSelected = currentModel.id === m.id;
+                            return (
+                                <button
+                                    key={m.id}
+                                    onClick={() => {
+                                        setSelectedModelId(m.id);
+                                        setIsSearchOpen(false);
+                                    }}
+                                    className={`p-3 rounded-lg border text-left transition-all ${
+                                        isSelected
+                                            ? 'bg-[#18191a] border-[#5e6ad2] text-[#f7f8f8] ring-1 ring-[#5e6ad2]/30'
+                                            : 'bg-[#141516] border-[#23252a] text-[#8a8f98] hover:border-[#34343a] hover:text-[#d0d6e0]'
+                                    }`}
+                                >
+                                    <div className="text-xs font-medium leading-tight truncate">{m.name}</div>
+                                    <div className="text-[10px] text-[#8a8f98] mt-1 font-mono">
+                                        ${m.promptPrice.toFixed(2)} / ${m.completionPrice.toFixed(2)} per 1M
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Search from 400+ Live Models Combobox */}
+                    <div className="relative">
+                        <div className="flex items-center gap-2 bg-[#141516] border border-[#23252a] rounded-lg px-3 py-2 focus-within:border-[#5e6ad2] transition-colors">
+                            <Search size={14} className="text-[#8a8f98]" />
+                            <input
+                                type="text"
+                                placeholder="Or search 420+ live models in our matrix (e.g. Llama, Mistral, Qwen)..."
+                                value={searchQuery}
+                                onFocus={() => setIsSearchOpen(true)}
+                                onChange={e => {
+                                    setSearchQuery(e.target.value);
+                                    setIsSearchOpen(true);
+                                }}
+                                className="bg-transparent text-xs text-[#f7f8f8] placeholder-[#62666d] outline-none w-full"
+                            />
+                            {searchQuery && (
+                                <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }} className="text-[#8a8f98] hover:text-[#f7f8f8]">
+                                    <X size={13} />
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Search Dropdown Results */}
+                        {isSearchOpen && searchResults.length > 0 && (
+                            <div className="absolute top-full left-0 right-0 mt-1 bg-[#141516] border border-[#23252a] rounded-lg shadow-2xl z-30 max-h-56 overflow-y-auto divide-y divide-[#23252a]/40">
+                                {searchResults.map(m => (
+                                    <button
+                                        key={m.id}
+                                        onClick={() => {
+                                            setSelectedModelId(m.id);
+                                            setIsSearchOpen(false);
+                                            setSearchQuery('');
+                                        }}
+                                        className="w-full p-2.5 text-left hover:bg-[#18191a] transition-colors flex items-center justify-between gap-2"
+                                    >
+                                        <div className="truncate">
+                                            <div className="text-xs font-medium text-[#f7f8f8] truncate">{m.name}</div>
+                                            <div className="text-[10px] text-[#8a8f98] font-mono">{m.id}</div>
+                                        </div>
+                                        <div className="text-right text-[11px] font-mono text-[#27a644] whitespace-nowrap">
+                                            ${(m.pricing_per_1m?.prompt || 0).toFixed(2)} / ${(m.pricing_per_1m?.completion || 0).toFixed(2)}
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -182,7 +339,10 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                 <div className="bg-[#141516] border border-[#23252a] rounded-xl p-5 sm:p-6 mb-6 shadow-lg">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                         <div className="bg-[#0f1011] border border-[#23252a] rounded-lg p-4">
-                            <span className="text-[10px] font-medium uppercase tracking-wider text-[#8a8f98] block mb-1">Current Un-Routed Cost</span>
+                            <div className="flex items-center justify-between mb-1">
+                                <span className="text-[10px] font-medium uppercase tracking-wider text-[#8a8f98]">Un-Routed Spend</span>
+                                <span className="text-[9px] bg-[#23252a] text-[#8a8f98] px-1.5 py-0.5 rounded font-mono truncate max-w-[90px]">{currentModel.id.split('/')[1] || currentModel.id}</span>
+                            </div>
                             <span className="text-2xl font-semibold text-[#f87171] font-mono tabular-nums">
                                 ${Math.round(currentMonthlySpend).toLocaleString()}
                             </span>
@@ -190,7 +350,7 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                         </div>
 
                         <div className="bg-[#0f1011] border border-[#23252a] rounded-lg p-4">
-                            <span className="text-[10px] font-medium uppercase tracking-wider text-[#d0d6e0] block mb-1">With Snell Dynamic Route</span>
+                            <span className="text-[10px] font-medium uppercase tracking-wider text-[#d0d6e0] block mb-1">With Snell Gateway</span>
                             <span className="text-2xl font-semibold text-[#27a644] font-mono tabular-nums">
                                 ${Math.round(snellMonthlySpend).toLocaleString()}
                             </span>
@@ -228,7 +388,7 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                         className="px-4 py-2.5 rounded-lg border border-[#23252a] hover:border-[#34343a] bg-[#141516] text-[#d0d6e0] hover:text-[#f7f8f8] text-xs font-medium flex items-center justify-center gap-2 transition-colors"
                     >
                         {copied ? <Check size={14} className="text-[#27a644]" /> : <Copy size={14} />}
-                        <span>{copied ? 'Code Snippet Copied!' : 'Copy Drop-In Middleware'}</span>
+                        <span>{copied ? 'Code Snippet Copied!' : 'Copy Drop-In Snippet'}</span>
                     </button>
 
                     <Link
