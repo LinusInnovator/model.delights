@@ -55,6 +55,16 @@ export default clerkMiddleware(async (auth, request) => {
 
     // 3. API Key Gateway for B2B API Routes
     if (isPublicV1Route(request)) {
+        // Allow CORS preflight OPTIONS requests without auth
+        if (request.method === 'OPTIONS') {
+            return NextResponse.next();
+        }
+
+        // The Models catalog is an OpenAI-standard informational endpoint
+        if (request.nextUrl.pathname === '/api/v1/models' && request.method === 'GET') {
+            return NextResponse.next();
+        }
+
         // The Architect catalog is a public informational endpoint required by the frontend UI
         if (request.nextUrl.pathname === '/api/v1/blueprint' && request.method === 'GET') {
             const authHeader = request.headers.get('authorization');

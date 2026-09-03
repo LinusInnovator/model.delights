@@ -214,33 +214,96 @@ export default function EnterpriseDashboard() {
                 </div>
 
                 {/* Quick Start Integration Code */}
-                <div className="w-full bg-zinc-950 border border-white/10 rounded-2xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-base font-semibold text-white">1-Minute Quick Start</h2>
-                        <span className="text-xs text-zinc-500 font-mono">npm install model-delights-snell</span>
+                <div className="w-full bg-[#0f1011] border border-[#23252a] rounded-2xl p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div>
+                            <h2 className="text-base font-semibold text-[#f7f8f8]">1-Minute Zero-Code Drop-In</h2>
+                            <p className="text-xs text-[#8a8f98] mt-0.5">Snell is 100% wire-compatible with the standard OpenAI SDK, LangChain, Vercel AI SDK, Cursor, and Cline.</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-[11px] bg-[#141516] border border-[#23252a] text-[#27a644] px-2.5 py-1 rounded-full font-mono font-medium">
+                                Base URL: https://model.delights.pro/api/v1
+                            </span>
+                        </div>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-6">
+                        {/* Option 1: Python Drop-In */}
                         <div>
-                            <span className="text-xs text-zinc-400 block mb-1">1. Add to your <code className="text-cyan-400">.env.local</code>:</span>
-                            <pre className="bg-black border border-white/10 p-3 rounded-lg text-xs font-mono text-zinc-300 overflow-x-auto">
-{keys.length > 0 ? `SNELL_API_KEY=${keys[0].api_key}\nOPENROUTER_API_KEY=sk-or-v1-...` : `SNELL_API_KEY=sk_snell_your_key_here\nOPENROUTER_API_KEY=sk-or-v1-...`}
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-medium text-[#d0d6e0] flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[#5e6ad2]" />
+                                    <span>Python (Official OpenAI SDK)</span>
+                                </span>
+                                <span className="text-[10px] text-[#8a8f98] font-mono">pip install openai</span>
+                            </div>
+                            <pre className="bg-[#010102] border border-[#23252a] p-4 rounded-xl text-xs font-mono text-[#d0d6e0] overflow-x-auto">
+{`from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://model.delights.pro/api/v1",
+    api_key="${keys.length > 0 ? keys[0].api_key : 'sk_snell_your_key_here'}"
+)
+
+# Route dynamically via Snell ('snell/auto', 'snell/economy', or 'snell/intelligence')
+response = client.chat.completions.create(
+    model="snell/auto",
+    messages=[{"role": "user", "content": "Analyze our system architecture..."}],
+    stream=True
+)
+
+for chunk in response:
+    print(chunk.choices[0].delta.content or "", end="")`}
                             </pre>
                         </div>
 
+                        {/* Option 2: Node / TypeScript Drop-In */}
                         <div>
-                            <span className="text-xs text-zinc-400 block mb-1">2. Run autonomous routing in your API route:</span>
-                            <pre className="bg-black border border-white/10 p-3 rounded-lg text-xs font-mono text-zinc-300 overflow-x-auto">
-{`import { IntelligenceRouter } from 'model-delights-snell';
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-medium text-[#d0d6e0] flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[#27a644]" />
+                                    <span>Node.js / TypeScript (Official OpenAI SDK)</span>
+                                </span>
+                                <span className="text-[10px] text-[#8a8f98] font-mono">npm install openai</span>
+                            </div>
+                            <pre className="bg-[#010102] border border-[#23252a] p-4 rounded-xl text-xs font-mono text-[#d0d6e0] overflow-x-auto">
+{`import OpenAI from 'openai';
 
-const router = new IntelligenceRouter({ apiKey: process.env.SNELL_API_KEY });
+const openai = new OpenAI({
+    baseURL: 'https://model.delights.pro/api/v1',
+    apiKey: process.env.SNELL_API_KEY || '${keys.length > 0 ? keys[0].api_key : 'sk_snell_your_key_here'}'
+});
 
-// Execute prompt with automatic model selection & fallback cascade
-const res = await router.execute({
-    openrouterKey: process.env.OPENROUTER_API_KEY,
-    messages: [{ role: 'user', content: 'Generate high-performance SQL query...' }],
-    config: { intent: 'coding', policy: 'max_savings' }
-});`}
+const stream = await openai.chat.completions.create({
+    model: 'snell/economy', // Cuts bill by 70-90% with automatic fallback
+    messages: [{ role: 'user', content: 'Generate high-performance SQL schema...' }],
+    stream: true
+});
+
+for await (const chunk of stream) {
+    process.stdout.write(chunk.choices[0]?.delta?.content || '');
+}`}
+                            </pre>
+                        </div>
+
+                        {/* Option 3: Cursor / Cline / .env Configuration */}
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-medium text-[#d0d6e0] flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[#f59e0b]" />
+                                    <span>Cursor / Cline / Environment Variable Drop-In</span>
+                                </span>
+                                <span className="text-[10px] text-[#8a8f98] font-mono">.env / IDE Config</span>
+                            </div>
+                            <pre className="bg-[#010102] border border-[#23252a] p-4 rounded-xl text-xs font-mono text-[#d0d6e0] overflow-x-auto">
+{`# In your .env or Cursor OpenAI Base URL settings:
+OPENAI_BASE_URL="https://model.delights.pro/api/v1"
+OPENAI_API_KEY="${keys.length > 0 ? keys[0].api_key : 'sk_snell_your_key_here'}"
+
+# Model IDs to use in your prompts or IDE model picker:
+# - snell/auto         (Balanced intelligence + price router)
+# - snell/economy      (Maximum savings, 70-90% cheaper)
+# - snell/intelligence (Top frontier models: DeepSeek-R1, Claude 3.5 Sonnet)`}
                             </pre>
                         </div>
                     </div>
