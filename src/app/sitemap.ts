@@ -1,113 +1,106 @@
 import { MetadataRoute } from 'next';
 import { fetchModels } from '@/lib/api';
-import fs from 'fs/promises';
-import path from 'path';
-import { supabase } from '@/lib/supabase';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const data = await fetchModels();
-    const models = data.models;
-
     const baseUrl = 'https://model.delights.pro';
+    const now = new Date();
 
-    // Base routes
+    // 1. High-Value Core Platform Routes
     const routes: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: 'hourly',
-            priority: 1,
+            lastModified: now,
+            changeFrequency: 'daily',
+            priority: 1.0,
+        },
+        {
+            url: `${baseUrl}/pricing`,
+            lastModified: now,
+            changeFrequency: 'weekly',
+            priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/models`,
+            lastModified: now,
+            changeFrequency: 'daily',
+            priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/architect`,
+            lastModified: now,
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/changelog`,
+            lastModified: now,
+            changeFrequency: 'weekly',
+            priority: 0.75,
+        },
+        {
+            url: `${baseUrl}/enterprise`,
+            lastModified: now,
+            changeFrequency: 'monthly',
+            priority: 0.8,
         },
     ];
 
-    // We want to generate some of the top comparisons automatically.
-    // We'll take the top 50 by ELO and cross them to generate 1,225 popular "vs" pages
-    const topModels = [...models]
-        .filter(m => m.elo !== null)
-        .sort((a, b) => (b.elo || 0) - (a.elo || 0))
-        .slice(0, 50);
-
-    // Generate unique pairs
-    const pairs = [];
-    for (let i = 0; i < topModels.length; i++) {
-        for (let j = i + 1; j < topModels.length; j++) {
-            const idA = topModels[i].id.replace(/\//g, '__');
-            const idB = topModels[j].id.replace(/\//g, '__');
-            pairs.push(`${idA}/${idB}`);
-        }
-    }
-
-    // Create sitemap entries for the "VS" pages
-    pairs.forEach(pair => {
-        routes.push({
-            url: `${baseUrl}/vs/${pair}`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.6,
-        });
-    });
-
-    // Add Individual Model Profiles (200+)
-    models.forEach(model => {
-        routes.push({
-            url: `${baseUrl}/models/${model.id}`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.8,
-        });
-    });
-
-    // Add Category Hubs
+    // 2. Add Category Hubs
     const categories = ['top-tier', 'coding-logic', 'fictional', 'drafting', 'roleplay', 'vision', 'image-gen'];
     categories.forEach(slug => {
         routes.push({
             url: `${baseUrl}/categories/${slug}`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.9,
+            lastModified: now,
+            changeFrequency: 'weekly',
+            priority: 0.85,
         });
     });
 
-    // Add Programmatic Headless Articles from Supabase
-    if (supabase) {
-        try {
-            const tenantId = process.env.NEXT_PUBLIC_TENANT_ID || "model-delights";
-            const { data } = await supabase
-                .from("published_nodes")
-                .select("slug")
-                .eq("tenant_id", tenantId);
-                
-            if (data) {
-                data.forEach(article => {
-                    routes.push({
-                        url: `${baseUrl}/insights?article=${article.slug}`,
-                        lastModified: new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.8,
-                    });
-                });
-            }
-        } catch (e) {
-            console.error("Supabase failed during sitemap generation:", e);
-        }
-    }
-
-    // Add Industry Validator SEO Pages
     try {
-        const contentDir = path.join(process.cwd(), 'src/content/validate-seo');
-        const files = await fs.readdir(contentDir);
-        for (const file of files) {
-            if (file.endsWith('.json')) {
+        const data = await fetchModels();
+        const models = data?.models || [];
+
+        // 3. Filter Clean, High-Value Models for Profile Indexation
+        // Purge batch variants (:batch), internal checkpoints, and deprecated duplicates
+        const cleanModels = models.filter(m => {
+            if (!m.id || !m.name) return false;
+            if (m.id.includes(':batch')) return false;
+            if (m.id.includes(':free') && models.some(other => other.id === m.id.replace(':free', ''))) return false;
+            if (m.id.startsWith('~')) return false;
+            return true;
+        });
+
+        // Add distinct model profile pages
+        cleanModels.forEach(model => {
+            routes.push({
+                url: `${baseUrl}/models/${model.id}`,
+                lastModified: now,
+                changeFrequency: 'weekly',
+                priority: model.elo && model.elo > 1200 ? 0.8 : 0.6,
+            });
+        });
+
+        // 4. Curate High-Intent VS Comparison Pages (Top 25 Frontier Flagships)
+        // Crossing top 25 models yields 300 highly targeted, non-spam comparison URLs
+        const topFlagships = cleanModels
+            .filter(m => m.elo !== null && !m.id.includes(':'))
+            .sort((a, b) => (b.elo || 0) - (a.elo || 0))
+            .slice(0, 25);
+
+        for (let i = 0; i < topFlagships.length; i++) {
+            for (let j = i + 1; j < topFlagships.length; j++) {
+                const idA = topFlagships[i].id.replace(/\//g, '__');
+                const idB = topFlagships[j].id.replace(/\//g, '__');
                 routes.push({
-                    url: `${baseUrl}/validate/${file.replace('.json', '')}`,
-                    lastModified: new Date(),
-                    changeFrequency: 'monthly',
-                    priority: 0.7, // Solid priority for long-tail
+                    url: `${baseUrl}/vs/${idA}/${idB}`,
+                    lastModified: now,
+                    changeFrequency: 'weekly',
+                    priority: 0.7,
                 });
             }
         }
     } catch (e) {
-        console.error("No SEO content generated yet or error reading directory:", e);
+        console.error('[Sitemap Generation Error]', e);
     }
 
     return routes;

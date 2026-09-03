@@ -6,11 +6,63 @@ import PricingCalculator from './PricingCalculator';
 export const metadata = {
     title: 'Pricing & Plans | model.delights',
     description: 'Predictable FinOps for Autonomous AI Agents. Save 70% to 94% on model compute with zero memory loss and zero quality degradation.',
+    alternates: {
+        canonical: 'https://model.delights.pro/pricing',
+    },
+    openGraph: {
+        title: 'Predictable Pricing for Autonomous AI Agents | model.delights',
+        description: 'Drop our single URL into your stack. Snell cuts 70% to 94% of your inference bill with certified tool-calling invariants and session cache preservation.',
+        url: 'https://model.delights.pro/pricing',
+        type: 'website',
+    },
+};
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How fast is the routing latency?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Snell runs a zero-network in-memory AST classifier that resolves optimal routing and capability validation in under 0.3 milliseconds. The proxy introduces effectively zero overhead to your inference stream."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do I bring my own API keys (BYOK)?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. You can either pass your own OpenRouter / Provider keys or use Snell's unified managed keys. Your keys remain strictly encrypted in your environment and are never stored or inspected."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What happens if my token usage exceeds the plan limit?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Your application is never throttled or cut off. On the Pro plan, extra volume is billed at a transparent $0.05 per 1 million tokens routed, billed at the end of the monthly cycle."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How difficult is migration?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It takes 90 seconds. Change one environment variable in your codebase: OPENAI_BASE_URL=\"https://model.delights.pro/api/v1\" and set your model to \"snell/auto\"."
+            }
+        }
+    ]
 };
 
 export default function PricingPage() {
     return (
         <div className="min-h-screen bg-[#08090a] text-[#f7f8f8] selection:bg-violet-500/30 font-sans flex flex-col">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             {/* Top Navigation */}
             <nav className="w-full max-w-7xl mx-auto px-6 py-5 flex justify-between items-center border-b border-white/[0.08] sticky top-0 z-40 bg-[#08090a]/80 backdrop-blur-md">
                 <Link href="/" className="flex items-center gap-2.5 text-base font-semibold tracking-tight text-white hover:opacity-80 transition-opacity">

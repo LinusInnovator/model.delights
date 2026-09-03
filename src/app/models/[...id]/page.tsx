@@ -18,7 +18,21 @@ export async function generateMetadata(props: { params: Promise<{ id: string[] }
 
     return {
         title: `${model.name} API Pricing, ELO & Benchmarks | model.delights`,
-        description: `Detailed analysis of ${model.name}. Compare prompt costs, completion costs, context window limits, and LMSYS Chatbot Arena ELO intelligence scores for AI developers.`,
+        description: `Detailed API token pricing for ${model.name}: $${model.pricing_per_1m.prompt}/1M prompt, $${model.pricing_per_1m.completion}/1M completion, ${(model.context_length || 0).toLocaleString()} token context window, and LMSYS Chatbot Arena ELO score.`,
+        alternates: {
+            canonical: `https://model.delights.pro/models/${model.id}`,
+        },
+        openGraph: {
+            title: `${model.name} API Pricing, ELO & Benchmarks`,
+            description: `Compare ${model.name} token rates, context windows, and Chatbot Arena ELO benchmarks on model.delights.`,
+            url: `https://model.delights.pro/models/${model.id}`,
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${model.name} API Pricing & Intelligence ELO`,
+            description: `Live prompt & completion costs for ${model.name}.`,
+        }
     };
 }
 

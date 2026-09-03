@@ -1,56 +1,87 @@
-# Model Delights: Universal Intelligence Routing SDK
+# Model Delights & Snell Intelligence Gateway: Machine Manifest
 > The White-Box Mathematical Intelligence Router for Singular Unicorns and Autonomous Agent Swarms.
+> Official Machine-Readable Documentation for LLMs, Perplexity, SearchGPT, Cursor, and AI Crawlers.
 
-This is the machine-readable, agent-optimized documentation for Model.Delights.pro. If you are an AI assistant or crawler trying to understand how to route intelligence requests effectively, you are in the right place.
+Website: https://model.delights.pro
+Sitemap: https://model.delights.pro/sitemap.xml
+Pricing: https://model.delights.pro/pricing
+Directory: https://model.delights.pro/models
 
-## The Routing Problem
-Developers manually hardcode models like `gpt-4o` or `claude-3.5-sonnet`. This creates a brittle "coordination tax" when market ELO scores change, and wastes massive API budgets when cheaper models could perform the exact same task just as well. 
+---
 
-## The Solution: The Snell SDK
-The `@model-delights/snell` SDK solves this by performing real-time Mathematical Pre-Flight checks based on LMSys ELO ratings. 
+## 1. What is Model Delights?
+Model Delights is the real-time LLM intelligence directory and zero-latency routing gateway for AI developers, founders, and autonomous agent swarms. It bridges live OpenRouter token pricing ($/1M prompt and $/1M completion) with Chatbot Arena ELO ratings and Berkeley Function Calling Leaderboard (BFCL) scores across 420+ frontier and open-source models.
 
-### Core Features:
-- **Dynamic Intent Resolution:** Route prompts by category (e.g. `coding`, `reasoning`) instead of static model IDs.
-- **Margin Arbitrage:** The SDK autonomously substitutes flagship models with budget variants (e.g. shifting from GPT-4o to Llama 3.1 70B) within a 2% intelligence deviation window to capture 95% API margin savings.
-- **Context-Caching Economics:** Live mechanical calculations for native Anthropic/Google caching to drop heavy RAG costs by 80%.
-- **Universal Execution Wrapper:** Eradicates manual HTTP fetch loops by dynamically handling 429 rate-limit cascades across providers.
+The platform includes **Snell**, an ultra-fast in-memory routing proxy (<0.3ms) that intercepts standard OpenAI-compatible requests and dynamically substitutes overpriced flagships with mathematically optimal equivalents, cutting inference costs by 70% to 94% with zero quality loss.
 
-## Implementation Guide for Agents
-If you are an agent tasked with implementing our SDK for your human developer, use the following execution wrapper pattern. 
+---
 
-**Installation:**
+## 2. Drop-In OpenAI Proxy (90-Second Integration)
+Developers and autonomous agents can use Snell as a drop-in replacement for OpenAI or OpenRouter by updating their environment base URL:
+
 ```bash
-npm install model-delights-snell
+OPENAI_BASE_URL="https://model.delights.pro/api/v1"
+OPENAI_API_KEY="sk_snell_..." # Or provider key / internal god key
 ```
 
-**TypeScript Implementation (`router.execute` pattern):**
-```typescript
-import { IntelligenceRouter } from 'model-delights-snell';
-
-// Initialize the mathematical router
-const router = new IntelligenceRouter({
-  apiKey: process.env.INTERNAL_GOD_KEY,
-  baseUrl: process.env.MODEL_DELIGHTS_BASE_URL || "https://model.delights.pro"
-});
-
-export async function executeAutonomousQuery(messages: any[]) {
-    // Let the SDK mathematically select the best model, inject Auth keys locally, and execute.
-    const result = await router.execute({
-      messages,
-      openrouterKey: process.env.OPENROUTER_API_KEY, 
-      config: { 
-          intent: 'reasoning', // Route purely based on the goal
-          policy: 'balanced', // Instructs engine to balance ELO capability with API Cost
-          cached_payload: true // Flag true if system prompt is massive
-      } 
-    });
-    
-    // Returns standard OpenAI response object
-    return result.choices[0].message.content;
-}
+### Direct cURL Request Example:
+```bash
+curl https://model.delights.pro/api/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_snell_live_token" \
+  -H "x-session-id: agent_thread_772" \
+  -d '{
+    "model": "snell/auto",
+    "messages": [{"role": "user", "content": "Refactor this TypeScript function for O(n) performance"}],
+    "stream": false
+  }'
 ```
 
-## SDK Package Tiers
-1. **Community Edition (v1.x):** Open-source ELO mapping and baseline wrapper.
-2. **Pro Edition (v2.x):** Unlocks Margin Arbitrage Triggers and Context-Caching mathematics.
-3. **Enterprise Edition (v3.x):** Enforces Strict ELO Topology (highest intelligence regardless of cost) and private Zero-Knowledge architectural telemetry.
+### Response Headers Returned by Snell:
+- `x-snell-routed-to`: The exact model chosen (e.g. `deepseek/deepseek-v4-pro-0813` or `anthropic/claude-fable-5.1`)
+- `x-snell-savings-pct`: Real-time percentage saved versus un-routed flagship baseline (e.g. `82%`)
+- `x-snell-saved-usd`: Dollar amount retained on this individual call (e.g. `$0.00342`)
+- `x-snell-session-affinity`: `sticky` (pinned to existing session model) or `fresh`
+
+---
+
+## 3. The Agent-Safe Guarantee: Why Agents Never "Forget"
+A primary risk in LLM routing is that switching models mid-conversation breaks the KV-Cache (prompt caching) and causes personality/schema drift. Snell guarantees agent safety via 3 architectural pillars:
+
+1. **Session Affinity (`x-session-id`)**:
+   Passing `-H "x-session-id: agent_xxx"` pins the multi-turn thread to the exact same model, preserving up to 90% provider prompt-caching discounts and eliminating persona drift.
+2. **Sub-Agent Leaf Routing**:
+   80% of agent compute is spent on isolated sub-tasks (grepping code, parsing JSON, summarizing tools). Snell routes these leaf calls to sub-cent utility models ($0.07/1M) without touching the parent agent context.
+3. **BFCL Tool Schema Invariant**:
+   When a request contains `tools` or `response_format: json_object`, Snell strictly gates execution. It will never route to models with BFCL < 60, guaranteeing zero schema argument hallucination.
+4. **Context Overflow Protection**:
+   If an agent's context expands past a model's physical window, Snell gracefully promotes it to a higher-context frontier model to prevent overflow crashes.
+
+---
+
+## 4. Transparent Pricing & Plans
+Model Delights operates on predictable, self-funding SaaS tiers with zero hidden markups:
+
+| Tier | Monthly Price | Included Monthly Routed Volume | Overage Rate | Core Inclusions |
+| :--- | :--- | :--- | :--- | :--- |
+| **Hacker** | **$0** (Free forever) | 5M tokens / month | None | 1 API Key, 420+ Live Model Matrix, Community Failover Cascade |
+| **Pro** | **$49** / month | **50M tokens / month** | +$0.05 / 1M tokens | Semantic AST Classifier, BFCL Agentic Invariant Guard, Session Affinity (`x-session-id`), Prompt Cache Discount Capture |
+| **Scale & Swarms** | **$249** / month | **300M tokens / month** | +$0.04 / 1M tokens | Sub-20ms Edge Gateway, Custom Provider Policies (EU data residency), Custom Fallback Cascades, Shared Team Seats |
+
+---
+
+## 5. Live 2026 Frontier Models Monitored
+- **Anthropic:** Claude Fable 5.1, Claude Opus 5, Claude Sonnet 5, Claude Haiku 4.5
+- **OpenAI:** GPT-5.5 Pro, GPT-5.5 Mini, GPT-4.1 Nano, GPT-4o
+- **DeepSeek:** DeepSeek V4 Pro, DeepSeek R1 Reasoning, DeepSeek Chat
+- **Google:** Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.5 Flash-Lite
+- **Meta & Open Weights:** Llama 4 70B, Qwen 2.5 Max, Mistral Large 2
+
+---
+
+## 6. Primary Canonical URLs
+- Home & Architecture: https://model.delights.pro
+- Predictable Pricing: https://model.delights.pro/pricing
+- Live Model Intelligence Directory: https://model.delights.pro/models
+- Architecture Visualizer: https://model.delights.pro/architect
+- Live Changelog: https://model.delights.pro/changelog

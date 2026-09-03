@@ -7,12 +7,12 @@ export default function Footer() {
 
     const coreTools = [
         { name: 'Intelligence Directory', path: '/models' },
-        { name: 'The 10x Validator', path: '/validate' },
+        { name: 'Pricing & Plans', path: '/pricing' },
         { name: 'Architecture Gallery', path: '/architect' },
-        { name: 'VS Engine (Compare)', path: '/vs/openai__gpt-4o/anthropic__claude-3.5-sonnet' },
+        { name: 'VS Engine (Compare)', path: '/vs/openai__gpt-4o/anthropic__claude-fable-5.1' },
         { name: 'Enterprise API', path: '/enterprise' },
         { name: 'Live Changelog', path: '/changelog' },
-        { name: 'AI Insights Hub', path: '/insights' },
+        { name: 'Snell Gateway FAQ', path: '/pricing' },
         { name: 'Admin Dashboard', path: '/admin' },
     ];
 
@@ -33,14 +33,14 @@ export default function Footer() {
                         <span className="text-white font-bold tracking-tight text-lg">model.delights.pro</span>
                     </Link>
                     <p className="text-zinc-500 text-sm">
-                        Delights.pro is a DreamValidator brand. <br/>
+                        The intelligent LLM routing &amp; pricing engine.<br/>
                         &copy; {currentYear} All rights reserved.
                     </p>
                 </div>
 
                 {/* Core Tools Navigation */}
                 <div className="flex flex-col gap-3">
-                    <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Core Tools</h4>
+                    <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Core Platform</h4>
                     <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {coreTools.map((tool) => (
                             tool.path === '/admin' ? (
@@ -87,20 +87,20 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Industry Validator (SEO Anchor) */}
+                {/* FinOps & Gateway Resources (SEO Anchor) */}
                 <div className="flex flex-col gap-3">
-                    <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">Industry Validations</h4>
+                    <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-2">FinOps &amp; Gateway</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
                         {[
-                            { name: 'Full Directory', path: '/validate/industries' },
-                            { name: 'B2B SaaS', path: '/validate/b2b-saas-validation' },
-                            { name: 'Fintech', path: '/validate/fintech-startup-validation' },
-                            { name: 'Healthcare', path: '/validate/healthtech-validation' },
-                            { name: 'Creator Economy', path: '/validate/creator-economy-validation' },
-                            { name: 'eCommerce', path: '/validate/e-commerce-infrastructure' }
+                            { name: 'Predictable Pricing', path: '/pricing' },
+                            { name: 'Agent-Safe Guarantee', path: '/pricing' },
+                            { name: 'OpenAI Drop-In Proxy', path: '/pricing' },
+                            { name: 'Prompt Cache Savings', path: '/pricing' },
+                            { name: 'Machine Docs (llms.txt)', path: '/llms.txt' },
+                            { name: 'Frontier ELO Matrix', path: '/models' }
                         ].map((cat) => (
                             <Link 
-                                key={cat.path} 
+                                key={cat.name} 
                                 href={cat.path}
                                 className="text-zinc-400 hover:text-cyan-400 text-sm transition-colors cursor-pointer"
                             >

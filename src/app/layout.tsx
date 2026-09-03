@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   title: "model.delights | The AI Developer's Smart Routing Matrix",
   description: "The ultimate real-time LLM directory for AI engineers, developers, and founders. Instantly compare OpenRouter API costs versus live Chatbot Arena ELO intelligence to find the absolute best model for your application.",
   keywords: ["AI developers", "LLM pricing", "OpenRouter alternative", "AI engineer tools", "API routing", "prompt engineering", "LMSYS ELO", "cost optimization"],
+  alternates: {
+    canonical: "https://model.delights.pro",
+  },
   openGraph: {
     title: "model.delights | The AI Developer's Smart Routing Matrix",
     description: "The real-time LLM directory for AI engineers. Instantly compare API costs versus live intelligence to find the perfect model.",
@@ -57,6 +60,23 @@ export const metadata: Metadata = {
   }
 };
 
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "model.delights & Snell Intelligence Router",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Cloud / API",
+  "url": "https://model.delights.pro",
+  "description": "The real-time LLM directory and zero-latency intelligent API routing gateway. Dynamically routes prompts across Claude, GPT-5, and DeepSeek to save 70% to 94% on model compute.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "0",
+    "highPrice": "249",
+    "offerCount": "3"
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,6 +87,10 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <Script src="https://unpkg.com/@phosphor-icons/web" strategy="beforeInteractive" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
+          />
         </head>
         <body suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${playfair.variable} ${jetbrains.variable} antialiased min-h-screen flex flex-col`}>
           <svg className="pointer-events-none fixed inset-0 z-50 h-[100dvh] w-full opacity-[0.05]">

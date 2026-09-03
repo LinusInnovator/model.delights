@@ -25,6 +25,15 @@ export async function generateMetadata(props: { params: Promise<{ modelA: string
     return {
         title: `${modelA.name} vs ${modelB.name} Pricing & API Performance | model.delights`,
         description: `Compare ${modelA.name} vs ${modelB.name}. Deep breakdown of API pricing, Chatbot Arena ELO scores, and context windows to help AI developers and prompt engineers find the smartest, most cost-effective LLM.`,
+        alternates: {
+            canonical: `https://model.delights.pro/vs/${params.modelA}/${params.modelB}`,
+        },
+        openGraph: {
+            title: `${modelA.name} vs ${modelB.name} | Model Comparison Matrix`,
+            description: `Head-to-head pricing and benchmark comparison: ${modelA.name} vs ${modelB.name}. Compare token costs, ELO, and latency on model.delights.`,
+            url: `https://model.delights.pro/vs/${params.modelA}/${params.modelB}`,
+            type: 'article',
+        },
     };
 }
 
