@@ -101,34 +101,68 @@ export default async function ModelProfilePage(props: { params: Promise<{ id: st
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 {/* Stat Cards */}
                 <div className="bg-zinc-900/80 border border-white/5 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
                     <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2">Intelligence (ELO)</span>
                     <span className="text-4xl font-black text-cyan-400">{model.elo || 'N/A'}</span>
-                    <span className="text-zinc-600 text-xs mt-2">Chatbot Arena Verified</span>
+                    <span className="text-zinc-500 text-xs mt-2">
+                        {model.benchmarks?.aider_pass_1 ? `Aider: ${model.benchmarks.aider_pass_1}%` : 'Chatbot Arena Verified'}
+                    </span>
                 </div>
                 <div className="bg-zinc-900/80 border border-white/5 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
-                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2">Max Context</span>
+                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2">Max Context Limit</span>
                     <span className="text-4xl font-black text-white">{new Intl.NumberFormat().format(model.context_length)}</span>
-                    <span className="text-zinc-600 text-xs mt-2">Tokens</span>
+                    <span className="text-zinc-500 text-xs mt-2">
+                        {model.operational_specs?.max_output_tokens 
+                            ? `Max Out: ${new Intl.NumberFormat().format(model.operational_specs.max_output_tokens)} tokens`
+                            : 'Tokens Window'}
+                    </span>
                 </div>
                 <div className="bg-zinc-900/80 border border-white/5 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
-                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2">API Cost / 1M</span>
+                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2">Prompt Caching</span>
+                    <span className="text-4xl font-black text-cyan-300">
+                        {model.prompt_cache_discount_pct ? `${model.prompt_cache_discount_pct}% OFF` : 'Standard'}
+                    </span>
+                    <span className="text-zinc-500 text-xs mt-2">
+                        {model.pricing_per_1m.prompt_cached !== undefined
+                            ? `${formatPrice(model.pricing_per_1m.prompt_cached)} / 1M cached`
+                            : 'No Cache Discount'}
+                    </span>
+                </div>
+                <div className="bg-zinc-900/80 border border-white/5 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2">Standard API / 1M</span>
                     <span className="text-4xl font-black text-green-400">{costMillion === 0 ? 'FREE' : `$${costMillion.toFixed(2)}`}</span>
-                    <span className="text-zinc-600 text-xs mt-2">Blended Prompt + Completion</span>
+                    <span className="text-zinc-500 text-xs mt-2">
+                        {model.operational_specs?.is_reasoning ? '🧠 Deep Reasoner' : 'Blended Standard Rate'}
+                    </span>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
                 <div>
-                    <h2 className="text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4">Model Capabilities</h2>
+                    <h2 className="text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4">Model Capabilities & Contract SLAs</h2>
                     <ul className="flex flex-wrap gap-2 mb-8">
                         {model.use_cases.map(uc => (
                             <li key={uc} className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1.5 rounded-md text-sm font-semibold">
                                 {uc}
                             </li>
                         ))}
+                        {model.operational_specs?.supports_json_schema && (
+                            <li className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-md text-sm font-semibold flex items-center gap-1.5">
+                                <span>📋 Strict JSON Schema</span>
+                            </li>
+                        )}
+                        {model.operational_specs?.supports_tools && (
+                            <li className="bg-sky-500/10 text-sky-400 border border-sky-500/20 px-3 py-1.5 rounded-md text-sm font-semibold flex items-center gap-1.5">
+                                <span>🛠️ Native Tool Calling</span>
+                            </li>
+                        )}
+                        {model.operational_specs?.is_reasoning && (
+                            <li className="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1.5 rounded-md text-sm font-semibold flex items-center gap-1.5">
+                                <span>🧠 Extended Test-Time Reasoning</span>
+                            </li>
+                        )}
                     </ul>
 
                     {model.description && (
@@ -142,13 +176,28 @@ export default async function ModelProfilePage(props: { params: Promise<{ id: st
                     <h2 className="text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4">Granular Pricing Matrix</h2>
                     <div className="bg-zinc-900 flex flex-col rounded-2xl overflow-hidden border border-white/5">
                         <div className="flex justify-between p-5 border-b border-white/5 items-center">
-                            <span className="text-zinc-400 font-medium tracking-wide">Input Tokens (Prompt)</span>
+                            <span className="text-zinc-400 font-medium tracking-wide">Input Tokens (Standard Prompt)</span>
                             <span className="text-xl font-bold text-white">{formatPrice(model.pricing_per_1m.prompt)} <span className="text-zinc-600 text-sm font-normal">/ 1M</span></span>
                         </div>
-                        <div className="flex justify-between p-5 items-center">
+                        {model.pricing_per_1m.prompt_cached !== undefined && (
+                            <div className="flex justify-between p-5 border-b border-white/5 items-center bg-cyan-950/10">
+                                <span className="text-cyan-400 font-medium tracking-wide flex items-center gap-2">
+                                    <span>⚡ Cached Input (Prompt Cache Read)</span>
+                                    <span className="text-xs bg-cyan-500/20 px-2 py-0.5 rounded-full font-bold">{model.prompt_cache_discount_pct}% OFF</span>
+                                </span>
+                                <span className="text-xl font-bold text-cyan-300">{formatPrice(model.pricing_per_1m.prompt_cached)} <span className="text-cyan-600 text-sm font-normal">/ 1M</span></span>
+                            </div>
+                        )}
+                        <div className="flex justify-between p-5 border-b border-white/5 items-center">
                             <span className="text-zinc-400 font-medium tracking-wide">Output Tokens (Completion)</span>
                             <span className="text-xl font-bold text-white">{formatPrice(model.pricing_per_1m.completion)} <span className="text-zinc-600 text-sm font-normal">/ 1M</span></span>
                         </div>
+                        {model.pricing_per_1m.internal_reasoning !== undefined && (
+                            <div className="flex justify-between p-5 items-center bg-purple-950/10">
+                                <span className="text-purple-400 font-medium tracking-wide">Internal Reasoning Tokens</span>
+                                <span className="text-xl font-bold text-purple-300">{formatPrice(model.pricing_per_1m.internal_reasoning)} <span className="text-purple-600 text-sm font-normal">/ 1M</span></span>
+                            </div>
+                        )}
                     </div>
                     <p className="text-xs text-zinc-600 text-right mt-3 italic">Pricing data via OpenRouter. Sync: {new Date(last_updated * 1000).toLocaleDateString()}</p>
                 </div>

@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from "react";
 
 export const USE_CASES = [
-    { id: 'all', label: 'All Use Cases', icon: 'ph-infinity' },
+    { id: 'all', label: 'All Models', icon: 'ph-infinity' },
     { id: 'Top Tier', label: 'Top Tier', icon: 'ph-star' },
     { id: 'Coding & Logic', label: 'Coding & Logic', icon: 'ph-code' },
-    { id: 'Fictional', label: 'Fictional', icon: 'ph-pen-nib' },
+    { id: 'Agentic', label: 'Agentic & Tools', icon: 'ph-wrench' },
+    { id: 'Reasoning', label: 'Deep Reasoning', icon: 'ph-brain' },
+    { id: 'Free Tier', label: 'Free Models', icon: 'ph-gift' },
     { id: 'Drafting', label: 'Drafting', icon: 'ph-lightning' },
     { id: 'Roleplay', label: 'Roleplay', icon: 'ph-mask-happy' },
     { id: 'Vision', label: 'Vision', icon: 'ph-eye' }
@@ -85,7 +87,7 @@ export default function Filters({
                     <i className="ph ph-magnifying-glass" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}></i>
                     <input
                         type="text"
-                        placeholder="Search models... (e.g., Llama, GPT-4, Coding)"
+                        placeholder="Search models... (e.g., Llama, GPT-4, Coding, Reasoning)"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         style={{
@@ -122,6 +124,10 @@ export default function Filters({
                     >
                         <option value="elo-desc">Pure ELO (Highest Intelligence)</option>
                         <option value="value-desc">Value Score (Smartest for Cheapest)</option>
+                        <option value="aider-desc">Aider Coding Score (Highest First)</option>
+                        <option value="bfcl-desc">BFCL Agentic Score (Highest First)</option>
+                        <option value="cache-desc">Prompt Cache Discount % (Highest First)</option>
+                        <option value="max-out-desc">Max Output Tokens (Highest First)</option>
                         <option value="price-asc">Price (Low to High)</option>
                         <option value="price-desc">Price (High to Low)</option>
                         <option value="context-desc">Context Length (High to Low)</option>

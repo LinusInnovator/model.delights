@@ -1,42 +1,13 @@
 [
   {
-    "date": "2026-03-23",
+    "date": "2026-06-25",
     "items": [
       {
-        "hash": "911bbdf",
-        "type": "fix",
-        "scope": "",
-        "message": "decodeURIComponent in catch-all model route to natively resolve OpenRouter colon IDs",
-        "date": "2026-03-23",
-        "isPublic": true
-      },
-      {
-        "hash": "21c9829",
+        "hash": "8e1c114",
         "type": "feat",
         "scope": "",
-        "message": "resolve Vercel build errors, implement model catch-all routing, and fix batch pathing",
-        "date": "2026-03-23",
-        "isPublic": true
-      }
-    ]
-  },
-  {
-    "date": "2026-03-21",
-    "items": [
-      {
-        "hash": "df196b4",
-        "type": "feat",
-        "scope": "seo",
-        "message": "engineered multi-tenant CLI parameter segregation in batch orchestrator",
-        "date": "2026-03-21",
-        "isPublic": true
-      },
-      {
-        "hash": "b6c8a17",
-        "type": "feat",
-        "scope": "seo",
-        "message": "engineered automated JWT negotiation to ping google indexing payload upon deploy",
-        "date": "2026-03-21",
+        "message": "implement Bayesian ELO Chess updates with benchmark decay and Thompson exploration jitter in routing engine",
+        "date": "2026-06-25",
         "isPublic": true
       }
     ]

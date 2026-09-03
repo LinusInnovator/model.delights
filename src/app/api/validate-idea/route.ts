@@ -84,13 +84,13 @@ Core Principles:
         });
 
         // Enforce math calculations to be perfectly safe, although LLM should do it
-        object.critical_assumptions = object.critical_assumptions.map(a => ({
+        object.critical_assumptions = object.critical_assumptions.map((a: any) => ({
             ...a,
             leverage_score: a.impact * (6 - a.evidence)
         }));
 
         // Sort descending by highest impact
-        object.critical_assumptions.sort((a, b) => b.leverage_score - a.leverage_score);
+        object.critical_assumptions.sort((a: any, b: any) => b.leverage_score - a.leverage_score);
 
         return NextResponse.json(object);
 

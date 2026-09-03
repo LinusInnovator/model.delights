@@ -212,7 +212,7 @@ export async function POST(req: NextRequest) {
             // Map the array components back to a record dictionary for Python/TS compatibility
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const componentsDict: Record<string, any> = {};
-            object.components.forEach((comp) => {
+            object.components.forEach((comp: any) => {
                 const { name, ...rest } = comp;
                 componentsDict[name] = rest;
             });

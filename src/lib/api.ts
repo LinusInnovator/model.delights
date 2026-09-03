@@ -11,6 +11,10 @@ export interface ModelPricing {
     prompt: number;
     completion: number;
     prompt_cached?: number;
+    input_cache_read?: number;
+    input_cache_write?: number;
+    internal_reasoning?: number;
+    web_search?: number;
 }
 
 export interface ModelArchitecture {
@@ -25,6 +29,20 @@ export interface ModelIntelligence {
     chat: number;
     document: number;
     agentic?: number;
+}
+
+export interface ModelBenchmarks {
+    aider_pass_1?: number;
+    bfcl_score?: number;
+    lmsys_elo?: number;
+}
+
+export interface ModelOperationalSpecs {
+    max_output_tokens?: number;
+    supports_tools?: boolean;
+    supports_json_schema?: boolean;
+    is_reasoning?: boolean;
+    is_free?: boolean;
 }
 
 export interface Model {
@@ -44,6 +62,9 @@ export interface Model {
     value_score: number;
     gateway?: string;
     modality_type?: string;
+    benchmarks?: ModelBenchmarks;
+    operational_specs?: ModelOperationalSpecs;
+    prompt_cache_discount_pct?: number;
 }
 
 export interface FetchResult {
@@ -272,9 +293,17 @@ export async function fetchModels(): Promise<FetchResult> {
                 if (!isNaN(parseFloat(m.pricing.completion))) {
                     pricing_per_1m.completion = parseFloat(m.pricing.completion) * 1000000;
                 }
-                // Extract OpenRouter's Prompt Caching Discount if available (Massively impacts RAG routing)
-                if (m.pricing.prompt_cached && !isNaN(parseFloat(m.pricing.prompt_cached))) {
-                    pricing_per_1m.prompt_cached = parseFloat(m.pricing.prompt_cached) * 1000000;
+                // Extract OpenRouter's Prompt Caching Discount (input_cache_read or prompt_cached)
+                const cacheReadRaw = m.pricing.input_cache_read || m.pricing.prompt_cached;
+                if (cacheReadRaw && !isNaN(parseFloat(cacheReadRaw))) {
+                    pricing_per_1m.prompt_cached = parseFloat(cacheReadRaw) * 1000000;
+                    pricing_per_1m.input_cache_read = pricing_per_1m.prompt_cached;
+                }
+                if (m.pricing.input_cache_write && !isNaN(parseFloat(m.pricing.input_cache_write))) {
+                    pricing_per_1m.input_cache_write = parseFloat(m.pricing.input_cache_write) * 1000000;
+                }
+                if (m.pricing.internal_reasoning && !isNaN(parseFloat(m.pricing.internal_reasoning))) {
+                    pricing_per_1m.internal_reasoning = parseFloat(m.pricing.internal_reasoning) * 1000000;
                 }
             }
 
@@ -419,6 +448,44 @@ export async function fetchModels(): Promise<FetchResult> {
                 }
             }
 
+            // Operational Specs & Contract Guarantees
+            const topProvider = m.top_provider || {};
+            const max_output_tokens = topProvider.max_completion_tokens || m.architecture?.max_completion_tokens || undefined;
+            const is_reasoning = Boolean(nameAndId.match(/o1|o3|r1|reasoning|thinking|deepseek-r1/) || desc.includes('reasoning') || desc.includes('thinking'));
+            const is_free = m_id.endsWith(':free') || (pricing_per_1m.prompt === 0 && pricing_per_1m.completion === 0);
+            const supports_tools = capabilities.includes('tools') || Boolean(nameAndId.match(/gpt-4|gpt-5|claude|gemini|mistral|qwen|command-r|llama-3/));
+            const supports_json_schema = capabilities.includes('json') || Boolean(nameAndId.match(/gpt-4|gpt-5|claude|gemini|o1|o3/));
+
+            const operational_specs: ModelOperationalSpecs = {
+                max_output_tokens,
+                supports_tools,
+                supports_json_schema,
+                is_reasoning,
+                is_free
+            };
+
+            const benchmarks: ModelBenchmarks = {
+                lmsys_elo: globalElo,
+                aider_pass_1: aider_pass || undefined,
+                bfcl_score: bfcl_score || undefined
+            };
+
+            // Calculate prompt cache discount percentage if available
+            let prompt_cache_discount_pct: number | undefined = undefined;
+            if (pricing_per_1m.prompt > 0 && pricing_per_1m.prompt_cached !== undefined && pricing_per_1m.prompt_cached < pricing_per_1m.prompt) {
+                prompt_cache_discount_pct = Math.round((1 - (pricing_per_1m.prompt_cached / pricing_per_1m.prompt)) * 100);
+            }
+
+            if (is_reasoning && !use_cases.includes('Reasoning')) {
+                use_cases.push('Reasoning');
+            }
+            if (is_free && !use_cases.includes('Free Tier')) {
+                use_cases.push('Free Tier');
+            }
+            if (supports_tools && !use_cases.includes('Agentic')) {
+                use_cases.push('Agentic');
+            }
+
             // Extract health or fallback to standard assuming it works
             const health: ModelHealth = m.health || { status: 'green' };
 
@@ -432,7 +499,10 @@ export async function fetchModels(): Promise<FetchResult> {
                 value_score,
                 health,
                 gateway: 'openrouter',
-                modality_type
+                modality_type,
+                benchmarks,
+                operational_specs,
+                prompt_cache_discount_pct
             };
         });
 

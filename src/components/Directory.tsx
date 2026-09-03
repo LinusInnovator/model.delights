@@ -9,6 +9,7 @@ import ModelCard from './ModelCard';
 import PromoCard from './PromoCard';
 import WildcardCard from './WildcardCard';
 import ValidatorGateway from './ValidatorGateway';
+import CompareTray from './CompareTray';
 
 const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
@@ -19,21 +20,55 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     const [activeModality, setActiveModality] = useState('text'); // Default to text for standard router capabilities
     const [isEloExpanded, setIsEloExpanded] = useState(false);
 
+    // Advanced 2026 FinOps Task Presets
     const PRESETS = {
-        'Start-up': { prompt: 1000, output: 500, reqs: 50000 },
-        'Scale-up': { prompt: 2000, output: 1000, reqs: 500000 },
-        'Viral': { prompt: 2500, output: 1000, reqs: 5000000 }
+        'Agentic Code': { prompt: 15000, output: 2000, reqs: 1000, cache: 0.75, reasoning: 3.5 },
+        'RAG Search': { prompt: 30000, output: 800, reqs: 10000, cache: 0.85, reasoning: 1 },
+        'Chatbot': { prompt: 1500, output: 300, reqs: 50000, cache: 0.20, reasoning: 1 },
+        'Start-up': { prompt: 1000, output: 500, reqs: 50000, cache: 0.50, reasoning: 1 },
+        'Scale-up': { prompt: 2000, output: 1000, reqs: 500000, cache: 0.50, reasoning: 1 },
+        'Viral': { prompt: 2500, output: 1000, reqs: 5000000, cache: 0.50, reasoning: 1 }
     };
 
     const [simPromptMs, setSimPromptMs] = useState(PRESETS['Start-up'].prompt);
     const [simOutputMs, setSimOutputMs] = useState(PRESETS['Start-up'].output);
     const [simReqs, setSimReqs] = useState(PRESETS['Start-up'].reqs);
+    const [cacheHitRate, setCacheHitRate] = useState(0.50); // 50% cached default
+    const [reasoningMultiplier, setReasoningMultiplier] = useState(1); // 1x normal, 3.5x extended, 6x deep
 
     const [budgetInput, setBudgetInput] = useState('');
     const [maxBudget, setMaxBudget] = useState<number | null>(null);
 
     const [isChartExpanded, setIsChartExpanded] = useState(true);
     const [showSurfaceUp, setShowSurfaceUp] = useState(false);
+
+    // Multi-Model Pin-to-Compare State
+    const [selectedCompareIds, setSelectedCompareIds] = useState<string[]>([]);
+
+    const handleTogglePin = (id: string) => {
+        setSelectedCompareIds(prev => {
+            if (prev.includes(id)) {
+                return prev.filter(x => x !== id);
+            }
+            if (prev.length >= 4) {
+                alert("You can compare up to 4 models simultaneously. Remove a model to add another.");
+                return prev;
+            }
+            return [...prev, id];
+        });
+    };
+
+    const handleRemoveCompare = (id: string) => {
+        setSelectedCompareIds(prev => prev.filter(x => x !== id));
+    };
+
+    const handleClearCompare = () => {
+        setSelectedCompareIds([]);
+    };
+
+    const selectedCompareModels = useMemo(() => {
+        return initialData.models.filter(m => selectedCompareIds.includes(m.id));
+    }, [initialData.models, selectedCompareIds]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -81,8 +116,15 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             result = result.filter(m => {
                 if (m.pricing_per_1m.prompt < 0 || m.pricing_per_1m.completion < 0) return false;
                 const pTokens = simPromptMs / 1000000;
-                const oTokens = simOutputMs / 1000000;
-                const pCost = pTokens * m.pricing_per_1m.prompt * simReqs;
+                let oTokens = simOutputMs / 1000000;
+                if (m.operational_specs?.is_reasoning && reasoningMultiplier > 1) {
+                    oTokens *= reasoningMultiplier;
+                }
+
+                const cachedPrice = m.pricing_per_1m.prompt_cached ?? m.pricing_per_1m.prompt;
+                const effectivePrompt = (1 - cacheHitRate) * m.pricing_per_1m.prompt + cacheHitRate * cachedPrice;
+
+                const pCost = pTokens * effectivePrompt * simReqs;
                 const oCost = oTokens * m.pricing_per_1m.completion * simReqs;
                 return (pCost + oCost) <= maxBudget;
             });
@@ -104,6 +146,10 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             switch (sortMode) {
                 case 'elo-desc': return (b.elo || 0) - (a.elo || 0);
                 case 'value-desc': return vB - vA;
+                case 'aider-desc': return (b.benchmarks?.aider_pass_1 || 0) - (a.benchmarks?.aider_pass_1 || 0);
+                case 'bfcl-desc': return (b.benchmarks?.bfcl_score || 0) - (a.benchmarks?.bfcl_score || 0);
+                case 'cache-desc': return (b.prompt_cache_discount_pct || 0) - (a.prompt_cache_discount_pct || 0);
+                case 'max-out-desc': return (b.operational_specs?.max_output_tokens || 0) - (a.operational_specs?.max_output_tokens || 0);
                 case 'price-asc': return pA - pB;
                 case 'price-desc': return pB - pA;
                 case 'context-desc': return cB - cA;
@@ -114,7 +160,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
         });
 
         return result;
-    }, [initialData.models, searchQuery, sortMode, activeUseCase, activeModality, maxBudget, simPromptMs, simOutputMs, simReqs]);
+    }, [initialData.models, searchQuery, sortMode, activeUseCase, activeModality, maxBudget, simPromptMs, simOutputMs, simReqs, cacheHitRate, reasoningMultiplier]);
 
     // Format last updated
     const lastUpdatedTimestamp = initialData.last_updated
@@ -141,12 +187,11 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             m.id !== model.id &&
             m.elo !== null &&
             m.context_length >= model.context_length &&
-            m.elo >= ((model.elo as number) - 30) &&
-            (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) < targetPrice
-        ).sort((a, b) => b.value_score - a.value_score);
+            m.elo >= (model.elo as number) - 80 &&
+            (m.pricing_per_1m.prompt + m.pricing_per_1m.completion) < (targetPrice * 0.70)
+        ).sort((a, b) => (a.pricing_per_1m.prompt + a.pricing_per_1m.completion) - (b.pricing_per_1m.prompt + b.pricing_per_1m.completion));
 
         const buildArray: Model[] = [model];
-
         if (closestPeers.length > 0) {
             buildArray.push(closestPeers[0]);
         }
@@ -202,38 +247,41 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     </div>
                 </header>
 
-                {/* Hide Simulator for non-text modalities where token math is confusing */}
+                {/* FinOps Workload Cost Simulator */}
                 {(activeModality === 'text' || activeModality === 'all') && (
-                    <div className="simulator-panel home-simulator">
-                    <div className="simulator-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div className="simulator-panel home-simulator" style={{ maxWidth: '640px' }}>
+                    <div className="simulator-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px' }}>
                         <div>
-                            <h2>Cost Simulator</h2>
-                            <p>Estimate your monthly bill across the entire industry instantly.</p>
+                            <h2>Workload FinOps Simulator</h2>
+                            <p>Simulate true cost with prompt caching discounts & reasoning overhead.</p>
                         </div>
-                        <div style={{ display: 'flex', background: 'rgba(0,0,0,0.3)', borderRadius: '20px', padding: '3px', border: '1px solid rgba(255,255,255,0.05)', marginLeft: '10px' }}>
+                        <div style={{ display: 'flex', background: 'rgba(0,0,0,0.3)', borderRadius: '20px', padding: '3px', border: '1px solid rgba(255,255,255,0.05)', flexWrap: 'wrap', gap: '2px' }}>
                             {Object.keys(PRESETS).map(key => {
-                                const isActive = simPromptMs === PRESETS[key as keyof typeof PRESETS].prompt &&
-                                    simOutputMs === PRESETS[key as keyof typeof PRESETS].output &&
-                                    simReqs === PRESETS[key as keyof typeof PRESETS].reqs;
+                                const preset = PRESETS[key as keyof typeof PRESETS];
+                                const isActive = simPromptMs === preset.prompt &&
+                                    simOutputMs === preset.output &&
+                                    simReqs === preset.reqs;
                                 return (
                                     <button
                                         key={key}
                                         onClick={() => {
-                                            setSimPromptMs(PRESETS[key as keyof typeof PRESETS].prompt);
-                                            setSimOutputMs(PRESETS[key as keyof typeof PRESETS].output);
-                                            setSimReqs(PRESETS[key as keyof typeof PRESETS].reqs);
+                                            setSimPromptMs(preset.prompt);
+                                            setSimOutputMs(preset.output);
+                                            setSimReqs(preset.reqs);
+                                            setCacheHitRate(preset.cache);
+                                            setReasoningMultiplier(preset.reasoning);
                                         }}
                                         style={{
-                                            background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
-                                            color: isActive ? '#fff' : 'var(--text-secondary)',
+                                            background: isActive ? 'rgba(0, 229, 255, 0.2)' : 'transparent',
+                                            color: isActive ? '#00e5ff' : 'var(--text-secondary)',
                                             border: 'none',
-                                            padding: '4px 14px',
+                                            padding: '4px 10px',
                                             borderRadius: '16px',
-                                            fontSize: '0.75rem',
+                                            fontSize: '0.72rem',
                                             cursor: 'pointer',
                                             transition: 'all 0.2s ease',
                                             whiteSpace: 'nowrap',
-                                            fontWeight: isActive ? 600 : 400
+                                            fontWeight: isActive ? 700 : 400
                                         }}
                                         onMouseEnter={e => {
                                             if (!isActive) e.currentTarget.style.color = '#fff';
@@ -293,7 +341,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 <button
                                     onClick={() => setMaxBudget(budgetInput ? Number(budgetInput) : null)}
                                     style={{
-                                        padding: '0 15px',
+                                        padding: '0 12px',
                                         borderRadius: '8px',
                                         background: 'var(--accent)',
                                         color: '#000',
@@ -308,6 +356,76 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 >
                                     Set
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Advanced FinOps Sliders: Prompt Cache & Reasoning Overhead */}
+                    <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                        {/* Prompt Cache Hit Rate Slider */}
+                        <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                                    <i className="ph ph-lightning" style={{ color: '#00e5ff' }}></i> Prompt Cache Hit Rate
+                                </span>
+                                <span style={{ fontSize: '0.78rem', color: '#00e5ff', fontWeight: 700, background: 'rgba(0, 229, 255, 0.1)', padding: '2px 6px', borderRadius: '8px' }}>
+                                    {Math.round(cacheHitRate * 100)}%
+                                </span>
+                            </div>
+                            <input
+                                type="range"
+                                min="0"
+                                max="0.90"
+                                step="0.05"
+                                value={cacheHitRate}
+                                onChange={e => setCacheHitRate(parseFloat(e.target.value))}
+                                style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer' }}
+                            />
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.68rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                                <span>0% (Cold)</span>
+                                <span>50% (Standard RAG)</span>
+                                <span>90% (Agents)</span>
+                            </div>
+                        </div>
+
+                        {/* Reasoning Multiplier Segmented Control */}
+                        <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                                    <i className="ph ph-brain" style={{ color: '#c084fc' }}></i> Reasoning Multiplier
+                                </span>
+                                <span style={{ fontSize: '0.78rem', color: '#c084fc', fontWeight: 700, background: 'rgba(192, 132, 252, 0.1)', padding: '2px 6px', borderRadius: '8px' }}>
+                                    {reasoningMultiplier}x thinking
+                                </span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '4px', background: 'rgba(0,0,0,0.3)', borderRadius: '10px', padding: '3px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                                {[
+                                    { val: 1, label: '1x Normal' },
+                                    { val: 3.5, label: '3.5x Ext.' },
+                                    { val: 6, label: '6x Deep' }
+                                ].map(item => (
+                                    <button
+                                        key={item.val}
+                                        onClick={() => setReasoningMultiplier(item.val)}
+                                        style={{
+                                            flex: 1,
+                                            background: reasoningMultiplier === item.val ? 'rgba(192, 132, 252, 0.2)' : 'transparent',
+                                            color: reasoningMultiplier === item.val ? '#c084fc' : 'var(--text-secondary)',
+                                            border: 'none',
+                                            padding: '4px',
+                                            borderRadius: '8px',
+                                            fontSize: '0.72rem',
+                                            fontWeight: reasoningMultiplier === item.val ? 700 : 500,
+                                            cursor: 'pointer',
+                                            transition: 'all 0.15s ease'
+                                        }}
+                                    >
+                                        {item.label}
+                                    </button>
+                                ))}
+                            </div>
+                            <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                                Multiplies output tokens for thinking models
                             </div>
                         </div>
                     </div>
@@ -341,11 +459,12 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             )}
 
             {filteredModels.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '50px', color: 'var(--text-secondary)' }}>
-                    No models found matching your criteria...
+                <div className="empty-state">
+                    <i className="ph ph-warning-circle"></i>
+                    <p>No models match your current filters. Try relaxing your search criteria or budget constraints.</p>
                 </div>
             ) : (
-                <div className="grid-container">
+                <div className="grid">
                     {filteredModels.map((m, idx) => (
                         <React.Fragment key={m.id}>
                             {idx === 4 && (
@@ -361,11 +480,22 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 simPromptMs={simPromptMs}
                                 simOutputMs={simOutputMs}
                                 simReqs={simReqs}
+                                cacheHitRate={cacheHitRate}
+                                reasoningMultiplier={reasoningMultiplier}
+                                isPinned={selectedCompareIds.includes(m.id)}
+                                onTogglePin={handleTogglePin}
                             />
                         </React.Fragment>
                     ))}
                 </div>
             )}
+
+            {/* Compare Tray Sticky Dock */}
+            <CompareTray
+                selectedModels={selectedCompareModels}
+                onRemove={handleRemoveCompare}
+                onClear={handleClearCompare}
+            />
 
             {/* SEO internal linking matrix for Category Hubs */}
             <div className="mt-20 mb-10 w-full bg-zinc-900/40 border border-white/5 p-8 rounded-3xl" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
