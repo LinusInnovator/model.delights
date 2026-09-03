@@ -226,7 +226,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     </div>
                     <p className="subtitle" style={{ marginBottom: '14px', marginTop: '8px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
                     
-                    <div style={{ marginBottom: '18px' }}>
+                    <div style={{ marginBottom: '18px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                         <button
                             onClick={() => setIsAuditModalOpen(true)}
                             className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-[#141516] hover:bg-[#18191a] border border-[#23252a] hover:border-[#34343a] text-[#f7f8f8] text-xs font-medium transition-all cursor-pointer group"
@@ -235,6 +235,13 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                             <span className="text-[#f7f8f8] font-medium">Stack Overpayment Audit</span>
                             <span className="text-[11px] text-[#8a8f98] group-hover:text-[#d0d6e0] font-mono">Calculate Waste &rarr;</span>
                         </button>
+                        <Link
+                            href="/pricing"
+                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-transparent hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 text-zinc-300 hover:text-white text-xs font-medium transition-all"
+                        >
+                            <span>Pricing &amp; Plans</span>
+                            <span className="text-[10px] text-emerald-400 font-mono font-semibold">$49/mo Pro</span>
+                        </Link>
                     </div>
 
                     <div style={{ color: 'var(--ink-subtle)', fontSize: '0.875rem', maxWidth: '750px', lineHeight: 1.6, marginBottom: '20px', background: 'var(--surface-1)', padding: '14px 18px', borderRadius: '8px', border: '1px solid var(--hairline)' }}>

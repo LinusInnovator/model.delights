@@ -28,18 +28,26 @@ export async function POST(req: NextRequest) {
         
         // Check if the client requested a custom redirect URL
         let customSuccessUrl = null;
+        let selectedPlan = 'pro';
         try {
             const body = await req.json();
             customSuccessUrl = body.success_url;
+            if (body.plan) selectedPlan = String(body.plan).toLowerCase();
         } catch (e) {
             // body is optional or not json
         }
 
-        // This assumes you have created a product in Stripe and have its Price ID.
-        // For a generic demo without a hardcoded price ID, we create an ad-hoc price.
+        const isScale = selectedPlan === 'scale';
+        const planName = isScale ? 'Snell Scale & Swarms Gateway' : 'Snell Pro Intelligence Engine';
+        const planDescription = isScale 
+            ? '300M tokens/mo included, +$0.04/1M overage, sub-20ms edge gateway, custom policies, team seats.'
+            : '50M tokens/mo included, +$0.05/1M overage, semantic routing, BFCL tool gating, prompt cache discounts.';
+        const unitAmount = isScale ? 24900 : 4900; // $249.00 vs $49.00
+
         const session = await stripe.checkout.sessions.create({
             metadata: {
                 clerk_user_id: userId || 'anonymous',
+                plan: selectedPlan,
             },
             payment_method_types: ['card'],
             line_items: [
@@ -47,10 +55,10 @@ export async function POST(req: NextRequest) {
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: 'Model Delights Enterprise Routing',
-                            description: 'Unified billing, fallback APIs, and zero-latency routing proxies.',
+                            name: planName,
+                            description: planDescription,
                         },
-                        unit_amount: 9900, // $99.00
+                        unit_amount: unitAmount,
                         recurring: {
                             interval: 'month',
                         },
@@ -60,7 +68,7 @@ export async function POST(req: NextRequest) {
             ],
             mode: 'subscription',
             success_url: customSuccessUrl || `${origin}/enterprise/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${origin}/enterprise/cancel`,
+            cancel_url: `${origin}/pricing`,
         });
 
         return NextResponse.json({ url: session.url });

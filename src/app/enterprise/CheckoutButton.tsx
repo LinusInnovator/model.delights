@@ -5,9 +5,10 @@ interface Props {
     label?: string;
     successUrl?: string;
     className?: string;
+    plan?: string;
 }
 
-export default function CheckoutButton({ label, successUrl, className }: Props = {}) {
+export default function CheckoutButton({ label, successUrl, className, plan = 'pro' }: Props = {}) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCheckout = async () => {
@@ -16,7 +17,7 @@ export default function CheckoutButton({ label, successUrl, className }: Props =
             const res = await fetch('/api/stripe/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ success_url: successUrl })
+                body: JSON.stringify({ success_url: successUrl, plan })
             });
             const data = await res.json();
 

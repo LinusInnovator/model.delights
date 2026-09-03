@@ -14,6 +14,7 @@ export interface RoutingResponse {
     flagship: RouteObj;
     smart_value?: RouteObj;
     fallback_array: string[];
+    is_sticky_affinity?: boolean;
 }
 
 export type RoutingPolicy = 'max_quality' | 'balanced' | 'max_savings' | 'low_latency' | 'high_reliability';
@@ -24,6 +25,39 @@ export interface RouteConfig {
     capabilities?: string[];
     policy?: RoutingPolicy;
     cached_payload?: boolean;
+    sessionId?: string;
+}
+
+// --- AGENT-SAFE SESSION AFFINITY STORE ---
+// Maps session IDs (from x-session-id or session_id) to previously routed models
+// to preserve KV-cache discounts (up to 90%) and prevent assistant persona drift.
+interface SessionRecord {
+    modelId: string;
+    lastUsed: number;
+}
+
+const SESSION_TTL_MS = 15 * 60 * 1000; // 15 minutes TTL
+const sessionAffinityStore = new Map<string, SessionRecord>();
+
+export function getSessionAffinity(sessionId: string): string | null {
+    const record = sessionAffinityStore.get(sessionId);
+    if (!record) return null;
+    if (Date.now() - record.lastUsed > SESSION_TTL_MS) {
+        sessionAffinityStore.delete(sessionId);
+        return null;
+    }
+    return record.modelId;
+}
+
+export function recordSessionAffinity(sessionId: string, modelId: string): void {
+    sessionAffinityStore.set(sessionId, {
+        modelId,
+        lastUsed: Date.now()
+    });
+}
+
+export function clearSessionAffinity(sessionId: string): void {
+    sessionAffinityStore.delete(sessionId);
 }
 
 export async function getOptimalRoute(config: RouteConfig = {}): Promise<RoutingResponse | null> {
@@ -32,7 +66,8 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         estimatedInputTokens = 0, 
         capabilities = [], 
         policy = 'balanced',
-        cached_payload = false
+        cached_payload = false,
+        sessionId
     } = config;
 
     try {
@@ -76,6 +111,35 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         // Instantly strips out models that will mathematically fail to process the user's prompt
         if (estimatedInputTokens > 0) {
             models = models.filter(m => (m.context_length || 0) >= estimatedInputTokens);
+        }
+
+        // --- SDK INTELLIGENCE: Agent-Safe Session Affinity (Sticky Thread) ---
+        // If a valid session ID is provided and was already routed to a model that satisfies
+        // current capability requirements, preserve that model to protect KV cache discounts (up to 90%).
+        if (sessionId) {
+            const stickyModelId = getSessionAffinity(sessionId);
+            if (stickyModelId) {
+                const existingModel = models.find(m => m.id === stickyModelId);
+                if (existingModel) {
+                    const fallback_array = [existingModel.id];
+                    const peerFallback = models.find(m => m.id !== existingModel.id);
+                    if (peerFallback) fallback_array.push(peerFallback.id);
+
+                    const cost1M = existingModel.pricing_per_1m.prompt + existingModel.pricing_per_1m.completion;
+                    return {
+                        intent: intent || 'session_affinity',
+                        flagship: {
+                            model: existingModel.id,
+                            elo: existingModel.elo,
+                            cost_per_1m: cost1M,
+                            name: existingModel.name,
+                            context_length: existingModel.context_length
+                        },
+                        fallback_array,
+                        is_sticky_affinity: true
+                    };
+                }
+            }
         }
 
         const mappedIntent = mapIntent(intent).toLowerCase();
@@ -258,6 +322,11 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         if (smartValue) fallback_array.push(smartValue.id);
         if (closestPeers.length > 0 && !fallback_array.includes(closestPeers[0].id)) {
             fallback_array.push(closestPeers[0].id);
+        }
+
+        if (sessionId) {
+            const chosenModelId = (policy === 'max_savings' && smartValue) ? smartValue.id : flagship.id;
+            recordSessionAffinity(sessionId, chosenModelId);
         }
 
         return {

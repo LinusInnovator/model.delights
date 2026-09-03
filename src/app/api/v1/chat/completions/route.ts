@@ -14,8 +14,8 @@ export async function OPTIONS() {
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-snell-policy, x-snell-intent, x-title, http-referer',
-            'Access-Control-Expose-Headers': 'x-snell-intent, x-snell-routed-to, x-snell-requested-model, x-snell-attempt, x-snell-tools-guaranteed, x-snell-cache-eligible, x-snell-savings-pct, x-snell-saved-usd, x-snell-policy',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-snell-policy, x-snell-intent, x-session-id, session-id, x-title, http-referer',
+            'Access-Control-Expose-Headers': 'x-snell-intent, x-snell-routed-to, x-snell-requested-model, x-snell-attempt, x-snell-tools-guaranteed, x-snell-cache-eligible, x-snell-savings-pct, x-snell-saved-usd, x-snell-policy, x-snell-session-id, x-snell-session-affinity',
         },
     });
 }
@@ -79,6 +79,8 @@ export async function POST(request: Request) {
 
     const requestedModel = body.model || 'snell/auto';
     const isStreaming = Boolean(body.stream);
+    const sessionId = request.headers.get('x-session-id') || request.headers.get('session-id') || body.session_id || undefined;
+    let isStickySession = false;
 
     // 3. Zero-Latency Semantic & Structural Classification (<0.3ms)
     const classification = classifyPromptPayload(body);
@@ -118,10 +120,14 @@ export async function POST(request: Request) {
                 estimatedInputTokens,
                 capabilities: requiredCapabilities,
                 policy,
-                cached_payload: classification.hasPromptCachePotential
+                cached_payload: classification.hasPromptCachePotential,
+                sessionId
             });
 
             if (optimalRoute) {
+                if (optimalRoute.is_sticky_affinity) {
+                    isStickySession = true;
+                }
                 if (policy === 'max_savings' && optimalRoute.smart_value) {
                     targetModel = optimalRoute.smart_value.model;
                 } else {
@@ -182,6 +188,11 @@ export async function POST(request: Request) {
                 responseHeaders.set('x-snell-intent', classification.intent);
                 responseHeaders.set('x-snell-tools-guaranteed', String(classification.requiresTools));
                 responseHeaders.set('x-snell-cache-eligible', String(classification.hasPromptCachePotential));
+
+                if (sessionId) {
+                    responseHeaders.set('x-snell-session-id', sessionId);
+                    responseHeaders.set('x-snell-session-affinity', isStickySession ? 'sticky' : 'fresh');
+                }
 
                 // FinOps Savings Estimation vs Un-routed Flagship Baseline ($6.00/1M)
                 const baselinePricePer1M = 6.0;
