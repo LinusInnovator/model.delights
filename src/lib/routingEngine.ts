@@ -37,14 +37,38 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
 
     try {
         const data = await fetchModels();
-        let models = data.models;
+        let models = data.models.filter(m => !m.id.includes(':batch') && !m.id.includes('-batch'));
 
         // --- SDK INTELLIGENCE: Capability Gating ---
         // Verifies the model can actually fulfill the runtime contract before scoring
         if (capabilities.length > 0) {
             models = models.filter(m => {
-                const modelCaps = m.capabilities || [];
-                return capabilities.every(cap => modelCaps.includes(cap.toLowerCase().trim()));
+                const modelCaps = (m.capabilities || []).map(c => c.toLowerCase().trim());
+                return capabilities.every(cap => {
+                    const c = cap.toLowerCase().trim();
+                    if (c === 'tools' || c === 'tool_calling') {
+                        return Boolean(
+                            m.operational_specs?.supports_tools ||
+                            (m.benchmarks?.bfcl_score && m.benchmarks.bfcl_score > 60) ||
+                            modelCaps.includes('tools') ||
+                            modelCaps.includes('function_calling')
+                        );
+                    }
+                    if (c === 'json_schema') {
+                        return Boolean(
+                            m.operational_specs?.supports_json_schema ||
+                            m.operational_specs?.supports_tools ||
+                            modelCaps.includes('tools')
+                        );
+                    }
+                    if (c === 'reasoning') {
+                        return Boolean(
+                            m.operational_specs?.is_reasoning ||
+                            (m.elo && m.elo >= 1300)
+                        );
+                    }
+                    return modelCaps.includes(c);
+                });
             });
         }
 
@@ -55,15 +79,32 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
         }
 
         const mappedIntent = mapIntent(intent).toLowerCase();
-        let axis: 'global' | 'coding' | 'chat' | 'document' = 'global';
+        let axis: 'global' | 'coding' | 'chat' | 'document' | 'agentic' = 'global';
         if (mappedIntent === 'coding & logic') axis = 'coding';
         else if (mappedIntent === 'fictional' || mappedIntent === 'reasoning') axis = 'document';
         else if (mappedIntent === 'conversational' || mappedIntent === 'roleplay') axis = 'chat';
+        else if (mappedIntent === 'agentic') axis = 'agentic';
 
         // --- SDK INTELLIGENCE: Continuous Routing Math (Composite Scores) ---
         // Replaces single blunt penalties with continuous policy-weighted adjustments
         models = models.map(m => {
-            const task_score = m.intelligence ? (m.intelligence[axis] || m.intelligence.global) : (m.elo || 1050);
+            let task_score = m.intelligence ? (m.intelligence[axis] || m.intelligence.global) : (m.elo || 1050);
+
+            // Domain benchmark weighting
+            if (axis === 'coding' && m.benchmarks?.aider_pass_1) {
+                // Aider pass rate (e.g. 80%) scaled to ELO range (+60 ELO boost for 80%+)
+                task_score += (m.benchmarks.aider_pass_1 - 50) * 2;
+            } else if (axis === 'agentic' && m.benchmarks?.bfcl_score) {
+                // BFCL tool score (e.g. 88) scaled to ELO range
+                task_score += (m.benchmarks.bfcl_score - 70) * 3;
+            } else if (mappedIntent === 'reasoning' && m.operational_specs?.is_reasoning) {
+                task_score += 80;
+            } else if (intent === 'fast_utility') {
+                // For fast utility, cost & latency matter far more than overkill flagship ELO
+                if (m.pricing_per_1m.prompt + m.pricing_per_1m.completion < 1.0) {
+                    task_score += 150; // Boost ultra-cheap fast models (Gemini Flash, DeepSeek Chat)
+                }
+            }
 
             let latency_penalty = 0;
             let reliability_penalty = 0;
@@ -80,7 +121,7 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
             // Continuous Uptime & Reliability Penalties
             if (m.health?.status) {
                 if (m.health.status === 'amber') reliability_penalty += 50;
-                else if (m.health.status === 'red') reliability_penalty += 250; // Severe outage, but potentially recoverable mathematically if policy ignores reliability
+                else if (m.health.status === 'red') reliability_penalty += 250; // Severe outage
             }
             if (m.health?.ttft) {
                 if (m.health.ttft > 2000) latency_penalty += 25;
@@ -123,7 +164,7 @@ export async function getOptimalRoute(config: RouteConfig = {}): Promise<Routing
 
             return {
                 ...m,
-                elo: activeElo // Redefine `elo` temporarily for the legacy downstream sorting code
+                elo: activeElo
             };
         });
 

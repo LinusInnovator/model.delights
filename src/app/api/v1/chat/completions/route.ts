@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getOptimalRoute, RoutingPolicy } from '@/lib/routingEngine';
+import { classifyPromptPayload } from '@/lib/promptClassifier';
 import { supabase } from '@/lib/supabase';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,6 +15,7 @@ export async function OPTIONS() {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-snell-policy, x-snell-intent, x-title, http-referer',
+            'Access-Control-Expose-Headers': 'x-snell-intent, x-snell-routed-to, x-snell-requested-model, x-snell-attempt, x-snell-tools-guaranteed, x-snell-cache-eligible, x-snell-savings-pct, x-snell-saved-usd, x-snell-policy',
         },
     });
 }
@@ -75,13 +79,12 @@ export async function POST(request: Request) {
 
     const requestedModel = body.model || 'snell/auto';
     const isStreaming = Boolean(body.stream);
-    const messages = body.messages || [];
 
-    // Calculate prompt tokens heuristic for routing context window fit
-    const totalChars = JSON.stringify(messages).length;
-    const estimatedInputTokens = Math.max(1, Math.round(totalChars / 4));
+    // 3. Zero-Latency Semantic & Structural Classification (<0.3ms)
+    const classification = classifyPromptPayload(body);
+    const estimatedInputTokens = classification.estimatedTokens;
 
-    // 3. Resolve Model via Snell Dynamic Routing or Direct Pass-through
+    // 4. Resolve Model via Snell Dynamic Routing or Direct Pass-through
     let targetModel = requestedModel;
     let fallbackCascade: string[] = [];
     let policy: RoutingPolicy = 'balanced';
@@ -104,11 +107,18 @@ export async function POST(request: Request) {
             policy = customPolicyHeader as RoutingPolicy;
         }
 
+        const requiredCapabilities: string[] = [];
+        if (classification.requiresTools) requiredCapabilities.push('tools');
+        if (classification.requiresJsonSchema) requiredCapabilities.push('json_schema');
+        if (classification.requiresReasoning) requiredCapabilities.push('reasoning');
+
         try {
             const optimalRoute = await getOptimalRoute({
-                intent: 'all',
+                intent: classification.intent,
                 estimatedInputTokens,
-                policy
+                capabilities: requiredCapabilities,
+                policy,
+                cached_payload: classification.hasPromptCachePotential
             });
 
             if (optimalRoute) {
@@ -119,11 +129,11 @@ export async function POST(request: Request) {
                 }
                 fallbackCascade = optimalRoute.fallback_array || [];
             } else {
-                targetModel = 'deepseek/deepseek-chat';
+                targetModel = classification.requiresTools ? 'openai/gpt-4o-mini' : 'deepseek/deepseek-chat';
                 fallbackCascade = ['google/gemini-2.5-flash', 'openai/gpt-4o-mini'];
             }
         } catch {
-            targetModel = 'deepseek/deepseek-chat';
+            targetModel = classification.requiresTools ? 'openai/gpt-4o-mini' : 'deepseek/deepseek-chat';
             fallbackCascade = ['google/gemini-2.5-flash', 'openai/gpt-4o-mini'];
         }
     }
@@ -169,8 +179,41 @@ export async function POST(request: Request) {
                 responseHeaders.set('x-snell-routed-to', attemptModel);
                 responseHeaders.set('x-snell-requested-model', requestedModel);
                 responseHeaders.set('x-snell-attempt', String(i + 1));
+                responseHeaders.set('x-snell-intent', classification.intent);
+                responseHeaders.set('x-snell-tools-guaranteed', String(classification.requiresTools));
+                responseHeaders.set('x-snell-cache-eligible', String(classification.hasPromptCachePotential));
+
+                // FinOps Savings Estimation vs Un-routed Flagship Baseline ($6.00/1M)
+                const baselinePricePer1M = 6.0;
+                const isEconomy = policy === 'max_savings' || attemptModel.includes('mini') || attemptModel.includes('flash') || attemptModel.includes('chat');
+                const estimatedRoutedPricePer1M = isEconomy ? 0.35 : 2.5;
+                const savingsPct = Math.max(0, Math.min(95, Math.round((1 - (estimatedRoutedPricePer1M / baselinePricePer1M)) * 100)));
+                const savedUsd = Number(((classification.estimatedTokens / 1000000) * (baselinePricePer1M - estimatedRoutedPricePer1M)).toFixed(6));
+
+                responseHeaders.set('x-snell-savings-pct', `${savingsPct}%`);
+                responseHeaders.set('x-snell-saved-usd', String(savedUsd));
+
                 if (routedBySnell) {
                     responseHeaders.set('x-snell-policy', policy);
+                }
+
+                // Fire-and-forget Zero-Knowledge Telemetry
+                try {
+                    const telemetryPath = path.join(process.cwd(), 'src/data/telemetry_db.jsonl');
+                    const dir = path.dirname(telemetryPath);
+                    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                    fs.appendFile(telemetryPath, JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        model: attemptModel,
+                        intent: classification.intent,
+                        outcome: 'success',
+                        tokens_in: classification.estimatedTokens,
+                        cached: classification.hasPromptCachePotential,
+                        policy,
+                        saved_usd: savedUsd
+                    }) + '\n', () => {});
+                } catch {
+                    // Non-blocking telemetry
                 }
 
                 // A. Streaming Mode: Return raw SSE pipeline

@@ -3,6 +3,14 @@
     "date": "2026-09-03",
     "items": [
       {
+        "hash": "a8431fed",
+        "type": "feat",
+        "scope": "api",
+        "message": "add OpenAI-compatible /v1/chat/completions proxy endpoint with streaming SSE & dynamic routing",
+        "date": "2026-09-03",
+        "isPublic": true
+      },
+      {
         "hash": "06a89a3f",
         "type": "feat",
         "scope": "design",
