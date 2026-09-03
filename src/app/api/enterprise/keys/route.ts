@@ -9,6 +9,9 @@ export async function GET() {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const metadata = (await auth()).sessionClaims?.metadata as Record<string, unknown>;
+    const isPro = metadata?.tier === 'PRO' || metadata?.has_ltd === true;
+
     try {
         const { data, error } = await supabase!
             .from('snell_api_keys')
@@ -17,7 +20,7 @@ export async function GET() {
             .order('created_at', { ascending: false });
 
         if (error) throw error;
-        return NextResponse.json({ keys: data || [] });
+        return NextResponse.json({ keys: data || [], isPro });
     } catch (e: unknown) {
         return NextResponse.json({ error: (e as Error).message }, { status: 500 });
     }
@@ -32,8 +35,19 @@ export async function POST(req: Request) {
     const metadata = sessionClaims?.metadata as Record<string, unknown>;
     const isPro = metadata?.tier === 'PRO' || metadata?.has_ltd === true;
 
+    // Free Tier allows 1 key with 10k routes/mo. Pro tier allows unlimited keys.
     if (!isPro) {
-        return NextResponse.json({ error: 'Enterprise subscription required to generate API keys.' }, { status: 403 });
+        const { data: existingKeys, error: countError } = await supabase!
+            .from('snell_api_keys')
+            .select('id')
+            .eq('user_id', userId);
+
+        if (countError) throw countError;
+        if (existingKeys && existingKeys.length >= 1) {
+            return NextResponse.json({ 
+                error: 'Free Tier accounts are limited to 1 active Snell API Key. Upgrade to Pro for unlimited keys, team access, and higher throughput.' 
+            }, { status: 403 });
+        }
     }
 
     try {
@@ -48,13 +62,13 @@ export async function POST(req: Request) {
             .insert([{
                 user_id: userId,
                 api_key: generatedKey,
-                name: name
+                name: name.trim()
             }])
             .select()
             .single();
 
         if (error) throw error;
-        return NextResponse.json({ key: data });
+        return NextResponse.json({ key: data, isPro });
     } catch (e: unknown) {
         return NextResponse.json({ error: (e as Error).message }, { status: 500 });
     }

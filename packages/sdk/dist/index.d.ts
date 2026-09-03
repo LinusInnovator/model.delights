@@ -107,6 +107,8 @@ export interface ExecuteOptions {
     timeout_ms_max_per_model?: number;
     /** Semantic Firewall configurations to proactively block malicious agentic payloads */
     firewall?: FirewallConfig;
+    /** Force verbose console logging of FinOps savings even in production */
+    verbose?: boolean;
 }
 export declare class IntelligenceRouter {
     private apiKey;
@@ -114,10 +116,15 @@ export declare class IntelligenceRouter {
     private _routeCache;
     private _resolveCache;
     private readonly CACHE_TTL_MS;
+    private _sessionCumulativeSavings;
     constructor(config: {
         apiKey: string;
         baseUrl?: string;
     });
+    /**
+     * Get the total cumulative dollar savings calculated during this process/session.
+     */
+    getSessionSavings(): number;
     private fetchApi;
     private getOfflineManifest;
     /**

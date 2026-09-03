@@ -15,13 +15,20 @@ export class IntelligenceRouter {
     _routeCache = new Map();
     _resolveCache = new Map();
     CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes
+    _sessionCumulativeSavings = 0;
     constructor(config) {
         if (!config.apiKey) {
-            throw new Error("IntelligenceRouter requires an apiKey (e.g., INTERNAL_GOD_KEY)");
+            throw new Error("IntelligenceRouter requires an apiKey (e.g., INTERNAL_GOD_KEY or sk_snell_...)");
         }
         this.apiKey = config.apiKey;
         // Default to the production URL, allow overriding for local dev
         this.baseUrl = config.baseUrl || "https://model.delights.pro";
+    }
+    /**
+     * Get the total cumulative dollar savings calculated during this process/session.
+     */
+    getSessionSavings() {
+        return this._sessionCumulativeSavings;
     }
     async fetchApi(endpoint, params) {
         const url = new URL(`${this.baseUrl}${endpoint}`);
@@ -316,14 +323,39 @@ export class IntelligenceRouter {
                     throw new Error(`OpenRouter API Error (${res.status}) on model ${modelId}: ${errText}`);
                 }
                 const data = await res.json();
-                // We inject the latency and the model that actually won the execution back into the payload for the developer
+                // FinOps Savings Calculation
+                const usage = data.usage;
+                const promptTokens = usage?.prompt_tokens || options.config?.estimatedInputTokens || 1000;
+                const completionTokens = usage?.completion_tokens || 500;
+                const flagshipCostPer1M = route.flagship?.cost_per_1m || 5.0;
+                const usedModelCostPer1M = (route.smart_value?.model === modelId ? route.smart_value.cost_per_1m : flagshipCostPer1M);
+                const totalTokens = promptTokens + completionTokens;
+                const flagshipCost = (totalTokens / 1000000) * flagshipCostPer1M;
+                const actualCost = (totalTokens / 1000000) * usedModelCostPer1M;
+                const savings = Math.max(0, flagshipCost - actualCost);
+                this._sessionCumulativeSavings += savings;
+                // Inject latency, model, and FinOps stats back into the response payload for the developer
                 data._snell_telemetry = {
                     model_used: modelId,
                     latency_ms: latency,
                     route_calculated: route
                 };
-                // Optional: If you wanted to do Post-Response Verification (e.g. checking if it actually returned JSON),
-                // you would do it here. If it fails, throw an Error so the catch block falls back to the next model.
+                data._snell_finops = {
+                    estimated_actual_cost_usd: actualCost,
+                    estimated_flagship_cost_usd: flagshipCost,
+                    savings_usd: savings,
+                    cumulative_session_savings_usd: this._sessionCumulativeSavings
+                };
+                // Console Savings Ticker in Development / Non-Production or when verbose is true
+                // @ts-ignore
+                const isDev = typeof process !== 'undefined' && process.env?.NODE_ENV !== 'production';
+                if (isDev || options.verbose) {
+                    const savingsPct = flagshipCost > 0 ? Math.round((savings / flagshipCost) * 100) : 0;
+                    console.log(`\x1b[36m[Snell FinOps]\x1b[0m ✓ Routed to \x1b[1m${modelId}\x1b[0m (${latency}ms)` +
+                        (savings > 0
+                            ? ` | \x1b[32mSaved $${savings.toFixed(5)} (${savingsPct}% vs ${route.flagship.name})\x1b[0m | Session Saved: \x1b[32m$${this._sessionCumulativeSavings.toFixed(4)}\x1b[0m`
+                            : ` | Rate: $${actualCost.toFixed(5)} / call`));
+                }
                 return data;
             }
             catch (e) {

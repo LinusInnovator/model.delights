@@ -10,6 +10,7 @@ import PromoCard from './PromoCard';
 import WildcardCard from './WildcardCard';
 import ValidatorGateway from './ValidatorGateway';
 import CompareTray from './CompareTray';
+import { StackAuditModal } from './StackAuditModal';
 
 const ParetoChart = dynamic(() => import('./ParetoChart'), { ssr: false });
 
@@ -44,6 +45,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
 
     // Multi-Model Pin-to-Compare State
     const [selectedCompareIds, setSelectedCompareIds] = useState<string[]>([]);
+    const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
 
     const handleTogglePin = (id: string) => {
         setSelectedCompareIds(prev => {
@@ -223,6 +225,17 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                         <h1 style={{ margin: 0, color: '#FFFFFF', letterSpacing: '-0.04em', fontWeight: 600 }}>model.delights</h1>
                     </div>
                     <p className="subtitle" style={{ marginBottom: '15px', marginTop: '10px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
+                    
+                    <div style={{ marginBottom: '20px' }}>
+                        <button
+                            onClick={() => setIsAuditModalOpen(true)}
+                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-purple-500/20 border border-emerald-500/40 hover:border-emerald-400 text-emerald-300 hover:text-white text-xs font-bold transition-all shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:scale-[1.02] cursor-pointer"
+                        >
+                            <span>⚡ Stack Overpayment Audit: See How Much You're Bleeding</span>
+                            <span className="text-[10px] bg-emerald-500/20 px-2 py-0.5 rounded-full font-mono text-emerald-300">Free Calculator &rarr;</span>
+                        </button>
+                    </div>
+
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
                         <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model&apos;s true reasoning capability.
                         {!isEloExpanded && (
@@ -543,6 +556,12 @@ export default function Directory({ initialData }: { initialData: FetchResult })
             >
                 <i className="ph ph-arrow-up"></i> Surface Up
             </button>
+
+            {/* Stack Overpayment Audit FinOps Modal */}
+            <StackAuditModal 
+                isOpen={isAuditModalOpen} 
+                onClose={() => setIsAuditModalOpen(false)} 
+            />
         </div>
     );
 }

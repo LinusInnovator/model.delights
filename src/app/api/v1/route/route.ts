@@ -1,14 +1,43 @@
 import { NextResponse } from 'next/server';
 import { getOptimalRoute } from '@/lib/routingEngine';
+import { supabase } from '@/lib/supabase';
 
 export async function GET(request: Request) {
-    const expectedKey = process.env.INTERNAL_GOD_KEY;
-    if (!expectedKey) {
-        return NextResponse.json({ error: "Server Configuration Error: INTERNAL_GOD_KEY not set" }, { status: 500 });
-    }
     const authHeader = request.headers.get("Authorization");
-    if (!authHeader || authHeader !== `Bearer ${expectedKey}`) {
-        return NextResponse.json({ error: "Unauthorized. Invalid or missing SDK God Key." }, { status: 401 });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return NextResponse.json({ 
+            error: "Unauthorized. Please provide your Snell API Key via Authorization: Bearer sk_snell_... (get a free key at https://model.delights.pro/enterprise/dashboard)." 
+        }, { status: 401 });
+    }
+
+    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+    const internalGodKey = process.env.INTERNAL_GOD_KEY;
+
+    let isAuthorized = false;
+
+    // 1. Internal System Bypass
+    if (internalGodKey && token === internalGodKey) {
+        isAuthorized = true;
+    } 
+    // 2. User API Key Validation
+    else if (token.startsWith("sk_snell_")) {
+        if (supabase) {
+            const { data, error } = await supabase
+                .from('snell_api_keys')
+                .select('id, user_id')
+                .eq('api_key', token)
+                .maybeSingle();
+
+            if (data && !error) {
+                isAuthorized = true;
+            }
+        }
+    }
+
+    if (!isAuthorized) {
+        return NextResponse.json({ 
+            error: "Unauthorized. Invalid or revoked Snell API Key. Visit https://model.delights.pro/enterprise/dashboard to manage your keys." 
+        }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
