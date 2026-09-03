@@ -105,20 +105,20 @@ export default function ModelCard({
                                         }}
                                         title={isPinned ? "Remove from comparison" : "Pin to compare"}
                                         style={{
-                                            background: isPinned ? 'rgba(0, 229, 255, 0.2)' : 'rgba(255, 255, 255, 0.04)',
+                                            background: isPinned ? 'var(--surface-3)' : 'var(--surface-2)',
                                             border: '1px solid',
-                                            borderColor: isPinned ? 'var(--accent)' : 'rgba(255, 255, 255, 0.1)',
-                                            borderRadius: '8px',
+                                            borderColor: isPinned ? 'var(--primary)' : 'var(--hairline)',
+                                            borderRadius: '6px',
                                             padding: '4px 8px',
-                                            color: isPinned ? '#00e5ff' : 'var(--text-secondary)',
+                                            color: isPinned ? '#ffffff' : 'var(--ink-subtle)',
                                             fontSize: '0.75rem',
-                                            fontWeight: 600,
+                                            fontWeight: 500,
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '4px',
                                             whiteSpace: 'nowrap',
-                                            transition: 'all 0.2s ease'
+                                            transition: 'all 0.15s ease'
                                         }}
                                     >
                                         <i className={`ph ${isPinned ? 'ph-check-square' : 'ph-plus-square'}`}></i>
@@ -128,53 +128,53 @@ export default function ModelCard({
                             </div>
 
                             {/* Rich Badges Wrap */}
-                            <div className="badges-wrap" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '6px' }}>
+                            <div className="badges-wrap" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '8px' }}>
                                 {model.gateway === 'fal.ai' ? (
-                                    <span className="gateway-badge fal" style={{ background: 'rgba(255, 51, 153, 0.15)', color: '#ff3399', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                                        <i className="ph-fill ph-lightning"></i> Fal.ai
+                                    <span className="gateway-badge fal" style={{ background: 'var(--surface-2)', color: 'var(--ink-muted)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                        <i className="ph-fill ph-lightning" style={{ color: '#ec4899' }}></i> Fal.ai
                                     </span>
                                 ) : (
-                                    <span className="gateway-badge or" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                                        <i className="ph-fill ph-intersect"></i> OpenRouter
+                                    <span className="gateway-badge or" style={{ background: 'var(--surface-2)', color: 'var(--ink-muted)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                        <i className="ph-fill ph-intersect" style={{ color: 'var(--primary)' }}></i> OpenRouter
                                     </span>
                                 )}
                                 
                                 {model.elo && (
-                                    <span className="elo-badge" style={{ background: 'rgba(255, 215, 0, 0.15)', color: '#ffd700', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                        ELO: {model.elo}
+                                    <span className="elo-badge" style={{ background: 'var(--surface-2)', color: 'var(--ink)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
+                                        ★ ELO: {model.elo}
                                     </span>
                                 )}
 
                                 {/* Benchmark: Aider Coding Pass Rate */}
                                 {model.benchmarks?.aider_pass_1 && (
-                                    <span style={{ background: 'rgba(14, 165, 233, 0.15)', color: '#38bdf8', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.3px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
-                                        <i className="ph ph-code"></i> Aider: {model.benchmarks.aider_pass_1}%
+                                    <span style={{ background: 'var(--surface-2)', color: 'var(--ink)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '4px', fontFamily: 'var(--font-mono)' }}>
+                                        <i className="ph ph-code" style={{ color: 'var(--primary)' }}></i> Aider: {model.benchmarks.aider_pass_1}%
                                     </span>
                                 )}
 
                                 {/* Benchmark: BFCL Tool Use Score */}
                                 {model.benchmarks?.bfcl_score && (
-                                    <span style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.3px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                    <span style={{ background: 'var(--surface-2)', color: 'var(--semantic-success)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px', fontFamily: 'var(--font-mono)' }}>
                                         <i className="ph ph-wrench"></i> BFCL: {model.benchmarks.bfcl_score}
                                     </span>
                                 )}
 
                                 {/* Reasoning Indicator */}
                                 {model.operational_specs?.is_reasoning && (
-                                    <span style={{ background: 'rgba(192, 132, 252, 0.18)', color: '#c084fc', border: '1px solid rgba(192, 132, 252, 0.3)', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.3px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                    <span style={{ background: 'var(--surface-2)', color: 'var(--ink)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                                         🧠 Deep Reasoner
                                     </span>
                                 )}
 
                                 {/* Free Tier Badge */}
                                 {model.operational_specs?.is_free && (
-                                    <span style={{ background: 'rgba(34, 197, 94, 0.15)', color: '#22c55e', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.3px' }}>
-                                        🎁 Free Tier
+                                    <span style={{ background: 'var(--surface-2)', color: 'var(--semantic-success)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 600 }}>
+                                        Free Tier
                                     </span>
                                 )}
                                 
                                 {(model.modality_type && model.modality_type !== 'text') && (
-                                    <span className="modality-badge" style={{ background: 'rgba(168, 85, 247, 0.15)', color: '#a855f7', padding: '3px 8px', borderRadius: '16px', fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                    <span className="modality-badge" style={{ background: 'var(--surface-2)', color: 'var(--ink-muted)', border: '1px solid var(--hairline)', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 500, textTransform: 'uppercase' }}>
                                         {model.modality_type}
                                     </span>
                                 )}
@@ -219,22 +219,22 @@ export default function ModelCard({
                         {/* Pricing Grid with Prompt Caching */}
                         <div className="pricing">
                             <div className="price-item">
-                                <div className="price-val">{formatPrice(model.pricing_per_1m.prompt)}</div>
+                                <div className="price-val" style={{ color: 'var(--ink)' }}>{formatPrice(model.pricing_per_1m.prompt)}</div>
                                 <div className="price-label">Input / 1M</div>
                                 {hasCachedDiscount && (
-                                    <div style={{ fontSize: '0.72rem', color: '#00e5ff', fontWeight: 700, marginTop: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px' }}>
+                                    <div style={{ fontSize: '0.72rem', color: 'var(--semantic-success)', fontWeight: 600, marginTop: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px', fontFamily: 'var(--font-mono)' }}>
                                         <span>{formatPrice(model.pricing_per_1m.prompt_cached!)}</span>
-                                        <span style={{ background: 'rgba(0, 229, 255, 0.15)', padding: '1px 4px', borderRadius: '6px' }}>
+                                        <span style={{ background: 'var(--surface-3)', border: '1px solid var(--hairline)', padding: '1px 4px', borderRadius: '4px' }}>
                                             {model.prompt_cache_discount_pct}% off
                                         </span>
                                     </div>
                                 )}
                             </div>
                             <div className="price-item">
-                                <div className="price-val">{formatPrice(model.pricing_per_1m.completion)}</div>
+                                <div className="price-val" style={{ color: 'var(--ink)' }}>{formatPrice(model.pricing_per_1m.completion)}</div>
                                 <div className="price-label">Output / 1M</div>
                                 {model.operational_specs?.is_reasoning && (
-                                    <div style={{ fontSize: '0.7rem', color: '#c084fc', marginTop: '2px' }}>
+                                    <div style={{ fontSize: '0.7rem', color: 'var(--ink-subtle)', marginTop: '2px' }}>
                                         + thinking tokens
                                     </div>
                                 )}
@@ -246,7 +246,7 @@ export default function ModelCard({
                             <div className="sim-label" style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                 <span>Est. Monthly Bill</span>
                                 {cacheHitRate > 0 && hasCachedDiscount && (
-                                    <span style={{ fontSize: '0.7rem', color: '#00e5ff', fontWeight: 600 }}>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--semantic-success)', fontWeight: 600 }}>
                                         ({Math.round(cacheHitRate * 100)}% cached)
                                     </span>
                                 )}
@@ -303,7 +303,7 @@ export default function ModelCard({
                     {/* Back of Card: Integration Hub */}
                     <div className="card-back" onClick={(e) => e.stopPropagation()}>
                         <div className="hub-title">
-                            <i className="ph ph-cube-transparent" style={{ color: 'var(--accent)' }}></i> Integration Hub
+                            <i className="ph ph-cube-transparent" style={{ color: 'var(--primary)' }}></i> Integration Hub
                         </div>
                         <div className="hub-links">
                             {/* 1-Click Code Snippet Button */}
@@ -314,22 +314,22 @@ export default function ModelCard({
                                     setShowCodeModal(true);
                                 }}
                                 style={{
-                                    background: 'rgba(0, 229, 255, 0.15)',
-                                    borderColor: 'rgba(0, 229, 255, 0.5)',
-                                    color: '#00e5ff',
-                                    fontWeight: 700
+                                    background: 'var(--primary)',
+                                    borderColor: 'var(--primary)',
+                                    color: '#ffffff',
+                                    fontWeight: 500
                                 }}
                             >
                                 <i className="ph ph-code"></i> 1-Click SDK Integration Code
                             </button>
 
-                            <Link href={`/models/${model.id}`} className="hub-link-btn" style={{ background: 'rgba(0, 229, 255, 0.1)', borderColor: 'rgba(0, 229, 255, 0.3)', color: '#00e5ff' }}>
+                            <Link href={`/models/${model.id}`} className="hub-link-btn" style={{ background: 'var(--surface-2)', borderColor: 'var(--hairline)', color: 'var(--ink)' }}>
                                 <i className="ph ph-trend-up"></i> Full Model Profile
                             </Link>
                             <button
                                 className="hub-link-btn copy-model-btn"
                                 onClick={handleCopyId}
-                                style={copiedId ? { color: '#00e5ff', borderColor: '#00e5ff' } : {}}
+                                style={copiedId ? { color: 'var(--semantic-success)', borderColor: 'var(--semantic-success)' } : {}}
                             >
                                 {copiedId ? <><i className="ph ph-check"></i> Copied!</> : <><i className="ph ph-copy"></i> Copy Model ID</>}
                             </button>

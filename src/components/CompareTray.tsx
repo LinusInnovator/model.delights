@@ -32,31 +32,32 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                 left: '50%',
                 transform: 'translateX(-50%)',
                 zIndex: 9000,
-                background: 'rgba(10, 15, 25, 0.88)',
+                background: 'var(--surface-1)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(0, 229, 255, 0.3)',
-                borderRadius: '24px',
-                padding: '10px 18px',
-                boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 229, 255, 0.18)',
+                border: '1px solid var(--hairline-strong)',
+                borderRadius: '9999px',
+                padding: '8px 16px',
+                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.7)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '14px',
+                gap: '12px',
                 maxWidth: '92vw',
                 animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{
-                        background: 'linear-gradient(135deg, #00e5ff, #a855f7)',
-                        color: '#000',
+                        background: 'var(--surface-3)',
+                        color: 'var(--ink)',
+                        border: '1px solid var(--hairline-strong)',
                         fontSize: '0.75rem',
-                        fontWeight: 800,
-                        padding: '3px 8px',
-                        borderRadius: '12px'
+                        fontWeight: 600,
+                        padding: '2px 8px',
+                        borderRadius: '9999px'
                     }}>
                         {selectedModels.length}/4
                     </span>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#fff', display: 'none', whiteSpace: 'nowrap' }} className="compare-text-desktop">
+                    <span style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--ink)', display: 'none', whiteSpace: 'nowrap' }} className="compare-text-desktop">
                         Models Pinned
                     </span>
                 </div>
@@ -67,15 +68,15 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                         <div
                             key={m.id}
                             style={{
-                                background: 'rgba(255, 255, 255, 0.06)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                borderRadius: '16px',
-                                padding: '4px 10px',
+                                background: 'var(--surface-2)',
+                                border: '1px solid var(--hairline)',
+                                borderRadius: '9999px',
+                                padding: '3px 10px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '6px',
                                 fontSize: '0.8rem',
-                                color: '#fff',
+                                color: 'var(--ink)',
                                 whiteSpace: 'nowrap'
                             }}
                         >
@@ -85,7 +86,7 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                                 style={{
                                     background: 'transparent',
                                     border: 'none',
-                                    color: 'var(--text-secondary)',
+                                    color: 'var(--ink-subtle)',
                                     cursor: 'pointer',
                                     padding: '0 2px',
                                     fontSize: '0.9rem',
@@ -106,7 +107,7 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                         style={{
                             background: 'transparent',
                             border: 'none',
-                            color: 'var(--text-secondary)',
+                            color: 'var(--ink-subtle)',
                             fontSize: '0.75rem',
                             cursor: 'pointer',
                             padding: '6px 8px'
@@ -117,20 +118,21 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                     <button
                         onClick={() => setIsOverlayOpen(true)}
                         style={{
-                            background: 'var(--accent)',
-                            border: 'none',
-                            color: '#000',
-                            padding: '8px 18px',
-                            borderRadius: '16px',
-                            fontWeight: 700,
-                            fontSize: '0.85rem',
+                            background: 'var(--primary)',
+                            border: '1px solid var(--primary)',
+                            color: '#ffffff',
+                            padding: '7px 16px',
+                            borderRadius: '6px',
+                            fontWeight: 500,
+                            fontSize: '0.825rem',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '6px',
-                            boxShadow: '0 0 15px rgba(0, 229, 255, 0.4)',
-                            transition: 'all 0.2s ease'
+                            transition: 'background 0.15s ease'
                         }}
+                        onMouseEnter={e => e.currentTarget.style.background = 'var(--primary-hover)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'var(--primary)'}
                     >
                         <i className="ph ph-scales"></i> Compare Now
                     </button>
@@ -144,8 +146,8 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                     style={{
                         position: 'fixed',
                         inset: 0,
-                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-                        backdropFilter: 'blur(10px)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        backdropFilter: 'blur(8px)',
                         zIndex: 99999,
                         display: 'flex',
                         alignItems: 'center',
@@ -156,33 +158,33 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                     <div
                         onClick={e => e.stopPropagation()}
                         style={{
-                            background: 'rgba(11, 15, 23, 0.98)',
-                            border: '1px solid rgba(0, 229, 255, 0.25)',
-                            borderRadius: '24px',
+                            background: 'var(--surface-1)',
+                            border: '1px solid var(--hairline-strong)',
+                            borderRadius: '16px',
                             width: '100%',
                             maxWidth: '1100px',
                             maxHeight: '90vh',
                             display: 'flex',
                             flexDirection: 'column',
-                            boxShadow: '0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 229, 255, 0.15)',
+                            boxShadow: '0 24px 70px rgba(0, 0, 0, 0.8)',
                             overflow: 'hidden'
                         }}
                     >
                         {/* Header */}
                         <div style={{
                             padding: '20px 28px',
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                            borderBottom: '1px solid var(--hairline)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            background: 'rgba(255, 255, 255, 0.02)'
+                            background: 'var(--surface-1)'
                         }}>
                             <div>
-                                <h2 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <i className="ph ph-scales" style={{ color: 'var(--accent)' }}></i>
+                                <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: '10px', letterSpacing: '-0.02em' }}>
+                                    <i className="ph ph-scales" style={{ color: 'var(--primary)' }}></i>
                                     Side-by-Side Model Intelligence Matrix
                                 </h2>
-                                <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                                <p style={{ margin: '4px 0 0 0', fontSize: '0.825rem', color: 'var(--ink-subtle)' }}>
                                     Comparing {selectedModels.length} selected architecture{selectedModels.length > 1 ? 's' : ''} across economics, benchmarks, and operational SLAs
                                 </p>
                             </div>
@@ -191,13 +193,13 @@ export default function CompareTray({ selectedModels, onRemove, onClear }: Compa
                                     <Link
                                         href={`/vs/${encodeURIComponent(selectedModels[0].id.replace(/\//g, '__'))}/${encodeURIComponent(selectedModels[1].id.replace(/\//g, '__'))}`}
                                         style={{
-                                            background: 'rgba(0, 229, 255, 0.15)',
-                                            color: '#00e5ff',
-                                            border: '1px solid rgba(0, 229, 255, 0.3)',
-                                            padding: '8px 14px',
-                                            borderRadius: '10px',
+                                            background: 'var(--surface-2)',
+                                            color: 'var(--ink)',
+                                            border: '1px solid var(--hairline-strong)',
+                                            padding: '6px 12px',
+                                            borderRadius: '6px',
                                             fontSize: '0.8rem',
-                                            fontWeight: 600,
+                                            fontWeight: 500,
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '6px',

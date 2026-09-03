@@ -84,7 +84,7 @@ export default function Filters({
         <>
             <div className="controls">
                 <div className="search-wrap" style={{ position: 'relative', flex: '1', minWidth: '300px' }}>
-                    <i className="ph ph-magnifying-glass" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}></i>
+                    <i className="ph ph-magnifying-glass" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--ink-subtle)' }}></i>
                     <input
                         type="text"
                         placeholder="Search models... (e.g., Llama, GPT-4, Coding, Reasoning)"
@@ -92,29 +92,27 @@ export default function Filters({
                         onChange={(e) => setSearchQuery(e.target.value)}
                         style={{
                             width: '100%',
-                            padding: '12px 16px 12px 42px',
-                            background: 'rgba(255, 255, 255, 0.03)',
-                            border: '1px solid rgba(255, 255, 255, 0.08)',
-                            borderRadius: '12px',
-                            color: '#fff',
-                            fontSize: '1rem',
+                            padding: '10px 14px 10px 38px',
+                            background: 'var(--surface-1)',
+                            border: '1px solid var(--hairline)',
+                            borderRadius: '8px',
+                            color: 'var(--ink)',
+                            fontSize: '0.9rem',
                             outline: 'none',
-                            transition: 'all 0.2s ease'
+                            transition: 'border-color 0.15s ease, box-shadow 0.15s ease'
                         }}
                         onFocus={e => {
-                            e.currentTarget.style.borderColor = 'var(--accent)';
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 229, 255, 0.1)';
+                            e.currentTarget.style.borderColor = 'var(--primary)';
+                            e.currentTarget.style.boxShadow = '0 0 0 1px var(--primary)';
                         }}
                         onBlur={e => {
-                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                            e.currentTarget.style.borderColor = 'var(--hairline)';
                             e.currentTarget.style.boxShadow = 'none';
                         }}
                     />
                 </div>
                 <div className="sort-wrap">
-                    <label htmlFor="sortSelect" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                    <label htmlFor="sortSelect" style={{ color: 'var(--ink-subtle)', fontSize: '0.85rem', fontWeight: 500 }}>
                         Sort by:
                     </label>
                     <select
@@ -137,31 +135,37 @@ export default function Filters({
                 </div>
             </div>
 
-            <div className="modality-matrix" style={{ display: 'flex', gap: '10px', marginTop: '15px', marginBottom: '15px', flexWrap: 'wrap' }}>
+            <div className="modality-matrix" style={{ display: 'flex', gap: '8px', marginTop: '12px', marginBottom: '14px', flexWrap: 'wrap' }}>
                 {MODALITIES.map(mod => (
                     <button
                         key={mod.id}
                         onClick={() => setActiveModality(mod.id)}
                         style={{
-                            background: activeModality === mod.id ? 'var(--accent)' : 'rgba(255,255,255,0.05)',
-                            color: activeModality === mod.id ? '#000' : '#fff',
+                            background: activeModality === mod.id ? 'var(--surface-3)' : 'var(--surface-1)',
+                            color: activeModality === mod.id ? 'var(--ink)' : 'var(--ink-subtle)',
                             border: '1px solid',
-                            borderColor: activeModality === mod.id ? 'var(--accent)' : 'rgba(255,255,255,0.1)',
-                            padding: '8px 16px',
-                            borderRadius: '20px',
+                            borderColor: activeModality === mod.id ? 'var(--hairline-strong)' : 'var(--hairline)',
+                            padding: '6px 14px',
+                            borderRadius: '9999px',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '8px',
+                            gap: '6px',
                             fontWeight: activeModality === mod.id ? 600 : 400,
-                            transition: 'all 0.2s ease',
-                            fontSize: '0.9rem'
+                            transition: 'all 0.15s ease',
+                            fontSize: '0.825rem'
                         }}
                         onMouseEnter={e => {
-                            if (activeModality !== mod.id) e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                            if (activeModality !== mod.id) {
+                                e.currentTarget.style.background = 'var(--surface-2)';
+                                e.currentTarget.style.color = 'var(--ink)';
+                            }
                         }}
                         onMouseLeave={e => {
-                            if (activeModality !== mod.id) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                            if (activeModality !== mod.id) {
+                                e.currentTarget.style.background = 'var(--surface-1)';
+                                e.currentTarget.style.color = 'var(--ink-subtle)';
+                            }
                         }}
                     >
                         <i className={`ph ${mod.icon}`}></i> {mod.label}

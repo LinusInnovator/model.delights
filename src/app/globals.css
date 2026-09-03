@@ -3,41 +3,89 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --color-canvas: var(--canvas);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-hairline-tertiary: var(--hairline-tertiary);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-focus: var(--primary-focus);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-semantic-success: var(--semantic-success);
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
-  --background: #000000;
-  --foreground: #ededed;
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --accent: #00e5ff;
-  --accent-glow: rgba(0, 229, 255, 0.2);
+  /* Linear Marketing & App Canvas Palette */
+  --canvas: #010102;
+  --background: #010102;
+  --foreground: #f7f8f8;
+
+  /* 4-Step Surface Ladder */
+  --surface-1: #0f1011;
+  --surface-2: #141516;
+  --surface-3: #18191a;
+  --surface-4: #191a1b;
+
+  /* Legacy mappings for backward compatibility */
+  --card-bg: #0f1011;
+  --card-border: #23252a;
+  --card-border-hover: #34343a;
+
+  /* Hairlines */
+  --hairline: #23252a;
+  --hairline-strong: #34343a;
+  --hairline-tertiary: #3e3e44;
+
+  /* Linear Signature Lavender-Blue Accent */
+  --primary: #5e6ad2;
+  --primary-hover: #828fff;
+  --primary-focus: #5e69d1;
+  --accent: #5e6ad2;
+  --accent-glow: rgba(94, 106, 210, 0.12);
+
+  /* Linear Ink Hierarchy */
+  --ink: #f7f8f8;
+  --ink-muted: #d0d6e0;
+  --ink-subtle: #8a8f98;
+  --ink-tertiary: #62666d;
+  --text-primary: #f7f8f8;
+  --text-secondary: #8a8f98;
+
+  /* Semantics */
+  --semantic-success: #27a644;
+  --semantic-warning: #f59e0b;
+  --semantic-error: #ef4444;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--canvas);
+  color: var(--ink);
   font-family: var(--font-body);
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Linear Clean Canvas: eliminate loud cyber mesh blobs */
 .glass-bg {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 50% 50%, rgba(26, 32, 53, 0.3) 0%, var(--background) 40%);
-  z-index: -1;
-  pointer-events: none;
+  display: none;
 }
 
+/* Linear Sober Display Heading Gradient */
 .gradient-text {
-  background: linear-gradient(135deg, #00e5ff, #7000ff);
+  background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

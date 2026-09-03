@@ -82,34 +82,34 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-            <div className="relative w-full max-w-3xl bg-zinc-950 border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[92vh] text-left">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
+            <div className="relative w-full max-w-3xl bg-[#0f1011] border border-[#23252a] rounded-2xl p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[92vh] text-left">
                 
                 {/* Close Button */}
                 <button 
                     onClick={onClose}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
+                    className="absolute top-6 right-6 p-2 rounded-lg bg-[#141516] hover:bg-[#18191a] border border-[#23252a] text-[#8a8f98] hover:text-[#f7f8f8] transition-colors"
                 >
-                    <X size={18} />
+                    <X size={16} />
                 </button>
 
                 {/* Header */}
                 <div className="mb-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">
-                        <Sparkles size={14} />
+                    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#141516] border border-[#23252a] text-[#27a644] text-xs font-medium uppercase tracking-wider mb-3">
+                        <Sparkles size={13} />
                         <span>Instant Stack FinOps Audit</span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#f7f8f8] tracking-tight">
                         Calculate Your Model Overpayment
                     </h2>
-                    <p className="text-sm text-zinc-400 mt-1">
+                    <p className="text-sm text-[#8a8f98] mt-1.5">
                         Find out how much your startup or team is burning by sending un-routed requests to generic flagship models.
                     </p>
                 </div>
 
                 {/* Step 1: Model Selection */}
                 <div className="mb-6">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+                    <label className="text-xs font-medium uppercase tracking-wider text-[#8a8f98] block mb-2">
                         1. What is your primary model today?
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -117,14 +117,14 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                             <button
                                 key={m.id}
                                 onClick={() => setSelectedModelId(m.id)}
-                                className={`p-3 rounded-xl border text-left transition-all ${
+                                className={`p-3 rounded-lg border text-left transition-all ${
                                     selectedModelId === m.id
-                                        ? 'bg-cyan-500/10 border-cyan-500/60 text-white shadow-[0_0_15px_rgba(6,182,212,0.15)]'
-                                        : 'bg-zinc-900/60 border-white/5 text-zinc-400 hover:border-white/20 hover:text-zinc-200'
+                                        ? 'bg-[#18191a] border-[#5e6ad2] text-[#f7f8f8]'
+                                        : 'bg-[#141516] border-[#23252a] text-[#8a8f98] hover:border-[#34343a] hover:text-[#d0d6e0]'
                                 }`}
                             >
-                                <div className="text-xs font-bold leading-tight">{m.name}</div>
-                                <div className="text-[10px] text-zinc-500 mt-1 font-mono">${m.promptPrice}/${m.completionPrice} per 1M</div>
+                                <div className="text-xs font-medium leading-tight">{m.name}</div>
+                                <div className="text-[10px] text-[#8a8f98] mt-1 font-mono">${m.promptPrice}/${m.completionPrice} per 1M</div>
                             </button>
                         ))}
                     </div>
@@ -133,10 +133,10 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                 {/* Step 2: Volume Selection */}
                 <div className="mb-6">
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+                        <label className="text-xs font-medium uppercase tracking-wider text-[#8a8f98]">
                             2. Monthly Token Inference Volume
                         </label>
-                        <span className="text-xs font-mono font-bold text-cyan-400">
+                        <span className="text-xs font-mono font-medium text-[#5e6ad2]">
                             {(monthlyTokens / 1_000_000).toLocaleString()}M tokens/mo
                         </span>
                     </div>
@@ -146,10 +146,10 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                             <button
                                 key={p.tokens}
                                 onClick={() => setMonthlyTokens(p.tokens)}
-                                className={`px-3 py-2 rounded-lg border text-xs font-semibold transition-all ${
+                                className={`px-3 py-2 rounded-lg border text-xs font-medium transition-all ${
                                     monthlyTokens === p.tokens
-                                        ? 'bg-white text-black border-white'
-                                        : 'bg-zinc-900 border-white/5 text-zinc-400 hover:border-white/20'
+                                        ? 'bg-[#18191a] text-[#f7f8f8] border-[#5e6ad2]'
+                                        : 'bg-[#141516] border-[#23252a] text-[#8a8f98] hover:border-[#34343a] hover:text-[#d0d6e0]'
                                 }`}
                             >
                                 {p.label}
@@ -158,10 +158,10 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                     </div>
 
                     {/* Prompt Cache Hit Slider */}
-                    <div className="bg-zinc-900/50 border border-white/5 rounded-xl p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="bg-[#141516] border border-[#23252a] rounded-lg p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                         <div>
-                            <span className="text-xs font-semibold text-zinc-300 block">Prompt Prefix Cache Hit Rate</span>
-                            <span className="text-[10px] text-zinc-500">Repeated system prompts, RAG search context, tools schema</span>
+                            <span className="text-xs font-medium text-[#d0d6e0] block">Prompt Prefix Cache Hit Rate</span>
+                            <span className="text-[10px] text-[#8a8f98]">Repeated system prompts, RAG search context, tools schema</span>
                         </div>
                         <div className="flex items-center gap-3 w-full sm:w-48">
                             <input 
@@ -171,53 +171,51 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                                 step="5"
                                 value={cacheRate}
                                 onChange={(e) => setCacheRate(Number(e.target.value))}
-                                className="w-full accent-cyan-400 h-1.5 bg-zinc-800 rounded-lg cursor-pointer"
+                                className="w-full accent-[#5e6ad2] h-1.5 bg-[#18191a] rounded-lg cursor-pointer"
                             />
-                            <span className="text-xs font-mono font-bold text-cyan-400 w-10 text-right">{cacheRate}%</span>
+                            <span className="text-xs font-mono font-medium text-[#27a644] w-10 text-right">{cacheRate}%</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Audit Results Card */}
-                <div className="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-black border border-emerald-500/30 rounded-2xl p-5 sm:p-6 mb-6 shadow-xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 relative z-10">
-                        <div className="bg-black/60 border border-white/5 rounded-xl p-4">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 block mb-1">Current Un-Routed Cost</span>
-                            <span className="text-2xl font-black text-red-400 font-mono">
+                <div className="bg-[#141516] border border-[#23252a] rounded-xl p-5 sm:p-6 mb-6 shadow-lg">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div className="bg-[#0f1011] border border-[#23252a] rounded-lg p-4">
+                            <span className="text-[10px] font-medium uppercase tracking-wider text-[#8a8f98] block mb-1">Current Un-Routed Cost</span>
+                            <span className="text-2xl font-semibold text-[#f87171] font-mono tabular-nums">
                                 ${Math.round(currentMonthlySpend).toLocaleString()}
                             </span>
-                            <span className="text-[11px] text-zinc-500 block mt-1">/ month</span>
+                            <span className="text-[11px] text-[#8a8f98] block mt-1">/ month</span>
                         </div>
 
-                        <div className="bg-black/60 border border-emerald-500/20 rounded-xl p-4">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">With Snell Dynamic Route</span>
-                            <span className="text-2xl font-black text-emerald-300 font-mono">
+                        <div className="bg-[#0f1011] border border-[#23252a] rounded-lg p-4">
+                            <span className="text-[10px] font-medium uppercase tracking-wider text-[#d0d6e0] block mb-1">With Snell Dynamic Route</span>
+                            <span className="text-2xl font-semibold text-[#27a644] font-mono tabular-nums">
                                 ${Math.round(snellMonthlySpend).toLocaleString()}
                             </span>
-                            <span className="text-[11px] text-zinc-500 block mt-1">/ month</span>
+                            <span className="text-[11px] text-[#8a8f98] block mt-1">/ month</span>
                         </div>
 
-                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-xl p-4 flex flex-col justify-center">
-                            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-1">
+                        <div className="bg-[#18191a] border border-[#23252a] rounded-lg p-4 flex flex-col justify-center">
+                            <div className="flex items-center gap-1.5 text-[#27a644] font-medium text-xs uppercase tracking-wider mb-1">
                                 <TrendingDown size={14} />
                                 <span>{savingsPercent}% Immediate Savings</span>
                             </div>
-                            <span className="text-3xl font-black text-white font-mono">
+                            <span className="text-3xl font-bold text-[#f7f8f8] font-mono tabular-nums">
                                 +${Math.round(annualSavings).toLocaleString()}
                             </span>
-                            <span className="text-[10px] text-emerald-300 font-semibold block mt-0.5">Retained Profit / Year</span>
+                            <span className="text-[10px] text-[#27a644] font-medium block mt-0.5">Retained Profit / Year</span>
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-300 pt-3 border-t border-white/5 relative z-10">
-                        <div className="flex items-center gap-1.5 text-emerald-400">
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#8a8f98] pt-3 border-t border-[#23252a]">
+                        <div className="flex items-center gap-1.5 text-[#27a644]">
                             <ShieldCheck size={14} />
                             <span>Zero Quality Compromise: 100% ELO parity maintained</span>
                         </div>
-                        <div className="text-zinc-500">&bull;</div>
-                        <div className="text-zinc-400">
+                        <div>&bull;</div>
+                        <div>
                             Sub-50ms automatic failover included
                         </div>
                     </div>
@@ -227,19 +225,19 @@ export function StackAuditModal({ isOpen, onClose }: StackAuditModalProps) {
                 <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
                     <button
                         onClick={copyQuickSnippet}
-                        className="px-4 py-3 rounded-xl border border-white/10 hover:border-white/20 bg-zinc-900 text-zinc-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+                        className="px-4 py-2.5 rounded-lg border border-[#23252a] hover:border-[#34343a] bg-[#141516] text-[#d0d6e0] hover:text-[#f7f8f8] text-xs font-medium flex items-center justify-center gap-2 transition-colors"
                     >
-                        {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                        {copied ? <Check size={14} className="text-[#27a644]" /> : <Copy size={14} />}
                         <span>{copied ? 'Code Snippet Copied!' : 'Copy Drop-In Middleware'}</span>
                     </button>
 
                     <Link
                         href="/enterprise/dashboard"
                         onClick={onClose}
-                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-[0_0_25px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-95"
+                        className="px-5 py-2.5 rounded-lg bg-[#5e6ad2] hover:bg-[#828fff] text-white font-medium text-xs flex items-center justify-center gap-2 transition-colors"
                     >
                         <span>Claim Free Snell API Key & Cut Costs</span>
-                        <ArrowRight size={16} />
+                        <ArrowRight size={15} />
                     </Link>
                 </div>
 

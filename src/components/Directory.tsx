@@ -212,36 +212,37 @@ export default function Directory({ initialData }: { initialData: FetchResult })
     };
 
     return (
-        <div className="container" style={{ animation: 'fadeIn 1s ease 0.3s backwards' }}>
-            <div className="top-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '40px', flexWrap: 'wrap' }}>
+        <div className="container" style={{ animation: 'fadeIn 0.5s ease 0.1s backwards' }}>
+            <div className="top-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '32px', flexWrap: 'wrap' }}>
                 <header className="home-header">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/logo.png"
                             alt="model.delights logo"
-                            style={{ width: '40px', height: '40px', borderRadius: '8px', boxShadow: '0 0 20px rgba(0, 229, 255, 0.2)' }}
+                            style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1px solid var(--hairline)' }}
                         />
-                        <h1 style={{ margin: 0, color: '#FFFFFF', letterSpacing: '-0.04em', fontWeight: 600 }}>model.delights</h1>
+                        <h1 style={{ margin: 0, color: 'var(--ink)', letterSpacing: '-0.035em', fontWeight: 600 }}>model.delights</h1>
                     </div>
-                    <p className="subtitle" style={{ marginBottom: '15px', marginTop: '10px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
+                    <p className="subtitle" style={{ marginBottom: '14px', marginTop: '8px' }}>The intelligent API routing matrix for AI engineers and developers.</p>
                     
-                    <div style={{ marginBottom: '20px' }}>
+                    <div style={{ marginBottom: '18px' }}>
                         <button
                             onClick={() => setIsAuditModalOpen(true)}
-                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-purple-500/20 border border-emerald-500/40 hover:border-emerald-400 text-emerald-300 hover:text-white text-xs font-bold transition-all shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:scale-[1.02] cursor-pointer"
+                            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-[#141516] hover:bg-[#18191a] border border-[#23252a] hover:border-[#34343a] text-[#f7f8f8] text-xs font-medium transition-all cursor-pointer group"
                         >
-                            <span>⚡ Stack Overpayment Audit: See How Much You're Bleeding</span>
-                            <span className="text-[10px] bg-emerald-500/20 px-2 py-0.5 rounded-full font-mono text-emerald-300">Free Calculator &rarr;</span>
+                            <span className="w-2 h-2 rounded-full bg-[#27a644]" />
+                            <span className="text-[#f7f8f8] font-medium">Stack Overpayment Audit</span>
+                            <span className="text-[11px] text-[#8a8f98] group-hover:text-[#d0d6e0] font-mono">Calculate Waste &rarr;</span>
                         </button>
                     </div>
 
-                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6, marginBottom: '25px', background: 'rgba(255, 255, 255, 0.03)', padding: '15px 20px', borderRadius: '8px', borderLeft: '3px solid var(--accent)' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model&apos;s true reasoning capability.
+                    <div style={{ color: 'var(--ink-subtle)', fontSize: '0.875rem', maxWidth: '750px', lineHeight: 1.6, marginBottom: '20px', background: 'var(--surface-1)', padding: '14px 18px', borderRadius: '8px', border: '1px solid var(--hairline)' }}>
+                        <strong style={{ color: 'var(--ink)', fontWeight: 500 }}>Understanding the ELO Score:</strong> The Performance (ELO) metric indicates a model&apos;s true reasoning capability.
                         {!isEloExpanded && (
                             <span
                                 onClick={() => setIsEloExpanded(true)}
-                                style={{ color: 'var(--accent)', cursor: 'pointer', marginLeft: '8px', fontSize: '0.85rem' }}
+                                style={{ color: 'var(--primary-hover)', cursor: 'pointer', marginLeft: '6px', fontSize: '0.8rem' }}
                             >
                                 [Read More]
                             </span>
@@ -251,7 +252,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 It is aggregated from large-scale, crowdsourced blind A/B tests (such as Chatbot Arena) alongside proprietary heuristics. A higher ELO means the model is empirically proven to provide smarter, more accurate, and better-structured responses to complex human prompts.
                                 <span
                                     onClick={() => setIsEloExpanded(false)}
-                                    style={{ color: 'var(--accent)', cursor: 'pointer', marginLeft: '8px', fontSize: '0.85rem', display: 'inline-block' }}
+                                    style={{ color: 'var(--primary-hover)', cursor: 'pointer', marginLeft: '6px', fontSize: '0.8rem', display: 'inline-block' }}
                                 >
                                     [Hide]
                                 </span>
@@ -265,10 +266,10 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     <div className="simulator-panel home-simulator" style={{ maxWidth: '640px' }}>
                     <div className="simulator-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px' }}>
                         <div>
-                            <h2>Workload FinOps Simulator</h2>
-                            <p>Simulate true cost with prompt caching discounts & reasoning overhead.</p>
+                            <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: '4px' }}>Workload FinOps Simulator</h2>
+                            <p style={{ fontSize: '0.825rem', color: 'var(--ink-subtle)', margin: 0 }}>Simulate true cost with prompt caching discounts & reasoning overhead.</p>
                         </div>
-                        <div style={{ display: 'flex', background: 'rgba(0,0,0,0.3)', borderRadius: '20px', padding: '3px', border: '1px solid rgba(255,255,255,0.05)', flexWrap: 'wrap', gap: '2px' }}>
+                        <div style={{ display: 'flex', background: 'var(--surface-2)', borderRadius: '9999px', padding: '2px', border: '1px solid var(--hairline)', flexWrap: 'wrap', gap: '2px' }}>
                             {Object.keys(PRESETS).map(key => {
                                 const preset = PRESETS[key as keyof typeof PRESETS];
                                 const isActive = simPromptMs === preset.prompt &&
@@ -285,22 +286,16 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                             setReasoningMultiplier(preset.reasoning);
                                         }}
                                         style={{
-                                            background: isActive ? 'rgba(0, 229, 255, 0.2)' : 'transparent',
-                                            color: isActive ? '#00e5ff' : 'var(--text-secondary)',
-                                            border: 'none',
-                                            padding: '4px 10px',
-                                            borderRadius: '16px',
+                                            background: isActive ? 'var(--surface-3)' : 'transparent',
+                                            color: isActive ? 'var(--ink)' : 'var(--ink-subtle)',
+                                            border: isActive ? '1px solid var(--hairline-strong)' : '1px solid transparent',
+                                            padding: '3px 9px',
+                                            borderRadius: '9999px',
                                             fontSize: '0.72rem',
                                             cursor: 'pointer',
-                                            transition: 'all 0.2s ease',
+                                            transition: 'all 0.15s ease',
                                             whiteSpace: 'nowrap',
-                                            fontWeight: isActive ? 700 : 400
-                                        }}
-                                        onMouseEnter={e => {
-                                            if (!isActive) e.currentTarget.style.color = '#fff';
-                                        }}
-                                        onMouseLeave={e => {
-                                            if (!isActive) e.currentTarget.style.color = 'var(--text-secondary)';
+                                            fontWeight: isActive ? 600 : 400
                                         }}
                                     >
                                         {key}
@@ -354,18 +349,19 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 <button
                                     onClick={() => setMaxBudget(budgetInput ? Number(budgetInput) : null)}
                                     style={{
-                                        padding: '0 12px',
-                                        borderRadius: '8px',
-                                        background: 'var(--accent)',
-                                        color: '#000',
+                                        padding: '0 14px',
+                                        borderRadius: '6px',
+                                        background: 'var(--primary)',
+                                        color: '#ffffff',
                                         border: 'none',
-                                        fontWeight: 600,
+                                        fontWeight: 500,
+                                        fontSize: '0.85rem',
                                         cursor: 'pointer',
                                         whiteSpace: 'nowrap',
-                                        transition: 'opacity 0.2s',
+                                        transition: 'background 0.15s ease',
                                     }}
-                                    onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
-                                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                                    onMouseEnter={e => e.currentTarget.style.background = 'var(--primary-hover)'}
+                                    onMouseLeave={e => e.currentTarget.style.background = 'var(--primary)'}
                                 >
                                     Set
                                 </button>
@@ -374,14 +370,14 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     </div>
 
                     {/* Advanced FinOps Sliders: Prompt Cache & Reasoning Overhead */}
-                    <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                    <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid var(--hairline)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
                         {/* Prompt Cache Hit Rate Slider */}
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                                    <i className="ph ph-lightning" style={{ color: '#00e5ff' }}></i> Prompt Cache Hit Rate
+                                <span style={{ fontSize: '0.78rem', color: 'var(--ink-subtle)', fontWeight: 500 }}>
+                                    <i className="ph ph-lightning" style={{ color: 'var(--semantic-success)' }}></i> Prompt Cache Hit Rate
                                 </span>
-                                <span style={{ fontSize: '0.78rem', color: '#00e5ff', fontWeight: 700, background: 'rgba(0, 229, 255, 0.1)', padding: '2px 6px', borderRadius: '8px' }}>
+                                <span style={{ fontSize: '0.75rem', color: 'var(--semantic-success)', fontWeight: 600, background: 'var(--surface-2)', border: '1px solid var(--hairline)', padding: '2px 6px', borderRadius: '4px', fontFamily: 'var(--font-mono)' }}>
                                     {Math.round(cacheHitRate * 100)}%
                                 </span>
                             </div>
@@ -392,9 +388,9 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                 step="0.05"
                                 value={cacheHitRate}
                                 onChange={e => setCacheHitRate(parseFloat(e.target.value))}
-                                style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer' }}
+                                style={{ width: '100%', accentColor: 'var(--primary)', cursor: 'pointer' }}
                             />
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.68rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.68rem', color: 'var(--ink-subtle)', marginTop: '2px' }}>
                                 <span>0% (Cold)</span>
                                 <span>50% (Standard RAG)</span>
                                 <span>90% (Agents)</span>
@@ -404,14 +400,14 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                         {/* Reasoning Multiplier Segmented Control */}
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                                    <i className="ph ph-brain" style={{ color: '#c084fc' }}></i> Reasoning Multiplier
+                                <span style={{ fontSize: '0.78rem', color: 'var(--ink-subtle)', fontWeight: 500 }}>
+                                    <i className="ph ph-brain" style={{ color: 'var(--primary)' }}></i> Reasoning Multiplier
                                 </span>
-                                <span style={{ fontSize: '0.78rem', color: '#c084fc', fontWeight: 700, background: 'rgba(192, 132, 252, 0.1)', padding: '2px 6px', borderRadius: '8px' }}>
+                                <span style={{ fontSize: '0.75rem', color: 'var(--ink)', fontWeight: 600, background: 'var(--surface-2)', border: '1px solid var(--hairline)', padding: '2px 6px', borderRadius: '4px', fontFamily: 'var(--font-mono)' }}>
                                     {reasoningMultiplier}x thinking
                                 </span>
                             </div>
-                            <div style={{ display: 'flex', gap: '4px', background: 'rgba(0,0,0,0.3)', borderRadius: '10px', padding: '3px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                            <div style={{ display: 'flex', gap: '4px', background: 'var(--surface-2)', borderRadius: '6px', padding: '2px', border: '1px solid var(--hairline)' }}>
                                 {[
                                     { val: 1, label: '1x Normal' },
                                     { val: 3.5, label: '3.5x Ext.' },
@@ -422,13 +418,13 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                         onClick={() => setReasoningMultiplier(item.val)}
                                         style={{
                                             flex: 1,
-                                            background: reasoningMultiplier === item.val ? 'rgba(192, 132, 252, 0.2)' : 'transparent',
-                                            color: reasoningMultiplier === item.val ? '#c084fc' : 'var(--text-secondary)',
-                                            border: 'none',
+                                            background: reasoningMultiplier === item.val ? 'var(--surface-3)' : 'transparent',
+                                            color: reasoningMultiplier === item.val ? 'var(--ink)' : 'var(--ink-subtle)',
+                                            border: reasoningMultiplier === item.val ? '1px solid var(--hairline-strong)' : '1px solid transparent',
                                             padding: '4px',
-                                            borderRadius: '8px',
+                                            borderRadius: '4px',
                                             fontSize: '0.72rem',
-                                            fontWeight: reasoningMultiplier === item.val ? 700 : 500,
+                                            fontWeight: reasoningMultiplier === item.val ? 600 : 400,
                                             cursor: 'pointer',
                                             transition: 'all 0.15s ease'
                                         }}
@@ -437,7 +433,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                                     </button>
                                 ))}
                             </div>
-                            <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                            <div style={{ fontSize: '0.68rem', color: 'var(--ink-subtle)', marginTop: '4px' }}>
                                 Multiplies output tokens for thinking models
                             </div>
                         </div>
