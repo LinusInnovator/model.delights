@@ -473,7 +473,7 @@ export default function Directory({ initialData }: { initialData: FetchResult })
                     <p>No models match your current filters. Try relaxing your search criteria or budget constraints.</p>
                 </div>
             ) : (
-                <div className="grid">
+                <div className="grid-container">
                     {filteredModels.map((m, idx) => (
                         <React.Fragment key={m.id}>
                             {idx === 4 && (
