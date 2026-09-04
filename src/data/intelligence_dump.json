@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 1.04226e-06,
-      "pricing_completion": 2.08452e-06,
+      "pricing_prompt": 9.81708e-07,
+      "pricing_completion": 1.963416e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -246208,6 +246208,66 @@
           "source_id": "openrouter_models_api",
           "alias": "inclusionai/ling-3.0-flash-sante:free",
           "provider": "inclusionai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_7622eb39",
+      "model_id": "openai/gpt-6-astra",
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-6-astra",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_50a1a7e4",
+      "model_id": "openai/gpt-6-astra:batch",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 2.5e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-6-astra:batch",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_812dfb20",
+      "model_id": "openai/gpt-6-astra-pro",
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-6-astra-pro",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0793cf63",
+      "model_id": "openai/gpt-6-astra-pro:batch",
+      "pricing_prompt": 5e-06,
+      "pricing_completion": 2.5e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-6-astra-pro:batch",
+          "provider": "openai"
         }
       ]
     }
