@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -209074,8 +209074,8 @@
     {
       "entity_id": "ent_6d59fb76",
       "model_id": "z-ai/glm-5.2:batch",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 7e-07,
+      "pricing_completion": 2.2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.0494e-06,
-      "pricing_completion": 3.1482e-06,
+      "pricing_prompt": 5.7948e-07,
+      "pricing_completion": 1.73844e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238099,8 +238099,8 @@
     {
       "entity_id": "ent_8ba2334a",
       "model_id": "z-ai/glm-5.3-flash:batch",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 2.5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -238114,8 +238114,8 @@
     {
       "entity_id": "ent_4cd5a9a6",
       "model_id": "deepseek/deepseek-v4-pro-0813:batch",
-      "pricing_prompt": 1.32e-06,
-      "pricing_completion": 3.96e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238129,8 +238129,8 @@
     {
       "entity_id": "ent_5e57143c",
       "model_id": "meta/muse-glimmer-30b:batch",
-      "pricing_prompt": 3.5e-07,
-      "pricing_completion": 1.5e-06,
+      "pricing_prompt": 1.75e-07,
+      "pricing_completion": 7.5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -248143,6 +248143,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2608.28382",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f8210772",
+      "model_id": "deepseek/deepseek-v4-flash-vision-exp:batch",
+      "pricing_prompt": 1.1e-07,
+      "pricing_completion": 3.3e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4-flash-vision-exp:batch",
+          "provider": "deepseek"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2d4618a4",
+      "model_id": "z-ai/glm-5.3:batch",
+      "pricing_prompt": 7e-07,
+      "pricing_completion": 2.2e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "z-ai/glm-5.3:batch",
+          "provider": "z-ai"
         }
       ]
     }
