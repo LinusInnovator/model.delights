@@ -295,8 +295,8 @@
     {
       "entity_id": "ent_9041e324",
       "model_id": "minimax/minimax-m2.5",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 2.7e-07,
+      "pricing_completion": 1.08e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 6.6e-07,
-      "pricing_completion": 1.98e-06,
+      "pricing_prompt": 5.7948e-07,
+      "pricing_completion": 1.73844e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 9.7e-07,
-      "pricing_completion": 3.3077e-06,
+      "pricing_prompt": 7e-07,
+      "pricing_completion": 2.2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -252853,6 +252853,81 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2602.06471",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c59236e6",
+      "model_id": "~openai/gpt-astra-latest",
+      "pricing_prompt": 1e-05,
+      "pricing_completion": 5e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~openai/gpt-astra-latest",
+          "provider": "~openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3ae962d3",
+      "model_id": "~openai/gpt-sol-latest",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~openai/gpt-sol-latest",
+          "provider": "~openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d9cf4060",
+      "model_id": "~openai/gpt-terra-latest",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1.2e-05,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~openai/gpt-terra-latest",
+          "provider": "~openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5be94f44",
+      "model_id": "~openai/gpt-luna-latest",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~openai/gpt-luna-latest",
+          "provider": "~openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_29e37c6f",
+      "model_id": "inclusionai/ling-3.0-flash-vl",
+      "pricing_prompt": 6e-08,
+      "pricing_completion": 1.8e-07,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "inclusionai/ling-3.0-flash-vl",
+          "provider": "inclusionai"
         }
       ]
     }
