@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 9.834e-07,
-      "pricing_completion": 2.9502e-06,
+      "pricing_prompt": 5.7948e-07,
+      "pricing_completion": 1.73844e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 9.36e-07,
-      "pricing_completion": 3.168e-06,
+      "pricing_prompt": 9.1e-07,
+      "pricing_completion": 2.86e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254323,6 +254323,51 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/Qwen/QwQ-32B",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8b441a46",
+      "model_id": "~deepseek/deepseek-pro-latest",
+      "pricing_prompt": 5.7948e-07,
+      "pricing_completion": 1.73844e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~deepseek/deepseek-pro-latest",
+          "provider": "~deepseek"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c393464a",
+      "model_id": "~deepseek/deepseek-flash-latest",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~deepseek/deepseek-flash-latest",
+          "provider": "~deepseek"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_aeccc467-8787-402d-bdc9-9b7c7b421d5e",
+      "model_id": "Scout Signal: DevFest is back",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/devfest2026/",
+          "provider": "Google"
         }
       ]
     }
