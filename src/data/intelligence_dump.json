@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 9.834e-07,
-      "pricing_completion": 2.9502e-06,
+      "pricing_prompt": 5.7948e-07,
+      "pricing_completion": 1.73844e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 6.6e-07,
-      "pricing_completion": 1.98e-06,
+      "pricing_prompt": 5.7948e-07,
+      "pricing_completion": 1.73844e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -258868,6 +258868,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2607.27245",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_01ccb8e7",
+      "model_id": "stealth/union-alpha",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "stealth/union-alpha",
+          "provider": "stealth"
         }
       ]
     }
