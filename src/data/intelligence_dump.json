@@ -4045,8 +4045,8 @@
     {
       "entity_id": "ent_84b6d1bc",
       "model_id": "deepseek/deepseek-chat",
-      "pricing_prompt": 2.574e-07,
-      "pricing_completion": 1.0287e-06,
+      "pricing_prompt": 3.2e-07,
+      "pricing_completion": 8.9e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -260128,6 +260128,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2609.12086",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ff9e17d3",
+      "model_id": "~typesafe/jev-latest",
+      "pricing_prompt": -1.0,
+      "pricing_completion": -1.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "~typesafe/jev-latest",
+          "provider": "~typesafe"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5ec7cd4c",
+      "model_id": "qwen/qwen3.8-27b:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.8-27b:free",
+          "provider": "qwen"
         }
       ]
     }
