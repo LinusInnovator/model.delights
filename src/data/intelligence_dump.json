@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 2.1e-06,
-      "pricing_completion": 1.095e-05,
+      "pricing_prompt": 1.95e-06,
+      "pricing_completion": 1.092e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 2.1e-06,
-      "pricing_completion": 1.095e-05,
+      "pricing_prompt": 1.95e-06,
+      "pricing_completion": 1.092e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 4.2e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -261793,6 +261793,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2609.12397",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_49b35235",
+      "model_id": "prism-ml/ternary-bonsai-2-27b",
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "prism-ml/ternary-bonsai-2-27b",
+          "provider": "prism-ml"
         }
       ]
     }
