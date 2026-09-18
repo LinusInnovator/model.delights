@@ -1630,8 +1630,8 @@
     {
       "entity_id": "ent_12c29cbe",
       "model_id": "z-ai/glm-4.6",
-      "pricing_prompt": 4.3e-07,
-      "pricing_completion": 1.75e-06,
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 3.9e-08,
-      "pricing_completion": 1.9e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 8.25e-08,
-      "pricing_completion": 3.3e-07,
+      "pricing_prompt": 1.32e-07,
+      "pricing_completion": 5.28e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 3e-06,
-      "pricing_completion": 1.5e-05,
+      "pricing_prompt": 2.1e-06,
+      "pricing_completion": 1.095e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 5.7948e-07,
-      "pricing_completion": 1.73844e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 5.7948e-07,
-      "pricing_completion": 1.73844e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -260158,6 +260158,21 @@
           "source_id": "openrouter_models_api",
           "alias": "qwen/qwen3.8-27b:free",
           "provider": "qwen"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c9d5be81",
+      "model_id": "unbiased/pareto",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "unbiased/pareto",
+          "provider": "unbiased"
         }
       ]
     }
