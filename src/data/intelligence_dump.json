@@ -1600,8 +1600,8 @@
     {
       "entity_id": "ent_28867d5a",
       "model_id": "qwen/qwen3-vl-30b-a3b-instruct",
-      "pricing_prompt": 1.3e-07,
-      "pricing_completion": 5.2e-07,
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 7e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 6.04824e-07,
-      "pricing_completion": 1.209648e-06,
+      "pricing_prompt": 5.13474e-07,
+      "pricing_completion": 1.026948e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 2.0695e-06,
-      "pricing_completion": 1.15892e-05,
+      "pricing_prompt": 1.7e-06,
+      "pricing_completion": 8.5e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 2.0695e-06,
-      "pricing_completion": 1.15892e-05,
+      "pricing_prompt": 1.7e-06,
+      "pricing_completion": 8.5e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
