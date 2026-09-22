@@ -204485,7 +204485,7 @@
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
       "pricing_prompt": 3e-08,
-      "pricing_completion": 1e-06,
+      "pricing_completion": 8e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 7.84e-07,
-      "pricing_completion": 2.464e-06,
+      "pricing_prompt": 8.4e-07,
+      "pricing_completion": 2.64e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 7.728e-07,
-      "pricing_completion": 2.4288e-06,
+      "pricing_prompt": 6.545e-07,
+      "pricing_completion": 2.057e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 5.6628e-07,
-      "pricing_completion": 1.69884e-06,
+      "pricing_prompt": 6.38616e-07,
+      "pricing_completion": 1.915848e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -262813,6 +262813,36 @@
           "source_id": "openrouter_models_api",
           "alias": "xiaomi/mimo-v2.6-pro",
           "provider": "xiaomi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_14db42f5",
+      "model_id": "nex-agi/nex-n2.5-mini",
+      "pricing_prompt": 2.5e-08,
+      "pricing_completion": 1e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nex-agi/nex-n2.5-mini",
+          "provider": "nex-agi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_bf5ce709",
+      "model_id": "nex-agi/nex-n2.5-pro",
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 2.5e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nex-agi/nex-n2.5-pro",
+          "provider": "nex-agi"
         }
       ]
     }
