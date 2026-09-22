@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.4989e-06,
-      "pricing_completion": 1.0758e-05,
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 4e-07,
-      "pricing_completion": 4.3e-06,
+      "pricing_prompt": 3.9996e-07,
+      "pricing_completion": 1.19988e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -263008,6 +263008,36 @@
           "source_id": "openrouter_models_api",
           "alias": "anthropic/claude-opus-5.5:batch",
           "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d4428f49",
+      "model_id": "qwen/qwen3.8-omni-flash",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 4.7e-07,
+      "modalities_in": "text,image,audio,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.8-omni-flash",
+          "provider": "qwen"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_groq_groq_llama-guard-3-8b",
+      "model_id": "groq/llama-guard-3-8b",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "groq/llama-guard-3-8b",
+          "provider": "groq"
         }
       ]
     }
