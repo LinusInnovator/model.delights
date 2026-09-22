@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 6.24e-07,
-      "pricing_completion": 2.88e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 8.4e-07,
-      "pricing_completion": 2.64e-06,
+      "pricing_prompt": 6.538e-07,
+      "pricing_completion": 2.0548e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238174,8 +238174,8 @@
     {
       "entity_id": "ent_845ccb4b",
       "model_id": "moonshotai/kimi-k3:batch",
-      "pricing_prompt": 3e-06,
-      "pricing_completion": 1.5e-05,
+      "pricing_prompt": 2.28e-06,
+      "pricing_completion": 1.14e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -248164,8 +248164,8 @@
     {
       "entity_id": "ent_2d4618a4",
       "model_id": "z-ai/glm-5.3:batch",
-      "pricing_prompt": 7e-07,
-      "pricing_completion": 2.2e-06,
+      "pricing_prompt": 7.2e-07,
+      "pricing_completion": 2.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 6.24e-07,
-      "pricing_completion": 2.88e-06,
+      "pricing_prompt": 5.6892e-07,
+      "pricing_completion": 1.70676e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -262843,6 +262843,21 @@
           "source_id": "openrouter_models_api",
           "alias": "nex-agi/nex-n2.5-pro",
           "provider": "nex-agi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_518c9c83",
+      "model_id": "deepseek/deepseek-v4.1-flash:batch",
+      "pricing_prompt": 1.12e-07,
+      "pricing_completion": 3.36e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4.1-flash:batch",
+          "provider": "deepseek"
         }
       ]
     }
