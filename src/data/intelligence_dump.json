@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 3.95e-07,
-      "pricing_completion": 2.9e-06,
+      "pricing_prompt": 3.8544e-07,
+      "pricing_completion": 1.15632e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -265858,6 +265858,66 @@
           "source_id": "openrouter_models_api",
           "alias": "upstage/solar-mini4",
           "provider": "upstage"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1f667ad7",
+      "model_id": "z-ai/glm-5.3-prime",
+      "pricing_prompt": 2.8e-06,
+      "pricing_completion": 8.8e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "z-ai/glm-5.3-prime",
+          "provider": "z-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8162cd05",
+      "model_id": "qwen/qwen3.8-max-prime",
+      "pricing_prompt": 4e-06,
+      "pricing_completion": 1.2e-05,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.8-max-prime",
+          "provider": "qwen"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_together_Tev1-4B-experimental",
+      "model_id": "together_ai/together/Tev1-4B-experimental",
+      "pricing_prompt": 4.2e-08,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/together/Tev1-4B-experimental",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_ember-1",
+      "model_id": "fireworks_ai/accounts/fireworks/models/ember-1",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/ember-1",
+          "provider": "fireworks_ai"
         }
       ]
     }
