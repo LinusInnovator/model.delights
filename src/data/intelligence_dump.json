@@ -2380,8 +2380,8 @@
     {
       "entity_id": "ent_7b74bc41",
       "model_id": "qwen/qwen3-30b-a3b-instruct-2507",
-      "pricing_prompt": 4.815e-08,
-      "pricing_completion": 1.9305e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 3.8e-08,
-      "pricing_completion": 5.5e-07,
+      "pricing_prompt": 3e-08,
+      "pricing_completion": 3.2e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 5e-08,
-      "pricing_completion": 2.5e-07,
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 1e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -266998,6 +266998,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2609.26425",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_93a28cc2",
+      "model_id": "fireworks/ember-1",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "fireworks/ember-1",
+          "provider": "fireworks"
         }
       ]
     }
