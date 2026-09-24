@@ -970,8 +970,8 @@
     {
       "entity_id": "ent_6f3612da",
       "model_id": "mistralai/mistral-large-2512",
-      "pricing_prompt": 5.5e-07,
-      "pricing_completion": 1.65e-06,
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 1.5e-06,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.35e-06,
-      "pricing_completion": 1.15e-05,
+      "pricing_prompt": 1.3e-06,
+      "pricing_completion": 1.14e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
