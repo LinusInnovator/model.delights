@@ -268485,6 +268485,21 @@
           "provider": "typesafe"
         }
       ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-opus-5-5",
+      "model_id": "databricks/databricks-claude-opus-5-5",
+      "pricing_prompt": 4.00001e-06,
+      "pricing_completion": 1.999998e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-opus-5-5",
+          "provider": "databricks"
+        }
+      ]
     }
   ]
 }
