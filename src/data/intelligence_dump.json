@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 9.646e-07,
+      "pricing_completion": 3.0316e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77149,8 +77149,8 @@
     {
       "entity_id": "ent_f10b92ee",
       "model_id": "deepseek/deepseek-v4-flash",
-      "pricing_prompt": 1.4e-07,
-      "pricing_completion": 2.8e-07,
+      "pricing_prompt": 7.924e-08,
+      "pricing_completion": 1.5848e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1e-06,
-      "pricing_completion": 9e-06,
+      "pricing_prompt": 9.7575e-07,
+      "pricing_completion": 8.5442e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -189381,7 +189381,7 @@
       "model_id": "meta/muse-spark-1.1",
       "pricing_prompt": 1.25e-06,
       "pricing_completion": 4.25e-06,
-      "modalities_in": "text,image,video,file,audio",
+      "modalities_in": "text,image,video,file",
       "modalities_out": "text",
       "events": [
         {
@@ -207741,7 +207741,7 @@
       "model_id": "meta/muse-spark-1.2",
       "pricing_prompt": 1.25e-06,
       "pricing_completion": 4.25e-06,
-      "modalities_in": "text,image,video,file,audio",
+      "modalities_in": "text,image,video,file",
       "modalities_out": "text",
       "events": [
         {
@@ -217759,7 +217759,7 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 2.266e-07,
+      "pricing_prompt": 3.995e-07,
       "pricing_completion": 4.2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -225214,7 +225214,7 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 3.25e-07,
+      "pricing_prompt": 1.4e-06,
       "pricing_completion": 4.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 3.25e-07,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 1.785e-07,
+      "pricing_completion": 2.805e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -229086,7 +229086,7 @@
       "model_id": "meta/muse-spark-1.2-contributor",
       "pricing_prompt": 1e-07,
       "pricing_completion": 2e-07,
-      "modalities_in": "text,image,video,file,audio",
+      "modalities_in": "text,image,video,file",
       "modalities_out": "text",
       "events": [
         {
@@ -243846,7 +243846,7 @@
       "model_id": "meta/muse-spark-1.3-contributor",
       "pricing_prompt": 1e-07,
       "pricing_completion": 2e-07,
-      "modalities_in": "text,image,video,file,audio",
+      "modalities_in": "text,image,video,file",
       "modalities_out": "text",
       "events": [
         {
@@ -243861,7 +243861,7 @@
       "model_id": "meta/muse-spark-1.3",
       "pricing_prompt": 1.25e-06,
       "pricing_completion": 4.25e-06,
-      "modalities_in": "text,image,video,file,audio",
+      "modalities_in": "text,image,video,file",
       "modalities_out": "text",
       "events": [
         {
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 3.483e-08,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1.4e-08,
+      "pricing_completion": 4e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 2.266e-07,
-      "pricing_completion": 4.2e-06,
+      "pricing_prompt": 2.2592e-07,
+      "pricing_completion": 1.9584e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 3.483e-08,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1.4e-08,
+      "pricing_completion": 4e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
