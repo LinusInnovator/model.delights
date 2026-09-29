@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 3.7e-08,
+      "pricing_completion": 1.7e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 9.646e-07,
+      "pricing_completion": 3.0316e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77149,8 +77149,8 @@
     {
       "entity_id": "ent_f10b92ee",
       "model_id": "deepseek/deepseek-v4-flash",
-      "pricing_prompt": 1.4e-07,
-      "pricing_completion": 2.8e-07,
+      "pricing_prompt": 8.092e-08,
+      "pricing_completion": 1.6184e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -158419,7 +158419,7 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 3.449e-07,
+      "pricing_prompt": 1.949e-07,
       "pricing_completion": 4.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -204485,7 +204485,7 @@
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
       "pricing_prompt": 1.2e-08,
-      "pricing_completion": 7e-07,
+      "pricing_completion": 1.25e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -216244,8 +216244,8 @@
     {
       "entity_id": "ent_fc4c2219",
       "model_id": "nvidia/nemotron-3.5-lightning",
-      "pricing_prompt": 7e-08,
-      "pricing_completion": 2e-07,
+      "pricing_prompt": 6e-08,
+      "pricing_completion": 1.6e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225214,7 +225214,7 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 1.4e-06,
+      "pricing_prompt": 1.849e-07,
       "pricing_completion": 4.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 4e-06,
+      "pricing_prompt": 1.849e-07,
+      "pricing_completion": 4.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,7 +254329,7 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 2.2592e-07,
+      "pricing_prompt": 9.6e-08,
       "pricing_completion": 1.9584e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -270073,6 +270073,21 @@
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/routers/firerouter",
           "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b3f9cf8c",
+      "model_id": "fal-ai/elevenlabs/tts/multilingual-v2",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/elevenlabs/tts/multilingual-v2",
+          "provider": "fal.ai"
         }
       ]
     }
