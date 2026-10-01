@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 4.1e-07,
+      "pricing_completion": 3.99e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.32e-06,
-      "pricing_completion": 3.96e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 2.219e-07,
+      "pricing_completion": 3.39e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 1.3e-07,
-      "pricing_completion": 4e-06,
+      "pricing_prompt": 1.2e-07,
+      "pricing_completion": 1.14e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -275803,6 +275803,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2609.32540",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d35ad7b9",
+      "model_id": "unbiased/pareto-26.10-preview",
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 3.2e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "unbiased/pareto-26.10-preview",
+          "provider": "unbiased"
         }
       ]
     }
