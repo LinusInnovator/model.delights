@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.39e-06,
-      "pricing_completion": 1.3e-05,
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 1.1357e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -141649,8 +141649,8 @@
     {
       "entity_id": "ent_87d95fb3",
       "model_id": "nvidia/nemotron-3-ultra-550b-a55b",
-      "pricing_prompt": 6e-07,
-      "pricing_completion": 2.4e-06,
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 2.2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241670,7 +241670,7 @@
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
       "pricing_prompt": 2.625e-08,
-      "pricing_completion": 6e-07,
+      "pricing_completion": 9.28749e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -278443,6 +278443,21 @@
           "source_id": "openrouter_models_api",
           "alias": "inclusionai/ling-3.1-flash",
           "provider": "inclusionai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a5b897d0",
+      "model_id": "nvidia/switchyard",
+      "pricing_prompt": -1.0,
+      "pricing_completion": -1.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/switchyard",
+          "provider": "nvidia"
         }
       ]
     }
