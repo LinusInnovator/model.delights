@@ -2380,8 +2380,8 @@
     {
       "entity_id": "ent_7b74bc41",
       "model_id": "qwen/qwen3-30b-a3b-instruct-2507",
-      "pricing_prompt": 1e-07,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 4.815e-08,
+      "pricing_completion": 1.9305e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -68074,8 +68074,8 @@
     {
       "entity_id": "ent_b2e6a583",
       "model_id": "moonshotai/kimi-k2.6",
-      "pricing_prompt": 4.3415e-07,
-      "pricing_completion": 1.828e-06,
+      "pricing_prompt": 9.5e-07,
+      "pricing_completion": 4e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 7.5e-07,
-      "pricing_completion": 1.1357e-05,
+      "pricing_prompt": 7.9e-07,
+      "pricing_completion": 1.3e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 3.825e-09,
-      "pricing_completion": 1.043574e-06,
+      "pricing_prompt": 1.71e-08,
+      "pricing_completion": 1.28e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241669,8 +241669,8 @@
     {
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
-      "pricing_prompt": 2.625e-08,
-      "pricing_completion": 9.28749e-07,
+      "pricing_prompt": 3.5e-08,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
