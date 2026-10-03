@@ -79819,7 +79819,7 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 7.9e-07,
+      "pricing_prompt": 9.895e-07,
       "pricing_completion": 1.3e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -278458,6 +278458,21 @@
           "source_id": "openrouter_models_api",
           "alias": "nvidia/switchyard",
           "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_4e6b5dee",
+      "model_id": "ideogram/v4.5/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "ideogram/v4.5/edit",
+          "provider": "fal.ai"
         }
       ]
     }
