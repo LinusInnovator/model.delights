@@ -4120,8 +4120,8 @@
     {
       "entity_id": "ent_a6456b96",
       "model_id": "meta-llama/llama-3.3-70b-instruct",
-      "pricing_prompt": 2.2e-07,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 3.2e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -78800,7 +78800,7 @@
       "entity_id": "ent_07f8e452",
       "model_id": "qwen/qwen3.6-27b",
       "pricing_prompt": 3.2e-07,
-      "pricing_completion": 2.7e-06,
+      "pricing_completion": 3.25e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 6.909e-07,
-      "pricing_completion": 1.3e-05,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 2e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -217759,7 +217759,7 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 5.5e-07,
+      "pricing_prompt": 4e-07,
       "pricing_completion": 5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 7e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226700,7 +226700,7 @@
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
       "pricing_prompt": 3e-08,
-      "pricing_completion": 1.6e-05,
+      "pricing_completion": 1.2e-05,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 3e-09,
-      "pricing_completion": 2.4e-06,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
