@@ -79819,7 +79819,7 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 8.2e-07,
+      "pricing_prompt": 6.8e-07,
       "pricing_completion": 1.3e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 8.3e-07,
-      "pricing_completion": 1.4e-05,
+      "pricing_prompt": 6.9e-07,
+      "pricing_completion": 1.5e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 5.06e-09,
-      "pricing_completion": 1.408e-06,
+      "pricing_prompt": 5.3e-09,
+      "pricing_completion": 1.28e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241669,8 +241669,8 @@
     {
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
-      "pricing_prompt": 2.354e-08,
-      "pricing_completion": 6.875e-07,
+      "pricing_prompt": 2.44e-08,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 2.1421e-08,
-      "pricing_completion": 1.32e-06,
+      "pricing_prompt": 3.103e-08,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -280258,6 +280258,21 @@
           "source_id": "openrouter_models_api",
           "alias": "mistralai/mistral-large-4-0",
           "provider": "mistralai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b160f0df",
+      "model_id": "google/gemini-nano-banana-2.1",
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "image,text",
+      "modalities_out": "image,text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-nano-banana-2.1",
+          "provider": "google"
         }
       ]
     }
