@@ -115,8 +115,8 @@
     {
       "entity_id": "ent_a1716e5a",
       "model_id": "qwen/qwen3.5-35b-a3b",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 1e-06,
+      "pricing_prompt": 8e-08,
+      "pricing_completion": 7.5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -79819,7 +79819,7 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 6.231e-07,
+      "pricing_prompt": 8.2e-07,
       "pricing_completion": 1.3e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 1.71e-08,
-      "pricing_completion": 1.28e-06,
+      "pricing_prompt": 5.06e-09,
+      "pricing_completion": 1.408e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -212494,8 +212494,8 @@
     {
       "entity_id": "ent_54fc865f",
       "model_id": "meta/muse-glimmer-30b",
-      "pricing_prompt": 3.5e-07,
-      "pricing_completion": 1.5e-06,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.32e-06,
-      "pricing_completion": 3.96e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241669,8 +241669,8 @@
     {
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
-      "pricing_prompt": 3.5e-08,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 2.354e-08,
+      "pricing_completion": 6.875e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 3e-09,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 2.1421e-08,
+      "pricing_completion": 1.32e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 2.765e-07,
-      "pricing_completion": 6e-06,
+      "pricing_prompt": 2.518e-07,
+      "pricing_completion": 4.2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -280243,6 +280243,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2608.25572",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8cb620e3",
+      "model_id": "mistralai/mistral-large-4-0",
+      "pricing_prompt": 6.8e-07,
+      "pricing_completion": 2.09e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "mistralai/mistral-large-4-0",
+          "provider": "mistralai"
         }
       ]
     }
