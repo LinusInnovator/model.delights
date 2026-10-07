@@ -79774,8 +79774,8 @@
     {
       "entity_id": "ent_bdd8876b",
       "model_id": "~anthropic/claude-haiku-latest",
-      "pricing_prompt": 1e-06,
-      "pricing_completion": 5e-06,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
@@ -79819,7 +79819,7 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 6.8e-07,
+      "pricing_prompt": 4.9e-07,
       "pricing_completion": 1.3e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -189364,7 +189364,7 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 6.9e-07,
+      "pricing_prompt": 5e-07,
       "pricing_completion": 1.5e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 5e-08,
-      "pricing_completion": 7e-06,
+      "pricing_prompt": 6.2e-08,
+      "pricing_completion": 3.39e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 6.3e-08,
-      "pricing_completion": 6.3e-06,
+      "pricing_prompt": 6.2e-08,
+      "pricing_completion": 3.39e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241669,8 +241669,8 @@
     {
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
-      "pricing_prompt": 2.354e-08,
-      "pricing_completion": 6.875e-07,
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -251899,7 +251899,7 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 5e-08,
+      "pricing_prompt": 3e-07,
       "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 5e-08,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 1.9e-08,
+      "pricing_completion": 4.24e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -282523,6 +282523,36 @@
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/",
           "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b38f2824",
+      "model_id": "anthropic/claude-haiku-5.5",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-haiku-5.5",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6b05d1ef",
+      "model_id": "anthropic/claude-haiku-5.5:batch",
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 2.5e-07,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-haiku-5.5:batch",
+          "provider": "anthropic"
         }
       ]
     }
