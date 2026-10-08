@@ -130,8 +130,8 @@
     {
       "entity_id": "ent_2221210a",
       "model_id": "qwen/qwen3.5-27b",
-      "pricing_prompt": 1.95e-07,
-      "pricing_completion": 1.56e-06,
+      "pricing_prompt": 2.6e-07,
+      "pricing_completion": 2.6e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -1915,8 +1915,8 @@
     {
       "entity_id": "ent_709a0e4b",
       "model_id": "qwen/qwen3-next-80b-a3b-instruct",
-      "pricing_prompt": 1e-07,
-      "pricing_completion": 1.1e-06,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 1.5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -4120,8 +4120,8 @@
     {
       "entity_id": "ent_a6456b96",
       "model_id": "meta-llama/llama-3.3-70b-instruct",
-      "pricing_prompt": 2.2e-07,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 3.2e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -158420,7 +158420,7 @@
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
       "pricing_prompt": 1.71e-07,
-      "pricing_completion": 7.2e-06,
+      "pricing_completion": 1.2e-05,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 8.25e-08,
-      "pricing_completion": 3.3e-07,
+      "pricing_prompt": 1.32e-07,
+      "pricing_completion": 5.28e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -189364,7 +189364,7 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 5e-07,
+      "pricing_prompt": 6.5e-07,
       "pricing_completion": 1.5e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 6.6e-07,
-      "pricing_completion": 1.98e-06,
+      "pricing_prompt": 1.32e-06,
+      "pricing_completion": 3.96e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -226699,8 +226699,8 @@
     {
       "entity_id": "ent_929ab6bd",
       "model_id": "~z-ai/glm-latest",
-      "pricing_prompt": 6.2e-08,
-      "pricing_completion": 3.39e-06,
+      "pricing_prompt": 3.92e-08,
+      "pricing_completion": 1.2e-05,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 7.506e-07,
-      "pricing_completion": 2.2509e-06,
+      "pricing_prompt": 8.34e-07,
+      "pricing_completion": 2.501e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 1.9e-08,
-      "pricing_completion": 4.24e-07,
+      "pricing_prompt": 1.16e-08,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
