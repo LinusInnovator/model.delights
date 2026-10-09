@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-05,
+      "pricing_prompt": 6e-08,
+      "pricing_completion": 7e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 9e-07,
-      "pricing_completion": 1.4e-05,
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 1.35e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 4.08e-09,
-      "pricing_completion": 1.1883e-08,
+      "pricing_prompt": 6e-09,
+      "pricing_completion": 1.28e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241670,7 +241670,7 @@
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
       "pricing_prompt": 3.2e-08,
-      "pricing_completion": 1.13952e-07,
+      "pricing_completion": 7.2e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -284743,6 +284743,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2610.09892",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-openjev-qwen35-4b",
+      "model_id": "databricks/databricks-openjev-qwen35-4b",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-openjev-qwen35-4b",
+          "provider": "databricks"
         }
       ]
     }
