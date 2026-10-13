@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9.5526e-07,
-      "pricing_completion": 1.91052e-06,
+      "pricing_prompt": 4.36044e-07,
+      "pricing_completion": 8.72088e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77149,8 +77149,8 @@
     {
       "entity_id": "ent_f10b92ee",
       "model_id": "deepseek/deepseek-v4-flash",
-      "pricing_prompt": 2.24e-08,
-      "pricing_completion": 1.28e-06,
+      "pricing_prompt": 9.1e-08,
+      "pricing_completion": 1.82e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79820,7 +79820,7 @@
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
       "pricing_prompt": 7.3e-07,
-      "pricing_completion": 1.35e-05,
+      "pricing_completion": 1e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -189365,7 +189365,7 @@
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
       "pricing_prompt": 7.3e-07,
-      "pricing_completion": 1.35e-05,
+      "pricing_completion": 1e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.32e-06,
-      "pricing_completion": 3.96e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 2.5e-07,
-      "pricing_completion": 5e-06,
+      "pricing_prompt": 2.4948e-07,
+      "pricing_completion": 7.4844e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -286033,6 +286033,36 @@
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/routers/rune",
           "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6eb430e6",
+      "model_id": "scaledown/summarize",
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "scaledown/summarize",
+          "provider": "scaledown"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f6045ac7",
+      "model_id": "scaledown/extract",
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "scaledown/extract",
+          "provider": "scaledown"
         }
       ]
     }
