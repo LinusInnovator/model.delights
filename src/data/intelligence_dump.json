@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9.5526e-07,
-      "pricing_completion": 1.91052e-06,
+      "pricing_prompt": 4.34304e-07,
+      "pricing_completion": 8.68608e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -291838,6 +291838,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2610.09513",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_230b60a4",
+      "model_id": "nvidia/nemotron-3.5-super-vl:free",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3.5-super-vl:free",
+          "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f176219f",
+      "model_id": "fal-ai/sam-3/image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/sam-3/image",
+          "provider": "fal.ai"
         }
       ]
     }
