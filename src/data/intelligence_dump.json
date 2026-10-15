@@ -78799,8 +78799,8 @@
     {
       "entity_id": "ent_07f8e452",
       "model_id": "qwen/qwen3.6-27b",
-      "pricing_prompt": 3.2e-07,
-      "pricing_completion": 3.2e-06,
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 2e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 3.1e-07,
-      "pricing_completion": 2.4e-05,
+      "pricing_prompt": 3.95e-07,
+      "pricing_completion": 1.4e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 3.7e-08,
-      "pricing_completion": 7e-06,
+      "pricing_prompt": 6.5e-07,
+      "pricing_completion": 1e-05,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 3.9e-08,
-      "pricing_completion": 4.8e-06,
+      "pricing_prompt": 1.1e-07,
+      "pricing_completion": 6e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -291868,6 +291868,51 @@
           "source_id": "fal_models_api",
           "alias": "fal-ai/sam-3/image",
           "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b6230ec0",
+      "model_id": "meta/muse-spark-open",
+      "pricing_prompt": 1.25e-06,
+      "pricing_completion": 4.25e-06,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-spark-open",
+          "provider": "meta"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_14f810d4",
+      "model_id": "nvidia/nemotron-3.5-super-vl",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nvidia/nemotron-3.5-super-vl",
+          "provider": "nvidia"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_nvidia_NVIDIA-Nemotron-3.5-Super-VL",
+      "model_id": "together_ai/nvidia/NVIDIA-Nemotron-3.5-Super-VL",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/nvidia/NVIDIA-Nemotron-3.5-Super-VL",
+          "provider": "together_ai"
         }
       ]
     }
