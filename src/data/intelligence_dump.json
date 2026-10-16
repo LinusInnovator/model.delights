@@ -4045,8 +4045,8 @@
     {
       "entity_id": "ent_84b6d1bc",
       "model_id": "deepseek/deepseek-chat",
-      "pricing_prompt": 2.574e-07,
-      "pricing_completion": 1.0287e-06,
+      "pricing_prompt": 3.2e-07,
+      "pricing_completion": 8.9e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 4.17252e-07,
-      "pricing_completion": 8.34504e-07,
+      "pricing_prompt": 2.97192e-07,
+      "pricing_completion": 5.94384e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 2.94e-07,
-      "pricing_completion": 2.4e-05,
+      "pricing_prompt": 3.04e-07,
+      "pricing_completion": 1.1936e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 1.134e-08,
-      "pricing_completion": 9e-07,
+      "pricing_prompt": 1.359e-08,
+      "pricing_completion": 7.1892e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241669,8 +241669,8 @@
     {
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
-      "pricing_prompt": 1.134e-08,
-      "pricing_completion": 9e-07,
+      "pricing_prompt": 1.359e-08,
+      "pricing_completion": 7.1892e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 3.6e-08,
+      "pricing_completion": 6.435e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 3.57e-08,
-      "pricing_completion": 1.428e-07,
+      "pricing_prompt": 3.6e-08,
+      "pricing_completion": 6.435e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -293878,6 +293878,591 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2610.20419",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_bba3355a",
+      "model_id": "reflection/beam-1.0-501b-a23b",
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 1e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "reflection/beam-1.0-501b-a23b",
+          "provider": "reflection"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_09464e16",
+      "model_id": "robbyant/lingbot-world-2",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "robbyant/lingbot-world-2",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0ef68caf",
+      "model_id": "alibaba/abot-world-0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "alibaba/abot-world-0",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e2455287",
+      "model_id": "bytedance/omnihuman/v2",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "bytedance/omnihuman/v2",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_33f23cd7",
+      "model_id": "minimax/h3-max/reference-director",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "minimax/h3-max/reference-director",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e2af307b",
+      "model_id": "krea/v3/realtime",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "krea/v3/realtime",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_764e0e5b",
+      "model_id": "krea/v3/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "krea/v3/edit",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_7625b352",
+      "model_id": "krea/v3/text-to-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "krea/v3/text-to-image",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_13554326",
+      "model_id": "blackforestlabs/flux-3/klein/edit-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "blackforestlabs/flux-3/klein/edit-image",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_82a89d4d",
+      "model_id": "blackforestlabs/flux-3/klein/text-to-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "blackforestlabs/flux-3/klein/text-to-image",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5b421b3a",
+      "model_id": "nvidia/nemotron-3-5-super/video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "nvidia/nemotron-3-5-super/video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6216776c",
+      "model_id": "nvidia/nemotron-3-5-super/vision",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "nvidia/nemotron-3-5-super/vision",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c9322788",
+      "model_id": "nvidia/nemotron-3-5-super/text",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "nvidia/nemotron-3-5-super/text",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_6cbac28c",
+      "model_id": "meshy/v7/retexture",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "meshy/v7/retexture",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_25b0f2c5",
+      "model_id": "meshy/v6/retexture",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "meshy/v6/retexture",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_231c721d",
+      "model_id": "kotoba-technologies/kotoba-stt/v1/speech-to-text",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "kotoba-technologies/kotoba-stt/v1/speech-to-text",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f46a372a",
+      "model_id": "kotoba-technologies/kotoba-tts/v2/tts/ws",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "kotoba-technologies/kotoba-tts/v2/tts/ws",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b1dbec3b",
+      "model_id": "kotoba-technologies/kotoba-sts/v1/realtime_voice",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "kotoba-technologies/kotoba-sts/v1/realtime_voice",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_acd47865",
+      "model_id": "kotoba-technologies/kotoba-streaming-stt/v1/realtime",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "kotoba-technologies/kotoba-streaming-stt/v1/realtime",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_24be7bb0",
+      "model_id": "bria/fibo-edit-1.5/expand",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "bria/fibo-edit-1.5/expand",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3e099c09",
+      "model_id": "mirelo-ai/sfx2.0/video-to-audio",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mirelo-ai/sfx2.0/video-to-audio",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_917e3e24",
+      "model_id": "mirelo-ai/sfx2.0/text-to-audio",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mirelo-ai/sfx2.0/text-to-audio",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a0d1aef8",
+      "model_id": "mirelo-ai/sfx2.0/video-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mirelo-ai/sfx2.0/video-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_61c3ffc5",
+      "model_id": "bria/guided-remove-background",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "bria/guided-remove-background",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_24d7bb27",
+      "model_id": "minimax/h3-max/relight",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "minimax/h3-max/relight",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b7cad069",
+      "model_id": "fal-ai/vidu/q4/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/vidu/q4/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_074bf780",
+      "model_id": "fal-ai/vidu/q4/reference-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/vidu/q4/reference-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f225fad8",
+      "model_id": "mureka/api/generate/podcast",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mureka/api/generate/podcast",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d0121351",
+      "model_id": "mureka/api/generate/song",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mureka/api/generate/song",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ce5f6d9c",
+      "model_id": "mureka/api/generate/instrumental",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mureka/api/generate/instrumental",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_15bf0e5d",
+      "model_id": "mureka/api/generate/lyrics",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mureka/api/generate/lyrics",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_17381c09",
+      "model_id": "mureka/api/generate/lyrics-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "mureka/api/generate/lyrics-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c2f19d78",
+      "model_id": "meshy/v6-lite/retexture",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "meshy/v6-lite/retexture",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_808a025b",
+      "model_id": "fal-ai/kandinsky6-vsr/lite",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kandinsky6-vsr/lite",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2051dae5",
+      "model_id": "fal-ai/kandinsky6-vsr",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kandinsky6-vsr",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b6e3724c",
+      "model_id": "fal-ai/kandinsky6-pro/text-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kandinsky6-pro/text-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_09371150",
+      "model_id": "fal-ai/kandinsky6-pro/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kandinsky6-pro/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_afd7885b",
+      "model_id": "fal-ai/kandinsky6-lite/image-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kandinsky6-lite/image-to-video",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_b18e6256",
+      "model_id": "fal-ai/kandinsky6-lite/text-to-video",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "video",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/kandinsky6-lite/text-to-video",
+          "provider": "fal.ai"
         }
       ]
     }
