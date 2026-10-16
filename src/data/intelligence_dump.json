@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 3.7e-08,
+      "pricing_completion": 1.7e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -4045,8 +4045,8 @@
     {
       "entity_id": "ent_84b6d1bc",
       "model_id": "deepseek/deepseek-chat",
-      "pricing_prompt": 3.2e-07,
-      "pricing_completion": 8.9e-07,
+      "pricing_prompt": 2.574e-07,
+      "pricing_completion": 1.0287e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 3.58266e-07,
-      "pricing_completion": 7.16532e-07,
+      "pricing_prompt": 9.5526e-07,
+      "pricing_completion": 1.91052e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 3.4e-07,
-      "pricing_completion": 2.4e-05,
+      "pricing_prompt": 3.3e-07,
+      "pricing_completion": 1.4e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 3.7e-08,
-      "pricing_completion": 7e-06,
+      "pricing_prompt": 6.2e-07,
+      "pricing_completion": 2.42e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 8.25e-08,
-      "pricing_completion": 3.3e-07,
+      "pricing_prompt": 1.32e-07,
+      "pricing_completion": 5.28e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -189364,7 +189364,7 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 5e-07,
+      "pricing_prompt": 3.39e-07,
       "pricing_completion": 1.5e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 7.9e-08,
-      "pricing_completion": 4.8e-06,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 6e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 1.56e-08,
-      "pricing_completion": 7.928e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 7.506e-07,
-      "pricing_completion": 2.2509e-06,
+      "pricing_prompt": 8.34e-07,
+      "pricing_completion": 2.501e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -241669,8 +241669,8 @@
     {
       "entity_id": "ent_f1dcf623",
       "model_id": "~z-ai/glm-flash-latest",
-      "pricing_prompt": 1.56e-08,
-      "pricing_completion": 7.928e-07,
+      "pricing_prompt": 1.251e-08,
+      "pricing_completion": 9e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1.44e-08,
+      "pricing_completion": 7.2e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -291943,6 +291943,36 @@
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/models/muse-spark-open",
           "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_054ae2aa",
+      "model_id": "moondream/moondream3-preview",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "moondream/moondream3-preview",
+          "provider": "moondream"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_99619511",
+      "model_id": "moondream/moondream3.1-9b-a2b",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "moondream/moondream3.1-9b-a2b",
+          "provider": "moondream"
         }
       ]
     }
