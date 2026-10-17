@@ -286129,8 +286129,8 @@
     {
       "entity_id": "ent_a1613d6c",
       "model_id": "~unbiased/pareto-latest",
-      "pricing_prompt": 2.5e-06,
-      "pricing_completion": 7.5e-06,
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 3.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -294583,6 +294583,21 @@
           "source_id": "litellm_global_map",
           "alias": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
           "provider": "deepinfra"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_04682b7c",
+      "model_id": "unbiased/pareto-26.10",
+      "pricing_prompt": 8e-07,
+      "pricing_completion": 3.2e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "unbiased/pareto-26.10",
+          "provider": "unbiased"
         }
       ]
     }
