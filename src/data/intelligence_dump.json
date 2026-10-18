@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 6.1e-09,
-      "pricing_completion": 1.28e-06,
+      "pricing_prompt": 1.592e-08,
+      "pricing_completion": 1.43616e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225215,7 +225215,7 @@
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
       "pricing_prompt": 7.9e-08,
-      "pricing_completion": 3.2e-06,
+      "pricing_completion": 4.8e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -294598,6 +294598,36 @@
           "source_id": "openrouter_models_api",
           "alias": "unbiased/pareto-26.10",
           "provider": "unbiased"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_system.ai.deepseek-v4-flash-0731",
+      "model_id": "databricks/system.ai.deepseek-v4-flash-0731",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/system.ai.deepseek-v4-flash-0731",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_system.ai.kimi-k3",
+      "model_id": "databricks/system.ai.kimi-k3",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/system.ai.kimi-k3",
+          "provider": "databricks"
         }
       ]
     }
