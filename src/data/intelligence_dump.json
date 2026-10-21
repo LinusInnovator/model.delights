@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 3.88716e-07,
-      "pricing_completion": 7.77432e-07,
+      "pricing_prompt": 9.5526e-07,
+      "pricing_completion": 1.91052e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79820,7 +79820,7 @@
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
       "pricing_prompt": 2.38e-07,
-      "pricing_completion": 2.4e-05,
+      "pricing_completion": 1.6e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -204439,8 +204439,8 @@
     {
       "entity_id": "ent_a10c8efd",
       "model_id": "deepseek/deepseek-v4-flash-0731",
-      "pricing_prompt": 1.298e-07,
-      "pricing_completion": 3.894e-07,
+      "pricing_prompt": 4.4e-07,
+      "pricing_completion": 1.32e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -295992,6 +295992,21 @@
         {
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/models/minimax-m3p1-flash",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_deepseek-v4p1-flash-1017-us",
+      "model_id": "fireworks_ai/accounts/fireworks/models/deepseek-v4p1-flash-1017-us",
+      "pricing_prompt": 4.5e-07,
+      "pricing_completion": 1.8e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/deepseek-v4p1-flash-1017-us",
           "provider": "fireworks_ai"
         }
       ]
