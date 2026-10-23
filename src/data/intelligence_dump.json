@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 8.85312e-07,
-      "pricing_completion": 1.770624e-06,
+      "pricing_prompt": 7.8387e-07,
+      "pricing_completion": 1.56774e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79820,7 +79820,7 @@
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
       "pricing_prompt": 2.38e-07,
-      "pricing_completion": 1.6e-05,
+      "pricing_completion": 2.4e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 3.04e-07,
-      "pricing_completion": 1.1936e-05,
+      "pricing_prompt": 2.39e-07,
+      "pricing_completion": 1.08e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -299833,6 +299833,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2610.26496",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8b6dc668",
+      "model_id": "moonshotai/kimi-k3.1-pro",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "moonshotai/kimi-k3.1-pro",
+          "provider": "moonshotai"
         }
       ]
     }
