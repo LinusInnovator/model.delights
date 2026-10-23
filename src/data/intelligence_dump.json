@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 7.8387e-07,
-      "pricing_completion": 1.56774e-06,
+      "pricing_prompt": 7.02786e-07,
+      "pricing_completion": 1.405572e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -299848,6 +299848,21 @@
           "source_id": "openrouter_models_api",
           "alias": "moonshotai/kimi-k3.1-pro",
           "provider": "moonshotai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_MiniMaxAI_MiniMax-M3.1-Flash",
+      "model_id": "together_ai/MiniMaxAI/MiniMax-M3.1-Flash",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/MiniMaxAI/MiniMax-M3.1-Flash",
+          "provider": "together_ai"
         }
       ]
     }
