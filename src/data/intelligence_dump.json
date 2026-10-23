@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 1.65e-07,
-      "pricing_completion": 6.6e-07,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -254329,7 +254329,7 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 1.307e-07,
+      "pricing_prompt": 2.565e-07,
       "pricing_completion": 8e-06,
       "modalities_in": "text",
       "modalities_out": "text",
