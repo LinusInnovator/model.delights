@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 2.261e-07,
-      "pricing_completion": 7.7001e-06,
+      "pricing_prompt": 1.9e-07,
+      "pricing_completion": 8.94e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 9.08e-08,
-      "pricing_completion": 1.61e-06,
+      "pricing_prompt": 7.9e-08,
+      "pricing_completion": 1.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -299863,6 +299863,21 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/MiniMaxAI/MiniMax-M3.1-Flash",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_110c305e",
+      "model_id": "liquid/lfm-2.5-2.6b",
+      "pricing_prompt": 3.5e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "liquid/lfm-2.5-2.6b",
+          "provider": "liquid"
         }
       ]
     }
