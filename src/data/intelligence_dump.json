@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 2.147e-07,
-      "pricing_completion": 7.6972e-06,
+      "pricing_prompt": 1.69e-07,
+      "pricing_completion": 2e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 2e-08,
-      "pricing_completion": 1e-06,
+      "pricing_prompt": 4.77e-08,
+      "pricing_completion": 1.908e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -252889,8 +252889,8 @@
     {
       "entity_id": "ent_d9cf4060",
       "model_id": "~openai/gpt-terra-latest",
-      "pricing_prompt": 2e-06,
-      "pricing_completion": 1.2e-05,
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 5e-06,
       "modalities_in": "file,image,text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 2e-08,
-      "pricing_completion": 1e-06,
+      "pricing_prompt": 4e-08,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -301243,6 +301243,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2610.31606",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fd1c83a4",
+      "model_id": "openai/gpt-6.1-terra",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 5e-06,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-6.1-terra",
+          "provider": "openai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d4ed381d",
+      "model_id": "openai/gpt-6.1-terra:batch",
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 2.5e-06,
+      "modalities_in": "file,image,text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "openai/gpt-6.1-terra:batch",
+          "provider": "openai"
         }
       ]
     }
