@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 2.2e-08,
-      "pricing_completion": 1.331e-06,
+      "pricing_prompt": 1.82e-08,
+      "pricing_completion": 1.8e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -304588,6 +304588,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2610.30861",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8337c6bc",
+      "model_id": "prism-ml/ternary-bonsai-2-9b",
+      "pricing_prompt": 8e-08,
+      "pricing_completion": 1.3e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "prism-ml/ternary-bonsai-2-9b",
+          "provider": "prism-ml"
         }
       ]
     }
