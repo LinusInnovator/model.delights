@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 3.41e-08,
-      "pricing_completion": 7e-06,
+      "pricing_prompt": 6e-09,
+      "pricing_completion": 5.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -220864,8 +220864,8 @@
     {
       "entity_id": "ent_74823239",
       "model_id": "qwen/qwen3.8-27b",
-      "pricing_prompt": 3.9e-08,
-      "pricing_completion": 1.25e-06,
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 2.5e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 3.79e-08,
+      "pricing_completion": 8.23e-08,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -306088,6 +306088,321 @@
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-1017-spot",
           "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ea89cb15",
+      "model_id": "particle-ai/particle-1",
+      "pricing_prompt": 2.5e-07,
+      "pricing_completion": 1e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "particle-ai/particle-1",
+          "provider": "particle-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-typesafeai-jev-1-14-0",
+      "model_id": "databricks/databricks-typesafeai-jev-1-14-0",
+      "pricing_prompt": 4.2e-08,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-typesafeai-jev-1-14-0",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-haiku-5-5",
+      "model_id": "databricks/databricks-claude-haiku-5-5",
+      "pricing_prompt": 1.0003e-07,
+      "pricing_completion": 5.0001e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-haiku-5-5",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-claude-sonnet-5-5",
+      "model_id": "databricks/databricks-claude-sonnet-5-5",
+      "pricing_prompt": 1.99997e-06,
+      "pricing_completion": 9.99999e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-claude-sonnet-5-5",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-deepseek-v4-1-flash",
+      "model_id": "databricks/databricks-deepseek-v4-1-flash",
+      "pricing_prompt": 3.0002e-07,
+      "pricing_completion": 1.20001e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-deepseek-v4-1-flash",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-deepseek-v4-1-flash-1017",
+      "model_id": "databricks/databricks-deepseek-v4-1-flash-1017",
+      "pricing_prompt": 3.0002e-07,
+      "pricing_completion": 1.20001e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-deepseek-v4-1-flash-1017",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gemini-2-5-flash-lite",
+      "model_id": "databricks/databricks-gemini-2-5-flash-lite",
+      "pricing_prompt": 1.2502e-07,
+      "pricing_completion": 5.0001e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gemini-2-5-flash-lite",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gemini-3-1-flash-lite-image",
+      "model_id": "databricks/databricks-gemini-3-1-flash-lite-image",
+      "pricing_prompt": 3.1248e-07,
+      "pricing_completion": 1.87502e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gemini-3-1-flash-lite-image",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gemini-4-argon",
+      "model_id": "databricks/databricks-gemini-4-argon",
+      "pricing_prompt": 2.49998e-06,
+      "pricing_completion": 1.249997e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gemini-4-argon",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-5-4-pro",
+      "model_id": "databricks/databricks-gpt-5-4-pro",
+      "pricing_prompt": 2.999997e-05,
+      "pricing_completion": 0.0001800001,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-5-4-pro",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-6-1-sol",
+      "model_id": "databricks/databricks-gpt-6-1-sol",
+      "pricing_prompt": 1.99997e-06,
+      "pricing_completion": 9.99999e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-6-1-sol",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-6-1-terra",
+      "model_id": "databricks/databricks-gpt-6-1-terra",
+      "pricing_prompt": 1.00002e-06,
+      "pricing_completion": 5.00003e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-6-1-terra",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-6-astra",
+      "model_id": "databricks/databricks-gpt-6-astra",
+      "pricing_prompt": 9.99999e-06,
+      "pricing_completion": 5.000002e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-6-astra",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-6-luna",
+      "model_id": "databricks/databricks-gpt-6-luna",
+      "pricing_prompt": 1.0003e-07,
+      "pricing_completion": 5.0001e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-6-luna",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-6-sol",
+      "model_id": "databricks/databricks-gpt-6-sol",
+      "pricing_prompt": 1.99997e-06,
+      "pricing_completion": 9.99999e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-6-sol",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-image-1",
+      "model_id": "databricks/databricks-gpt-image-1",
+      "pricing_prompt": 5.00003e-06,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-image-1",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-image-1-5",
+      "model_id": "databricks/databricks-gpt-image-1-5",
+      "pricing_prompt": 5.00003e-06,
+      "pricing_completion": 9.99999e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-image-1-5",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-image-1-mini",
+      "model_id": "databricks/databricks-gpt-image-1-mini",
+      "pricing_prompt": 1.99997e-06,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-image-1-mini",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-gpt-image-2",
+      "model_id": "databricks/databricks-gpt-image-2",
+      "pricing_prompt": 5.00003e-06,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-gpt-image-2",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-grok-4-7",
+      "model_id": "databricks/databricks-grok-4-7",
+      "pricing_prompt": 2.49998e-06,
+      "pricing_completion": 7.50001e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-grok-4-7",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-kimi-k2-7",
+      "model_id": "databricks/databricks-kimi-k2-7",
+      "pricing_prompt": 9.4997e-07,
+      "pricing_completion": 4.00001e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-kimi-k2-7",
+          "provider": "databricks"
         }
       ]
     }
