@@ -154369,7 +154369,7 @@
     {
       "entity_id": "ent_c03c1d3b",
       "model_id": "moonshotai/kimi-k2.7-code",
-      "pricing_prompt": 6.725e-07,
+      "pricing_prompt": 5.6e-07,
       "pricing_completion": 3.1e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,7 +254329,7 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 2.542e-07,
+      "pricing_prompt": 1.318e-07,
       "pricing_completion": 8e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -305998,6 +305998,96 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2609.32499",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_rune",
+      "model_id": "fireworks_ai/accounts/fireworks/models/rune",
+      "pricing_prompt": 4.2e-08,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/rune",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_spot-deepseek-v4-flash",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/spot-deepseek-v4-flash",
+      "pricing_prompt": 1.05e-07,
+      "pricing_completion": 2.1e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/spot-deepseek-v4-flash",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_kimi-k3-spot",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/kimi-k3-spot",
+      "pricing_prompt": 2.1e-06,
+      "pricing_completion": 1.05e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/kimi-k3-spot",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_glm-5p3-spot",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/glm-5p3-spot",
+      "pricing_prompt": 9.8e-07,
+      "pricing_completion": 3.08e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/glm-5p3-spot",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_deepseek-v4p1-flash-spot",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-spot",
+      "pricing_prompt": 2.1e-07,
+      "pricing_completion": 8.4e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-spot",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_deepseek-v4p1-flash-1017-spot",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-1017-spot",
+      "pricing_prompt": 2.1e-07,
+      "pricing_completion": 8.4e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-1017-spot",
+          "provider": "fireworks_ai"
         }
       ]
     }
