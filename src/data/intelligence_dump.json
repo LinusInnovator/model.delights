@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 8.16234e-07,
-      "pricing_completion": 1.632468e-06,
+      "pricing_prompt": 9.483e-07,
+      "pricing_completion": 1.8966e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.605e-07,
-      "pricing_completion": 8.94e-06,
+      "pricing_prompt": 1.615e-07,
+      "pricing_completion": 1.01551e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -154369,8 +154369,8 @@
     {
       "entity_id": "ent_c03c1d3b",
       "model_id": "moonshotai/kimi-k2.7-code",
-      "pricing_prompt": 5.6e-07,
-      "pricing_completion": 3.1e-06,
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3.5e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.32e-06,
-      "pricing_completion": 3.96e-06,
+      "pricing_prompt": 6.6e-07,
+      "pricing_completion": 1.98e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 3.39e-08,
-      "pricing_completion": 1.14e-06,
+      "pricing_prompt": 2.2e-08,
+      "pricing_completion": 1.92e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -306094,7 +306094,7 @@
     {
       "entity_id": "ent_ea89cb15",
       "model_id": "particle-ai/particle-1",
-      "pricing_prompt": 2.5e-07,
+      "pricing_prompt": 1e-07,
       "pricing_completion": 1e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
@@ -306433,6 +306433,21 @@
           "source_id": "litellm_global_map",
           "alias": "fireworks_ai/accounts/fireworks/models/ultramarine-1-flash-us",
           "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ebdbe887",
+      "model_id": "fal-ai/elevenlabs/music",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "fal-ai/elevenlabs/music",
+          "provider": "fal.ai"
         }
       ]
     }
