@@ -2545,8 +2545,8 @@
     {
       "entity_id": "ent_50fa6971",
       "model_id": "qwen/qwen3-235b-a22b-2507",
-      "pricing_prompt": 9e-08,
-      "pricing_completion": 5.5e-07,
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 8e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.757e-07,
-      "pricing_completion": 1.05448e-05,
+      "pricing_prompt": 1.52e-07,
+      "pricing_completion": 9.3388e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -189364,8 +189364,8 @@
     {
       "entity_id": "ent_daffe27b",
       "model_id": "moonshotai/kimi-k3",
-      "pricing_prompt": 2.76e-07,
-      "pricing_completion": 9.6e-06,
+      "pricing_prompt": 1.92e-07,
+      "pricing_completion": 1.6e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -310303,6 +310303,51 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2602.16503",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_849e488d",
+      "model_id": "stealth/crouton-alpha",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "stealth/crouton-alpha",
+          "provider": "stealth"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_3d15ad0a",
+      "model_id": "x-ai/grok-4.7:batch",
+      "pricing_prompt": 1.6e-06,
+      "pricing_completion": 4.8e-06,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "x-ai/grok-4.7:batch",
+          "provider": "x-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c55854e0",
+      "model_id": "x-ai/grok-4.6:batch",
+      "pricing_prompt": 1.6e-06,
+      "pricing_completion": 4.8e-06,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "x-ai/grok-4.6:batch",
+          "provider": "x-ai"
         }
       ]
     }
