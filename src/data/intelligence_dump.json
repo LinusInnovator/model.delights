@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 2.7e-08,
-      "pricing_completion": 1e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -2545,8 +2545,8 @@
     {
       "entity_id": "ent_50fa6971",
       "model_id": "qwen/qwen3-235b-a22b-2507",
-      "pricing_prompt": 9e-08,
-      "pricing_completion": 5.5e-07,
+      "pricing_prompt": 1.4e-07,
+      "pricing_completion": 8e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.729e-07,
-      "pricing_completion": 1.01489e-05,
+      "pricing_prompt": 1.824e-07,
+      "pricing_completion": 9.3388e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -217760,7 +217760,7 @@
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
       "pricing_prompt": 1.15e-07,
-      "pricing_completion": 4e-06,
+      "pricing_completion": 4.6e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -225214,8 +225214,8 @@
     {
       "entity_id": "ent_16c4a957",
       "model_id": "z-ai/glm-5.3",
-      "pricing_prompt": 8e-08,
-      "pricing_completion": 3.6e-06,
+      "pricing_prompt": 6.99e-08,
+      "pricing_completion": 1.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -310348,6 +310348,51 @@
           "source_id": "openrouter_models_api",
           "alias": "x-ai/grok-4.6:batch",
           "provider": "x-ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ef06a2f2",
+      "model_id": "tencent/hy4",
+      "pricing_prompt": 4.17e-07,
+      "pricing_completion": 1.2505e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "tencent/hy4",
+          "provider": "tencent"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_deepseek-v4p1-flash-1017-ultrafast",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-1017-ultrafast",
+      "pricing_prompt": 2.4e-06,
+      "pricing_completion": 9.6e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/deepseek-v4p1-flash-1017-ultrafast",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_moonshotai_Kimi-K3.1-Pro",
+      "model_id": "together_ai/moonshotai/Kimi-K3.1-Pro",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/moonshotai/Kimi-K3.1-Pro",
+          "provider": "together_ai"
         }
       ]
     }
