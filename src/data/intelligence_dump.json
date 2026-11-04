@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 2.8e-08,
+      "pricing_completion": 1.02e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -49294,8 +49294,8 @@
     {
       "entity_id": "ent_1696e0b6",
       "model_id": "google/gemma-4-26b-a4b-it",
-      "pricing_prompt": 8.6e-08,
-      "pricing_completion": 2.58e-07,
+      "pricing_prompt": 2.4e-08,
+      "pricing_completion": 7.2e-08,
       "modalities_in": "image,text,video",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.824e-07,
-      "pricing_completion": 9.3388e-06,
+      "pricing_prompt": 1.548e-07,
+      "pricing_completion": 1.0146e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 4.57e-08,
-      "pricing_completion": 7.01e-08,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -310393,6 +310393,36 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/moonshotai/Kimi-K3.1-Pro",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_0b946aa5",
+      "model_id": "ricursiveai/ripple-65b-preview",
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "ricursiveai/ripple-65b-preview",
+          "provider": "ricursiveai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_models_kimi-k3p1-pro",
+      "model_id": "fireworks_ai/accounts/fireworks/models/kimi-k3p1-pro",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/models/kimi-k3p1-pro",
+          "provider": "fireworks_ai"
         }
       ]
     }
