@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 2.5e-08,
-      "pricing_completion": 9.3e-08,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -4045,8 +4045,8 @@
     {
       "entity_id": "ent_84b6d1bc",
       "model_id": "deepseek/deepseek-chat",
-      "pricing_prompt": 2.574e-07,
-      "pricing_completion": 1.0287e-06,
+      "pricing_prompt": 3.2e-07,
+      "pricing_completion": 8.9e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -29674,8 +29674,8 @@
     {
       "entity_id": "ent_c056b113",
       "model_id": "nvidia/nemotron-3-super-120b-a12b",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 2.4e-06,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 4e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9.5526e-07,
-      "pricing_completion": 1.91052e-06,
+      "pricing_prompt": 8.97318e-07,
+      "pricing_completion": 1.794636e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.634e-07,
-      "pricing_completion": 1.05572e-05,
+      "pricing_prompt": 1.824e-07,
+      "pricing_completion": 1.01522e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -217759,8 +217759,8 @@
     {
       "entity_id": "ent_9a37e279",
       "model_id": "deepseek/deepseek-v4-pro-0813",
-      "pricing_prompt": 1.03e-07,
-      "pricing_completion": 4.11e-06,
+      "pricing_prompt": 1.165e-07,
+      "pricing_completion": 4.66e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 1.4e-07,
-      "pricing_completion": 4.2e-07,
+      "pricing_prompt": 5.1e-08,
+      "pricing_completion": 5.67e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
