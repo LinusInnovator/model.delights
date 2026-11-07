@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 8.59908e-07,
-      "pricing_completion": 1.719816e-06,
+      "pricing_prompt": 7.48374e-07,
+      "pricing_completion": 1.496748e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.548e-07,
-      "pricing_completion": 9.3388e-06,
+      "pricing_prompt": 1.539e-07,
+      "pricing_completion": 1.01489e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 5.632e-08,
-      "pricing_completion": 1.6896e-07,
+      "pricing_prompt": 4.87e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -313543,6 +313543,51 @@
           "source_id": "openrouter_models_api",
           "alias": "liquid/lfm-3-1.7b:free",
           "provider": "liquid"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c2facf32",
+      "model_id": "openai/gpt-image-2.6/flare/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "openai/gpt-image-2.6/flare/edit",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_79782a98",
+      "model_id": "openai/gpt-image-2.6/flare/text-to-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "openai/gpt-image-2.6/flare/text-to-image",
+          "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_098e788c",
+      "model_id": "openai/gpt-image-2.6/sunburst/text-to-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "openai/gpt-image-2.6/sunburst/text-to-image",
+          "provider": "fal.ai"
         }
       ]
     }
