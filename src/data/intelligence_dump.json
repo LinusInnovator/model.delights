@@ -430,8 +430,8 @@
     {
       "entity_id": "ent_e505754e",
       "model_id": "moonshotai/kimi-k2.5",
-      "pricing_prompt": 5e-07,
-      "pricing_completion": 2.5e-06,
+      "pricing_prompt": 5.32e-07,
+      "pricing_completion": 3.325e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 6.16656e-07,
-      "pricing_completion": 1.233312e-06,
+      "pricing_prompt": 5.55756e-07,
+      "pricing_completion": 1.111512e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -313588,6 +313588,21 @@
           "source_id": "fal_models_api",
           "alias": "openai/gpt-image-2.6/sunburst/text-to-image",
           "provider": "fal.ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_essentialai_rnj-1-instruct",
+      "model_id": "together_ai/essentialai/rnj-1-instruct",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 1.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/essentialai/rnj-1-instruct",
+          "provider": "together_ai"
         }
       ]
     }
