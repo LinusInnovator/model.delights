@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 1.8e-08,
-      "pricing_completion": 6.7e-08,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9e-07,
-      "pricing_completion": 1.5e-06,
+      "pricing_prompt": 3.83322e-07,
+      "pricing_completion": 7.66644e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.539e-07,
-      "pricing_completion": 1.01489e-05,
+      "pricing_prompt": 1.567e-07,
+      "pricing_completion": 1.05448e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -209074,8 +209074,8 @@
     {
       "entity_id": "ent_6d59fb76",
       "model_id": "z-ai/glm-5.2:batch",
-      "pricing_prompt": 7e-07,
-      "pricing_completion": 2.2e-06,
+      "pricing_prompt": 3.7e-07,
+      "pricing_completion": 1.5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238174,8 +238174,8 @@
     {
       "entity_id": "ent_845ccb4b",
       "model_id": "moonshotai/kimi-k3:batch",
-      "pricing_prompt": 2.28e-06,
-      "pricing_completion": 1.14e-05,
+      "pricing_prompt": 1.084e-06,
+      "pricing_completion": 6e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -248164,8 +248164,8 @@
     {
       "entity_id": "ent_2d4618a4",
       "model_id": "z-ai/glm-5.3:batch",
-      "pricing_prompt": 4.5e-07,
-      "pricing_completion": 2e-06,
+      "pricing_prompt": 3.7e-07,
+      "pricing_completion": 1.5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -262849,8 +262849,8 @@
     {
       "entity_id": "ent_518c9c83",
       "model_id": "deepseek/deepseek-v4.1-flash:batch",
-      "pricing_prompt": 1.12e-07,
-      "pricing_completion": 3.36e-07,
+      "pricing_prompt": 1.1e-08,
+      "pricing_completion": 2e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 6e-09,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 7.5e-08,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -313603,6 +313603,51 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/essentialai/rnj-1-instruct",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_47f173c3",
+      "model_id": "deepseek/deepseek-v4.1-flash-1017:batch",
+      "pricing_prompt": 1.1e-08,
+      "pricing_completion": 2e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "deepseek/deepseek-v4.1-flash-1017:batch",
+          "provider": "deepseek"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_ef6855c4",
+      "model_id": "morph/morph-v3-large:batch",
+      "pricing_prompt": 4.5e-07,
+      "pricing_completion": 9.5e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "morph/morph-v3-large:batch",
+          "provider": "morph"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_16992a99",
+      "model_id": "morph/morph-v3-fast:batch",
+      "pricing_prompt": 4e-07,
+      "pricing_completion": 6e-07,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "morph/morph-v3-fast:batch",
+          "provider": "morph"
         }
       ]
     }
