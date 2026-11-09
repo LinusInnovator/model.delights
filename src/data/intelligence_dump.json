@@ -2425,8 +2425,8 @@
     {
       "entity_id": "ent_7e2ac83a",
       "model_id": "z-ai/glm-4.5-air",
-      "pricing_prompt": 1.3e-07,
-      "pricing_completion": 8.5e-07,
+      "pricing_prompt": 2e-07,
+      "pricing_completion": 1.1e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9.483e-07,
-      "pricing_completion": 1.8966e-06,
+      "pricing_prompt": 8.92272e-07,
+      "pricing_completion": 1.784544e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -79820,7 +79820,7 @@
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
       "pricing_prompt": 1.824e-07,
-      "pricing_completion": 1.05572e-05,
+      "pricing_completion": 9.3388e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 3.35e-08,
-      "pricing_completion": 8.3e-08,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238099,8 +238099,8 @@
     {
       "entity_id": "ent_8ba2334a",
       "model_id": "z-ai/glm-5.3-flash:batch",
-      "pricing_prompt": 7.5e-08,
-      "pricing_completion": 2.5e-07,
+      "pricing_prompt": 3e-08,
+      "pricing_completion": 6.1e-08,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -238174,8 +238174,8 @@
     {
       "entity_id": "ent_845ccb4b",
       "model_id": "moonshotai/kimi-k3:batch",
-      "pricing_prompt": 9.17e-07,
-      "pricing_completion": 6e-06,
+      "pricing_prompt": 2.28e-06,
+      "pricing_completion": 1.14e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -262849,8 +262849,8 @@
     {
       "entity_id": "ent_518c9c83",
       "model_id": "deepseek/deepseek-v4.1-flash:batch",
-      "pricing_prompt": 1.1e-08,
-      "pricing_completion": 2e-07,
+      "pricing_prompt": 1.12e-07,
+      "pricing_completion": 3.36e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -313648,6 +313648,66 @@
           "source_id": "openrouter_models_api",
           "alias": "morph/morph-v3-fast:batch",
           "provider": "morph"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d0dfd08a",
+      "model_id": "meta/muse-ember",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image,video,file,audio",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "meta/muse-ember",
+          "provider": "meta"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f7ba67a1",
+      "model_id": "anthropic/claude-fable-5.2",
+      "pricing_prompt": 8e-06,
+      "pricing_completion": 4e-05,
+      "modalities_in": "text,image,file",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "anthropic/claude-fable-5.2",
+          "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_8764e4e0",
+      "model_id": "qwen/qwen3.8-max-0902:batch",
+      "pricing_prompt": 1.15e-06,
+      "pricing_completion": 3.45e-06,
+      "modalities_in": "text,image,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "qwen/qwen3.8-max-0902:batch",
+          "provider": "qwen"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_5f7722c9",
+      "model_id": "elevenlabs/music/v2.5",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "audio",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "elevenlabs/music/v2.5",
+          "provider": "fal.ai"
         }
       ]
     }
