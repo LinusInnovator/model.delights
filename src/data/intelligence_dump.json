@@ -79819,8 +79819,8 @@
     {
       "entity_id": "ent_8bdf10cc",
       "model_id": "~moonshotai/kimi-latest",
-      "pricing_prompt": 1.624e-07,
-      "pricing_completion": 1.05572e-05,
+      "pricing_prompt": 1.52e-07,
+      "pricing_completion": 9.3388e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -209074,8 +209074,8 @@
     {
       "entity_id": "ent_6d59fb76",
       "model_id": "z-ai/glm-5.2:batch",
-      "pricing_prompt": 6.23e-07,
-      "pricing_completion": 1.271e-06,
+      "pricing_prompt": 5.27e-07,
+      "pricing_completion": 1.075e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -313738,6 +313738,36 @@
           "source_id": "openrouter_models_api",
           "alias": "anthropic/claude-fable-5.2:batch",
           "provider": "anthropic"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_e76f5462",
+      "model_id": "nex-agi/nex-n2.6",
+      "pricing_prompt": 1.2e-07,
+      "pricing_completion": 4e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "nex-agi/nex-n2.6",
+          "provider": "nex-agi"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_elorian-labs_glimpse-1.0",
+      "model_id": "together_ai/elorian-labs/glimpse-1.0",
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/elorian-labs/glimpse-1.0",
+          "provider": "together_ai"
         }
       ]
     }
