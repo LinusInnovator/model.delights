@@ -295,8 +295,8 @@
     {
       "entity_id": "ent_9041e324",
       "model_id": "minimax/minimax-m2.5",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 2.7e-07,
+      "pricing_completion": 1.08e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -5110,8 +5110,8 @@
     {
       "entity_id": "ent_f5d50c5d",
       "model_id": "mancer/weaver",
-      "pricing_prompt": 5e-07,
-      "pricing_completion": 7.5e-07,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -5125,8 +5125,8 @@
     {
       "entity_id": "ent_49073d3f",
       "model_id": "undi95/remm-slerp-l2-13b",
-      "pricing_prompt": 4.5e-07,
-      "pricing_completion": 6.5e-07,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9.5526e-07,
-      "pricing_completion": 1.91052e-06,
+      "pricing_prompt": 8.83746e-07,
+      "pricing_completion": 1.767492e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -313827,6 +313827,171 @@
         {
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
+          "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_53b4a09e",
+      "model_id": "baidu/ernie-5.5-flash-preview",
+      "pricing_prompt": 2.8e-07,
+      "pricing_completion": 1.13e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "baidu/ernie-5.5-flash-preview",
+          "provider": "baidu"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_22fade73",
+      "model_id": "baidu/ernie-light-dt-1.0-intl",
+      "pricing_prompt": 1.13e-06,
+      "pricing_completion": 3.94e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "baidu/ernie-light-dt-1.0-intl",
+          "provider": "baidu"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_minimax-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/minimax-latest",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/minimax-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_kimi-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/kimi-latest",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/kimi-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_qwen-max-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/qwen-max-latest",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 6e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/qwen-max-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_kimi-fast-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/kimi-fast-latest",
+      "pricing_prompt": 4.5e-06,
+      "pricing_completion": 2.25e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/kimi-fast-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_glm-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/glm-latest",
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/glm-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_glm-fast-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/glm-fast-latest",
+      "pricing_prompt": 2.1e-06,
+      "pricing_completion": 6.6e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/glm-fast-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_glm-flash-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/glm-flash-latest",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/glm-flash-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_deepseek-flash-latest",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/deepseek-flash-latest",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/deepseek-flash-latest",
+          "provider": "fireworks_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_42686e74-86dd-49df-a242-9fea204ecc73",
+      "model_id": "Scout Signal: Gemini Intelligence: New features, on more devices",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/",
           "provider": "Google"
         }
       ]
