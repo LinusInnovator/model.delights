@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 3.99e-08,
+      "pricing_completion": 7.84e-08,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 5.1e-08,
-      "pricing_completion": 5.67e-07,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -313768,6 +313768,66 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/elorian-labs/glimpse-1.0",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_f8dc9529",
+      "model_id": "google/gemini-4-carbon",
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
+      "modalities_in": "audio,file,image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-4-carbon",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fe6440b9",
+      "model_id": "google/gemini-4-carbon:batch",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 5e-06,
+      "modalities_in": "audio,file,image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-4-carbon:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fe50ffcf-de3b-4ebf-9b59-c9324df320ad",
+      "model_id": "Scout Signal: We\u2019re bringing Adobe\u2019s creative and productivity tools closer to your everyday Google apps.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+          "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_44f04502-a950-4e69-9496-aeadd2592e57",
+      "model_id": "Scout Signal: Google Cloud launches Gemini for healthcare.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
+          "provider": "Google"
         }
       ]
     }
