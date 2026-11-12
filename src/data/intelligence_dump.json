@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.33e-06,
-      "pricing_completion": 4.18e-06,
+      "pricing_prompt": 1.4e-06,
+      "pricing_completion": 4.4e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 8.83746e-07,
-      "pricing_completion": 1.767492e-06,
+      "pricing_prompt": 9.5526e-07,
+      "pricing_completion": 1.91052e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 8.25e-08,
-      "pricing_completion": 3.3e-07,
+      "pricing_prompt": 1.32e-07,
+      "pricing_completion": 5.28e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -182854,8 +182854,8 @@
     {
       "entity_id": "ent_33633ed4",
       "model_id": "openai/gpt-5.6-sol",
-      "pricing_prompt": 4e-06,
-      "pricing_completion": 2e-05,
+      "pricing_prompt": 4.4e-06,
+      "pricing_completion": 2.2e-05,
       "modalities_in": "file,image,text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 7.506e-07,
-      "pricing_completion": 2.2509e-06,
+      "pricing_prompt": 8.34e-07,
+      "pricing_completion": 2.501e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -315748,6 +315748,21 @@
           "source_id": "litellm_global_map",
           "alias": "databricks/system.ai.gemini-4-carbon",
           "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_d4ff6ce1-5661-475c-bf85-27c2c4b2e80a",
+      "model_id": "Scout Signal: Gemini Decisions API: Fast, calibrated multimodal decisions",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+          "provider": "Google"
         }
       ]
     }
