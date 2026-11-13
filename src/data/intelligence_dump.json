@@ -296,7 +296,7 @@
       "entity_id": "ent_9041e324",
       "model_id": "minimax/minimax-m2.5",
       "pricing_prompt": 2.7e-07,
-      "pricing_completion": 1.08e-06,
+      "pricing_completion": 9.5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 9.5526e-07,
-      "pricing_completion": 1.91052e-06,
+      "pricing_prompt": 9e-07,
+      "pricing_completion": 1.5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,7 +251899,7 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 3.9e-08,
+      "pricing_prompt": 3e-07,
       "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 3.8e-08,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -299839,8 +299839,8 @@
     {
       "entity_id": "ent_8b6dc668",
       "model_id": "moonshotai/kimi-k3.1-pro",
-      "pricing_prompt": 2.375e-07,
-      "pricing_completion": 8.4114e-06,
+      "pricing_prompt": 2e-06,
+      "pricing_completion": 1e-05,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -310399,8 +310399,8 @@
     {
       "entity_id": "ent_0b946aa5",
       "model_id": "ricursiveai/ripple-65b-preview",
-      "pricing_prompt": 2e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -315853,6 +315853,21 @@
           "source_id": "google_ai_blog",
           "alias": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
           "provider": "Google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_thinkingmachines_Inkling-2-Small",
+      "model_id": "together_ai/thinkingmachines/Inkling-2-Small",
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/thinkingmachines/Inkling-2-Small",
+          "provider": "together_ai"
         }
       ]
     }
