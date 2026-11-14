@@ -2890,8 +2890,8 @@
     {
       "entity_id": "ent_0b5000d2",
       "model_id": "deepseek/deepseek-r1-0528",
-      "pricing_prompt": 4.5e-07,
-      "pricing_completion": 2.15e-06,
+      "pricing_prompt": 5.71e-07,
+      "pricing_completion": 2.286e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -318058,6 +318058,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2611.12305",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_01c971ca",
+      "model_id": "bytedance/seedream/v5.5/edit",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "image,text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "fal_models_api",
+          "alias": "bytedance/seedream/v5.5/edit",
+          "provider": "fal.ai"
         }
       ]
     }
