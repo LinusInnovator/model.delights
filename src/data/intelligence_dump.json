@@ -2890,8 +2890,8 @@
     {
       "entity_id": "ent_0b5000d2",
       "model_id": "deepseek/deepseek-r1-0528",
-      "pricing_prompt": 5.71e-07,
-      "pricing_completion": 2.286e-06,
+      "pricing_prompt": 5e-07,
+      "pricing_completion": 2.15e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -248164,8 +248164,8 @@
     {
       "entity_id": "ent_2d4618a4",
       "model_id": "z-ai/glm-5.3:batch",
-      "pricing_prompt": 3.22e-07,
-      "pricing_completion": 9.89e-07,
+      "pricing_prompt": 4.5e-07,
+      "pricing_completion": 2e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 6e-09,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 2e-08,
+      "pricing_completion": 1.08e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 2e-08,
+      "pricing_completion": 1.08e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -313609,8 +313609,8 @@
     {
       "entity_id": "ent_47f173c3",
       "model_id": "deepseek/deepseek-v4.1-flash-1017:batch",
-      "pricing_prompt": 1.1e-08,
-      "pricing_completion": 2e-07,
+      "pricing_prompt": 3.6e-08,
+      "pricing_completion": 3.18e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -315769,8 +315769,8 @@
     {
       "entity_id": "ent_6f23348c",
       "model_id": "moonshotai/kimi-k3.1-pro:batch",
-      "pricing_prompt": 2.75e-07,
-      "pricing_completion": 4.125e-06,
+      "pricing_prompt": 4.08e-07,
+      "pricing_completion": 6.111e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
