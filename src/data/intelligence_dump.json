@@ -22399,8 +22399,8 @@
     {
       "entity_id": "ent_3e4366aa",
       "model_id": "qwen/qwen3.5-9b",
-      "pricing_prompt": 5.6e-08,
-      "pricing_completion": 8.2e-08,
+      "pricing_prompt": 1.34e-07,
+      "pricing_completion": 1.97e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -315769,8 +315769,8 @@
     {
       "entity_id": "ent_6f23348c",
       "model_id": "moonshotai/kimi-k3.1-pro:batch",
-      "pricing_prompt": 7e-07,
-      "pricing_completion": 6e-06,
+      "pricing_prompt": 3.81e-07,
+      "pricing_completion": 5.713e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -319348,6 +319348,21 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2611.10123",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_2e73c164",
+      "model_id": "tencent/hy4-flash",
+      "pricing_prompt": 3.5e-08,
+      "pricing_completion": 1.405e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "tencent/hy4-flash",
+          "provider": "tencent"
         }
       ]
     }
