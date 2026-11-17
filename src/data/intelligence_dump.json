@@ -280,8 +280,8 @@
     {
       "entity_id": "ent_42b4d07f",
       "model_id": "qwen/qwen3.5-397b-a17b",
-      "pricing_prompt": 4.5e-07,
-      "pricing_completion": 3e-06,
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3.6e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -2320,8 +2320,8 @@
     {
       "entity_id": "ent_afa9ccfb",
       "model_id": "openai/gpt-oss-20b",
-      "pricing_prompt": 7.5e-08,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 3e-08,
+      "pricing_completion": 1.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 8.25e-08,
-      "pricing_completion": 3.3e-07,
+      "pricing_prompt": 1.32e-07,
+      "pricing_completion": 5.28e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -212494,8 +212494,8 @@
     {
       "entity_id": "ent_54fc865f",
       "model_id": "meta/muse-glimmer-30b",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1.2e-06,
+      "pricing_prompt": 3.5e-07,
+      "pricing_completion": 1.5e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -216244,8 +216244,8 @@
     {
       "entity_id": "ent_fc4c2219",
       "model_id": "nvidia/nemotron-3.5-lightning",
-      "pricing_prompt": 6e-08,
-      "pricing_completion": 1.6e-07,
+      "pricing_prompt": 7e-08,
+      "pricing_completion": 2e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 7.506e-07,
-      "pricing_completion": 2.2509e-06,
+      "pricing_prompt": 8.34e-07,
+      "pricing_completion": 2.501e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -238099,8 +238099,8 @@
     {
       "entity_id": "ent_8ba2334a",
       "model_id": "z-ai/glm-5.3-flash:batch",
-      "pricing_prompt": 5e-08,
-      "pricing_completion": 1.8e-07,
+      "pricing_prompt": 2.4e-08,
+      "pricing_completion": 6.9e-08,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -265864,8 +265864,8 @@
     {
       "entity_id": "ent_1f667ad7",
       "model_id": "z-ai/glm-5.3-prime",
-      "pricing_prompt": 2.8e-06,
-      "pricing_completion": 8.8e-06,
+      "pricing_prompt": 1.68e-06,
+      "pricing_completion": 5.28e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 3.6e-08,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -315769,8 +315769,8 @@
     {
       "entity_id": "ent_6f23348c",
       "model_id": "moonshotai/kimi-k3.1-pro:batch",
-      "pricing_prompt": 3.81e-07,
-      "pricing_completion": 5.713e-06,
+      "pricing_prompt": 3.72e-07,
+      "pricing_completion": 5.583e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -318079,8 +318079,8 @@
     {
       "entity_id": "ent_21e26ebc",
       "model_id": "qwen/qwen4-max",
-      "pricing_prompt": 1.5e-06,
-      "pricing_completion": 4.5e-06,
+      "pricing_prompt": 1.425e-06,
+      "pricing_completion": 4.275e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
