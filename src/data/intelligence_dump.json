@@ -2125,8 +2125,8 @@
     {
       "entity_id": "ent_59aec826",
       "model_id": "mistralai/mistral-medium-3.1",
-      "pricing_prompt": 4e-07,
-      "pricing_completion": 2e-06,
+      "pricing_prompt": 4.4e-07,
+      "pricing_completion": 2.2e-06,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
@@ -2965,8 +2965,8 @@
     {
       "entity_id": "ent_9d4098a7",
       "model_id": "mistralai/mistral-medium-3",
-      "pricing_prompt": 4e-07,
-      "pricing_completion": 2e-06,
+      "pricing_prompt": 4.4e-07,
+      "pricing_completion": 2.2e-06,
       "modalities_in": "text,image,file",
       "modalities_out": "text",
       "events": [
@@ -154369,8 +154369,8 @@
     {
       "entity_id": "ent_c03c1d3b",
       "model_id": "moonshotai/kimi-k2.7-code",
-      "pricing_prompt": 6e-07,
-      "pricing_completion": 3.5e-06,
+      "pricing_prompt": 7e-07,
+      "pricing_completion": 3.75e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235204,8 +235204,8 @@
     {
       "entity_id": "ent_ecd7dd16",
       "model_id": "z-ai/glm-5.3-flash",
-      "pricing_prompt": 3.99e-08,
-      "pricing_completion": 7.84e-08,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 1.4e-07,
-      "pricing_completion": 4.2e-07,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -319363,6 +319363,36 @@
           "source_id": "openrouter_models_api",
           "alias": "tencent/hy4-flash",
           "provider": "tencent"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_system.ai.gemini-4-hydrogen",
+      "model_id": "databricks/system.ai.gemini-4-hydrogen",
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/system.ai.gemini-4-hydrogen",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_1ddf7610-dea5-4a56-883f-f29189c6dddb",
+      "model_id": "Scout Signal: Put Gemini to work for you",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/",
+          "provider": "Google"
         }
       ]
     }
