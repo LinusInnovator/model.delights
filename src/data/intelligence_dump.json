@@ -154369,8 +154369,8 @@
     {
       "entity_id": "ent_c03c1d3b",
       "model_id": "moonshotai/kimi-k2.7-code",
-      "pricing_prompt": 7e-07,
-      "pricing_completion": 3.75e-06,
+      "pricing_prompt": 6e-07,
+      "pricing_completion": 3.5e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -158419,8 +158419,8 @@
     {
       "entity_id": "ent_0e606587",
       "model_id": "z-ai/glm-5.2",
-      "pricing_prompt": 6e-09,
-      "pricing_completion": 6.8e-06,
+      "pricing_prompt": 6.2e-07,
+      "pricing_completion": 2.42e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254344,8 +254344,8 @@
     {
       "entity_id": "ent_c393464a",
       "model_id": "~deepseek/deepseek-flash-latest",
-      "pricing_prompt": 3.6e-08,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 3.5e-08,
+      "pricing_completion": 1.5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 3.6e-08,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -321058,6 +321058,51 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/Qwen/Qwen4-Max",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_a609951a",
+      "model_id": "google/gemini-4-neon",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "audio,file,image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-4-neon",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_48c17f57",
+      "model_id": "google/gemini-4-neon:batch",
+      "pricing_prompt": 1.5e-06,
+      "pricing_completion": 7.5e-06,
+      "modalities_in": "audio,file,image,text,video",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "google/gemini-4-neon:batch",
+          "provider": "google"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c6bfeda7-544a-4ecc-9add-b7d5d2141e22",
+      "model_id": "Scout Signal: The Gemini app is now available on lower-memory Android devices.",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "",
+      "modalities_out": "",
+      "events": [
+        {
+          "source_id": "google_ai_blog",
+          "alias": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
+          "provider": "Google"
         }
       ]
     }
