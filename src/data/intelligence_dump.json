@@ -2890,8 +2890,8 @@
     {
       "entity_id": "ent_0b5000d2",
       "model_id": "deepseek/deepseek-r1-0528",
-      "pricing_prompt": 5e-07,
-      "pricing_completion": 2.15e-06,
+      "pricing_prompt": 5.71e-07,
+      "pricing_completion": 2.286e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -75244,8 +75244,8 @@
     {
       "entity_id": "ent_a2dc6c18",
       "model_id": "xiaomi/mimo-v2.5-pro",
-      "pricing_prompt": 4.35e-07,
-      "pricing_completion": 8.7e-07,
+      "pricing_prompt": 4.8e-07,
+      "pricing_completion": 1.8e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 5.1e-08,
-      "pricing_completion": 5.67e-07,
+      "pricing_prompt": 5.07e-08,
+      "pricing_completion": 2.028e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -320833,6 +320833,231 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2611.20811",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_ByteDance_Seedream-5.0-lite",
+      "model_id": "together_ai/ByteDance/Seedream-5.0-lite",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/ByteDance/Seedream-5.0-lite",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen-Image-2.0",
+      "model_id": "together_ai/Qwen/Qwen-Image-2.0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen-Image-2.0",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen-Image-2.0-Pro",
+      "model_id": "together_ai/Qwen/Qwen-Image-2.0-Pro",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen-Image-2.0-Pro",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Wan-AI_Wan2.6-image",
+      "model_id": "together_ai/Wan-AI/Wan2.6-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Wan-AI/Wan2.6-image",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.1-kontext-max",
+      "model_id": "together_ai/black-forest-labs/FLUX.1-kontext-max",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.1-kontext-max",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.1-kontext-pro",
+      "model_id": "together_ai/black-forest-labs/FLUX.1-kontext-pro",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.1-kontext-pro",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.1.1-pro",
+      "model_id": "together_ai/black-forest-labs/FLUX.1.1-pro",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.1.1-pro",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.2-flex",
+      "model_id": "together_ai/black-forest-labs/FLUX.2-flex",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.2-flex",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.2-max",
+      "model_id": "together_ai/black-forest-labs/FLUX.2-max",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.2-max",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.2-pro",
+      "model_id": "together_ai/black-forest-labs/FLUX.2-pro",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.2-pro",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_google_flash-image-3.1-lite",
+      "model_id": "together_ai/google/flash-image-3.1-lite",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/google/flash-image-3.1-lite",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_nvidia_parakeet-tdt-0.6b-v3",
+      "model_id": "together_ai/nvidia/parakeet-tdt-0.6b-v3",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/nvidia/parakeet-tdt-0.6b-v3",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_openai_whisper-large-v3",
+      "model_id": "together_ai/openai/whisper-large-v3",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/openai/whisper-large-v3",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_thinkingmachines_inkling",
+      "model_id": "together_ai/thinkingmachines/inkling",
+      "pricing_prompt": 1e-06,
+      "pricing_completion": 4.05e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/thinkingmachines/inkling",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen4-Max",
+      "model_id": "together_ai/Qwen/Qwen4-Max",
+      "pricing_prompt": 1.425e-06,
+      "pricing_completion": 4.275e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen4-Max",
+          "provider": "together_ai"
         }
       ]
     }
