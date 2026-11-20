@@ -130,8 +130,8 @@
     {
       "entity_id": "ent_2221210a",
       "model_id": "qwen/qwen3.5-27b",
-      "pricing_prompt": 2.6e-07,
-      "pricing_completion": 2.6e-06,
+      "pricing_prompt": 1.95e-07,
+      "pricing_completion": 1.56e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -3581,7 +3581,7 @@
       "entity_id": "ent_33f4b7bc",
       "model_id": "google/gemma-3-27b-it",
       "pricing_prompt": 8e-08,
-      "pricing_completion": 1.6e-07,
+      "pricing_completion": 4.5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -204484,8 +204484,8 @@
     {
       "entity_id": "ent_19ed6886",
       "model_id": "~deepseek/deepseek-v4-flash-latest",
-      "pricing_prompt": 4.7e-08,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 4.4e-08,
+      "pricing_completion": 1.32e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -220865,7 +220865,7 @@
       "entity_id": "ent_74823239",
       "model_id": "qwen/qwen3.8-27b",
       "pricing_prompt": 6e-08,
-      "pricing_completion": 2.2e-06,
+      "pricing_completion": 1.96e-06,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,7 +254329,7 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 2.565e-07,
+      "pricing_prompt": 9.99e-08,
       "pricing_completion": 8e-06,
       "modalities_in": "text",
       "modalities_out": "text",
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -323053,6 +323053,336 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2611.20011",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_black-forest-labs_FLUX.2-dev",
+      "model_id": "together_ai/black-forest-labs/FLUX.2-dev",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/black-forest-labs/FLUX.2-dev",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_openai_gpt-image-1.5",
+      "model_id": "together_ai/openai/gpt-image-1.5",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/openai/gpt-image-1.5",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_ByteDance-Seed_Seedream-3.0",
+      "model_id": "together_ai/ByteDance-Seed/Seedream-3.0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/ByteDance-Seed/Seedream-3.0",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_ByteDance-Seed_Seedream-4.0",
+      "model_id": "together_ai/ByteDance-Seed/Seedream-4.0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/ByteDance-Seed/Seedream-4.0",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Rundiffusion_Juggernaut-Lightning-Flux",
+      "model_id": "together_ai/Rundiffusion/Juggernaut-Lightning-Flux",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Rundiffusion/Juggernaut-Lightning-Flux",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_ideogram_ideogram-3.0",
+      "model_id": "together_ai/ideogram/ideogram-3.0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/ideogram/ideogram-3.0",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_google_gemini-3-pro-image",
+      "model_id": "together_ai/google/gemini-3-pro-image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/google/gemini-3-pro-image",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_stabilityai_stable-diffusion-xl-base-1.0",
+      "model_id": "together_ai/stabilityai/stable-diffusion-xl-base-1.0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/stabilityai/stable-diffusion-xl-base-1.0",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_google_flash-image-2.5",
+      "model_id": "together_ai/google/flash-image-2.5",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/google/flash-image-2.5",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_RunDiffusion_Juggernaut-pro-flux",
+      "model_id": "together_ai/RunDiffusion/Juggernaut-pro-flux",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/RunDiffusion/Juggernaut-pro-flux",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen-Image",
+      "model_id": "together_ai/Qwen/Qwen-Image",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen-Image",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_google_flash-image-3.1",
+      "model_id": "together_ai/google/flash-image-3.1",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/google/flash-image-3.1",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_ideogram_ideogram-4.0",
+      "model_id": "together_ai/ideogram/ideogram-4.0",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/ideogram/ideogram-4.0",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_openai_gpt-image-2",
+      "model_id": "together_ai/openai/gpt-image-2",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/openai/gpt-image-2",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_prunaai_p-image-ideogram",
+      "model_id": "together_ai/prunaai/p-image-ideogram",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "image",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/prunaai/p-image-ideogram",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_hexgrad_Kokoro-82M",
+      "model_id": "together_ai/hexgrad/Kokoro-82M",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/hexgrad/Kokoro-82M",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_canopylabs_orpheus-3b-0.1-ft",
+      "model_id": "together_ai/canopylabs/orpheus-3b-0.1-ft",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/canopylabs/orpheus-3b-0.1-ft",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_cartesia_sonic",
+      "model_id": "together_ai/cartesia/sonic",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/cartesia/sonic",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_cartesia_sonic-3",
+      "model_id": "together_ai/cartesia/sonic-3",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/cartesia/sonic-3",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_Qwen_Qwen3-TTS-12Hz-1.7B",
+      "model_id": "together_ai/Qwen/Qwen3-TTS-12Hz-1.7B",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/Qwen/Qwen3-TTS-12Hz-1.7B",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_nvidia_nemotron-3.5-asr-streaming-0.6b",
+      "model_id": "together_ai/nvidia/nemotron-3.5-asr-streaming-0.6b",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/nvidia/nemotron-3.5-asr-streaming-0.6b",
+          "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_together_ai_together_ai_nvidia_nemotron-3-asr-streaming-0.6b",
+      "model_id": "together_ai/nvidia/nemotron-3-asr-streaming-0.6b",
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "modalities_in": "text",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "together_ai/nvidia/nemotron-3-asr-streaming-0.6b",
+          "provider": "together_ai"
         }
       ]
     }
