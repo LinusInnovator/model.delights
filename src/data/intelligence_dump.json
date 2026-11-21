@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 3.6e-08,
-      "pricing_completion": 5e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 7.5e-08,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -323383,6 +323383,36 @@
           "source_id": "litellm_global_map",
           "alias": "together_ai/nvidia/nemotron-3-asr-streaming-0.6b",
           "provider": "together_ai"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_76cb1571",
+      "model_id": "thinkingmachines/inkling-2-mini",
+      "pricing_prompt": 1e-07,
+      "pricing_completion": 4e-07,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "thinkingmachines/inkling-2-mini",
+          "provider": "thinkingmachines"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_c790fdb4",
+      "model_id": "radixark/daisyrose-27b",
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 1.875e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "openrouter_models_api",
+          "alias": "radixark/daisyrose-27b",
+          "provider": "radixark"
         }
       ]
     }
