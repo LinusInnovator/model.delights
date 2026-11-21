@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -323413,6 +323413,21 @@
           "source_id": "openrouter_models_api",
           "alias": "radixark/daisyrose-27b",
           "provider": "radixark"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_fireworks_ai_fireworks_ai_accounts_fireworks_routers_kimi-k3p1-pro-us",
+      "model_id": "fireworks_ai/accounts/fireworks/routers/kimi-k3p1-pro-us",
+      "pricing_prompt": 2.5e-06,
+      "pricing_completion": 1.25e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "fireworks_ai/accounts/fireworks/routers/kimi-k3p1-pro-us",
+          "provider": "fireworks_ai"
         }
       ]
     }
