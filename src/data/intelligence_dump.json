@@ -2275,8 +2275,8 @@
     {
       "entity_id": "ent_8c2a7ed0",
       "model_id": "openai/gpt-oss-120b",
-      "pricing_prompt": 9e-08,
-      "pricing_completion": 3.6e-07,
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 2.5e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -3581,7 +3581,7 @@
       "entity_id": "ent_33f4b7bc",
       "model_id": "google/gemma-3-27b-it",
       "pricing_prompt": 8e-08,
-      "pricing_completion": 4.5e-07,
+      "pricing_completion": 1.6e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -53494,8 +53494,8 @@
     {
       "entity_id": "ent_5e797b2a",
       "model_id": "z-ai/glm-5.1",
-      "pricing_prompt": 1.4e-06,
-      "pricing_completion": 4.4e-06,
+      "pricing_prompt": 1.19e-06,
+      "pricing_completion": 3.74e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -78844,8 +78844,8 @@
     {
       "entity_id": "ent_fbbee847",
       "model_id": "qwen/qwen3.6-35b-a3b",
-      "pricing_prompt": 1e-07,
-      "pricing_completion": 9e-07,
+      "pricing_prompt": 5e-08,
+      "pricing_completion": 7e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 7.506e-07,
-      "pricing_completion": 2.2509e-06,
+      "pricing_prompt": 8.34e-07,
+      "pricing_completion": 2.501e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -254329,8 +254329,8 @@
     {
       "entity_id": "ent_8b441a46",
       "model_id": "~deepseek/deepseek-pro-latest",
-      "pricing_prompt": 9.99e-08,
-      "pricing_completion": 8e-06,
+      "pricing_prompt": 1.188e-07,
+      "pricing_completion": 5e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -294529,8 +294529,8 @@
     {
       "entity_id": "ent_300238f5",
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 3e-07,
+      "pricing_completion": 1.2e-06,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 7.5e-08,
-      "pricing_completion": 3e-07,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 6e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
