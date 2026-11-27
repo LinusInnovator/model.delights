@@ -22399,8 +22399,8 @@
     {
       "entity_id": "ent_3e4366aa",
       "model_id": "qwen/qwen3.5-9b",
-      "pricing_prompt": 1.7e-07,
-      "pricing_completion": 2.5e-07,
+      "pricing_prompt": 8.5e-08,
+      "pricing_completion": 1.25e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -77134,8 +77134,8 @@
     {
       "entity_id": "ent_a5a1f87b",
       "model_id": "deepseek/deepseek-v4-pro",
-      "pricing_prompt": 8.88188e-07,
-      "pricing_completion": 1.5082e-06,
+      "pricing_prompt": 5.8319e-07,
+      "pricing_completion": 1.5228e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -176959,8 +176959,8 @@
     {
       "entity_id": "ent_d711a83a",
       "model_id": "tencent/hy3",
-      "pricing_prompt": 1.32e-07,
-      "pricing_completion": 5.28e-07,
+      "pricing_prompt": 8.25e-08,
+      "pricing_completion": 3.3e-07,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -235249,8 +235249,8 @@
     {
       "entity_id": "ent_f66a9171",
       "model_id": "tencent/hy4-preview",
-      "pricing_prompt": 8.34e-07,
-      "pricing_completion": 2.501e-06,
+      "pricing_prompt": 7.506e-07,
+      "pricing_completion": 2.2509e-06,
       "modalities_in": "text",
       "modalities_out": "text",
       "events": [
@@ -251899,8 +251899,8 @@
     {
       "entity_id": "ent_7bb52967",
       "model_id": "deepseek/deepseek-v4.1-flash",
-      "pricing_prompt": 5.07e-08,
-      "pricing_completion": 2.028e-07,
+      "pricing_prompt": 5.1e-08,
+      "pricing_completion": 5.67e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -298339,8 +298339,8 @@
     {
       "entity_id": "ent_a5a7a82e",
       "model_id": "minimax/minimax-m3.1-flash",
-      "pricing_prompt": 1.5e-07,
-      "pricing_completion": 6e-07,
+      "pricing_prompt": 7.5e-08,
+      "pricing_completion": 3e-07,
       "modalities_in": "text,image,video",
       "modalities_out": "text",
       "events": [
@@ -315814,8 +315814,8 @@
     {
       "entity_id": "ent_93366cce",
       "model_id": "thinkingmachines/inkling-2-small",
-      "pricing_prompt": 3e-07,
-      "pricing_completion": 1e-06,
+      "pricing_prompt": 1.5e-07,
+      "pricing_completion": 5e-07,
       "modalities_in": "text,image",
       "modalities_out": "text",
       "events": [
@@ -329308,6 +329308,36 @@
           "source_id": "arxiv_cs_ai",
           "alias": "https://arxiv.org/abs/2611.28732",
           "provider": "arXiv"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_system.ai.gemini-4-neon",
+      "model_id": "databricks/system.ai.gemini-4-neon",
+      "pricing_prompt": 3e-06,
+      "pricing_completion": 1.5e-05,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/system.ai.gemini-4-neon",
+          "provider": "databricks"
+        }
+      ]
+    },
+    {
+      "entity_id": "ent_databricks_databricks_databricks-kimi-k3-1-pro-fast",
+      "model_id": "databricks/databricks-kimi-k3-1-pro-fast",
+      "pricing_prompt": 1.99997e-06,
+      "pricing_completion": 9.99999e-06,
+      "modalities_in": "text,image",
+      "modalities_out": "text",
+      "events": [
+        {
+          "source_id": "litellm_global_map",
+          "alias": "databricks/databricks-kimi-k3-1-pro-fast",
+          "provider": "databricks"
         }
       ]
     }
